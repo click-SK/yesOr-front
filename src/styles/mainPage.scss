@@ -1,11 +1,23 @@
 @import './templateColor.scss';
 
+.banner_head{
+    background-image: url("../../public/mainPage/banner_head.png");
+    background-size: cover;
+    background-position: center;
+    height: 847px;
+    margin-top: -11px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 h1{
-    color: $color_black;
+    color: $color_white;
 }
 h2{
     color: $color_black;
 }
 p{
-    color: $color_black;
+    color: $color_white;
 }
