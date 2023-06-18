@@ -1,0 +1,22 @@
+@import './templateColor.scss';
+@import './tamplateButtons.scss';
+
+.header{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: #0E0E0E;
+    
+}
+
+.nav_list{
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;  
+}
+
+button{
+    @extend %button_prime;
+    padding: 9px 54px;
+}

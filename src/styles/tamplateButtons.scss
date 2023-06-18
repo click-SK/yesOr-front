@@ -1,0 +1,30 @@
+@import './templateColor.scss';
+
+%button_prime{
+    color: $color_white;
+    background-color: $color_prime;
+}
+%button_prime_hover{
+    color: $color_white;
+    background-color: $color_prime_hover;
+}
+%button_prime_click{
+    color: $color_white;
+    background-color: $color_prime_active;
+}
+
+%button_second{
+    color: $color_white;
+    background-color: transparent;
+    border: 2px solid $color_white;
+}
+%button_second_hover{
+    color: $color_white;
+    background-color: $color_button_hover;
+    border: 2px solid $color_white;
+}
+%button_second_click{
+    color: $color_white;
+    background-color: $color_button_active;
+    border: 2px solid $color_white;
+}
