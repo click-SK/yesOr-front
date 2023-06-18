@@ -1,11 +1,12 @@
 import React from 'react';
 import '../styles/header.scss'
 
+
 const Header = () => {
     return (
         <div className='header'>
             <div className='logo-header'>
-                <img src="./logotype/logoYesOr.svg" alt="" />
+                <img src="./logo192.png" alt="" />
             </div>
             <nav>
                 <ul className='nav_list'>
