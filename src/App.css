@@ -5,6 +5,10 @@
   src: url('./font/ArtegraSansExBold.woff') format('woff');
 }
 @font-face {
+  font-family: 'Artegra text' ;
+  src: url('./font/ArtegraSansExMedium.woff') format('woff');
+}
+@font-face {
   font-family: 'Cy Grotesk' ;
   src: url('./font/kobuzan-cy-grotesk-grand-dark.otf') format('otf');
 }
@@ -15,6 +19,7 @@
   text-align: center;
   font-family: 'Poppins', sans-serif;
   font-weight: 300;
+  overflow: hidden;
 }
 
 .App-logo {
@@ -153,8 +158,10 @@ h2{
 
 p{
   font-size: 18px;
+  font-weight: 400;
+  line-height: 27px;
 }
 
 button{
-  font-family: 'Cy Grotesk', regular;
+  font-family: 'Artegra title' ;
 }

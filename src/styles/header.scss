@@ -20,7 +20,9 @@
     width: 100%;  
 }
 
-button{
-    @extend %button_prime;
-    padding: 9px 54px;
+.profile_button{
+    button{
+        @extend %button_prime;
+        padding: 9px 54px;
+    }
 }
