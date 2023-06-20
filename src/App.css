@@ -19,6 +19,7 @@
   text-align: center;
   font-family: 'Poppins', sans-serif;
   font-weight: 300;
+  min-height: 100vh;
   overflow: hidden;
 }
 
@@ -98,15 +99,9 @@ body {
   -webkit-text-size-adjust: 100%;
 }
 
-input,
-button,
-textarea {
-  font-family: inherit;
-}
 
-input::-ms-clear {
-  display: none;
-}
+
+
 button {
   cursor: pointer;
 }
@@ -142,11 +137,6 @@ a {
   text-decoration:none;
 }
 
-input, textarea {
-  outline: none;
-  border: none;
-  border: solid 1px #f2f2f2;
-  }
 
 h1{
   font-size: 70px;
@@ -165,3 +155,8 @@ p{
 button{
   font-family: 'Artegra title' ;
 }
+
+input{
+  outline: none;
+}
+

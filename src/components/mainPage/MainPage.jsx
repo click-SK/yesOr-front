@@ -3,6 +3,7 @@ import AboutUsMain from './AboutUsSection';
 import ProjectsMain from './ProjectsSection';
 import CategoriesSection from './CategoriesSection';
 import TeamSection from './TeamSection';
+import InformationSection from './InformationSection';
 import '../../styles/mainPage.scss'
 
 const MainPage = () => {
@@ -20,6 +21,7 @@ const MainPage = () => {
             <ProjectsMain/>
             <CategoriesSection/>
             <TeamSection/>
+            <InformationSection/>
         </div>
     );
 };

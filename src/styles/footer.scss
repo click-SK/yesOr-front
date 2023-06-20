@@ -1,0 +1,43 @@
+@import './templateColor.scss';
+@import './tamplateButtons.scss';
+
+
+.footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 189px;
+    gap: 34px;
+    background: rgba(14, 14, 14, 0.77);
+    padding: 34px 80px 30px;
+}
+
+.row_top{
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav_footer{
+    display: flex;
+    align-items: center;
+}
+
+.nav_list_footer{
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 27px;
+}
+
+.social{
+    display: flex;
+    gap: 15px;
+}
+
+.row_bottom{
+    p{
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 21px;
+        color: $color_white;
+    }
+}

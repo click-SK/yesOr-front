@@ -2,20 +2,49 @@ import React from 'react';
 
 const TeamSection = () => {
     return (
-        <section className='section about_us'>
-            <div className='about_us_description'>
-                <h2 className='section_title about_us_description_title'>About Us</h2>
-                <div className='about_us_description_text'>
+        <section id='team' className='section team'>
+            <div className='team_description'>
+                <h2 className='section_title team_description_title'>Team</h2>
+                <div className='team_description_text'>
                     <p>The Charitable Foundation is made up of dedicated agents and employees of Berkshire Hathaway HomeServices California Properties who want to make a positive and constructive impact on our local communities.</p>
-                    <p>Since its inception, the Charitable Foundation has provided hundreds of grants to local organizations involved in health, education, society and the environment. We also actively donate our time and talents to the causes we support.</p>
+                </div>
+                <div>
+                    <div className='exp_wrap'>
+                        <div className='exp_wrap_item'>
+                            <h2 className='exp_numb'>10</h2>
+                            <p className='exp_text'>employees</p>
+                        </div>
+                        <div className='exp_wrap_item'>
+                            <h2 className='exp_numb'>5</h2>
+                            <p className='exp_text'>years of work</p>
+                        </div>
+                        <div className='exp_wrap_item'>
+                            <h2 className='exp_numb'>2</h2>
+                            <p className='exp_text'>office</p>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-            <div className='about_us_courosel'>
-                <div className='about_us_img_wrap'>
-                    <img src="./mainPage/courosel/aboutUs/image 1.png" alt="" />
-                    <img src="./mainPage/courosel/aboutUs/image 2.png" alt="" />
+            <div className='team_courosel'>
+                <div className='team_img_wrap'>
+                    <div className='team_img_wrap_item active_img'>
+                        <img  src="./mainPage/courosel/team/foto1.png" alt="" />
+                        <div className='team_info'>
+                            <p className='team_name'>Tom Ford</p>
+                            <p className='employee'>manager</p>
+                        </div>
+                    </div>
+                    <div className='team_img_wrap_item second_img'>
+                        <img  src="./mainPage/courosel/team/foto2.png" alt="" />
+                        <div className='team_info'>
+                            <p className='team_name'>Tom Ford</p>
+                            <p className='employee'>manager</p>
+                        </div>
+                    </div>
+                    
                 </div>
-                <div className='courosel_count'>
+                <div className='courosel_count team_section_count'>
                     <p className='count_value'>01</p>
                     <div className='count_progress'>
                         <div className='progress_bg'></div>

@@ -1,0 +1,180 @@
+@import './templateColor.scss';
+@import './tamplateButtons.scss';
+@import './tamplateInputs.scss';
+
+
+.login_form_wrap{
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: $color_white;
+}
+
+.form_wrap_item{
+    flex: 50% 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    padding: 0 80px;
+    max-width: 538px
+}
+
+.form_title{
+    display: flex;
+    justify-content: center;
+    width: 100%
+}
+
+h3{
+    display: flex;
+    flex: 50% 1;
+    justify-content: center;
+    color: #E0D3D3;
+    border-bottom: 2px solid #E0D3D3;
+    padding-bottom: 7px;
+}
+
+.active_form{
+    color: $color_prime;
+    border-bottom: 2px solid $color_prime;
+}
+
+.input_wrap{
+    display: flex;
+    flex-direction: column;
+    padding: 40px 0 20px;
+    gap: 40px;
+}
+
+.input_item{
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+}
+
+
+.checkbox_input{
+    @extend %input-checkbox;
+   
+}
+
+
+input{
+    @extend %input;
+    width: 100%;
+    &:focus-visible{
+        // border: 1px solid $color_prime;
+         @extend %input-active;
+    }
+}
+
+.input_sucsess{
+    @extend %input-active;
+}
+
+.input_checkbox_wrap{
+    display: flex;
+    flex-direction: column;
+    // height: 21px;
+    align-items: flex-start;
+    margin-bottom: 40px; 
+
+}
+
+.input_checkbox_wrap-item{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    width: 100%
+}
+
+button{
+    @extend %button_prime;
+    padding: 19px 86px;
+    max-width: 240px;
+    &:hover{
+        @extend %button_prime_hover;
+    }
+
+    &:focus{
+        @extend %button_prime_click;
+        // background: red;
+    }
+}
+
+.button_singup{
+    text-align: left;
+}
+.button_login{
+    text-align: left;
+}
+
+.bg_form_login{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: $color_prime;
+    top: 0px;
+    
+    width: 50%;
+    height: 100%;
+    transition: all 0.5s ease-in-out;
+    h2{
+        margin-bottom: 30px;
+        color: $color_white;
+    }
+    p{
+        margin-bottom: 60px;
+        color: $color_white;
+    }
+}
+
+
+
+.left{
+    left: 0px;
+    transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+    animation: slideLeft 0.5s;
+}
+
+@keyframes slideLeft {
+  0% {
+    left: 50%;
+  }
+  100% {
+    left: 0%;
+  }
+}
+.right{
+    right: 0px;
+    transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+    animation: slideRight 0.5s;
+}
+
+@keyframes slideRight {
+  0% {
+    right: 50%;
+  }
+  100% {
+    right: 0%;
+  }
+}
+
+.left1{
+    right: 0px;
+    animation: none;
+}
+
+
+.button_second{
+    @extend %button_second;
+}

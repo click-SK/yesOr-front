@@ -1,0 +1,26 @@
+@import './templateColor.scss';
+
+%input{
+    border: 1px solid $color_second;
+    min-height: 34px;
+
+}
+%input-active{
+    border: 1px solid $color_prime;
+    color: $color_prime ;
+    min-height: 34px;
+
+}
+%input-error{
+    border: 1px solid $color_error;
+    min-height: 34px;
+    color: $color_error;
+}
+
+%input-checkbox{
+    border: 1px solid $color_second;
+    // min-height: 34px;
+    width: 16px;
+    height: 16px;
+}
+

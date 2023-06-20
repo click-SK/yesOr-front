@@ -4,7 +4,7 @@ import {HiOutlineArrowNarrowRight} from 'react-icons/hi';
 
 const ProjectsMain = () => {
     return (
-        <section className='section project'>
+        <section id='project' className='section project'>
             <div className='project_description'>
                 <h2 className='section_title project_description_title'>Projects</h2>
             </div>

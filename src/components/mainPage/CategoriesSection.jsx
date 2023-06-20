@@ -35,7 +35,7 @@ const CategoriesSection = () => {
         },
     ]
     return (
-        <section className='section categories'>
+        <section id='categories' className='section categories'>
             <div className='about_us_description'>
                 <h2 className='section_title about_us_description_title'>Categories</h2>
                 
