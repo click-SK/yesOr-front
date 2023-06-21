@@ -158,5 +158,6 @@ button{
 
 input{
   outline: none;
+  background: transparent;
 }
 

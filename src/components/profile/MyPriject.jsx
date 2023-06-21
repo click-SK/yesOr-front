@@ -1,56 +1,57 @@
 import React, {useState} from 'react';
 import ProjectPage from '../project/ProjectPage';
+import { Link } from "react-router-dom";
 
-const SavedProject = () => {
-    
+const MyPriject = () => {
+
     const [isOpen, setIsOpen] = useState(false)
     const [myProject, setMyPriject] = useState('')
 
     const projectArr = [
         {
-            img: './file/foto1.png ',
+            img: './file/Rectangle 53.png ',
             info: 'Lorem ipsum dolor sit amet consectetur.',
             budget: '1000$',
             mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
         },
         {
-            img: './file/foto1.png ',
+            img: './file/Rectangle 53.png ',
+            info: 'Lorem ipsum dolor sit amet consectetur.',
+            budget: '2000$',
+            mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
+        },
+        {
+            img: './file/Rectangle 53.png ',
+            info: 'Lorem ipsum dolor sit amet consectetur.',
+            budget: '3000$',
+            mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
+        },
+        {
+            img: './file/Rectangle 53.png ',
+            info: 'Lorem ipsum dolor sit amet consectetur.',
+            budget: '4000$',
+            mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
+        },
+        {
+            img: './file/Rectangle 53.png ',
+            info: 'Lorem ipsum dolor sit amet consectetur.',
+            budget: '5000$',
+            mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
+        },
+        {
+            img: './file/Rectangle 53.png ',
             info: 'Lorem ipsum dolor sit amet consectetur.',
             budget: '1000$',
             mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
         },
         {
-            img: './file/foto1.png ',
+            img: './file/Rectangle 53.png ',
             info: 'Lorem ipsum dolor sit amet consectetur.',
             budget: '1000$',
             mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
         },
         {
-            img: './file/foto1.png ',
-            info: 'Lorem ipsum dolor sit amet consectetur.',
-            budget: '1000$',
-            mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
-        },
-        {
-            img: './file/foto1.png ',
-            info: 'Lorem ipsum dolor sit amet consectetur.',
-            budget: '1000$',
-            mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
-        },
-        {
-            img: './file/foto1.png ',
-            info: 'Lorem ipsum dolor sit amet consectetur.',
-            budget: '1000$',
-            mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
-        },
-        {
-            img: './file/foto1.png ',
-            info: 'Lorem ipsum dolor sit amet consectetur.',
-            budget: '1000$',
-            mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
-        },
-        {
-            img: './file/foto1.png ',
+            img: './file/Rectangle 53.png ',
             info: 'Lorem ipsum dolor sit amet consectetur.',
             budget: '1000$',
             mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
@@ -97,4 +98,4 @@ const SavedProject = () => {
     );
 };
 
-export default SavedProject;
+export default MyPriject;

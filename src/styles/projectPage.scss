@@ -1,0 +1,95 @@
+@import './templateColor.scss';
+@import './tamplateButtons.scss';
+@import './tamplateInputs.scss';
+
+.project_wraper{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    // margin: 138px 0 189px;
+    padding: 0 80px;
+    background: #fdeae3;
+    
+}
+
+.btn_back{
+    position: absolute;
+    top: 0;
+    display: flex;
+    padding: 25px;
+}
+
+.profile_title{
+    display: flex;
+    width: 100%;
+    padding: 100px 0 30px;
+
+    h2{
+        position: relative;
+        &::after{
+            content: '';
+            position: absolute;
+            top: 50%;
+            // left: 15%;
+            right: -250px;
+            width: 190px;
+            height: 2px;
+            background: $color_prime;
+        }
+    }
+}
+
+.project_info{
+    display: flex;
+    gap: 100px;
+}
+
+.left_column{
+    flex: 50% 1;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.project_description_wrap{
+    img{
+        width: 100%;
+    }
+}
+
+.right_column{
+    flex: 50% 1;
+    display: flex;
+    gap: 40px;
+    flex-direction: column;
+}
+
+.project_name_wrap{
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    img{
+       width: 100px;
+       height: 100px;
+    }
+}
+
+.project_details{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.details_item{
+    flex: 40% 1;
+
+}
+
+.project_request{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+

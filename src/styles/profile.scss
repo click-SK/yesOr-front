@@ -3,26 +3,69 @@
 @import './tamplateInputs.scss';
 
 .profile_wrap{
+    position: relative;
     margin-top: 138px;
-    padding: 0 80px;
+    padding: 0 80px 200px;
+    background: url("../../public/file/bg/ba.svg") rgba(243, 112, 66, 0.15);
+    background-repeat: no-repeat;
+    // background-size: 100% 100%;
 }
 
-.project_wrap_header{
+.profile_title{
     display: flex;
-    justify-content: center;
     width: 100%;
-    padding-right: 16%;
-    p{
-        min-width: 300px;
+    padding: 100px 0 30px;
+
+    h2{
+        position: relative;
+        &::after{
+            content: '';
+            position: absolute;
+            top: 50%;
+            // left: 15%;
+            right: -250px;
+            width: 190px;
+            height: 2px;
+            background: $color_prime;
+        }
     }
 }
 
+.profile_nav{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    cursor: pointer;
+
+}
+
+.profile_nav_item{
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 36px;
+    width: 33%;
+    font-family: 'Artegra title';
+    color: rgba(0, 0, 0, 0.5);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+.profile_nav_item-active{
+    color: $color_prime;
+    border-bottom: 2px solid $color_prime;
+}
+
+
+// projectSaved //
 .project_item{
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     gap: 177px;
     height: 150px;
+    border-bottom: 1px solid $color_prime;
+    &:last-child{
+        border: 0px;
+    }
     img{
         width: 120px;
         height: 120px;
@@ -31,4 +74,59 @@
        min-width: 253px;
     }
 }
+
+h4{
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 36px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+p{
+    text-align: left;
+}
+
+// profile_user_wrap //
+
+.profile_user_wrap{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 60px 0 200px;
+    // img{
+    //     width: 100%;
+    // }
+}
+
+.photo_profile{
+    position: relative;
+    width: 356px;
+    height: 356px;
+
+}
+.edit_photo_profile{
+    position: absolute;
+    bottom: 0;
+    right: 76px;
+    width: 40px;
+    height: 40px;
+}
+
+.content{
+    width: 80%;
+    max-width: 600px;
+}
+
+.user_info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 600px;
+}
+
 
