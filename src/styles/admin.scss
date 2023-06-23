@@ -1,0 +1,76 @@
+@import './templateColor.scss';
+@import './tamplateButtons.scss';
+@import './tamplateInputs.scss';
+
+.project_header{
+    display: flex;
+    justify-content: space-between;
+    max-width: 100%;
+    // padding-right: 10%;
+    // gap: 20px;
+    h4{
+        flex: 35% 1;
+        display: flex;
+        justify-content: center;
+        // max-width: 230px;
+        padding: 60px 0 40px;
+    }
+}
+
+.admin_project_item{
+    justify-content: space-between;
+    // padding: 0 80px;
+    p{
+        flex: 35% 1;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.admin_project_item_svg{
+    display: flex;
+    justify-content: space-evenly;
+    flex: 35% 1;
+    img{
+        max-width: 50px;
+        max-height: 50px;
+    }
+}
+
+
+// modal Verified //
+
+.modal_wrap{
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(27, 27, 27, 0.70);
+}
+
+.item_body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10%;
+    align-items: center;
+    background: #FFF;
+    width: 80%;
+    max-width: 921px;
+    height: 442px;
+    h4{
+        text-align: center;
+        padding: 0 5%;
+    }
+}
+
+
+
+.button_wrap{
+    display: flex;
+    gap: 5%;
+}

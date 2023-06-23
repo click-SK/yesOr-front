@@ -1,0 +1,65 @@
+.new_project_wraper{
+    margin-top: 138px;
+    padding: 0 80px 40px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background: rgba(243, 112, 66, 0.15);
+    .profile_title{
+        justify-content: center;
+    }
+    .input_wrap{
+        display: flex;
+        max-width: 700px;
+        width: 100%;
+    }
+
+    textarea{
+        background: transparent;
+        height: 140px;
+        border: 1px solid #494949;
+        outline: none;
+        &:focus-visible{
+            border: 1px solid #F37042;
+            color: #F37042;
+            min-height: 34px;
+        }
+    }
+    .input_checkbox_wrap{
+        gap: 20px;
+    }
+}
+
+.categori_wrap{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 20px;
+    .input_item{
+        width: 100%;
+    }
+}
+
+.checkbox_input{
+    // -webkit-appearance: none;
+    // -moz-appearance: none;
+    // appearance: none;
+    // width: 16px;
+    // border: 2px solid #000; /* Додайте власні стилі рамки, які потрібні */
+    background-color: transparent; /* Встановіть фоновий колір, що вам потрібен */
+    /* Інші стилі, які потрібно встановити */
+}
+
+
+// rules //
+
+.rules_text{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 50px;
+    max-width: 1320px; 
+    p{
+        line-height: 1.7; 
+    } 
+}

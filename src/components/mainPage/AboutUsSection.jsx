@@ -15,14 +15,14 @@ const AboutUsMain = () => {
                 <div className='about_us_img_wrap'>
                     <img src="./mainPage/courosel/aboutUs/image 1.png" alt="" />
                     <img src="./mainPage/courosel/aboutUs/image 2.png" alt="" />
-                </div>
-                <div className='courosel_count'>
-                    <p className='count_value'>01</p>
-                    <div className='count_progress'>
-                        <div className='progress_bg'></div>
-                        <div className='progress_active'></div>
+                    <div className='courosel_count'>
+                        <p className='count_value'>01</p>
+                        <div className='count_progress'>
+                            <div className='progress_bg'></div>
+                            <div className='progress_active'></div>
+                        </div>
+                        <p className='count_value'>05</p>
                     </div>
-                    <p className='count_value'>05</p>
                 </div>
             </div>
         </section>

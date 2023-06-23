@@ -5,6 +5,7 @@ import CategoriesSection from './CategoriesSection';
 import TeamSection from './TeamSection';
 import InformationSection from './InformationSection';
 import '../../styles/mainPage.scss'
+import { Link } from 'react-router-dom';
 
 const MainPage = () => {
     return (
@@ -14,7 +15,11 @@ const MainPage = () => {
                 <p className='banner_head_descript'>The first and only social project of its kind</p>
                 <div className='banner_head_buttons'>
                     <button>Discover</button>
-                    <button>Start a project</button>
+                    <Link
+                    to='/new-project'
+                    >
+                        <button>Start a project</button>
+                    </Link>
                 </div>
             </section>
             <AboutUsMain/>

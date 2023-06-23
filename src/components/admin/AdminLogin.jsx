@@ -2,43 +2,25 @@ import React, {useState} from 'react';
 import '../../styles/loginForm.scss'
 import { Link } from "react-router-dom";
 
-const LoginForm = () => {
-    const [isLogin, setIsLogin] = useState(false)
-    const [bgRight, setBgRight] = useState('left1')
-    const [nameBtn, setNameBtn] = useState('Sign up')
-    // let nameBtn = 'Login'
-
-
-    const hendlerChangeblock = () =>{
-        setIsLogin(!isLogin)
-        setBgRight(' ')
-        if (isLogin){
-            setNameBtn('Login') 
-        } else setNameBtn('Sign up') 
-        }
-
-    // <button> <Link to='/login'>Sign up</Link> </button>
-
+const AdminLogin = () => {
     return (
         <div className='login_form_wrap'>
             <div 
-            className={`bg_form_login ${bgRight} ${isLogin ? 'left' : 'right'}`}
+            style={{right: '0px'}}
+            className={`bg_form_login`}
             
             >
-                <h2>Welcome back!</h2>
-                <p>Enter your personal details to get started</p>
+                <h2
+                style={{fontSize:'56px'}}
+                >Welcome back!</h2>
+                {/* <p>Enter your personal details to get started</p>
                 <button 
-                 onClick={() => hendlerChangeblock()}
-                className='button_second'>{nameBtn}</button>
+                 
+                className='button_second'>Login</button> */}
             </div>
             <div className='form_wrap_item log_in_form'>
                 <div className='form_title'>
-                        <h3 className='active_form'
-                        onClick={() => hendlerChangeblock()}
-                        >Login</h3>
-                        <h3
-                        onClick={() => hendlerChangeblock()}
-                        >Sign up</h3>
+                        <h3 className='active_form'>Login</h3>
                 </div>
                 <div className='input_wrap'>
                     <div className='input_item'>
@@ -55,17 +37,17 @@ const LoginForm = () => {
                         <label htmlFor="remember_me">Remember me</label>
                     </div>
                 
-               <Link className='button_login' to='/profile'> <button>Login</button></Link> 
+               <Link className='button_login' to='/admin-profile'> <button>Login</button></Link> 
             </div>
             <div className='form_wrap_item sing_in_form'>
-                <div className='form_title'>
+                {/* <div className='form_title'>
                         <h3 
                         
-                        onClick={() => hendlerChangeblock()}
+                        
                         >Login</h3>
                         <h3
                         className='active_form'
-                        onClick={() => hendlerChangeblock()}
+                        
                         >Sign up</h3>
                 </div>
                 <div className='input_wrap'>
@@ -110,10 +92,10 @@ const LoginForm = () => {
                         </div>
                     </div>
                 
-                <Link className='button_singup' to='/admin-login'> <button>Sign up</button></Link> 
+                <Link className='button_singup' to='/profile'> <button>Sign up</button></Link>  */}
             </div>
         </div>
     );
 };
 
-export default LoginForm;
+export default AdminLogin;
