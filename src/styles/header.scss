@@ -35,6 +35,10 @@ a{
     display: flex;
     justify-content: space-between;
     gap: 40px;
+    nav{
+      display: flex;
+      align-items: center;
+    }
 }
 
 // .nav_wrap_burger{
@@ -129,7 +133,7 @@ a{
 
   .header{
     justify-content: space-between;
-    padding: 0 80px;
+    padding: 0 5%;
   }
     .nav_wrap{
         display: none;

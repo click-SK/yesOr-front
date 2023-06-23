@@ -36,8 +36,8 @@ const CategoriesSection = () => {
     ]
     return (
         <section id='categories' className='section categories'>
-            <div className='about_us_description'>
-                <h2 className='section_title about_us_description_title'>Categories</h2>
+            <div className='categories__description '>
+                <h2 className='section_title categories_description_title'>Categories</h2>
                 
             </div>
             <div className='categories_wrap'>
