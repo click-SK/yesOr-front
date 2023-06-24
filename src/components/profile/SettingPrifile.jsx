@@ -4,7 +4,7 @@ const SettingPrifile = () => {
     return (
         <div className='profile_user_wrap'>
         <div className='photo_profile'>
-            <img src="./file/Rectangle 53.png" alt="" />
+            <img className='photo_profile_hero' src="./file/Rectangle 53.png" alt="" />
                 <img className='edit_photo_profile' src="./file/edit.svg" alt="" />
         </div>
         <div
