@@ -66,6 +66,7 @@ p{
 
 }
 
+
 .about_us_description_title{
     // margin-top: 199px;
     position: relative;
@@ -111,6 +112,8 @@ p{
         
     }
 }
+
+
 .courosel_count{
     display: flex;
     position: absolute;
@@ -182,6 +185,12 @@ p{
     border: 1px solid $color_prime;
     color: $color_prime ;
     z-index: 99;
+    img{
+        // width: 100%;
+        // height: 100%; 
+        max-width: 248px;
+        max-height: 238px; 
+    }
     &::after{
         content: '';
         position: absolute;
@@ -202,9 +211,17 @@ p{
 
 .project_active{
     height: 550px;
+    width: 426px;
     max-width: 426px;
     padding: 60px 33px 45px;
     background: $color_prime;
+    img{
+        // width: 100%;
+        // height: 100%; 
+        width: 344px;
+        height: 360px; 
+        object-fit: cover;
+    }
 }
 
 .project_active_name{
@@ -227,24 +244,32 @@ p{
         color: $color_prime;
         width: 60px;
         height: 60px;
-        &::after{
-            content: '';
-            position: absolute;
-            top: 30px;
-            left: 13px;
-            width: 35px;
-            height: 1px;
-            background: $color_prime;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        img{
+            width: 100%;
+            max-width: 35px;
         }
-        &::before{
-            content: "<";
-            position: absolute;
-            top: 15px;
-            left: 9px;
-            height: 20px;
-            font-size: 35px;
-            color: $color_prime;
-        }
+        // &::after{
+        //     content: '';
+        //     position: absolute;
+        //     top: 30px;
+        //     left: 13px;
+        //     width: 35px;
+        //     height: 1px;
+        //     background: $color_prime;
+        // }
+        // &::before{
+        //     content: "<";
+        //     position: absolute;
+        //     top: 15px;
+        //     left: 9px;
+        //     height: 20px;
+        //     font-size: 35px;
+        //     color: $color_prime;
+        // }
     }
     .right_arrow{
         position: relative;
@@ -252,26 +277,56 @@ p{
         color: $color_prime;
         width: 60px;
         height: 60px;
-        &::after{
-            content: '';
-            position: absolute;
-            top: 30px;
-            left: 13px;
-            width: 35px;
-            height: 1px;
-            background:$color_white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        img{
+            width: 100%;
+            max-width: 35px;
         }
-        &::before{
-            content: ">";
-            position: absolute;
-            top: 15px;
-            right: 9px;
-            height: 20px;
-            font-size: 35px;
-            color: $color_white;
-        }
+        // &::after{
+        //     content: '';
+        //     position: absolute;
+        //     top: 30px;
+        //     left: 13px;
+        //     width: 35px;
+        //     height: 1px;
+        //     background:$color_white;
+        // }
+        // &::before{
+        //     content: ">";
+        //     position: absolute;
+        //     top: 15px;
+        //     right: 9px;
+        //     height: 20px;
+        //     font-size: 35px;
+        //     color: $color_white;
+        // }
     }
 }
+
+// .project_second {
+//     opacity: 1;
+//     transform: translateX(-50%);
+//     transition: opacity 0.5s, transform 0.5s;
+//   }
+  
+//   .project_active {
+//     opacity: 1;
+//     transition: opacity 0.5s;
+//   }
+  
+//   .project_second.active {
+//     opacity: 1;
+//     transform: translateX(50%);
+//     transition: opacity 0.5s, transform 0.5s;
+//   }
+  
+//   .project_active.inactive {
+//     transition: none;
+//   }
+  
 
 // categories section //
 
@@ -294,6 +349,15 @@ p{
     // max-width: 1320px;
 }
 
+.categories_wrap_item_img{
+    transition: all 0.3s ease-in-out;
+    border-radius: 50%;
+    background: transparent;
+    // width: 35px;
+    // height: 35px;
+    // background-color: $color_white;
+}
+
 .categories_wrap_item{
     flex: 33% 1;
     max-width: 413px;
@@ -304,6 +368,25 @@ p{
     text-align: left;
     color: $color_white;
     padding: 30px 59px;
+    transition: all 0.4s ease-in-out;
+    &:hover{
+        color: $color_black;
+        background: $color_white;
+        border: 1px solid $color_prime;
+        .categories_wrap_item_img{
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            padding: 6px;
+            background-color: $color_prime;
+        }
+        .categories_wrap_title{
+            color: $color_black;
+        }
+        .categories_wrap_descript{
+            color: $color_black;
+        }
+    }
 }
 
 .categories_wrap_title{
@@ -332,6 +415,10 @@ p{
 
 .team_description{
     flex: 35% 1;
+}
+
+.count_value{
+    cursor: pointer;
 }
 
 .team_description_title{
@@ -392,6 +479,18 @@ p{
 
 .team_img_wrap_item{
     position: relative;
+    .active_img_team{
+    }
+}
+.team_active_img{
+    height: 100%;
+    max-width: 427px;
+    object-fit: cover;
+}
+.team_inactive_img{
+    max-height: 524px;
+    max-width: 427px;
+    object-fit: cover;
 }
 
 .team_info{
@@ -417,7 +516,11 @@ p{
 
 .active_img{
     height: 100%;
+    // height: 100%;
+    // max-width: 427px;
+    // object-fit: cover;
 }
+
 .second_img{
     height: 524px;
 }
@@ -425,7 +528,7 @@ p{
 
 .team_section_count{
     position: absolute;
-    bottom: 0px;
+    bottom: 24%;
     right: 59px;
     padding: 0;
     margin: 0;

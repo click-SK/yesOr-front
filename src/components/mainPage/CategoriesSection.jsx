@@ -49,6 +49,15 @@ const CategoriesSection = () => {
                     </div>
                 ))}
             </div>
+            {/* <div className='categories_wrap'>
+                {categoriesArr.map((item,idx) => (
+                    <div className='categories_wrap_item' key={idx}>
+                        <img className='categories_wrap_item_img' src={item.icon} alt="" />
+                        <p className='categories_wrap_title'>{item.name}</p>
+                        <p className='categories_wrap_descript'>{item.descript}</p>
+                    </div>
+                ))}
+            </div> */}
         </section>
     );
 };

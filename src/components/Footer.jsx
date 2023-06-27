@@ -11,10 +11,10 @@ const Footer = () => {
                 <nav className='nav_footer'>
                     <ul className='nav_list nav_list_footer'>
                         <li className='nav_list_item'><a href="#about_us">About us</a></li>
-                        <li className='nav_list_item'>Projects</li>
-                        <li className='nav_list_item'>Categories</li>
-                        <li className='nav_list_item'>Team</li>
-                        <li className='nav_list_item'>Information</li>
+                        <li className='nav_list_item'><a href="#project">Projects</a></li>
+                        <li className='nav_list_item'><a href="#categories">Categories</a></li>
+                        <li className='nav_list_item'><a href="#team">Team</a></li>
+                        <li className='nav_list_item'><a href="#information">Information</a></li>
                     </ul>
                 </nav>
                 <div className='social'>
