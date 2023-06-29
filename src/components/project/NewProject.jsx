@@ -56,7 +56,7 @@ const NewProject = () => {
                         </div>
                         <Link
                         to='/rules'>
-                            <p>Rules <img src="./icons/ph_info-light.svg" alt="" /></p>
+                            <p>Rules <img src="./icons/ph_info-light2.svg" alt="" /></p>
                         </Link>
                     </div>
                 </div>

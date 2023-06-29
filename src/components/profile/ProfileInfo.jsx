@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
+import SettingPrifile from './SettingPrifile';
 import '../../styles/loginForm.scss'
 
-const ProfileInfo = () => {
+const ProfileInfo = ({openSetting}) => {
     const [isEdit, setIsEdit] = useState(true)
     return (
         <div className='profile_user_wrap'>
@@ -20,8 +21,8 @@ const ProfileInfo = () => {
                     <p>fordtom@gmail.com</p>
                     <p>+38099 222 22 22 </p>
                     <button
-                    onClick={() => setIsEdit(!isEdit)}
-                    >edite</button>
+                    onClick={() => openSetting()}
+                    >Edite</button>
                 </div>
                 :
                 <div>

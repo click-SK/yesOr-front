@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SettingPrifile = () => {
+const SettingPrifile = ({isOpenSetting, setIsOpenSetting}) => {
     return (
         <div className='profile_user_wrap'>
         <div className='photo_profile'>

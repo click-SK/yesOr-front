@@ -13,7 +13,7 @@ const ProjectPage = ({project, isOpen, setIsOpen}) => {
             <div 
             onClick={() => setIsOpen(!isOpen)}
             className='btn_back'>
-            <button>back</button>
+            <button>Back</button>
             </div>
             <div className='profile_title'>
                 <h2>Project</h2>

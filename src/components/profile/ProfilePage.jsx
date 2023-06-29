@@ -62,6 +62,7 @@ const ProfilePage = () => {
                 }
                 {isOpenProfile &&
                     <ProfileInfo
+                    openSetting={openSetting}
                     />
                 }
                 {isOpenSetting &&

@@ -6,10 +6,10 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 189px;
+    min-height: 189px;
     gap: 34px;
     background: rgba(14, 14, 14, 0.77);
-    padding: 34px 80px 30px;
+    padding: 34px 5% 30px;
 }
 
 .row_top{
@@ -40,4 +40,27 @@
         line-height: 21px;
         color: $color_white;
     }
+}
+
+@media (max-width: 990px){
+    .row_top {
+        flex-direction: column;
+    }
+
+    .nav_list {
+        padding: 40px 0;
+        flex-direction: column;
+    }
+    .social {
+        display: flex;
+        gap: 15px;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+    .row_bottom {
+        p {
+        text-align: center;
+    }}
+
 }

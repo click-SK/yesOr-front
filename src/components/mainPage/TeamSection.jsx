@@ -135,7 +135,7 @@ const TeamSection = () => {
                         </div>
                     </div>
                     <div className={`team_img_wrap_item second_img ${animationDirection === 'next' ? 'active_img_team' : ''}`}>
-                        <img className='team_active_img'  src={nextProject.image} alt="" />
+                        <img className='team_inactive_img'  src={nextProject.image} alt="" />
                         <div className='team_info'>
                             <p className='team_name'>{nextProject.name}</p>
                             <p className='employee'>{nextProject.employee}</p>
