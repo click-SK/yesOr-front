@@ -1,9 +1,29 @@
 import React, {useState} from 'react';
 import SettingPrifile from './SettingPrifile';
-import '../../styles/loginForm.scss'
-
+import '../../styles/loginForm.scss';
+import { logout } from '../../store/authUser';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 const ProfileInfo = ({openSetting}) => {
-    const [isEdit, setIsEdit] = useState(true)
+    const [isEdit, setIsEdit] = useState(true);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const user = useSelector((state) => state.authUser.user);
+
+    console.log('user.accessToken',user.accessToken);
+
+    const handleLogout = () => {
+        try {
+            dispatch(logout({accessToken: user.accessToken}));
+            setTimeout(() => {
+                navigate('/');
+                window.location.reload();
+            },1000)
+        } catch(error) {
+            console.log(error);
+        }
+    }
     return (
         <div className='profile_user_wrap'>
             <div className='photo_profile'>
@@ -23,6 +43,9 @@ const ProfileInfo = ({openSetting}) => {
                     <button
                     onClick={() => openSetting()}
                     >Edite</button>
+                    <button
+                    onClick={handleLogout}
+                    >Logout</button>
                 </div>
                 :
                 <div>

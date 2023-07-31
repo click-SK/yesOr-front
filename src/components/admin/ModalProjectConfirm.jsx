@@ -2,8 +2,6 @@ import React, {useState} from 'react';
 
 const ModalProjectConfirm = ({isOpenModal, setIsOpen, title}) => {
 
-
-    console.log(isOpenModal);
     return (
         <>
             {isOpenModal &&

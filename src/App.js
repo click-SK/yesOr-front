@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Routes, Route } from "react-router-dom";
 import Header from './components/Header';
 import MainPage from './components/mainPage/MainPage'
@@ -10,20 +10,43 @@ import NewProject from './components/project/NewProject';
 import RulesProject from './components/project/RulesProject';
 import AdminLogin from './components/admin/AdminLogin';
 import AdminProfile from './components/admin/AdminProfile';
+import { checkAuthUser } from './store/authUser';
+import { checkAuthAdmin } from './store/authAdmin';
+import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 
 function App() {
+  const dispatch = useDispatch();
+  const isAuthUser = useSelector((state) => state.authUser.isAuthUser);
+  const isAdmin = useSelector((state) => state.authAdmin.isAdmin);
+
+  console.log('isAdmin',isAdmin);
+
+  useEffect(() => {
+    if(localStorage.getItem('Y-R-U-T')) {
+      setTimeout(() => {
+        dispatch(checkAuthUser())
+      },500)
+    }
+    if(localStorage.getItem('Y-R-A-T')) {
+      setTimeout(() => {
+        dispatch(checkAuthAdmin())
+      },500)
+    }
+  },[])
   return (
     <div className="App">
       <Header/>
         <Routes>
           <Route path='/' element={<MainPage/>}/>
+          {/* {!isAuthUser && <Route path='/login' element={<LoginForm/>}/>} */}
           <Route path='/login' element={<LoginForm/>}/>
-          <Route path='/profile' element={<ProfilePage/>}/>
+          {!isAuthUser && <Route path='/login' element={<LoginForm/>}/>}
+          {isAuthUser && <Route path='/profile' element={<ProfilePage/>}/>}
           <Route path='/new-project' element={<NewProject/>}/>
           <Route path='/rules' element={<RulesProject/>}/>
           <Route path='/admin-login' element={<AdminLogin/>}/>
-          <Route path='/admin-profile' element={<AdminProfile/>}/>
+          {isAdmin && <Route path='/admin-profile' element={<AdminProfile/>}/>}
         </Routes>
       <Footer/>
 
