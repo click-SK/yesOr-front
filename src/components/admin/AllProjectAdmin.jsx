@@ -9,10 +9,12 @@ const AllProjectAdmin = ({projectArr, isOpen}) => {
     const confirm = 'Confirm Verification?'
     const unConfirm = 'Are you sure you want to delete the request??'
 
+
+
     return (
         <div className='project_wrap'>
             <div className='project_header'>
-                <h4>Name/Company</h4>
+                <h4>Full name</h4>
                 <h4>Сategory</h4>
                 <h4>Main info</h4>
                 <h4>Budget</h4>
