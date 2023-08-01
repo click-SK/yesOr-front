@@ -1,4 +1,6 @@
-import React, {useState} from 'react';
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import $api from "../../http/httpUser";
 import SavedProject from './SavedProject';
 import ProfileInfo from './ProfileInfo';
 import SettingPrifile from './SettingPrifile';
@@ -10,6 +12,12 @@ const ProfilePage = () => {
     const [isOpenProfile, setIsOpenProfile] = useState(false)
     const [isOpenSetting, setIsOpenSetting] = useState(false)
     const [isOpenMyProject, setIsOpenMyProject] = useState(false)
+    const [currentUser, setCurrentUser] = useState({});
+    const { user } = useSelector((state) => state.authUser.user);
+
+    useEffect(() => {
+        $api.get(`/get-me/${user._id}`).then((res) => setCurrentUser(res.data));
+      }, [user]);
 
     const openProject = () =>{
         setIsOpenProject(true);
@@ -67,6 +75,7 @@ const ProfilePage = () => {
                 }
                 {isOpenSetting &&
                     <SettingPrifile
+                    currentUser={currentUser}
                     />
                 }
                 {isOpenMyProject &&
