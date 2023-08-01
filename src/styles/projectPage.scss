@@ -25,11 +25,15 @@
 
 .profile_title{
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 50px;
     width: 100%;
     padding: 100px 0 30px;
 
     h2{
         position: relative;
+        align-items: left;
         &::after{
             content: '';
             position: absolute;
@@ -96,9 +100,240 @@
     gap: 10px;
 }
 
+.project_content_wraper{
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+}
+.project_wrap_page{
+    flex: 0 1 70%;
+}
+
+// filter
+
+.aside_filters{
+    flex: 0 1 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.filter_budget_wrap{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.title_filt_bidget{
+    h3{
+        color: #F37042;
+        border-bottom: 2px solid #F37042;
+    }
+}
+
+.filter_budget_input_wrap{
+    display: flex;
+    gap: 10px;
+    p{
+       color: #00000040; 
+    }
+}
+
+// filter categories
+
+.category_wrap{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+}
+
+.category_wrap-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+.sub_cat_wrap{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+
+}
+
+.category_wrap_title{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    background: #00000020;
+    font-size: 18px;
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.category_wrap_title-active{
+    background: #F37042;
+}
+
+.category_wrap_sub-cat{
+    display: none;
+    background: #fff;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 20px;
+    max-height: 50px;
+    gap: 10px;
+    opacity: 0;
+    transition: all 1s ease-in-out;
+    
+}
+
+.open_sub_cat{
+    display: flex;
+    opacity: 1;
+    max-height: 900px;
+}
+
+.category_wrap_sub-close{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 20px;
+    max-width: 20px;
+    height: 20px;
+    background: transparent;
+    color: #000;
+}
+
+.category_wrap_sub-show{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    background-color: #000;
+    max-width: 100%;
+}
+
+#art_chex{
+    width: 20px;
+    height: 20px;
+}
+
+// .budget_filter {
+//     -webkit-appearance: none;
+//     -moz-appearance: none;
+//     appearance: none;
+//   }
+
+//   .budget_filter {
+//     background: #fff;
+//     accent-color: coral;
+//     width: 100%;
+//     max-height: 1px;
+//     border-radius: 20px;
+//   }
+//   .budget_filter::-webkit-slider-runnable-track {
+//     -webkit-appearance: none;
+//     box-shadow: none;
+//     border: none;
+//     background: transparent;
+//   }
+
+.top_filters{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+// data picker filter 
+
+.data_picker_wrap{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    svg{
+        width: 27px;
+        height: 27px;
+        fill: #F37042;
+    }
+}
+
+.input_date_fillter{
+    border-color: #F37042 ;
+    color: #F37042;
+}
+
+// filter search
+
+    .fillter_search_wrap{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        max-width: 610px;
+        height: 40px;
+        border: 1px solid #F37042;
+        border-radius: 20px;
+        background: #F7E6E6;
+        padding: 5px 20px;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .fillter_search_wrap{
+        input{
+            outline: none;
+            border: none;
+        }
+    }
+
+    .search_filter_value{
+        text-align: left;
+        width: 100%;
+        min-width: 100%;
+
+    }
+
+    //  sort by name
+
+    .filter_by_name-wrap{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #F37042;
+        border-radius: 20px;
+        padding: 5px 10px;
+        gap: 10px;
+        transition: all 0.5s ease-in-out;
+    }
+
+    .sort_var_item{
+        display: none;
+    }
+
+    .sort_var_item_open{
+        display: flex;
+        flex-direction: column;
+        p{
+            font-size: 16px;
+        }
+    }
+
+
 
 @media (max-width: 670px){
     .project_info {
         flex-direction: column;
     }
 }
+
+
