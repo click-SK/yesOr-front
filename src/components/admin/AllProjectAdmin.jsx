@@ -8,7 +8,6 @@ const AllProjectAdmin = ({projectArr, isOpen}) => {
 
     const confirm = 'Confirm Verification?'
     const unConfirm = 'Are you sure you want to delete the request??'
-    console.log(isOpenModalConfirm);
 
     return (
         <div className='project_wrap'>

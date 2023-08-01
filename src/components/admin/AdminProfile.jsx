@@ -4,14 +4,32 @@ import ProfileInfo from '../profile/ProfileInfo';
 import SettingPrifile from '../profile/SettingPrifile';
 import AllProjectAdmin from './AllProjectAdmin';
 import MyPriject from '../profile/MyPriject';
-import '../../styles/admin.scss'
-
+import '../../styles/admin.scss';
+import { logout } from '../../store/authAdmin';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 const AdminProfile = () => {
     const [isOpenProject, setIsOpenProject] = useState(true)
     const [isOpenProfile, setIsOpenProfile] = useState(false)
     const [isOpenSetting, setIsOpenSetting] = useState(false)
     const [isOpenMyProject, setIsOpenMyProject] = useState(false)
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const user = useSelector((state) => state.authAdmin.user);
+
+    const handleLogout = () => {
+        try {
+            dispatch(logout({accessToken: user.accessToken}));
+            setTimeout(() => {
+                navigate('/');
+                window.location.reload();
+            },1000)
+        } catch(error) {
+            console.log(error);
+        }
+    }
 
     const projectArr = [
         {
@@ -118,6 +136,9 @@ const AdminProfile = () => {
 
     return (
 <div className='profile_wrap'>
+    <div>
+        <button onClick={handleLogout}>Logout</button>
+    </div>
             <div className='profile_title'>
                 {/* <h2>Personal area</h2> */}
             </div>

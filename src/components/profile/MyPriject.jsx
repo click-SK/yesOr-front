@@ -64,10 +64,6 @@ const MyPriject = () => {
         setIsOpen(true)
     }
 
-
-
- 
-
     return (
         <div className='project_wrap'>
             {projectArr.map((item,idx) => (

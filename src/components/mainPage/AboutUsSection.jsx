@@ -30,31 +30,39 @@ const AboutUsMain = () => {
   const [widthProgress, setWidthProgress] = useState('width:"40%"')
 
   const handlePrev = () => {
-    setAnimationDirection('prev');
-    setTimeout(() => {
-      setActiveIndex((prevIndex) => {
-        if (prevIndex === 1) {
-          return projectData.length;
-        } else {
-          return prevIndex - 1;
-        }
-      });
-      setAnimationDirection(null);
-    }, 500);
+    try {
+      setAnimationDirection('prev');
+      setTimeout(() => {
+        setActiveIndex((prevIndex) => {
+          if (prevIndex === 1) {
+            return projectData.length;
+          } else {
+            return prevIndex - 1;
+          }
+        });
+        setAnimationDirection(null);
+      }, 500);
+    } catch(error) {
+        console.log(error);
+    }
   };
 
   const handleNext = () => {
-    setAnimationDirection('next');
-    setTimeout(() => {
-      setActiveIndex((prevIndex) => {
-        if (prevIndex === projectData.length) {
-          return 1;
-        } else {
-          return prevIndex + 1;
-        }
-      });
-      setAnimationDirection(null);
-    }, 5);
+    try {
+      setAnimationDirection('next');
+      setTimeout(() => {
+        setActiveIndex((prevIndex) => {
+          if (prevIndex === projectData.length) {
+            return 1;
+          } else {
+            return prevIndex + 1;
+          }
+        });
+        setAnimationDirection(null);
+      }, 5);
+    } catch(error) {
+        console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -89,7 +97,7 @@ const AboutUsMain = () => {
   const prevProject = projectData.find((project) => project.id === (activeIndex === 1 ? projectData.length : activeIndex - 1));
   const nextProject = projectData.find((project) => project.id === (activeIndex === projectData.length ? 1 : activeIndex + 1));
 
-  console.log(activeIndex);
+  console.log('activeIndex',activeIndex);
 
   return (
     <section id='about_us' className='section about_us'>

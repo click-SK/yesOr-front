@@ -3,9 +3,7 @@ import '../../styles/projectPage.scss'
 
 
 const ProjectPage = ({project, isOpen, setIsOpen}) => {
-
-
-
+    
     return (
         <>
         {isOpen &&
