@@ -13,6 +13,7 @@ export const login = createAsyncThunk('admin-auth/login', async (payload, thunkA
     try {
       const { email, password } = payload;
       const response = await $api.post('/login-admin',{email, password});
+      console.log('response login',response);
       if(response.data.message == ('Password not found' || 'User not found')) {
         return {message: 'Login error'};
       }
