@@ -67,7 +67,7 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser }) => {
       <div className="photo_profile">
         <img
           className="photo_profile_hero"
-          src={`${BASE_URL}${currentUser.userImage}`}
+          src={imageSrc || `${BASE_URL}${currentUser.userImage}`}
           alt=""
         />
         {/* <img

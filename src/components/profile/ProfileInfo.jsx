@@ -4,6 +4,7 @@ import '../../styles/loginForm.scss';
 import { logout } from '../../store/authUser';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../http/baseUrl';
 const ProfileInfo = ({openSetting}) => {
     const [isEdit, setIsEdit] = useState(true);
     const dispatch = useDispatch();
@@ -29,7 +30,7 @@ const ProfileInfo = ({openSetting}) => {
     return (
         <div className='profile_user_wrap'>
             <div className='photo_profile'>
-                <img src="./file/Rectangle 53.png" alt="" />
+                <img src={`${BASE_URL}${user.userImage}`} alt="" />
             </div>
             <div
             className='content'
