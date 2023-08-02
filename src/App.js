@@ -10,6 +10,7 @@ import NewProject from './components/project/NewProject';
 import RulesProject from './components/project/RulesProject';
 import AdminLogin from './components/admin/AdminLogin';
 import AdminProfile from './components/admin/AdminProfile';
+import ProjectAllList from './components/project/ProjectAllList';
 import { checkAuthUser } from './store/authUser';
 import { checkAuthAdmin } from './store/authAdmin';
 import { useDispatch, useSelector } from 'react-redux';
@@ -46,7 +47,9 @@ function App() {
           <Route path='/new-project' element={<NewProject/>}/>
           <Route path='/rules' element={<RulesProject/>}/>
           <Route path='/admin-login' element={<AdminLogin/>}/>
-          {isAdmin && <Route path='/admin-profile' element={<AdminProfile/>}/>}
+          <Route path='/discover' element={<ProjectAllList/>}/>
+          {/* {isAdmin && <Route path='/admin-profile' element={<AdminProfile/>}/>} */}
+          <Route path='/admin-profile' element={<AdminProfile/>}/>
         </Routes>
       <Footer/>
 
