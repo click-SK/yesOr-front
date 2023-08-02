@@ -14,7 +14,10 @@ const MainPage = () => {
                 <h1 className='banner_head_title'>YOUR CHOICE IS TO DO GOOD OR...</h1>
                 <p className='banner_head_descript'>The first and only social project of its kind</p>
                 <div className='banner_head_buttons'>
-                    <button>Discover</button>
+                    <Link
+                     to='/discover'>
+                        <button>Discover</button>
+                    </Link>
                     <Link
                     to='/new-project'
                     >

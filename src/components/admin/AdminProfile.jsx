@@ -8,6 +8,7 @@ import '../../styles/admin.scss';
 import { logout } from '../../store/authAdmin';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import UserList from './userList/UserList';
 const AdminProfile = () => {
     const [isOpenProject, setIsOpenProject] = useState(true)
     const [isOpenProfile, setIsOpenProfile] = useState(false)
@@ -155,7 +156,7 @@ const AdminProfile = () => {
             </ul>
             <div className='profile_content_wraper'>
                 {isOpenProject &&
-                    <AllProjectAdmin
+                    <UserList
                     projectArr = {projectArr}
                     isOpen = {isOpenProfile}
                     />
