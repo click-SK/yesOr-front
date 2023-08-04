@@ -77,6 +77,10 @@ h3{
     gap: 11px;
 }
 
+.danger {
+    color: $color_error;
+}
+
 
 .checkbox_input{
     @extend %input-checkbox;

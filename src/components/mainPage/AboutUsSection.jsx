@@ -23,7 +23,6 @@ const AboutUsMain = () => {
         image: './mainPage/courosel/aboutUs/image 1.png',
     },
   ];
-  
 
   const [activeIndex, setActiveIndex] = useState(2);
   const [animationDirection, setAnimationDirection] = useState(null);

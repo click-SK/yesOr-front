@@ -13,11 +13,19 @@ const ProfilePage = () => {
     const [isOpenSetting, setIsOpenSetting] = useState(false)
     const [isOpenMyProject, setIsOpenMyProject] = useState(false)
     const [currentUser, setCurrentUser] = useState({});
+    const [reloadUser, setReloadUser] = useState({});
     const { user } = useSelector((state) => state.authUser.user);
 
     useEffect(() => {
-        $api.get(`/get-me/${user._id}`).then((res) => setCurrentUser(res.data));
-      }, [user]);
+        try {
+            if(user) {
+            $api.get(`/get-me/${user._id}`).then((res) => setCurrentUser(res.data));
+            }
+        } catch(error) {
+            console.log(error);
+        }
+      }, [user, reloadUser]);
+      console.log('currentUser',currentUser);
 
     const openProject = () =>{
         setIsOpenProject(true);
@@ -71,11 +79,13 @@ const ProfilePage = () => {
                 {isOpenProfile &&
                     <ProfileInfo
                     openSetting={openSetting}
+                    currentUser={currentUser}
                     />
                 }
                 {isOpenSetting &&
                     <SettingPrifile
                     currentUser={currentUser}
+                    setReloadUser={setReloadUser}
                     />
                 }
                 {isOpenMyProject &&
