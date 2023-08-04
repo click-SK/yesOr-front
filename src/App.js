@@ -21,7 +21,7 @@ function App() {
   const isAuthUser = useSelector((state) => state.authUser.isAuthUser);
   const isAdmin = useSelector((state) => state.authAdmin.isAdmin);
 
-  console.log('isAdmin',isAdmin);
+  console.log('isAuthUser',isAuthUser);
 
   useEffect(() => {
     if(localStorage.getItem('Y-R-U-T')) {
@@ -48,8 +48,8 @@ function App() {
           <Route path='/rules' element={<RulesProject/>}/>
           <Route path='/admin-login' element={<AdminLogin/>}/>
           <Route path='/discover' element={<ProjectAllList/>}/>
-          {/* {isAdmin && <Route path='/admin-profile' element={<AdminProfile/>}/>} */}
-          <Route path='/admin-profile' element={<AdminProfile/>}/>
+          {isAdmin && <Route path='/admin-profile' element={<AdminProfile/>}/>}
+          {/* <Route path='/admin-profile' element={<AdminProfile/>}/> */}
         </Routes>
       <Footer/>
 

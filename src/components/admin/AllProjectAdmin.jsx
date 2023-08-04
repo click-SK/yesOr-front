@@ -6,11 +6,6 @@ const AllProjectAdmin = ({projectArr, isOpen}) => {
     const [isOpenModalConfirm, setIsOpenModalConfirm] = useState(false)
     const [isOpenModalUnConfirm, setIsOpenModalUnConfirm] = useState(false)
 
-    const confirm = 'Confirm Verification?'
-    const unConfirm = 'Are you sure you want to delete the request??'
-
-
-
     return (
         <div className='project_wrap'>
             <div className='project_header'>
@@ -41,12 +36,12 @@ const AllProjectAdmin = ({projectArr, isOpen}) => {
                 </div>
             ))}
             <ModalProjectConfirm
-            title={confirm}
+            title={'Confirm Verification?'}
             isOpenModal={isOpenModalConfirm}
             setIsOpen = {setIsOpenModalConfirm}
             />
             <ModalProjectConfirm
-            title={unConfirm}
+            title={'Are you sure you want to delete the request??'}
             isOpenModal={isOpenModalUnConfirm}
             setIsOpen = {setIsOpenModalUnConfirm}
             />

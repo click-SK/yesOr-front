@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { registration } from "../../store/authUser";
 import { useDispatch } from "react-redux";
+import * as validator from "../../validation/validator.js";
 const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -13,22 +14,38 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
   const [socialNetwork, setSocialNetwork] = useState('');
   const [passport, setPassport] = useState('');
   const [requisites, setRequisites] = useState('');
+  const [emailErrorMessage, setEmailErrorMessage] = useState('');
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
+  const [userAgreement, setUserAgreement] = useState('');
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleRegistration = async () => {
     try {
+      const resoult = validator.validationRegistration(email, password);
+
+      if(resoult.isValid && userAgreement) {
       const data = await dispatch(registration({email, password, firstName, lastName, phone, socialNetwork, passport, requisites}));
       if('user' in data.payload) {
+        setEmailErrorMessage('');
+        setPasswordErrorMessage('');
         window.localStorage.setItem('Y-R-U-T', data.payload.accessToken);
         navigate('/profile');
         window.location.reload();
+      } else {
+        alert(data.payload.message)
+      }
+      } else {
+        resoult.reason == 'email' ? setEmailErrorMessage(resoult.error) : setEmailErrorMessage('');
+        resoult.reason == 'password' ? setPasswordErrorMessage(resoult.error) : setPasswordErrorMessage('');
       }
     } catch(error) {
       console.log(error);
     }
   }
+
+  console.log('userAgreement',userAgreement);
 
   return (
     <div className="form_wrap_item sing_in_form">
@@ -41,6 +58,7 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}/>
             </div>
+            {emailErrorMessage && <p className="danger">{emailErrorMessage}</p>}
         <div className="input_item">
           <label htmlFor="first_name">First name*</label>
           <input id="first_name" 
@@ -78,6 +96,7 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}/>
         </div>
+        {passwordErrorMessage && <p className="danger">{passwordErrorMessage}</p>}
         <div className="input_item">
           <label htmlFor="passport">Passport *</label>
           <input id="passport" 
@@ -95,11 +114,18 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
       </div>
       <div className="input_checkbox_wrap">
         <div className="input_checkbox_wrap-item">
-          <input className="checkbox_input" id="remember_me" type="checkbox" />
-          <label htmlFor="remember_me">Confirm user agreement</label>
+          <input className="checkbox_input" 
+          id="remember_me" 
+          type="checkbox" 
+          checked={userAgreement}
+          onChange={() => setUserAgreement((state) => !state)}
+          />
+          <label htmlFor="remember_me" className={userAgreement ? '' : 'danger'}>Confirm user agreement</label>
         </div>
         <div className="input_checkbox_wrap-item">
-          <input className="checkbox_input" id="remember_me" type="checkbox" />
+          <input className="checkbox_input" 
+          id="remember_me" 
+          type="checkbox" />
           <label htmlFor="remember_me">Send me newsletter</label>
         </div>
       </div>

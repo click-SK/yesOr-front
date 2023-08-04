@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import {BASE_URL} from '../../http/baseUrl'
-const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser }) => {
+const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloadUser }) => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -47,15 +47,23 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser }) => {
     formData.append("lastName", lastName);
     formData.append("firstName", firstName);
     formData.append("id", currentUser._id);
-    axios.patch(`${BASE_URL}/update-user-data`, formData)
+    console.log('formData',formData);
+    axios.patch(`${BASE_URL}/update-user-data`, formData).then(() =>
+    setTimeout(() => {
+      setReloadUser((state) => !state)
+    },500))
   }
 
   const handleUpdateUserPassword = () => {
-    axios.patch(`${BASE_URL}/update-user-password`, {
-      id: currentUser._id,
-      currentPassword,
-      newPassword
-    })
+    try {
+      axios.patch(`${BASE_URL}/update-user-password`, {
+        id: currentUser._id,
+        currentPassword,
+        newPassword
+      })
+    } catch(error) {
+       console.log(error); 
+    }
   }
 
   const handleImageChange = (e) => {

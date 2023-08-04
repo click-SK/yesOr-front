@@ -19,6 +19,8 @@ const LogIn = ({hendlerChangeblock, isSingIn, mobile}) => {
                 localStorage.setItem('Y-R-U-T', data.payload.accessToken)
                 navigate('/profile');
                 window.location.reload();
+              } else {
+                alert(data.payload.message)
               }
         } catch(error) {
             console.log(error);

@@ -24,6 +24,8 @@ const AdminLogin = () => {
                 localStorage.setItem('Y-R-A-T', data.payload.accessToken)
                 navigate('/admin-profile');
                 window.location.reload();
+              } else {
+                alert(data.payload.message)
               }
         } catch(error) {
             console.log(error);

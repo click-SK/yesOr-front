@@ -13,7 +13,6 @@ const LoginForm = () => {
     const navigate = useNavigate();
 
     const isAuthUser = useSelector((state) => state.authUser.isAuthUser);
-    console.log('isAuthUser',isAuthUser);
 
     useEffect(() => {
         if(isAuthUser) {
