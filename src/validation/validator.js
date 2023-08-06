@@ -3,7 +3,7 @@ function isValidEmail(email) {
   return emailPattern.test(email);
 }
 
-export const validationRegistration = (email, password) => {
+export const validationRegistration = ({email, phone, password, firstName, lastName, passport, socialNetwork, requisites}) => {
     try {
       let valid = {
         isValid: true,
@@ -19,6 +19,37 @@ export const validationRegistration = (email, password) => {
         valid.isValid = false;
         valid.error = 'email error';
         valid.reason = 'email';
+      }
+
+      if(phone.length <=4) {
+        valid.isValid = false;
+        valid.error = 'phone error';
+        valid.reason = 'phone';
+      }
+      if(firstName.length <= 1) {
+        valid.isValid = false;
+        valid.error = 'firstName error';
+        valid.reason = 'firstName';
+      }
+      if(lastName.length <= 1) {
+        valid.isValid = false;
+        valid.error = 'lastName error';
+        valid.reason = 'lastName';
+      }
+      if(passport.length <= 4) {
+        valid.isValid = false;
+        valid.error = 'passport error';
+        valid.reason = 'passport';
+      }
+      if(socialNetwork.length <= 1) {
+        valid.isValid = false;
+        valid.error = 'socialNetwork error';
+        valid.reason = 'socialNetwork';
+      }
+      if(requisites.length <= 4) {
+        valid.isValid = false;
+        valid.error = 'requisites error';
+        valid.reason = 'requisites';
       }
 
       return valid;

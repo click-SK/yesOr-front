@@ -26,6 +26,12 @@ const LogIn = ({hendlerChangeblock, isSingIn, mobile}) => {
             console.log(error);
         }
     }
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            handleLogin();
+        }
+      };
     return (
         <div className='form_wrap_item log_in_form'>
         <FormTitle hendlerChange={hendlerChangeblock} isSingIn={isSingIn}/>
@@ -35,6 +41,7 @@ const LogIn = ({hendlerChangeblock, isSingIn, mobile}) => {
                 <input id={mobile ? 'email-login-user-mobile' : 'email-login-user'} 
                 type="text" 
                 value={email}
+                onKeyDown={handleKeyDown}
                 onChange={(e) => setEmail(e.target.value)}/>
             </div>
             <div className='input_item'>
@@ -42,6 +49,7 @@ const LogIn = ({hendlerChangeblock, isSingIn, mobile}) => {
                 <input id={mobile ? 'password-login-user-mobile' : 'password-login-user'} 
                 type="password" 
                 value={password}
+                onKeyDown={handleKeyDown}
                 onChange={(e) => setPassword(e.target.value)}/>
             </div>
         </div>

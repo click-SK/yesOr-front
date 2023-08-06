@@ -48,7 +48,7 @@ const UserItem = ({ item, setReloadUserData }) => {
       <div className="admin_project_item_svg">
         <img src="./icons/ph_chat-centered-dots-light.svg" alt="" />
         <div>
-          {item.isVerified ? (
+          {!item.isVerified ? (
             <img
               onClick={() => setIsOpenModalConfirm(!isOpenModalConfirm)}
               src="./icons/ph_info-light.svg"

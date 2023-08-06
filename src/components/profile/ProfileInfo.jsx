@@ -8,6 +8,7 @@ import { BASE_URL } from '../../http/baseUrl';
 import axios from 'axios';
 const ProfileInfo = ({openSetting, currentUser}) => {
     const [images, setImages] = useState([]);
+    const [addedDocuments, setAddedDocuments] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -45,6 +46,7 @@ const ProfileInfo = ({openSetting, currentUser}) => {
 
 const handleUploadDocuments = () => {
     try {
+      setAddedDocuments(true);
       const formData = new FormData();
       formData.append("id", user._id);
       images.forEach((image, index) => {
@@ -53,6 +55,9 @@ const handleUploadDocuments = () => {
       });
       axios.patch(`${BASE_URL}/upload-user-document`, formData).then((response) => {
         console.log(response.data);
+        setTimeout(() => {
+          setAddedDocuments(false);
+        },3000)
       }).catch((error) => {
         console.log(error);
       });
@@ -99,6 +104,7 @@ const handleImageChange = (e) => {
             />
             <button onClick={() => inputFileRef.current.click()} className={images.length != 0 ? 'success' : ''}> {images.length != 0 ? 'Documents uploaded' : 'Upload documents'}</button>
             {images.length != 0 && <button onClick={handleUploadDocuments}>Add Documents</button>}
+            {addedDocuments && <p>Documents added...</p>}
             <button onClick={handleLogout}>Logout</button>
           </div>
         </div>
