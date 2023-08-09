@@ -1,8 +1,9 @@
 import React from 'react';
 import { BASE_URL } from '../../http/baseUrl';
+import { Link } from 'react-router-dom';
 const ProjectListTemplate = ({item, hendlerOpenProject}) => {
     return (
-      <div onClick={(e) => hendlerOpenProject(item)} className="project_item">
+      <div className="project_item">
         {item.projectMedia.length != 0 ? (
           <img src={`${BASE_URL}${item.projectMedia[0]}`} alt="itemimg" />
         )

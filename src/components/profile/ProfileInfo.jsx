@@ -16,7 +16,7 @@ const ProfileInfo = ({openSetting, currentUser}) => {
 
     const {user} = useSelector((state) => state.authUser.user);
 
-    console.log('user.accessToken',user.accessToken);
+
 
     const handleLogout = () => {
         try {

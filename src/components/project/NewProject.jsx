@@ -6,6 +6,7 @@ import axios from 'axios';
 import { BASE_URL } from '../../http/baseUrl';
 import { useSelector } from 'react-redux';
 import { validationCreateProject } from '../../validation/validator';
+import $api from '../../http/httpUser';
 
 const NewProject = () => {
     const [images, setImages] = useState([]);
@@ -21,6 +22,9 @@ const NewProject = () => {
     const [targetAmount, setTargetAmount] = useState(0);
     const [bonus, setBonus] = useState('');
     const [userAgreement, setUserAgreement] = useState(false);
+    const [currentUser, setCurrentUser] = useState({});
+    const [reloadUser, setReloadUser] = useState({});
+    
 
     const [nameErrorMessage, setNameErrorMessage] = useState('');
     const [descriptionErrorMessage, setDescriptionErrorMessage] = useState('');
@@ -52,6 +56,17 @@ const NewProject = () => {
             setSubCategoryArray(selectedCategory.subcategory)
         }
     },[selectedCategory])
+
+    useEffect(() => {
+      try {
+          if(user) {
+          $api.get(`/get-me/${user._id}`).then((res) => setCurrentUser(res.data));
+          }
+      } catch(error) {
+          console.log(error);
+      }
+    }, [user, reloadUser]);
+    console.log('currentUser',currentUser?.isVerified);
 
     const handleSetDefaultCategory = () => {
       if(!selectedCategory) {
@@ -105,9 +120,13 @@ const NewProject = () => {
         } catch(e) {
             console.log(e);
         }
+        console.log('disabled');
     }
     return (
       <div className="new_project_wraper">
+        {!currentUser?.isVerified &&
+          <h6 className='warn_werificate'>Only verified users can publish projects!</h6>
+        }
         <div className="profile_title">
           <h2>Apply</h2>
         </div>
@@ -219,7 +238,11 @@ const NewProject = () => {
             </Link>
           </div>
         </div>
-        <button onClick={handleCreateNewProject}>Save</button>
+        <button 
+        disabled={currentUser?.isVerified ? false : true}
+        onClick={handleCreateNewProject}
+        >
+          Save</button>
         {/* </div> */}
       </div>
     );

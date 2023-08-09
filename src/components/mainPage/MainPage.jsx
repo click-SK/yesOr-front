@@ -6,8 +6,19 @@ import TeamSection from './TeamSection';
 import InformationSection from './InformationSection';
 import '../../styles/mainPage.scss'
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { checkAuthAdmin } from '../../store/authAdmin';
+import { checkAuthUser } from '../../store/authUser';
 
 const MainPage = () => {
+    const dispatch = useDispatch();
+    const isAuthUser = useSelector((state) => state.authUser.isAuthUser);
+    const isAdmin = useSelector((state) => state.authAdmin.isAdmin);
+
+    console.log('isAuthUserMainP',isAuthUser);
+    
+    const startProjectLink = isAuthUser ? '/new-project' : '/login';
+
     return (
         <div>
             <section className='section banner_head'>
@@ -18,9 +29,7 @@ const MainPage = () => {
                      to='/discover'>
                         <button>Discover</button>
                     </Link>
-                    <Link
-                    to='/new-project'
-                    >
+                    <Link to={startProjectLink}>
                         <button>Start a project</button>
                     </Link>
                 </div>
