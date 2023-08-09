@@ -1,11 +1,26 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import ProjectPage from '../project/ProjectPage';
 import { Link } from "react-router-dom";
-
+import { BASE_URL } from "../../http/baseUrl";
+import { useSelector } from 'react-redux';
+import axios from 'axios';
+import ProjectListTemplate from '../project/ProjectListTemplate';
 const MyPriject = () => {
 
-    const [isOpen, setIsOpen] = useState(false)
-    const [myProject, setMyPriject] = useState('')
+    const [isOpen, setIsOpen] = useState(false);
+    const [myProject, setMyPriject] = useState('');
+    const [userProjects, setUserProjects] = useState([]);
+
+    const {user} = useSelector((state) => state.authUser.user);
+
+    console.log('user',user);
+
+    useEffect(() => {
+        axios.get(`${BASE_URL}/get-my-projects/${user._id}`)
+        .then((res) => setUserProjects(res.data))
+    },[])
+
+    console.log('userProjects',userProjects);
 
     const projectArr = [
         {
@@ -66,30 +81,9 @@ const MyPriject = () => {
 
     return (
         <div className='project_wrap'>
-            {projectArr.map((item,idx) => (
-                <div
-                onClick={(e) => hendlerOpenProject(item)}
-                className='project_item' key={idx}>
-                    <img src={item.img} alt="itemimg" />
-                    <div>
-                    <h4>Info</h4>
-                    <p>{item.info}</p>
-                    </div>
-                    <div>
-                    <h4>Budget</h4>
-                    <p>{item.budget}</p>
-                    </div>
-                    <div>
-                    <h4>Main info</h4>
-                    <p>{item.mainInfo}</p>
-                    </div>
-                </div>
+            {userProjects.length != 0 && userProjects.map((item) => (
+                <ProjectListTemplate item={item} hendlerOpenProject={hendlerOpenProject} key={item._id}/>
             ))}
-                <ProjectPage
-                project = {myProject}
-                isOpen = {isOpen}
-                setIsOpen = {setIsOpen}
-                />
         </div>
     );
 };

@@ -38,6 +38,7 @@ function App() {
   return (
     <div className="App">
       <Header/>
+      <Header/>
         <Routes>
           <Route path='/' element={<MainPage/>}/>
           {/* {!isAuthUser && <Route path='/login' element={<LoginForm/>}/>} */}

@@ -58,3 +58,57 @@ export const validationRegistration = ({email, phone, password, firstName, lastN
       console.log(e);
     }
   };
+export const validationCreateProject = ({bonus, targetAmount, placementPeriod, team, request, description, name, category}) => {
+    try {
+      let valid = {
+        isValid: true,
+        error: '',
+        reason: ''
+      }
+      if(name.length <= 1) {
+        valid.isValid = false;
+        valid.error = 'name error';
+        valid.reason = 'name';
+      }
+      if(description.length <= 5) {
+        valid.isValid = false;
+        valid.error = 'description error';
+        valid.reason = 'description';
+      }
+      if(request.length <= 5) {
+        valid.isValid = false;
+        valid.error = 'request error';
+        valid.reason = 'request';
+      }
+      if(team.length <= 1) {
+        valid.isValid = false;
+        valid.error = 'team error';
+        valid.reason = 'team';
+      }
+      if(bonus.length <= 1) {
+        valid.isValid = false;
+        valid.error = 'bonus error';
+        valid.reason = 'bonus';
+      }
+      if(placementPeriod <= 1) {
+        valid.isValid = false;
+        valid.error = 'placementPeriod error';
+        valid.reason = 'placementPeriod';
+      }
+      if(targetAmount <= 1) {
+        valid.isValid = false;
+        valid.error = 'targetAmount error';
+        valid.reason = 'targetAmount';
+      }
+      if(!category) {
+        valid.isValid = false;
+        valid.error = 'category error';
+        valid.reason = 'category';
+      }
+
+      return valid;
+
+    } catch (e) {
+      console.log(e);
+    }
+  };
