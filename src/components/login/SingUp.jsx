@@ -16,6 +16,12 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
   const [requisites, setRequisites] = useState('');
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
+  const [phoneErrorMessage, setPhoneErrorMessage] = useState('');
+  const [firstNameErrorMessage, setFirstNameErrorMessage] = useState('');
+  const [lastNameErrorMessage, setLastNameErrorMessage] = useState('');
+  const [passportErrorMessage, setPassportErrorMessage] = useState('');
+  const [socialNetworkErrorMessage, setSocialNetworkErrorMessage] = useState('');
+  const [requisitesErrorMessage, setRequisitesErrorMessage] = useState('');
   const [userAgreement, setUserAgreement] = useState('');
 
   const navigate = useNavigate();
@@ -23,7 +29,7 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
 
   const handleRegistration = async () => {
     try {
-      const resoult = validator.validationRegistration(email, password);
+      const resoult = validator.validationRegistration({email, password, phone, firstName, lastName, passport, socialNetwork, requisites});
 
       if(resoult.isValid && userAgreement) {
       const data = await dispatch(registration({email, password, firstName, lastName, phone, socialNetwork, passport, requisites}));
@@ -39,6 +45,12 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
       } else {
         resoult.reason == 'email' ? setEmailErrorMessage(resoult.error) : setEmailErrorMessage('');
         resoult.reason == 'password' ? setPasswordErrorMessage(resoult.error) : setPasswordErrorMessage('');
+        resoult.reason == 'phone' ? setPhoneErrorMessage(resoult.error) : setPhoneErrorMessage('');
+        resoult.reason == 'firstName' ? setFirstNameErrorMessage(resoult.error) : setFirstNameErrorMessage('');
+        resoult.reason == 'lastName' ? setLastNameErrorMessage(resoult.error) : setLastNameErrorMessage('');
+        resoult.reason == 'passport' ? setPassportErrorMessage(resoult.error) : setPassportErrorMessage('');
+        resoult.reason == 'socialNetwork' ? setSocialNetworkErrorMessage(resoult.error) : setSocialNetworkErrorMessage('');
+        resoult.reason == 'requisites' ? setRequisitesErrorMessage(resoult.error) : setRequisitesErrorMessage('');
       }
     } catch(error) {
       console.log(error);
@@ -66,6 +78,7 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}/>
         </div>
+        {firstNameErrorMessage && <p className="danger">{firstNameErrorMessage}</p>}
         <div className="input_item">
           <label htmlFor="lust_name">Last name*</label>
           <input id="lust_name" 
@@ -73,6 +86,7 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}/>
         </div>
+        {lastNameErrorMessage && <p className="danger">{lastNameErrorMessage}</p>}
         <div className="input_item">
           <label htmlFor="phone">phone phone*</label>
           <input id="phone" 
@@ -80,6 +94,7 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
           value={phone}
           onChange={(e) => setPhone(e.target.value)}/>
         </div>
+        {phoneErrorMessage && <p className="danger">{phoneErrorMessage}</p>}
         <div className="input_item">
           <label htmlFor="socia">
             Specify a social network to contact you *
@@ -89,6 +104,7 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
           value={socialNetwork}
           onChange={(e) => setSocialNetwork(e.target.value)}/>
         </div>
+        {socialNetworkErrorMessage && <p className="danger">{socialNetworkErrorMessage}</p>}
         <div className="input_item">
           <label htmlFor="password1">Password *</label>
           <input id="password1" 
@@ -104,6 +120,7 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
           value={passport}
           onChange={(e) => setPassport(e.target.value)}/>
         </div>
+        {passportErrorMessage && <p className="danger">{passportErrorMessage}</p>}
         <div className="input_item">
           <label htmlFor="requi">Requisites *</label>
           <input id="requi" 
@@ -111,6 +128,7 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
           value={requisites}
           onChange={(e) => setRequisites(e.target.value)}/>
         </div>
+        {requisitesErrorMessage && <p className="danger">{requisitesErrorMessage}</p>}
       </div>
       <div className="input_checkbox_wrap">
         <div className="input_checkbox_wrap-item">
