@@ -99,7 +99,7 @@ const TeamSection = () => {
   const prevProject = projectData.find((project) => project.id === (activeIndex === 1 ? projectData.length : activeIndex - 1));
   const nextProject = projectData.find((project) => project.id === (activeIndex === projectData.length ? 1 : activeIndex + 1));
 
-  console.log(activeIndex);
+  // console.log(activeIndex);
     return (
         <section id='team' className='section team'>
             <div className='team_description'>

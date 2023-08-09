@@ -13,7 +13,7 @@ export const login = createAsyncThunk('admin-auth/login', async (payload, thunkA
     try {
       const { email, password } = payload;
       const response = await $api.post('/login-admin',{email, password});
-      console.log('response login',response);
+      // console.log('response login',response);
       if(response.data.message == 'Password not found' || response.data.message == 'User not found') {
         return {message: 'Wrong user or password'};
       }
@@ -27,7 +27,7 @@ export const login = createAsyncThunk('admin-auth/login', async (payload, thunkA
   export const checkAuthAdmin = createAsyncThunk('admin-auth/checkAuth ', async (_, thunkAPI) => {
     try {
       const response = await axios.get(`${BASE_URL}/refresh-admin`,{withCredentials: true})
-      console.log('response auth admin',response);
+      // console.log('response auth admin',response);
       if(response.data.message == 'Validation error') {
         return thunkAPI.dispatch(authAdminSlice.actions.setAuthAdmin(false));
       }
@@ -44,7 +44,7 @@ export const login = createAsyncThunk('admin-auth/login', async (payload, thunkA
   export const logout = createAsyncThunk('admin-auth/logout ', async (payload, thunkAPI) => {
     try {
       const response = await $api.post('/logout-admin');
-      console.log('payload.accessToken',payload.accessToken);
+      // console.log('payload.accessToken',payload.accessToken);
       localStorage.removeItem('Y-R-A-T',payload.accessToken)
     } catch (e) {
       console.log(e);

@@ -46,7 +46,7 @@ export const registration = createAsyncThunk('user-auth/registration', async (pa
   export const checkAuthUser = createAsyncThunk('user-auth/checkAuth ', async (_, thunkAPI) => {
     try {
       const response = await axios.get(`${BASE_URL}/refresh-user`,{withCredentials: true})
-      console.log('response auth1',response);
+      // console.log('response auth1',response);
       if(response.data.message == 'Validation error') {
         return thunkAPI.dispatch(authUserSlice.actions.setAuth(false));
       }

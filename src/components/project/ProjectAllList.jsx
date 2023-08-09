@@ -8,6 +8,9 @@ import FilterByName from './filters/FilterByName';
 import axios from 'axios';
 import { BASE_URL } from '../../http/baseUrl';
 import ProjectListTemplate from './ProjectListTemplate';
+import { Link } from 'react-router-dom';
+
+
 const ProjectAllList = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [myProject, setMyPriject] = useState('');
@@ -77,6 +80,8 @@ const ProjectAllList = () => {
         setIsOpen(true)
     }
 
+    console.log('project' , allProjects);
+
     return (
         <div className='profile_wrap'>
             <div className='profile_title'>
@@ -94,13 +99,15 @@ const ProjectAllList = () => {
                 </div>
             <div className='project_wrap project_wrap_page'>
             {allProjects.length != 0 && allProjects.map((item) => (
-                <ProjectListTemplate item={item} key={item._id}/>
+                <Link to={`/project/${item._id}`} key={item._id}>
+                    <ProjectListTemplate item={item} />
+                </Link>
             ))}
-                <ProjectPage
+                {/* <ProjectPage
                 project = {myProject}
                 isOpen = {isOpen}
                 setIsOpen = {setIsOpen}
-                />
+                /> */}
         </div>
             </div>
         </div>
