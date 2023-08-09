@@ -13,11 +13,11 @@ export const login = createAsyncThunk('admin-auth/login', async (payload, thunkA
     try {
       const { email, password } = payload;
       const response = await $api.post('/login-admin',{email, password});
-      console.log('response login',response);
-      if(response.data.message == ('Password not found' || 'User not found')) {
-        return {message: 'Login error'};
+      // console.log('response login',response);
+      if(response.data.message == 'Password not found' || response.data.message == 'User not found') {
+        return {message: 'Wrong user or password'};
       }
-      thunkAPI.dispatch(authAdminSlice.actions.setAuth(true));
+      thunkAPI.dispatch(authAdminSlice.actions.setAuthAdmin(true));
       return response.data;
     } catch (e) {
       console.log(e);
@@ -27,12 +27,12 @@ export const login = createAsyncThunk('admin-auth/login', async (payload, thunkA
   export const checkAuthAdmin = createAsyncThunk('admin-auth/checkAuth ', async (_, thunkAPI) => {
     try {
       const response = await axios.get(`${BASE_URL}/refresh-admin`,{withCredentials: true})
-      console.log('response auth1',response);
+      // console.log('response auth admin',response);
       if(response.data.message == 'Validation error') {
-        return thunkAPI.dispatch(authAdminSlice.actions.setAuth(false));
+        return thunkAPI.dispatch(authAdminSlice.actions.setAuthAdmin(false));
       }
-      thunkAPI.dispatch(authAdminSlice.actions.setAuth(true));
-      thunkAPI.dispatch(authAdminSlice.actions.setUser(response.data));
+      thunkAPI.dispatch(authAdminSlice.actions.setAuthAdmin(true));
+      thunkAPI.dispatch(authAdminSlice.actions.setAdminData(response.data));
       if(response.data.accessToken) {
       localStorage.setItem('Y-R-A-T', response.data.accessToken);
       }
@@ -44,7 +44,7 @@ export const login = createAsyncThunk('admin-auth/login', async (payload, thunkA
   export const logout = createAsyncThunk('admin-auth/logout ', async (payload, thunkAPI) => {
     try {
       const response = await $api.post('/logout-admin');
-      console.log('payload.accessToken',payload.accessToken);
+      // console.log('payload.accessToken',payload.accessToken);
       localStorage.removeItem('Y-R-A-T',payload.accessToken)
     } catch (e) {
       console.log(e);
@@ -55,10 +55,10 @@ const authAdminSlice = createSlice({
     name: "authUser",
     initialState,
     reducers: {
-      setAuth(state, action) {
+      setAuthAdmin(state, action) {
         state.isAdmin = action.payload;
       },
-      setUser(state, action) {
+      setAdminData(state, action) {
         state.user = action.payload;
       },
     },

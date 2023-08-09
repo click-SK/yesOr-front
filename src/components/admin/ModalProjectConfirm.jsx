@@ -1,6 +1,15 @@
 import React, {useState} from 'react';
 
-const ModalProjectConfirm = ({isOpenModal, setIsOpen, title}) => {
+const ModalProjectConfirm = ({isOpenModal, setIsOpen, title, handleVerifiedUser}) => {
+
+    const handleAprove = () => {
+        try {
+            handleVerifiedUser();
+            setIsOpen(!setIsOpen)
+        } catch(error) {
+           console.log(error); 
+        }
+    }
 
     return (
         <>
@@ -10,7 +19,7 @@ const ModalProjectConfirm = ({isOpenModal, setIsOpen, title}) => {
                         <h4>{title}</h4>
                         <div className='button_wrap'>
                             <button
-                            onClick={() => setIsOpen(!setIsOpen)}
+                            onClick={handleAprove}
                             >Yes</button>
                             <button
                              onClick={() => setIsOpen(!setIsOpen)}

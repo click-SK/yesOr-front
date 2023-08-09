@@ -24,11 +24,18 @@ const AdminLogin = () => {
                 localStorage.setItem('Y-R-A-T', data.payload.accessToken)
                 navigate('/admin-profile');
                 window.location.reload();
+              } else {
+                alert(data.payload.message)
               }
         } catch(error) {
             console.log(error);
         }
     }
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            handleLogin();
+        }
+      };
     return (
         <div className='login_form_wrap'>
             <div 
@@ -50,6 +57,7 @@ const AdminLogin = () => {
                         <input id='email-login-admin' 
                         type="text" 
                         value={email}
+                        onKeyDown={handleKeyDown}
                         onChange={(e) => setEmail(e.target.value)}/>
                     </div>
                     <div className='input_item'>
@@ -57,6 +65,7 @@ const AdminLogin = () => {
                         <input id='password-admin' 
                         type="password"
                         value={password}
+                        onKeyDown={handleKeyDown}
                         onChange={(e) => setPassword(e.target.value)}/>
                     </div>
                 </div>

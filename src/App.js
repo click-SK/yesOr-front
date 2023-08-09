@@ -11,6 +11,7 @@ import RulesProject from './components/project/RulesProject';
 import AdminLogin from './components/admin/AdminLogin';
 import AdminProfile from './components/admin/AdminProfile';
 import ProjectAllList from './components/project/ProjectAllList';
+import ProjectOne from './components/project/ProjectOne';
 import { checkAuthUser } from './store/authUser';
 import { checkAuthAdmin } from './store/authAdmin';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,7 +22,7 @@ function App() {
   const isAuthUser = useSelector((state) => state.authUser.isAuthUser);
   const isAdmin = useSelector((state) => state.authAdmin.isAdmin);
 
-  console.log('isAdmin',isAdmin);
+  // console.log('isAuthUser',isAuthUser);
 
   useEffect(() => {
     if(localStorage.getItem('Y-R-U-T')) {
@@ -38,6 +39,7 @@ function App() {
   return (
     <div className="App">
       <Header/>
+      <Header/>
         <Routes>
           <Route path='/' element={<MainPage/>}/>
           {/* {!isAuthUser && <Route path='/login' element={<LoginForm/>}/>} */}
@@ -48,8 +50,9 @@ function App() {
           <Route path='/rules' element={<RulesProject/>}/>
           <Route path='/admin-login' element={<AdminLogin/>}/>
           <Route path='/discover' element={<ProjectAllList/>}/>
-          {/* {isAdmin && <Route path='/admin-profile' element={<AdminProfile/>}/>} */}
-          <Route path='/admin-profile' element={<AdminProfile/>}/>
+          <Route path='/project/:id' element={<ProjectOne/>}/>
+          {isAdmin && <Route path='/admin-profile' element={<AdminProfile/>}/>}
+          {/* <Route path='/admin-profile' element={<AdminProfile/>}/> */}
         </Routes>
       <Footer/>
 

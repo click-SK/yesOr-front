@@ -23,7 +23,6 @@ const AboutUsMain = () => {
         image: './mainPage/courosel/aboutUs/image 1.png',
     },
   ];
-  
 
   const [activeIndex, setActiveIndex] = useState(2);
   const [animationDirection, setAnimationDirection] = useState(null);
@@ -97,7 +96,7 @@ const AboutUsMain = () => {
   const prevProject = projectData.find((project) => project.id === (activeIndex === 1 ? projectData.length : activeIndex - 1));
   const nextProject = projectData.find((project) => project.id === (activeIndex === projectData.length ? 1 : activeIndex + 1));
 
-  console.log('activeIndex',activeIndex);
+  // console.log('activeIndex',activeIndex);
 
   return (
     <section id='about_us' className='section about_us'>

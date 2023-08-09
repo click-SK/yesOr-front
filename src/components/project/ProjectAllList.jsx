@@ -1,15 +1,27 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import ProjectPage from '../project/ProjectPage';
 import FilterBudget from './filters/FilterBudget';
 import FilterCategories from './filters/FilterCategories';
 import FilterDataPicker from './filters/FilterDataPicker';
 import FilterSearch from './filters/FilterSearch';
 import FilterByName from './filters/FilterByName';
+import axios from 'axios';
+import { BASE_URL } from '../../http/baseUrl';
+import ProjectListTemplate from './ProjectListTemplate';
+import { Link } from 'react-router-dom';
+
 
 const ProjectAllList = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [myProject, setMyPriject] = useState('');
+    const [allProjects, setAllProjects] = useState([]);
 
-    const [isOpen, setIsOpen] = useState(false)
-    const [myProject, setMyPriject] = useState('')
+    useEffect(() => {
+        axios.get(`${BASE_URL}/get-all-projects`)
+        .then((res) => setAllProjects(res.data))
+    },[])
+
+    console.log('allProjects',allProjects);
 
     const projectArr = [
         {
@@ -68,6 +80,8 @@ const ProjectAllList = () => {
         setIsOpen(true)
     }
 
+    console.log('project' , allProjects);
+
     return (
         <div className='profile_wrap'>
             <div className='profile_title'>
@@ -84,30 +98,16 @@ const ProjectAllList = () => {
                     <FilterCategories/>
                 </div>
             <div className='project_wrap project_wrap_page'>
-            {projectArr.map((item,idx) => (
-                <div
-                onClick={(e) => hendlerOpenProject(item)}
-                className='project_item' key={idx}>
-                    <img src={item.img} alt="itemimg" />
-                    <div>
-                    <h4>Info</h4>
-                    <p>{item.info}</p>
-                    </div>
-                    <div>
-                    <h4>Budget</h4>
-                    <p>{item.budget}</p>
-                    </div>
-                    <div>
-                    <h4>Main info</h4>
-                    <p>{item.mainInfo}</p>
-                    </div>
-                </div>
+            {allProjects.length != 0 && allProjects.map((item) => (
+                <Link to={`/project/${item._id}`} key={item._id}>
+                    <ProjectListTemplate item={item} />
+                </Link>
             ))}
-                <ProjectPage
+                {/* <ProjectPage
                 project = {myProject}
                 isOpen = {isOpen}
                 setIsOpen = {setIsOpen}
-                />
+                /> */}
         </div>
             </div>
         </div>

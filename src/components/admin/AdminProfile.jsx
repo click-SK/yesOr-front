@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import SavedProject from '../profile/SavedProject';
 import ProfileInfo from '../profile/ProfileInfo';
 import SettingPrifile from '../profile/SettingPrifile';
@@ -9,16 +9,29 @@ import { logout } from '../../store/authAdmin';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import UserList from './userList/UserList';
+import $api from '../../http/httpAdmin';
 const AdminProfile = () => {
     const [isOpenProject, setIsOpenProject] = useState(true)
     const [isOpenProfile, setIsOpenProfile] = useState(false)
     const [isOpenSetting, setIsOpenSetting] = useState(false)
     const [isOpenMyProject, setIsOpenMyProject] = useState(false)
-
+    const [reloadUserData, setReloadUserData] = useState(false)
+    const [allUsers, setAllUsers] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const user = useSelector((state) => state.authAdmin.user);
+    const admin = useSelector((state) => state.authAdmin.user);
+
+    useEffect(() => {
+        try {
+            $api.get(`/get-all-users`).then((res) => setAllUsers(res.data));
+        } catch(error) {
+          console.log(error);
+        }
+      }, [admin, reloadUserData]);
+
+    console.log('allUsers first',allUsers);
 
     const handleLogout = () => {
         try {
@@ -157,14 +170,15 @@ const AdminProfile = () => {
             <div className='profile_content_wraper'>
                 {isOpenProject &&
                     <UserList
-                    projectArr = {projectArr}
-                    isOpen = {isOpenProfile}
+                    allusers={allUsers}
+                    isOpen={isOpenProfile}
+                    setReloadUserData={setReloadUserData}
                     />
                 }
                 {isOpenProfile &&
                     <AllProjectAdmin
                     projectArr={projectArr.filter(item => item.verif === 1)}
-                    isOpen = {isOpenProfile}
+                    isOpen={isOpenProfile}
                     />
                 }
                 {isOpenSetting &&
