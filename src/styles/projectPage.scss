@@ -328,6 +328,22 @@
         }
     }
 
+    .star_rating_disabled {
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        color: #494949;
+        &:hover {
+            color: #F37042;
+        }
+    }
+    .star_rating_active {
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        color: #F37042;
+    }
+
 
 
 @media (max-width: 670px){

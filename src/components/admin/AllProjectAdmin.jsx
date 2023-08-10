@@ -1,52 +1,64 @@
 import React, {useState} from 'react';
 import ModalProjectConfirm from './ModalProjectConfirm';
-
-const AllProjectAdmin = ({projectArr, isOpen}) => {
+import { Link } from 'react-router-dom';
+const AllProjectAdmin = ({projectArr, verified, handleChangeFunc, setReloadUserData}) => {
 
     const [isOpenModalConfirm, setIsOpenModalConfirm] = useState(false)
     const [isOpenModalUnConfirm, setIsOpenModalUnConfirm] = useState(false)
 
     return (
-        <div className='project_wrap'>
-            <div className='project_header'>
-                <h4>Full name</h4>
-                <h4>Сategory</h4>
-                <h4>Main info</h4>
-                <h4>Budget</h4>
-                <h4></h4>
-            </div>
-            {projectArr.map((item,idx) => (
-                <div
-                className='project_item admin_project_item' key={idx}>                    
-                    <p>{item.name}</p>
-                    <p>{item.categories}</p>
-                    <p>{item.mainInfo}</p>
-                    <p>{item.budget}</p>
-                    <div className='admin_project_item_svg'>
-                        <img src="./icons/ph_chat-centered-dots-light.svg" alt="" />
-                                {!isOpen && 
-                                    <img 
-                                    onClick={() => setIsOpenModalConfirm(!isOpenModalConfirm)}
-                                    src="./icons/ph_info-light.svg" alt="" />
-                                }                
-                        <img 
-                        onClick={() => setIsOpenModalUnConfirm(!isOpenModalUnConfirm)}
-                        src="./icons/delete.svg" alt="" />
-                    </div>
-                </div>
-            ))}
-            <ModalProjectConfirm
-            title={'Confirm Verification?'}
-            isOpenModal={isOpenModalConfirm}
-            setIsOpen = {setIsOpenModalConfirm}
-            />
-            <ModalProjectConfirm
-            title={'Are you sure you want to delete the request??'}
-            isOpenModal={isOpenModalUnConfirm}
-            setIsOpen = {setIsOpenModalUnConfirm}
-            />
-            
+      <div className="project_wrap">
+        <div className="project_header">
+          <h4>Full name</h4>
+          <h4>Сategory</h4>
+          <h4>Main info</h4>
+          <h4>Budget</h4>
+          <h4></h4>
         </div>
+        {projectArr.map((item, idx) => (
+          <div key={item._id} className="project_item admin_project_item">
+            <Link
+              to={`/project/${item.projects._id}`}
+              className="project_item admin_project_item"
+            >
+              <p>{item.projects.name}</p>
+              <p>{item.projects.category}</p>
+              <p>{item.projects.description}</p>
+              <p>{item.projects.target}</p>
+            </Link>
+            <div className="admin_project_item_svg">
+              <img src="./icons/ph_chat-centered-dots-light.svg" alt="" />
+              {!verified ? (
+                <img
+                  onClick={() => setIsOpenModalConfirm(!isOpenModalConfirm)}
+                  src="./icons/ph_info-light.svg"
+                  alt=""
+                />
+              ) : (
+                <img
+                  onClick={() => setIsOpenModalUnConfirm(!isOpenModalUnConfirm)}
+                  src="./icons/delete.svg"
+                  alt=""
+                />
+              )}
+            </div>
+            <ModalProjectConfirm
+              title={"Confirm Verification?"}
+              isOpenModal={isOpenModalConfirm}
+              setIsOpen={setIsOpenModalConfirm}
+              handleChangeFunc={handleChangeFunc}
+              item={item}
+            />
+            <ModalProjectConfirm
+              title={"Are you sure you want to delete the request?"}
+              isOpenModal={isOpenModalUnConfirm}
+              setIsOpen={setIsOpenModalUnConfirm}
+              handleChangeFunc={handleChangeFunc}
+              item={item}
+            />
+          </div>
+        ))}
+      </div>
     );
 };
 
