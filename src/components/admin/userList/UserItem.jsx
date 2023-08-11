@@ -24,6 +24,7 @@ const UserItem = ({ item, setReloadUserData }) => {
     }
   };
   const handleVerifiedUser = () => {
+    console.log('work');
     try {
       axios.patch(`${BASE_URL}/update-user-verified`, {
         id: item._id,
@@ -80,13 +81,13 @@ const UserItem = ({ item, setReloadUserData }) => {
         title={"Confirm Verification?"}
         isOpenModal={isOpenModalConfirm}
         setIsOpen={setIsOpenModalConfirm}
-        handleVerifiedUser={handleVerifiedUser}
+        handleChangeFunc={handleVerifiedUser}
       />
       <ModalProjectConfirm
         title={"Are you sure you want to delete the request??"}
         isOpenModal={isOpenModalUnConfirm}
         setIsOpen={setIsOpenModalUnConfirm}
-        handleVerifiedUser={handleVerifiedUser}
+        handleChangeFunc={handleVerifiedUser}
       />
     </div>
   );

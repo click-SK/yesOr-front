@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 
-const ModalProjectConfirm = ({isOpenModal, setIsOpen, title, handleVerifiedUser}) => {
+const ModalProjectConfirm = ({isOpenModal, setIsOpen, title, handleChangeFunc, item}) => {
 
     const handleAprove = () => {
         try {
-            handleVerifiedUser();
             setIsOpen(!setIsOpen)
+            handleChangeFunc(item);
         } catch(error) {
            console.log(error); 
         }
