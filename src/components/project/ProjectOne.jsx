@@ -5,12 +5,13 @@ import axios from "axios";
 import { Link } from 'react-router-dom'; 
 import {AiFillStar} from 'react-icons/ai';
 import '../../styles/projectPage.scss'
+import moment from 'moment';
 const ProjectOne = () => {
     const [currentProject, setCurrentProject] = useState(null);
     const [projectId, setProjectId] = useState('');
     const [donatsValue, setDonatsValue] = useState(0);
     const [fullName, setFullName] = useState('');
-
+    const [timeLeft, setTimeLeft] = useState('');
     const {user} = useSelector((state) => state.authUser.user);
 
     useEffect(() => {
@@ -20,8 +21,6 @@ const ProjectOne = () => {
         setProjectId(id);
     },[])
 
-    console.log('user user',user);
-
     useEffect(() => {
         if(projectId) {
             axios.get(`${BASE_URL}/get-one-project/${projectId}`)
@@ -29,8 +28,43 @@ const ProjectOne = () => {
         }
     },[projectId])
 
-    console.log('currentProject', currentProject);
-    console.log('currentProject user', user);
+    console.log('currentProject',currentProject);
+
+    useEffect(() => {
+        if(currentProject) {
+            function calculateTimeDifference(startDate, days) {
+                const currentDate = moment().utcOffset(3);
+                const futureDate = moment(startDate).add(days, 'days');
+              
+                const timeDifference = futureDate.diff(currentDate);
+              
+                const remainingDays = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                const remainingHours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const remainingMinutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+              
+                return {
+                  days: remainingDays,
+                  hours: remainingHours,
+                  minutes: remainingMinutes
+                };
+              }
+
+              console.log('date',moment().utcOffset(3)._d)
+              
+              // Приклад використання
+              const startDate = currentProject?.period?.startDate;
+              console.log('startDate',!!startDate);
+              const daysToAdd = currentProject?.period?.countDays;
+              
+              const remainingTime = calculateTimeDifference(startDate, daysToAdd);
+              console.log('remainingTime',remainingTime.days);
+              if(!!startDate) {
+                setTimeLeft(`${remainingTime.days} days, ${remainingTime.hours} hours, ${remainingTime.minutes} minutes`)
+              } else {
+                setTimeLeft('0')
+              }
+        }
+    },[currentProject])
 
     const handleSavedProject = () => {
         axios.patch(`${BASE_URL}/saved-project`, {
@@ -58,6 +92,13 @@ const ProjectOne = () => {
             projectId: currentProject._id,
             sum: donatsValue,
             user: fullName,
+            comment: 'Test',
+            userId: user._id
+        }).then(() => {
+            alert('succeed donates')
+            window.location.reload();
+            setFullName('');
+            setDonatsValue(0);
         })
     }
 
@@ -84,6 +125,8 @@ const ProjectOne = () => {
                         <div className='project_description'>
                             <h4>Target amount</h4>
                             <p>{currentProject?.target}</p>
+                            <h4>Colected amount</h4>
+                            <p>{currentProject?.amountCollected}</p>
                         </div>
                     </div>
                     <div className='right_column'>
@@ -102,7 +145,9 @@ const ProjectOne = () => {
                             </div>
                             <div className='details_item'>
                             <h4>Placement period</h4>
-                            <p>{currentProject?.period} </p>
+                            <p>{currentProject?.period?.countDays} Days</p>
+                            <h4>Time left</h4>
+                            <p>{timeLeft && timeLeft} </p>
                             </div>
                             <div className='details_item'>
                             <h4>Subcategory</h4>
@@ -139,6 +184,7 @@ const ProjectOne = () => {
                 <div key={item._id}>
                     <p>{item.user}</p>
                     <p>{item.sum}</p>
+                    <p>{item.date}</p>
                 </div>
             ))}
         </div>

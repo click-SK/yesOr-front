@@ -7,7 +7,8 @@ import { BASE_URL } from '../../http/baseUrl';
 import { useSelector } from 'react-redux';
 import { validationCreateProject } from '../../validation/validator';
 import $api from '../../http/httpUser';
-
+import moment from 'moment/moment';
+// moment().utcOffset(3)
 const NewProject = () => {
     const [images, setImages] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -101,12 +102,22 @@ const NewProject = () => {
               formData.append('description',description);
               formData.append('request',request);
               formData.append('team',team);
-              formData.append('period',placementPeriod);
+              formData.append('period',JSON.stringify({countDays: placementPeriod,startDate: ''}));
               formData.append('target',targetAmount);
               formData.append('bonus',bonus);
               formData.append('category',selectedCategory?.category);
               formData.append('subcategory',selectedSubCategory ? selectedSubCategory.name : '');
                 axios.post(`${BASE_URL}/create-project`, formData)
+                .then(() => {
+                  alert('Project added');
+                  setName('');
+                  setDescription('');
+                  setRequest('');
+                  setTeam('');
+                  setPlacementPeriod(0);
+                  setTargetAmount(0);
+                  setBonus('');
+                })
             } else {
                 resoult.reason == 'name' ? setNameErrorMessage(resoult.error) : setNameErrorMessage('');
                 resoult.reason == 'description' ? setDescriptionErrorMessage(resoult.error) : setDescriptionErrorMessage('');

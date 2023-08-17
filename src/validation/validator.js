@@ -10,43 +10,45 @@ export const validationRegistration = ({email, phone, password, firstName, lastN
         error: '',
         reason: ''
       }
-      if(password.length <= 7) {
-        valid.isValid = false;
-        valid.error = 'password error';
-        valid.reason = 'password';
-      }
       if(!isValidEmail(email)) {
+        console.log('not valid email');
         valid.isValid = false;
         valid.error = 'email error';
         valid.reason = 'email';
       }
 
-      if(phone.length <=4) {
+      if(password?.length <= 7) {
+        valid.isValid = false;
+        valid.error = 'password error';
+        valid.reason = 'password';
+      }
+
+      if(phone?.length <=4) {
         valid.isValid = false;
         valid.error = 'phone error';
         valid.reason = 'phone';
       }
-      if(firstName.length <= 1) {
+      if(firstName?.length <= 1) {
         valid.isValid = false;
         valid.error = 'firstName error';
         valid.reason = 'firstName';
       }
-      if(lastName.length <= 1) {
+      if(lastName?.length <= 1) {
         valid.isValid = false;
         valid.error = 'lastName error';
         valid.reason = 'lastName';
       }
-      if(passport.length <= 4) {
+      if(passport?.length <= 4) {
         valid.isValid = false;
         valid.error = 'passport error';
         valid.reason = 'passport';
       }
-      if(socialNetwork.length <= 1) {
+      if(socialNetwork?.length <= 1) {
         valid.isValid = false;
         valid.error = 'socialNetwork error';
         valid.reason = 'socialNetwork';
       }
-      if(requisites.length <= 4) {
+      if(requisites?.length <= 4) {
         valid.isValid = false;
         valid.error = 'requisites error';
         valid.reason = 'requisites';
