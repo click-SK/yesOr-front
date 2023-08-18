@@ -10,7 +10,6 @@ import { BASE_URL } from '../../http/baseUrl';
 import ProjectListTemplate from './ProjectListTemplate';
 import { Link } from 'react-router-dom';
 
-
 const ProjectAllList = () => {
     const [allProjects, setAllProjects] = useState([]);
 

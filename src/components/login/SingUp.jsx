@@ -29,7 +29,8 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
 
   const handleRegistration = async () => {
     try {
-      const resoult = validator.validationRegistration({email, password, phone, firstName, lastName, passport, socialNetwork, requisites});
+      const resoult = validator.validationRegistration({password, phone, firstName, lastName, passport, socialNetwork, requisites});
+      handleValidateEmail(email);
 
       if(resoult.isValid && userAgreement) {
       const data = await dispatch(registration({email, password, firstName, lastName, phone, socialNetwork, passport, requisites}));
@@ -43,7 +44,7 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
         alert(data.payload.message)
       }
       } else {
-        resoult.reason == 'email' ? setEmailErrorMessage(resoult.error) : setEmailErrorMessage('');
+        // resoult.reason == 'email' ? setEmailErrorMessage(resoult.error) : setEmailErrorMessage('');
         resoult.reason == 'password' ? setPasswordErrorMessage(resoult.error) : setPasswordErrorMessage('');
         resoult.reason == 'phone' ? setPhoneErrorMessage(resoult.error) : setPhoneErrorMessage('');
         resoult.reason == 'firstName' ? setFirstNameErrorMessage(resoult.error) : setFirstNameErrorMessage('');
@@ -59,6 +60,22 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
 
   console.log('userAgreement',userAgreement);
 
+  const handleEmail = (e) => {
+    setEmail(e);
+    handleValidateEmail(e);
+  }
+
+  const handleValidateEmail = (e) => {
+    const resoult = validator.validationRegistration({email: e});
+    console.log('resoult',resoult);
+
+    if(resoult?.isValid) {
+      setEmailErrorMessage('');
+    } else {
+      resoult?.reason == 'email' ? setEmailErrorMessage(resoult?.error) : setEmailErrorMessage('');
+    }
+  }
+  
   return (
     <div className="form_wrap_item sing_in_form">
       <div className="input_wrap">
@@ -68,7 +85,7 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
                 <input id={mobile ? 'email-sigin-user-mobile' : 'email-sigin-user'} 
                 type="text" 
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}/>
+                onChange={(e) => handleEmail(e.target.value)}/>
             </div>
             {emailErrorMessage && <p className="danger">{emailErrorMessage}</p>}
         <div className="input_item">
