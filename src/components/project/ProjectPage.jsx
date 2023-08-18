@@ -14,7 +14,7 @@ const ProjectPage = ({project, isOpen, setIsOpen}) => {
             <button>Back</button>
             </div>
             <div className='profile_title'>
-                <h2>Project</h2>
+                <h2>Project2</h2>
             </div>
             <div className='project_info'>
                     <div className='left_column'>
