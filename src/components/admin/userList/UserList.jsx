@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 // import ModalProjectConfirm from "../ModalProjectConfirm";
 import UserItem from "./UserItem";
-const UserList = ({allusers, isOpen, setReloadUserData }) => {
+const UserList = ({allusers, setReloadUserData }) => {
 
   return (
     <div className="project_wrap">
@@ -10,7 +10,6 @@ const UserList = ({allusers, isOpen, setReloadUserData }) => {
       {allusers.map((item) => (
         <UserItem key={item._id}
         item={item} 
-        isOpen={isOpen}
         setReloadUserData={setReloadUserData}
         />
       ))}

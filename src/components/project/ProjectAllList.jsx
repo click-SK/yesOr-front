@@ -12,75 +12,14 @@ import { Link } from 'react-router-dom';
 
 
 const ProjectAllList = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [myProject, setMyPriject] = useState('');
     const [allProjects, setAllProjects] = useState([]);
 
     useEffect(() => {
-        axios.get(`${BASE_URL}/get-all-projects`)
+        axios.get(`${BASE_URL}/get-all-verified-projects`)
         .then((res) => setAllProjects(res.data))
     },[])
 
     console.log('allProjects',allProjects);
-
-    const projectArr = [
-        {
-            img: './file/Rectangle 53.png ',
-            info: 'Lorem ipsum dolor sit amet consectetur.',
-            budget: '1000$',
-            mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
-        },
-        {
-            img: './file/Rectangle 53.png ',
-            info: 'Lorem ipsum dolor sit amet consectetur.',
-            budget: '2000$',
-            mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
-        },
-        {
-            img: './file/Rectangle 53.png ',
-            info: 'Lorem ipsum dolor sit amet consectetur.',
-            budget: '3000$',
-            mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
-        },
-        {
-            img: './file/Rectangle 53.png ',
-            info: 'Lorem ipsum dolor sit amet consectetur.',
-            budget: '4000$',
-            mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
-        },
-        {
-            img: './file/Rectangle 53.png ',
-            info: 'Lorem ipsum dolor sit amet consectetur.',
-            budget: '5000$',
-            mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
-        },
-        {
-            img: './file/Rectangle 53.png ',
-            info: 'Lorem ipsum dolor sit amet consectetur.',
-            budget: '1000$',
-            mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
-        },
-        {
-            img: './file/Rectangle 53.png ',
-            info: 'Lorem ipsum dolor sit amet consectetur.',
-            budget: '1000$',
-            mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
-        },
-        {
-            img: './file/Rectangle 53.png ',
-            info: 'Lorem ipsum dolor sit amet consectetur.',
-            budget: '1000$',
-            mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
-        },
-
-    ]
-
-    const hendlerOpenProject = (item) =>{
-        setMyPriject(item)
-        setIsOpen(true)
-    }
-
-    console.log('project' , allProjects);
 
     return (
         <div className='profile_wrap'>
@@ -99,15 +38,10 @@ const ProjectAllList = () => {
                 </div>
             <div className='project_wrap project_wrap_page'>
             {allProjects.length != 0 && allProjects.map((item) => (
-                <Link to={`/project/${item._id}`} key={item._id}>
-                    <ProjectListTemplate item={item} />
+                <Link to={`/project/${item.projects._id}`} key={item._id}>
+                    <ProjectListTemplate item={item.projects} />
                 </Link>
             ))}
-                {/* <ProjectPage
-                project = {myProject}
-                isOpen = {isOpen}
-                setIsOpen = {setIsOpen}
-                /> */}
         </div>
             </div>
         </div>

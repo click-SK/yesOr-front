@@ -10,13 +10,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import UserList from './userList/UserList';
 import $api from '../../http/httpAdmin';
+import axios from 'axios';
+import { BASE_URL } from '../../http/baseUrl';
 const AdminProfile = () => {
-    const [isOpenProject, setIsOpenProject] = useState(true)
-    const [isOpenProfile, setIsOpenProfile] = useState(false)
-    const [isOpenSetting, setIsOpenSetting] = useState(false)
-    const [isOpenMyProject, setIsOpenMyProject] = useState(false)
-    const [reloadUserData, setReloadUserData] = useState(false)
+    const [isOpenAllUsers, setIsOpenAllUsers] = useState(true);
+    const [isOpenProfile, setIsOpenProfile] = useState(false);
+    const [isOpenSetting, setIsOpenSetting] = useState(false);
+    const [reloadUserData, setReloadUserData] = useState(false);
     const [allUsers, setAllUsers] = useState([]);
+    const [allVerifiedProject, setAllVerifiedProject] = useState([]);
+    const [allNotVerifiedProject, setAllNotVerifiedProject] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -31,7 +34,18 @@ const AdminProfile = () => {
         }
       }, [admin, reloadUserData]);
 
-    console.log('allUsers first',allUsers);
+      useEffect(() => {
+        axios.get(`${BASE_URL}/get-all-verified-projects`)
+        .then((res) => setAllVerifiedProject(res.data))
+      },[reloadUserData])
+
+      useEffect(() => {
+        axios.get(`${BASE_URL}/get-all-not-verified-projects`)
+        .then((res) => setAllNotVerifiedProject(res.data))
+      },[reloadUserData])
+
+      console.log('allVerifiedProject',allVerifiedProject);
+      console.log('allNotVerifiedProject',allNotVerifiedProject);
 
     const handleLogout = () => {
         try {
@@ -45,105 +59,43 @@ const AdminProfile = () => {
         }
     }
 
-    const projectArr = [
-        {
-            img: './file/foto1.png ',
-            verif: 1,
-            name: 'Project interesting',
-            categories:'Lorem ipsum ',
-            info: 'Lorem ipsum dolor sit amet consectetur.',
-            budget: '1000$',
-            mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
-        },
-        {
-            img: './file/foto1.png ',
-            verif: 0,
-            name: 'Project interesting',
-            categories:'Lorem ipsum ',
-            info: 'Lorem ipsum dolor sit amet consectetur.',
-            budget: '2000$',
-            mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
-        },
-        {
-            img: './file/foto1.png ',
-            verif: 0,
-            name: 'Project interesting',
-            categories:'Lorem ipsum ',
-            info: 'Lorem ipsum dolor sit amet consectetur.',
-            budget: '13140$',
-            mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
-        },
-        {
-            img: './file/foto1.png ',
-            verif: 1,
-            name: 'Project interesting',
-            categories:'Lorem ipsum ',
-            info: 'Lorem ipsum dolor sit amet consectetur.',
-            budget: '1012300$',
-            mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
-        },
-        {
-            img: './file/foto1.png ',
-            verif: 1,
-            name: 'Project interesting',
-            categories:'Lorem ipsum ',
-            info: 'Lorem ipsum dolor sit amet consectetur.',
-            budget: '100110$',
-            mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
-        },
-        {
-            img: './file/foto1.png ',
-            verif: 0,
-            name: 'Project interesting',
-            categories:'Lorem ipsum ',
-            info: 'Lorem ipsum dolor sit amet consectetur.',
-            budget: '1000$',
-            mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
-        },
-        {
-            img: './file/foto1.png ',
-            verif: 1,
-            name: 'Project interesting',
-            categories:'Lorem ipsum ',
-            info: 'Lorem ipsum dolor sit amet consectetur.',
-            budget: '100230$',
-            mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
-        },
-        {
-            img: './file/foto1.png ',
-            verif: 1,
-            name: 'Project interesting',
-            categories:'Lorem ipsum ',
-            info: 'Lorem ipsum dolor sit amet consectetur.',
-            budget: '1000$',
-            mainInfo: 'Lorem ipsum dolor sit amet consectetur. '
-        },
-
-    ]
-
     const openProject = () =>{
-        setIsOpenProject(true);
+        setIsOpenAllUsers(true);
         setIsOpenProfile(false);
         setIsOpenSetting(false);
-        setIsOpenMyProject(false);
     }
     const openProfile = () =>{
         setIsOpenProfile(true);
-        setIsOpenProject(false);
+        setIsOpenAllUsers(false);
         setIsOpenSetting(false);
-        setIsOpenMyProject(false);
     }
     const openSetting = () =>{
         setIsOpenProfile(false);
-        setIsOpenProject(false);
+        setIsOpenAllUsers(false);
         setIsOpenSetting(true);
-        setIsOpenMyProject(false);
     }
-    const openMyProject = () =>{
-        setIsOpenProfile(false);
-        setIsOpenProject(false);
-        setIsOpenSetting(false);
-        setIsOpenMyProject(true);
+
+    const handleAddToVerified = (item) => {
+        axios.post(`${BASE_URL}/add-project-to-verified`, {
+            projectId: item.projects._id,
+            currentId: item._id
+        }).then(() => {
+            setTimeout(() => {
+                setReloadUserData((state) => !state)
+            },1000)
+        })
+        console.log('handleAddToVerified',item);
+    }
+    const handleRemoveFromVerified = (item) => {
+        axios.post(`${BASE_URL}/add-project-to-not-verified`, {
+            projectId: item.projects._id,
+            currentId: item._id
+        }).then(() => {
+            setTimeout(() => {
+                setReloadUserData((state) => !state)
+            },1000)
+        })
+        console.log('handleRemoveFromVerified',item);
     }
 
  
@@ -159,7 +111,7 @@ const AdminProfile = () => {
             <ul className='profile_nav'>
                 <li
                 onClick={() => openProject()}
-                 className={`profile_nav_item ${isOpenProject ? 'profile_nav_item-active' : ''}`}>All users</li>
+                 className={`profile_nav_item ${isOpenAllUsers ? 'profile_nav_item-active' : ''}`}>All users</li>
                 <li 
                 onClick={() => openProfile()}
                 className={`profile_nav_item ${isOpenProfile ? 'profile_nav_item-active' : ''}`}>Verified</li>
@@ -168,28 +120,27 @@ const AdminProfile = () => {
                 className={`profile_nav_item ${isOpenSetting ? 'profile_nav_item-active' : ''}`}>Not verified</li>
             </ul>
             <div className='profile_content_wraper'>
-                {isOpenProject &&
+                {isOpenAllUsers &&
                     <UserList
                     allusers={allUsers}
-                    isOpen={isOpenProfile}
                     setReloadUserData={setReloadUserData}
                     />
                 }
                 {isOpenProfile &&
                     <AllProjectAdmin
-                    projectArr={projectArr.filter(item => item.verif === 1)}
-                    isOpen={isOpenProfile}
+                    projectArr={allVerifiedProject && allVerifiedProject}
+                    verified={true}
+                    handleChangeFunc={handleRemoveFromVerified}
                     />
                 }
                 {isOpenSetting &&
                     <AllProjectAdmin
-                    projectArr={projectArr.filter(item => item.verif === 0)}
-                    isOpen = {isOpenProfile}
+                    projectArr={allNotVerifiedProject && allNotVerifiedProject}
+                    verified={false}
+                    handleChangeFunc={handleAddToVerified}
                     />
                 }
-
             </div>
-
         </div>
     );
 };
