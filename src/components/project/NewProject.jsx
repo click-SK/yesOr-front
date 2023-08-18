@@ -25,7 +25,8 @@ const NewProject = () => {
     const [userAgreement, setUserAgreement] = useState(false);
     const [currentUser, setCurrentUser] = useState({});
     const [reloadUser, setReloadUser] = useState({});
-    
+    const [teamBlocks, setTeamBlocks] = useState([]);
+    const [bonusBlocks, setBonusBlocks] = useState([{ title: '', amount: '' }]);
 
     const [nameErrorMessage, setNameErrorMessage] = useState('');
     const [descriptionErrorMessage, setDescriptionErrorMessage] = useState('');
@@ -133,6 +134,25 @@ const NewProject = () => {
         }
         console.log('disabled');
     }
+
+    const handleAddTeamBlock = () => {
+      setTeamBlocks((prevBlocks) => [...prevBlocks, '']);
+    };
+  
+    const handleRemoveTeamBlock = (index) => {
+      setTeamBlocks((prevBlocks) => prevBlocks.filter((_, i) => i !== index));
+    };
+  
+    const handleAddBonusBlock = () => {
+      setBonusBlocks((prevBlocks) => [...prevBlocks, { title: '', amount: '' }]);
+    };
+  
+    const handleRemoveBonusBlock = (index) => {
+      setBonusBlocks((prevBlocks) => prevBlocks.filter((_, i) => i !== index));
+    };
+
+    console.log('team', bonusBlocks);
+
     return (
       <div className="new_project_wraper">
         {!currentUser?.isVerified &&
@@ -200,12 +220,29 @@ const NewProject = () => {
           </div>
           {requestErrorMessage && <p className="danger">{requestErrorMessage}</p>}
           <div className="input_item">
-            <label htmlFor="team">Team*</label>
-            <input id="team" 
-            type="text"
-            value={team}
-            onChange={(e) => setTeam(e.target.value)} />
+        <label htmlFor="team">Team*</label>
+        <input
+          id="team"
+          type="text"
+          value={team}
+          onChange={(e) => setTeam(e.target.value)}
+        />
+        <button onClick={handleAddTeamBlock}>+</button>
+        {teamBlocks.map((block, index) => (
+          <div key={index} className="team-block">
+            <input
+              type="text"
+              value={teamBlocks[index]}
+              onChange={(e) =>
+                setTeamBlocks((prevBlocks) =>
+                  prevBlocks.map((b, i) => (i === index ? e.target.value : b))
+                )
+              }
+            />
+            <button onClick={() => handleRemoveTeamBlock(index)}>-</button>
           </div>
+        ))}
+      </div>
           {teamErrorMessage && <p className="danger">{teamErrorMessage}</p>}
           <div className="input_item">
             <label htmlFor="placement">Placement period*</label>
@@ -224,12 +261,38 @@ const NewProject = () => {
           </div>
           {targetAmountErrorMessage && <p className="danger">{targetAmountErrorMessage}</p>}
           <div className="input_item">
-            <label htmlFor="bonus">Bonus for investors *</label>
-            <input id="bonus" 
-            type="text"
-            value={bonus}
-            onChange={(e) => setBonus(e.target.value)} />
+        <label htmlFor="bonus">Bonus for investors *</label>
+        <button onClick={handleAddBonusBlock}>+</button>
+        {bonusBlocks.map((block, index) => (
+          <div key={index} className="bonus-block">
+            <input
+              type="text"
+              placeholder="Title"
+              value={block.title}
+              onChange={(e) =>
+                setBonusBlocks((prevBlocks) =>
+                  prevBlocks.map((b, i) =>
+                    i === index ? { ...b, title: e.target.value } : b
+                  )
+                )
+              }
+            />
+            <input
+              type="text"
+              placeholder="Amount"
+              value={block.amount}
+              onChange={(e) =>
+                setBonusBlocks((prevBlocks) =>
+                  prevBlocks.map((b, i) =>
+                    i === index ? { ...b, amount: e.target.value } : b
+                  )
+                )
+              }
+            />
+            <button onClick={() => handleRemoveBonusBlock(index)}>-</button>
           </div>
+        ))}
+      </div>
           {bonusErrorMessage && <p className="danger">{bonusErrorMessage}</p>}
           <div className="input_checkbox_wrap">
             <div className="input_checkbox_wrap-item">
