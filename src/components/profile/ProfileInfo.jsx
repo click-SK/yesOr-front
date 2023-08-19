@@ -77,7 +77,7 @@ const handleImageChange = (e) => {
     }
   };
 
-    console.log('user',user);
+    console.log('images',images);
     return (
       <div className="profile_user_wrap">
         <div className="photo_profile">

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import {BASE_URL} from '../../http/baseUrl'
+import {BASE_URL} from '../../http/baseUrl';
+import SelectedDocuments from './SelectedDocuments';
 const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloadUser }) => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -13,17 +14,6 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloa
   const [newPassword, setNewPassword] = useState("");
   const [image, setImage] = useState(null);
   const [imageSrc, setImageSrc] = useState(null);
-  const [documentType, setDocumentType] = useState("passport");
-  const [passportType, setPassportType] = useState("new");
-  const [frontSide, setFrontSide] = useState(null);
-  const [backSide, setBackSide] = useState(null);
-  const [oldPassport, setOldPassport] = useState({
-    page1: null,
-    page2: null,
-    page3: null,
-    page4: null,
-    registration: null,
-  });
 
   const inputFileRef = useRef(null);
 
@@ -36,6 +26,7 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloa
       reader.readAsDataURL(image);
     }
   }, [image]);
+  console.log('image',image);
 
   useEffect(() => {
     setFirstName(currentUser.firstName);
@@ -79,28 +70,6 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloa
 
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
-  };
-
-  // verification
-  const handleDocumentTypeChange = (e) => {
-    setDocumentType(e.target.value);
-  };
-  const handlePassportTypeChange = (e) => {
-    setPassportType(e.target.value);
-  };
-  const handleFrontSideChange = (e) => {
-    setFrontSide(e.target.files[0]);
-  };
-
-  const handleBackSideChange = (e) => {
-    setBackSide(e.target.files[0]);
-  };
-
-  const handleOldPassportChange = (page, file) => {
-    setOldPassport((prevState) => ({
-      ...prevState,
-      [page]: file,
-    }));
   };
 
   return (
@@ -221,74 +190,7 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloa
           <button onClick={handleUpdateUserPassword}>Change password</button>
         </div>
       </div>
-      <div className="content">
-      <div className="input_item">
-        <label htmlFor="document_type">Document Type</label>
-        <select id="document_type" value={documentType} onChange={handleDocumentTypeChange}>
-          <option value="passport">Passport</option>
-          <option value="driverLicense">Driver's License</option>
-        </select>
-      </div>
-      {documentType === "driverLicense" && (
-        <div>
-          <div className="input_item">
-            <label htmlFor="front_side">Front Side of Driver's License</label>
-            <input type="file" name="front_side" onChange={handleFrontSideChange} />
-          </div>
-          <div className="input_item">
-            <label htmlFor="back_side">Back Side of Driver's License</label>
-            <input type="file" name="back_side" onChange={handleBackSideChange} />
-          </div>
-        </div>
-      )}
-      {documentType === "passport" && (
-        <div>
-          <div className="input_item">
-            <label htmlFor="passport_type">Passport Type</label>
-            <select id="passport_type" value={passportType} onChange={handlePassportTypeChange}>
-              <option value="new">New</option>
-              <option value="old">Old</option>
-            </select>
-          </div>
-          {passportType === "new" && (
-            <div>
-              <div className="input_item">
-                <label htmlFor="front_page">Front Page of Passport</label>
-                <input type="file" name="front_page" onChange={handleFrontSideChange} />
-              </div>
-              <div className="input_item">
-                <label htmlFor="back_page">Back Page of Passport</label>
-                <input type="file" name="back_page" onChange={handleBackSideChange} />
-              </div>
-            </div>
-          )}
-          {passportType === "old" && (
-            <div>
-              <div className="input_item">
-                <label htmlFor="page1">Page 1 of Passport</label>
-                <input type="file" name="page1" onChange={(e) => handleOldPassportChange("page1", e.target.files[0])} />
-              </div>
-              <div className="input_item">
-                <label htmlFor="page2">Page 2 of Passport</label>
-                <input type="file" name="page2" onChange={(e) => handleOldPassportChange("page2", e.target.files[0])} />
-              </div>
-              <div className="input_item">
-                <label htmlFor="page3">Page 3 of Passport</label>
-                <input type="file" name="page3" onChange={(e) => handleOldPassportChange("page3", e.target.files[0])} />
-              </div>
-              <div className="input_item">
-                <label htmlFor="page4">Page 4 of Passport</label>
-                <input type="file" name="page4" onChange={(e) => handleOldPassportChange("page4", e.target.files[0])} />
-              </div>
-              <div className="input_item">
-                <label htmlFor="registration">Registration Page of Passport</label>
-                <input type="file" name="registration" onChange={(e) => handleOldPassportChange("registration", e.target.files[0])} />
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-      </div>
+      <SelectedDocuments/>
       </div>
     </div>
   );
