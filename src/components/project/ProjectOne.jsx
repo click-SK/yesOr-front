@@ -15,6 +15,7 @@ const ProjectOne = () => {
     const [fullName, setFullName] = useState('');
     const [timeLeft, setTimeLeft] = useState('');
     const {user} = useSelector((state) => state.authUser.user);
+    const [percentCollected, setPercentCollected] = useState(0);
     const [currentImg, setCurrentImg] = useState('/file/proj/1.png')
     const [imgProject, setImgProject] = useState([
         '/file/proj/1.png',
@@ -37,43 +38,52 @@ const ProjectOne = () => {
         }
     },[projectId])
 
-    console.log('currentProject',currentProject);
+    
 
     useEffect(() => {
-        if(currentProject) {
-            function calculateTimeDifference(startDate, days) {
-                const currentDate = moment().utcOffset(3);
-                const futureDate = moment(startDate).add(days, 'days');
-              
-                const timeDifference = futureDate.diff(currentDate);
-              
-                const remainingDays = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-                const remainingHours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const remainingMinutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-              
-                return {
-                  days: remainingDays,
-                  hours: remainingHours,
-                  minutes: remainingMinutes
-                };
-              }
-
-              console.log('date',moment().utcOffset(3)._d)
-              
-              // Приклад використання
-              const startDate = currentProject?.period?.startDate;
-              console.log('startDate',!!startDate);
-              const daysToAdd = currentProject?.period?.countDays;
-              
-              const remainingTime = calculateTimeDifference(startDate, daysToAdd);
-              console.log('remainingTime',remainingTime.days);
-              if(!!startDate) {
-                setTimeLeft(`${remainingTime.days} days, ${remainingTime.hours} hours, ${remainingTime.minutes} minutes`)
-              } else {
-                setTimeLeft('0')
-              }
+        if (currentProject) {
+            const collected = currentProject.amountCollected;
+            const target = currentProject.target;
+            const percent = (collected / target) * 100;
+            setPercentCollected(percent);
         }
-    },[currentProject])
+    }, [currentProject]);
+
+    // useEffect(() => {
+    //     if(currentProject) {
+    //         function calculateTimeDifference(startDate, days) {
+    //             const currentDate = moment().utcOffset(3);
+    //             const futureDate = moment(startDate).add(days, 'days');
+              
+    //             const timeDifference = futureDate.diff(currentDate);
+              
+    //             const remainingDays = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    //             const remainingHours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    //             const remainingMinutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+              
+    //             return {
+    //               days: remainingDays,
+    //               hours: remainingHours,
+    //               minutes: remainingMinutes
+    //             };
+    //           }
+
+    //           console.log('date',moment().utcOffset(3)._d)
+              
+    //           // Приклад використання
+    //           const startDate = currentProject?.period?.startDate;
+    //           console.log('startDate',!!startDate);
+    //           const daysToAdd = currentProject?.period?.countDays;
+              
+    //           const remainingTime = calculateTimeDifference(startDate, daysToAdd);
+    //           console.log('remainingTime',remainingTime.days);
+    //           if(!!startDate) {
+    //             setTimeLeft(`${remainingTime.days} days, ${remainingTime.hours} hours, ${remainingTime.minutes} minutes`)
+    //           } else {
+    //             setTimeLeft('0')
+    //           }
+    //     }
+    // },[currentProject])
 
     const handleSavedProject = () => {
         axios.patch(`${BASE_URL}/saved-project`, {
@@ -113,6 +123,36 @@ const ProjectOne = () => {
 
     console.log('currentProject', currentProject);
 
+    // const [timeLeft, setTimeLeft] = useState('');
+    // useEffect(() => {
+    //     if (currentProject && currentProject.period && currentProject.period.startDate && currentProject.period.countDays) {
+    //         const endDate = new Date(currentProject.period.startDate);
+    //         endDate.setDate(endDate.getDate() + currentProject.period.countDays);
+
+    //         const timerInterval = setInterval(() => {
+    //             const currentDate = new Date();
+    //             const timeDifference = endDate - currentDate;
+
+    //             if (timeDifference > 0) {
+    //                 const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    //                 const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    //                 const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+    //                 const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+    //                 setTimeLeft(`${days} : ${hours} : ${minutes} : ${seconds}`);
+    //             } else {
+    //                 clearInterval(timerInterval);
+    //                 setTimeLeft('Time Expired');
+    //             }
+    //         }, 1000);
+
+    //         return () => {
+    //             clearInterval(timerInterval);
+    //         };
+    //     }
+    // }, [currentProject]);
+
+
     return (
     <div className='project_wraper'>
             <div 
@@ -129,8 +169,9 @@ const ProjectOne = () => {
                         <div className='target_wrap'>
                             <div className='target_wrap_title'><p>{currentProject?.target} $</p></div>
                             <div className='target_range'>
-                                <div className='target_curent' style={{width:'50%'}} ></div>
+                                <div className='target_curent' style={{ width: `${percentCollected}%` }} ></div>
                             </div>
+                            <p style={{width:`${percentCollected}%`, textAlign:'right'}}>{percentCollected}%</p>
                         </div>
                         <div className='project_description_wrap'>
                             <img className='main_img' src={currentImg} alt="" />
@@ -169,8 +210,8 @@ const ProjectOne = () => {
                             <div className='details_item'>
                             <h4>Placement period</h4>
                             <p>{currentProject?.period?.countDays} Days</p>
-                            <h4>Time left</h4>
-                            <p>{timeLeft && timeLeft} </p>
+                            {/* <h4>Time left</h4>
+                            <p>{timeLeft && timeLeft} </p> */}
                             </div>
                             <div className='details_item'>
                             <h4>Subcategory</h4>
