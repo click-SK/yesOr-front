@@ -7,8 +7,7 @@ import { BASE_URL } from '../../http/baseUrl';
 import { useSelector } from 'react-redux';
 import { validationCreateProject } from '../../validation/validator';
 import $api from '../../http/httpUser';
-import moment from 'moment/moment';
-// moment().utcOffset(3)
+
 const NewProject = () => {
     const [images, setImages] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -103,22 +102,12 @@ const NewProject = () => {
               formData.append('description',description);
               formData.append('request',request);
               formData.append('team',team);
-              formData.append('period',JSON.stringify({countDays: placementPeriod,startDate: ''}));
+              formData.append('period',placementPeriod);
               formData.append('target',targetAmount);
               formData.append('bonus',bonus);
               formData.append('category',selectedCategory?.category);
               formData.append('subcategory',selectedSubCategory ? selectedSubCategory.name : '');
                 axios.post(`${BASE_URL}/create-project`, formData)
-                .then(() => {
-                  alert('Project added');
-                  setName('');
-                  setDescription('');
-                  setRequest('');
-                  setTeam('');
-                  setPlacementPeriod(0);
-                  setTargetAmount(0);
-                  setBonus('');
-                })
             } else {
                 resoult.reason == 'name' ? setNameErrorMessage(resoult.error) : setNameErrorMessage('');
                 resoult.reason == 'description' ? setDescriptionErrorMessage(resoult.error) : setDescriptionErrorMessage('');
@@ -151,7 +140,7 @@ const NewProject = () => {
       setBonusBlocks((prevBlocks) => prevBlocks.filter((_, i) => i !== index));
     };
 
-    console.log('team', bonusBlocks);
+    console.log('team', teamBlocks);
 
     return (
       <div className="new_project_wraper">
@@ -220,29 +209,37 @@ const NewProject = () => {
           </div>
           {requestErrorMessage && <p className="danger">{requestErrorMessage}</p>}
           <div className="input_item">
-        <label htmlFor="team">Team*</label>
-        <input
-          id="team"
-          type="text"
-          value={team}
-          onChange={(e) => setTeam(e.target.value)}
-        />
-        <button onClick={handleAddTeamBlock}>+</button>
-        {teamBlocks.map((block, index) => (
-          <div key={index} className="team-block">
-            <input
-              type="text"
-              value={teamBlocks[index]}
-              onChange={(e) =>
-                setTeamBlocks((prevBlocks) =>
-                  prevBlocks.map((b, i) => (i === index ? e.target.value : b))
-                )
-              }
-            />
-            <button onClick={() => handleRemoveTeamBlock(index)}>-</button>
-          </div>
-        ))}
-      </div>
+  <label htmlFor="dynamicTeam">Team*</label>
+  <input
+    id="dynamicTeam"
+    type="text"
+    value={teamBlocks.length > 0 ? teamBlocks[0] : ''}
+    onChange={(e) => {
+      const updatedBlocks = [...teamBlocks];
+      if (updatedBlocks.length === 0) {
+        updatedBlocks.push(''); // Додавання нового блоку при введенні в порожній масив
+      }
+      updatedBlocks[0] = e.target.value;
+      setTeamBlocks(updatedBlocks);
+    }}
+  />
+
+  <button onClick={handleAddTeamBlock}>+</button>
+  {teamBlocks.map((block, index) => (
+    <div key={index} className="team-block">
+      <input
+        type="text"
+        value={teamBlocks[index]}
+        onChange={(e) => {
+          setTeamBlocks((prevBlocks) =>
+            prevBlocks.map((b, i) => (i === index ? e.target.value : b))
+          );
+        }}
+      />
+      <button onClick={() => handleRemoveTeamBlock(index)}>-</button>
+    </div>
+  ))}
+</div>
           {teamErrorMessage && <p className="danger">{teamErrorMessage}</p>}
           <div className="input_item">
             <label htmlFor="placement">Placement period*</label>

@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import {AiFillStar} from 'react-icons/ai';
 import '../../styles/projectPage.scss'
 import moment from 'moment';
+
+
 const ProjectOne = () => {
     const [currentProject, setCurrentProject] = useState(null);
     const [projectId, setProjectId] = useState('');
@@ -13,7 +15,14 @@ const ProjectOne = () => {
     const [fullName, setFullName] = useState('');
     const [timeLeft, setTimeLeft] = useState('');
     const {user} = useSelector((state) => state.authUser.user);
-
+    const [currentImg, setCurrentImg] = useState('/file/proj/1.png')
+    const [imgProject, setImgProject] = useState([
+        '/file/proj/1.png',
+        '/file/proj/2.png',
+        '/file/proj/3.png',
+        '/file/proj/4.png',
+        '/file/proj/5.png',
+    ])
     useEffect(() => {
         const url = window.location.href;
         const urlParts = url.split('/');
@@ -102,6 +111,8 @@ const ProjectOne = () => {
         })
     }
 
+    console.log('currentProject', currentProject);
+
     return (
     <div className='project_wraper'>
             <div 
@@ -115,8 +126,20 @@ const ProjectOne = () => {
             </div>
             <div className='project_info'>
                     <div className='left_column'>
+                        <div className='target_wrap'>
+                            <div className='target_wrap_title'><p>{currentProject?.target} $</p></div>
+                            <div className='target_range'>
+                                <div className='target_curent' style={{width:'50%'}} ></div>
+                            </div>
+                        </div>
                         <div className='project_description_wrap'>
-                            <img src="./file/project.png" alt="" />
+                            <img className='main_img' src={currentImg} alt="" />
+                            <div className='second_img_wrap'>
+
+                                {imgProject.map((item,idx) => (
+                                    <img key={idx} src={item} onClick={() => setCurrentImg(item)} alt="" />
+                                ))}
+                            </div>
                         </div>
                         <div className='project_description'>
                             <h4>Description</h4>
