@@ -20,7 +20,6 @@ const ProjectOne = () => {
     const [hourLeft, setHourLeft] = useState (null)
     const [minutsLeft, setMinutsLeft] = useState (null)
     const [secondLeft, setSecondLeft] = useState (null)
-    const {user} = useSelector((state) => state.authUser.user);
     const [percentCollected, setPercentCollected] = useState(0);
     const [currentImg, setCurrentImg] = useState('/file/proj/1.png')
     const [imgProject, setImgProject] = useState([
@@ -30,6 +29,9 @@ const ProjectOne = () => {
         '/file/proj/4.png',
         '/file/proj/5.png',
     ])
+
+    const {user} = useSelector((state) => state.authUser.user);
+
     useEffect(() => {
         const url = window.location.href;
         const urlParts = url.split('/');
@@ -37,12 +39,16 @@ const ProjectOne = () => {
         setProjectId(id);
     },[])
 
+    console.log('timeLeft',timeLeft);
+
     useEffect(() => {
         if(projectId) {
             axios.get(`${BASE_URL}/get-one-project/${projectId}`)
             .then((res) => setCurrentProject(res.data))
         }
     },[projectId])
+
+    console.log('currentProject 1',currentProject );
 
     
 
@@ -254,7 +260,9 @@ const ProjectOne = () => {
                             </div>
                             <div className='details_item'>
                             <h4>Team </h4>
-                            <p>{currentProject?.team}</p>
+                            <div>{currentProject?.team.map((item,idx) => (
+                                <p key={idx}>{item}</p>
+                            ))}</div>
                             </div>
                         </div>
                         <div className='project_request'>
@@ -263,32 +271,27 @@ const ProjectOne = () => {
                         </div>
                         <div className='project_bonus'>
                             <h4>Bonus for investors </h4>
-                            <p>{currentProject?.bonus}</p>
-                        </div>
-                        <div>
-                        <input 
-                        placeholder='Full name'
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}/>
-                        <input 
-                        type='number'
-                        value={donatsValue}
-                        onChange={(e) => setDonatsValue(e.target.value)}/>
-                            <button onClick={handleSendDonats}>Donats</button>
+                            <div>{currentProject?.bonus.map((item) => (
+                                <div key={item._id}>
+                                    <p>{item.title}</p>
+                                    <p>{item.amount}</p>
+                                </div>
+                            ))}</div>
                         </div>
                     </div>
             </div>
             {currentProject && user && currentProject.user == user._id &&
             currentProject?.donatsHistory.map((item) => (
                 <div key={item._id}>
-                    <p>{item.user}</p>
-                    <p>{item.sum}</p>
-                    <p>{item.date}</p>
+                    <p>Name: {item.user}</p>
+                    <p>Sum: {item.sum}</p>
+                    <p>Comment: {item.text}</p>
+                    <p>Date: {item.date}</p>
                 </div>
             ))}
         <button onClick={() => setIsOpenDonat(!isOpenDonat)}>Open modal</button>
         {isOpenDonat && 
-        <DonatsModal/>}
+        <DonatsModal setIsOpen={setIsOpenDonat} currentProject={currentProject}/>}
         </div>
     );
 };

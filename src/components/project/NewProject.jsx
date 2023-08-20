@@ -112,6 +112,8 @@ const NewProject = () => {
     }
   };
 
+  console.log('placementPeriod',placementPeriod);
+
   const handleCreateNewProject = () => {
     try {
       const resoult = validation.validationCreateProject({
@@ -135,7 +137,7 @@ const NewProject = () => {
         formData.append("description", description);
         formData.append("request", request);
         formData.append("team", teamBlocks);
-        formData.append("period", placementPeriod);
+        formData.append("period", JSON.stringify({startDate: '',countDays: placementPeriod}));
         formData.append("target", targetAmount);
         formData.append("category", selectedCategory?.category);
         formData.append(

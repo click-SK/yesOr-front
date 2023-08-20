@@ -91,3 +91,51 @@ export const validationCreateProject = ({ targetAmount, placementPeriod, request
       console.log(e);
     }
   };
+export const validationDonate = ({ nameFirst, nameLast, amount, card, validity, cvv}) => {
+    try {
+      let valid = {
+        isValid: true,
+        error: '',
+        reason: ''
+      }
+      if(nameFirst?.length <= 1) {
+        valid.isValid = false;
+        valid.error = 'nameFirst error';
+        valid.reason = 'nameFirst';
+      }
+
+      if(nameLast?.length <= 1) {
+        valid.isValid = false;
+        valid.error = 'nameLast error';
+        valid.reason = 'nameLast';
+      }
+
+      if(card?.length <= 8) {
+        valid.isValid = false;
+        valid.error = 'card error';
+        valid.reason = 'card';
+      }
+
+      if(validity?.length <= 4) {
+        valid.isValid = false;
+        valid.error = 'validity error';
+        valid.reason = 'validity';
+      }
+      if(cvv?.length <= 2) {
+        valid.isValid = false;
+        valid.error = 'cvv error';
+        valid.reason = 'cvv';
+      }
+
+      if(amount <= 1) {
+        valid.isValid = false;
+        valid.error = 'amount error';
+        valid.reason = 'amount';
+      }
+
+      return valid;
+
+    } catch (e) {
+      console.log(e);
+    }
+  };
