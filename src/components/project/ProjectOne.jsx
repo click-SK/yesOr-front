@@ -6,11 +6,13 @@ import { Link } from 'react-router-dom';
 import {AiFillStar} from 'react-icons/ai';
 import '../../styles/projectPage.scss'
 import moment from 'moment';
-
+import DonatsModal from './donatsComp/DonatsModal';
+import HistoryDonats from './historiDonats/HistoryDonats';
 
 const ProjectOne = () => {
     const [currentProject, setCurrentProject] = useState(null);
     const [projectId, setProjectId] = useState('');
+    const [isOpenDonat, setIsOpenDonat] = useState(false)
     const [donatsValue, setDonatsValue] = useState(0);
     const [fullName, setFullName] = useState('');
     const [timeLeft, setTimeLeft] = useState('');
@@ -284,6 +286,9 @@ const ProjectOne = () => {
                     <p>{item.date}</p>
                 </div>
             ))}
+        <button onClick={() => setIsOpenDonat(!isOpenDonat)}>Open modal</button>
+        {isOpenDonat && 
+        <DonatsModal/>}
         </div>
     );
 };
