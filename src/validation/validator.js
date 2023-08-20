@@ -48,49 +48,42 @@ export const validationRegistration = ({email, phone, password, firstName, lastN
     }
   };
   
-export const validationCreateProject = ({ targetAmount, placementPeriod, request, description, name, category}) => {
+export const validationCreateProject = ({ targetAmount, placementPeriod, request, description, name}) => {
     try {
-      console.log('work 1',description);
       let valid = {
         isValid: true,
         error: '',
         reason: ''
       }
-      // if(!name || name.length <= 1) {
-      //   valid.isValid = false;
-      //   valid.error = 'name error';
-      //   valid.reason = 'name';
-      // }
-      console.log('work 2');
-      // if(!description || description.length <= 5) {
-      //   valid.isValid = false;
-      //   valid.error = 'description error';
-      //   valid.reason = 'description';
-      // }
-      console.log('work 3');
-      // if(request.length <= 5) {
-      //   valid.isValid = false;
-      //   valid.error = 'request error';
-      //   valid.reason = 'request';
-      // }
-      console.log('work 4');
-      // if(placementPeriod <= 1) {
-      //   valid.isValid = false;
-      //   valid.error = 'placementPeriod error';
-      //   valid.reason = 'placementPeriod';
-      // }
-      console.log('work 5');
-      // if(targetAmount <= 1) {
-      //   valid.isValid = false;
-      //   valid.error = 'targetAmount error';
-      //   valid.reason = 'targetAmount';
-      // }
-      // if(!category) {
-      //   valid.isValid = false;
-      //   valid.error = 'category error';
-      //   valid.reason = 'category';
-      // }
-      console.log('valid',valid);
+      if(name?.length <= 1) {
+        valid.isValid = false;
+        valid.error = 'name error';
+        valid.reason = 'name';
+      }
+
+      if(description?.length <= 5) {
+        valid.isValid = false;
+        valid.error = 'description error';
+        valid.reason = 'description';
+      }
+
+      if(request?.length <= 5) {
+        valid.isValid = false;
+        valid.error = 'request error';
+        valid.reason = 'request';
+      }
+
+      if(placementPeriod <= 1) {
+        valid.isValid = false;
+        valid.error = 'placementPeriod error';
+        valid.reason = 'placementPeriod';
+      }
+
+      if(targetAmount <= 1) {
+        valid.isValid = false;
+        valid.error = 'targetAmount error';
+        valid.reason = 'targetAmount';
+      }
 
       return valid;
 

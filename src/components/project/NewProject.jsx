@@ -226,6 +226,55 @@ const NewProject = () => {
     }
   }
 
+  const handleRequest = (e) => {
+    setRequest(e);
+    handleValidateRequest(e);
+  }
+
+  const handleValidateRequest = (e) => {
+
+    const resoult = validation.validationCreateProject({request: e});
+    console.log('resoult',resoult);
+
+    if(resoult?.isValid) {
+      setRequestErrorMessage('');
+    } else {
+      resoult?.reason == 'request' ? setRequestErrorMessage(resoult?.error) : setRequestErrorMessage('');
+    }
+  }
+  const handlePlacementPeriod = (e) => {
+    setPlacementPeriod(e);
+    handleValidatePlacementPeriod(e);
+  }
+
+  const handleValidatePlacementPeriod = (e) => {
+
+    const resoult = validation.validationCreateProject({placementPeriod: e});
+    console.log('resoult',resoult);
+
+    if(resoult?.isValid) {
+      setPlacementPeriodErrorMessage('');
+    } else {
+      resoult?.reason == 'placementPeriod' ? setPlacementPeriodErrorMessage(resoult?.error) : setPlacementPeriodErrorMessage('');
+    }
+  }
+  const handleTargetAmount = (e) => {
+    setTargetAmount(e);
+    handleValidateTargetAmount(e);
+  }
+
+  const handleValidateTargetAmount = (e) => {
+
+    const resoult = validation.validationCreateProject({targetAmount: e});
+    console.log('resoult',resoult);
+
+    if(resoult?.isValid) {
+      setTargetAmountErrorMessage('');
+    } else {
+      resoult?.reason == 'targetAmount' ? setTargetAmountErrorMessage(resoult?.error) : setTargetAmountErrorMessage('');
+    }
+  }
+
   return (
     <div className="new_project_wraper">
       {!currentUser?.isVerified && (
@@ -315,7 +364,7 @@ const NewProject = () => {
             id="request"
             type="text"
             value={request}
-            onChange={(e) => setRequest(e.target.value)}
+            onChange={(e) => handleRequest(e.target.value)}
           />
         </div>
         {requestErrorMessage && <p className="danger">{requestErrorMessage}</p>}
@@ -361,7 +410,7 @@ const NewProject = () => {
             id="placement"
             type="text"
             value={placementPeriod}
-            onChange={(e) => setPlacementPeriod(e.target.value)}
+            onChange={(e) => handlePlacementPeriod(e.target.value)}
           />
         </div>
         {placementPeriodErrorMessage && (
@@ -373,7 +422,7 @@ const NewProject = () => {
             id="target"
             type="text"
             value={targetAmount}
-            onChange={(e) => setTargetAmount(e.target.value)}
+            onChange={(e) => handleTargetAmount(e.target.value)}
           />
         </div>
         {targetAmountErrorMessage && (
