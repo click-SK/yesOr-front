@@ -1,0 +1,67 @@
+// modal Verified //
+
+.modal_wrap{
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(27, 27, 27, 0.70);
+}
+
+.item_body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10%;
+    align-items: center;
+    background: #FFF;
+    width: 80%;
+    max-width: 921px;
+    // height: 442px;
+    h4{
+        text-align: center;
+        padding: 0 5%;
+    }
+}
+
+
+
+.button_wrap{
+    display: flex;
+    gap: 5%;
+}
+
+.content_modal{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.pad{
+    padding: 150px;
+    gap: 50px;
+
+}
+
+textarea{
+    background: transparent;
+    height: 140px;
+    border: 1px solid #494949;
+    outline: none;
+    padding: 10px;
+    &:focus-visible{
+        border: 1px solid #F37042;
+        color: #F37042;
+        min-height: 34px;
+    }
+}
+
+.two_input_wrap{
+    display: flex;
+    
+}
