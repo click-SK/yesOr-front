@@ -140,6 +140,7 @@ const AdminProfile = () => {
                     handleChangeFunc={handleAddToVerified}
                     />
                 }
+                
             </div>
         </div>
     );

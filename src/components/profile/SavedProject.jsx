@@ -6,6 +6,7 @@ import {AiFillStar} from 'react-icons/ai';
 const SavedProject = ({savedProjects}) => {
     return (
         <div className='project_wrap'>
+            
             {savedProjects && savedProjects.length != 0 && savedProjects.map((item,idx) => (
                 <Link to={`/project/${item._id}`} key={item._id}>
                 <ProjectListTemplate item={item}/>

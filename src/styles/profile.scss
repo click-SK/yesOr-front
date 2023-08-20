@@ -89,6 +89,18 @@
     p{
     //    min-width: 253px;
     }
+    a{
+        width: 100%;
+    }
+    .admin_project_item_svg{
+        height: 150px;
+        border-bottom: 1px solid $color_prime;
+        svg{
+            width: 50px;
+            height: 50px;
+        }
+    }
+
 }
 
 h4{
@@ -174,6 +186,27 @@ p{
             fill: #F37042;
         }
     }
+}
+
+.favorit_title{
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+}
+
+.new_modal_project{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: url("../../public/mainPage/bg/pngtree-flowing-clean-mixed-lines-on-white-background-picture-image_1298863\ 2.svg") rgb(255, 227, 217);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: left;
+    padding: 50px 80px 200px;
+    z-index: 1000;
 }
 
 

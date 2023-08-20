@@ -98,7 +98,8 @@ const ProfilePage = () => {
         {isOpenProject && (
           <>
           <div className="donat_project">
-            <AiFillStar/>
+            <AiFillStar
+            onClick={() => setIsOpenDonatProject(!isOpenDonatProject)}/>
           </div>
           {!isOpenDonatProject ?
             <SavedProject
@@ -107,6 +108,7 @@ const ProfilePage = () => {
             :
             <ProjectDonat
             savedProjects={currentUser && currentUser.savedProjects}
+            setIsOpen = {setIsOpenDonatProject}
             />
           }
           </>

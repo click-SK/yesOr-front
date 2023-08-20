@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import ModalProjectConfirm from './ModalProjectConfirm';
 import { Link } from 'react-router-dom';
+import UserHistoryDonat from './userList/UserHistoryDonat';
 const AllProjectAdmin = ({projectArr, verified, handleChangeFunc, setReloadUserData}) => {
 
     const [isOpenModalConfirm, setIsOpenModalConfirm] = useState(false)
     const [isOpenModalUnConfirm, setIsOpenModalUnConfirm] = useState(false)
-
+    const [isOpenHistory, setIsOpenHistory] = useState(false)
+    
     return (
       <div className="project_wrap">
         <div className="project_header">
@@ -41,6 +43,12 @@ const AllProjectAdmin = ({projectArr, verified, handleChangeFunc, setReloadUserD
                   alt=""
                 />
               )}
+                            <img
+                className="history_icon"
+                src="./icons/solar_history-outline.svg"
+                alt=""
+                onClick={() => setIsOpenHistory(!isOpenHistory)}
+              />
             </div>
             <ModalProjectConfirm
               title={"Confirm Verification?"}
@@ -56,6 +64,12 @@ const AllProjectAdmin = ({projectArr, verified, handleChangeFunc, setReloadUserD
               handleChangeFunc={handleChangeFunc}
               item={item}
             />
+            {isOpenHistory && 
+      <UserHistoryDonat
+      setIsOpen = {setIsOpenHistory}
+      isUser = {false}
+      />
+      }
           </div>
         ))}
       </div>

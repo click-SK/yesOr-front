@@ -30,11 +30,16 @@
 .admin_project_item_svg{
     display: flex;
     justify-content: space-evenly;
-    flex: 35% 1;
+    flex: 0 1 35%;
+    align-items: center;
     img{
         max-width: 50px;
         max-height: 50px;
     }
+    .history_icon{
+        max-width: 55px;
+        max-height: 55px;
+      }
 }
 
 
@@ -56,11 +61,11 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 10%;
+    gap: 50px;
     align-items: center;
     background: #FFF;
     width: 80%;
-    max-width: 921px;
+    min-width: 921px;
     min-height: 442px;
     h4{
         text-align: center;
@@ -154,3 +159,12 @@
         object-fit: contain;
     }
   }
+
+  .block_user_btn{
+    svg, img{
+        width: 50px;
+        height: 50px;
+        fill: red;
+    }
+  }
+

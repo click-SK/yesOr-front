@@ -69,3 +69,27 @@ textarea{
     }
     
 }
+
+
+// history modal
+
+.content_modal{
+    width: 100%;
+}
+
+.title_wrap{
+    display: flex;
+    p{
+        font-size: 30px;
+        text-align: center;
+    }
+    margin-bottom: 30px;
+}
+
+.info_wrap{
+    display: flex;
+    border-bottom: 1px solid rgb(78, 78, 78);
+    p{
+        font-size: 20px;
+    }
+}
