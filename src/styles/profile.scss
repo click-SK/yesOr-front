@@ -159,6 +159,23 @@ p{
     }
 }
 
+.donat_project{
+    display: flex;
+    justify-content: end;
+    width: 100%;
+    height: 50px;
+    align-items: center;
+    padding: 5px;
+    svg{
+        height: 50px;
+        width: 50px;
+        cursor: pointer;
+        &:hover{
+            fill: #F37042;
+        }
+    }
+}
+
 
 @media (max-width: 1200px){
     .project_item {

@@ -3,7 +3,8 @@ import ProjectPage from '../project/ProjectPage';
 import ProjectListTemplate from '../project/ProjectListTemplate';
 import { Link } from 'react-router-dom';
 import {AiFillStar} from 'react-icons/ai';
-const SavedProject = ({savedProjects}) => {
+
+const ProjectDonat = ({savedProjects}) => {
     return (
         <div className='project_wrap'>
             {savedProjects && savedProjects.length != 0 && savedProjects.map((item,idx) => (
@@ -15,4 +16,4 @@ const SavedProject = ({savedProjects}) => {
     );
 };
 
-export default SavedProject;
+export default ProjectDonat;

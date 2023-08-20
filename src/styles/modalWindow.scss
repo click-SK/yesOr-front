@@ -63,5 +63,9 @@ textarea{
 
 .two_input_wrap{
     display: flex;
+    gap: 10px;
+    .input_item{
+        flex: 0 1 50%;
+    }
     
 }
