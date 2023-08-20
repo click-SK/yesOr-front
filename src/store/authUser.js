@@ -30,8 +30,8 @@ export const login = createAsyncThunk('user-auth/login', async (payload, thunkAP
   });
 export const registration = createAsyncThunk('user-auth/registration', async (payload, thunkAPI) => {
     try {
-      const { email, password, firstName, lastName, phone, socialNetwork, passport, requisites } = payload;
-      const response = await $api.post('/register-user',{email, password, firstName, lastName, phone, socialNetwork, passport, requisites});
+      const { email, password, firstName, lastName, phone, socialNetwork } = payload;
+      const response = await $api.post('/register-user',{email, password, firstName, lastName, phone, socialNetwork, passport: '', requisites: ''});
       if(response.data.message == 'Email already exists') {
         return {message: response.data.message};
       }

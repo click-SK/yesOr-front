@@ -3,7 +3,9 @@ function isValidEmail(email) {
   return emailPattern.test(email);
 }
 
-export const validationRegistration = ({email, phone, password, firstName, lastName, passport, socialNetwork, requisites}) => {
+
+
+export const validationRegistration = ({email, phone, password, firstName, lastName}) => {
     try {
       let valid = {
         isValid: true,
@@ -38,20 +40,49 @@ export const validationRegistration = ({email, phone, password, firstName, lastN
         valid.error = 'lastName error';
         valid.reason = 'lastName';
       }
-      if(passport?.length <= 4) {
-        valid.isValid = false;
-        valid.error = 'passport error';
-        valid.reason = 'passport';
+
+      return valid;
+
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  
+export const validationCreateProject = ({ targetAmount, placementPeriod, request, description, name}) => {
+    try {
+      let valid = {
+        isValid: true,
+        error: '',
+        reason: ''
       }
-      if(socialNetwork?.length <= 1) {
+      if(name?.length <= 1) {
         valid.isValid = false;
-        valid.error = 'socialNetwork error';
-        valid.reason = 'socialNetwork';
+        valid.error = 'name error';
+        valid.reason = 'name';
       }
-      if(requisites?.length <= 4) {
+
+      if(description?.length <= 5) {
         valid.isValid = false;
-        valid.error = 'requisites error';
-        valid.reason = 'requisites';
+        valid.error = 'description error';
+        valid.reason = 'description';
+      }
+
+      if(request?.length <= 5) {
+        valid.isValid = false;
+        valid.error = 'request error';
+        valid.reason = 'request';
+      }
+
+      if(placementPeriod <= 1) {
+        valid.isValid = false;
+        valid.error = 'placementPeriod error';
+        valid.reason = 'placementPeriod';
+      }
+
+      if(targetAmount <= 1) {
+        valid.isValid = false;
+        valid.error = 'targetAmount error';
+        valid.reason = 'targetAmount';
       }
 
       return valid;
@@ -60,52 +91,46 @@ export const validationRegistration = ({email, phone, password, firstName, lastN
       console.log(e);
     }
   };
-export const validationCreateProject = ({bonus, targetAmount, placementPeriod, team, request, description, name, category}) => {
+export const validationDonate = ({ nameFirst, nameLast, amount, card, validity, cvv}) => {
     try {
       let valid = {
         isValid: true,
         error: '',
         reason: ''
       }
-      if(name.length <= 1) {
+      if(nameFirst?.length <= 1) {
         valid.isValid = false;
-        valid.error = 'name error';
-        valid.reason = 'name';
+        valid.error = 'nameFirst error';
+        valid.reason = 'nameFirst';
       }
-      if(description.length <= 5) {
+
+      if(nameLast?.length <= 1) {
         valid.isValid = false;
-        valid.error = 'description error';
-        valid.reason = 'description';
+        valid.error = 'nameLast error';
+        valid.reason = 'nameLast';
       }
-      if(request.length <= 5) {
+
+      if(card?.length <= 8) {
         valid.isValid = false;
-        valid.error = 'request error';
-        valid.reason = 'request';
+        valid.error = 'card error';
+        valid.reason = 'card';
       }
-      if(team.length <= 1) {
+
+      if(validity?.length <= 4) {
         valid.isValid = false;
-        valid.error = 'team error';
-        valid.reason = 'team';
+        valid.error = 'validity error';
+        valid.reason = 'validity';
       }
-      if(bonus.length <= 1) {
+      if(cvv?.length <= 2) {
         valid.isValid = false;
-        valid.error = 'bonus error';
-        valid.reason = 'bonus';
+        valid.error = 'cvv error';
+        valid.reason = 'cvv';
       }
-      if(placementPeriod <= 1) {
+
+      if(amount <= 1) {
         valid.isValid = false;
-        valid.error = 'placementPeriod error';
-        valid.reason = 'placementPeriod';
-      }
-      if(targetAmount <= 1) {
-        valid.isValid = false;
-        valid.error = 'targetAmount error';
-        valid.reason = 'targetAmount';
-      }
-      if(!category) {
-        valid.isValid = false;
-        valid.error = 'category error';
-        valid.reason = 'category';
+        valid.error = 'amount error';
+        valid.reason = 'amount';
       }
 
       return valid;

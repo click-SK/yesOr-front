@@ -5,12 +5,13 @@ import SelectChoseCategory from "../SelectChoseCategory";
 import axios from "axios";
 import { BASE_URL } from "../../http/baseUrl";
 import { useSelector } from "react-redux";
-import { validationCreateProject } from "../../validation/validator";
+import * as validation from "../../validation/validator";
 import $api from "../../http/httpUser";
 import { BsPersonFillAdd } from 'react-icons/bs';
 
 const NewProject = () => {
   const [images, setImages] = useState([]);
+  const [imagesSrc, setImagesSrc] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const [subCategoryArray, setSubCategoryArray] = useState([]);
@@ -18,10 +19,8 @@ const NewProject = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [request, setRequest] = useState("");
-  const [team, setTeam] = useState("");
   const [placementPeriod, setPlacementPeriod] = useState(0);
   const [targetAmount, setTargetAmount] = useState(0);
-  const [bonus, setBonus] = useState("");
   const [userAgreement, setUserAgreement] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [reloadUser, setReloadUser] = useState({});
@@ -31,13 +30,35 @@ const NewProject = () => {
   const [nameErrorMessage, setNameErrorMessage] = useState("");
   const [descriptionErrorMessage, setDescriptionErrorMessage] = useState("");
   const [requestErrorMessage, setRequestErrorMessage] = useState("");
-  const [teamErrorMessage, setTeamErrorMessage] = useState("");
   const [placementPeriodErrorMessage, setPlacementPeriodErrorMessage] =
     useState("");
   const [targetAmountErrorMessage, setTargetAmountErrorMessage] = useState("");
-  const [bonusErrorMessage, setBonusErrorMessage] = useState("");
   const [categoryErrorMessage, setCategoryErrorMessage] = useState("");
   const { user } = useSelector((state) => state.authUser.user);
+
+  useEffect(() => {
+    if (images.length > 0) {
+      const loadImageSrc = async (image) => {
+        return new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onload = () => {
+            resolve(reader.result);
+          };
+          reader.readAsDataURL(image);
+        });
+      };
+  
+      const loadImageSrcs = async () => {
+        const loadedSrcs = await Promise.all(images.map((image) => loadImageSrc(image)));
+        setImagesSrc(loadedSrcs);
+      };
+  
+      loadImageSrcs();
+    }
+  }, [images]);
+
+  console.log('imagesSrc',imagesSrc);
+
 
   const inputFileRef = useRef(null);
 
@@ -91,38 +112,45 @@ const NewProject = () => {
     }
   };
 
+  console.log('placementPeriod',placementPeriod);
+
   const handleCreateNewProject = () => {
     try {
-      const resoult = validationCreateProject({
-        bonus,
+      const resoult = validation.validationCreateProject({
         targetAmount,
         placementPeriod,
-        team,
         request,
         description,
         name,
         category: selectedCategory?.category,
       });
+
       if (resoult.isValid && userAgreement) {
         const formData = new FormData();
         images.forEach((image, index) => {
           console.log("image", image);
           formData.append(`projectMedia`, image);
         });
+        formData.append('bonus', JSON.stringify(bonusBlocks));
         formData.append("userId", user._id);
         formData.append("name", name);
         formData.append("description", description);
         formData.append("request", request);
-        formData.append("team", team);
-        formData.append("period", placementPeriod);
+        formData.append("team", teamBlocks);
+        formData.append("period", JSON.stringify({startDate: '',countDays: placementPeriod}));
         formData.append("target", targetAmount);
-        formData.append("bonus", bonus);
         formData.append("category", selectedCategory?.category);
         formData.append(
           "subcategory",
           selectedSubCategory ? selectedSubCategory.name : ""
         );
-        axios.post(`${BASE_URL}/create-project`, formData);
+        axios.post(`${BASE_URL}/create-project`, formData)
+        .then(() => {
+          setTimeout(() => {
+            alert('Project added')
+            window.location.reload();
+          },500)
+        })
       } else {
         resoult.reason == "name"
           ? setNameErrorMessage(resoult.error)
@@ -133,12 +161,6 @@ const NewProject = () => {
         resoult.reason == "request"
           ? setRequestErrorMessage(resoult.error)
           : setRequestErrorMessage("");
-        resoult.reason == "team"
-          ? setTeamErrorMessage(resoult.error)
-          : setTeamErrorMessage("");
-        resoult.reason == "bonus"
-          ? setBonusErrorMessage(resoult.error)
-          : setBonusErrorMessage("");
         resoult.reason == "placementPeriod"
           ? setPlacementPeriodErrorMessage(resoult.error)
           : setPlacementPeriodErrorMessage("");
@@ -171,7 +193,89 @@ const NewProject = () => {
     setBonusBlocks((prevBlocks) => prevBlocks.filter((_, i) => i !== index));
   };
 
-  console.log("team", teamBlocks);
+  //--Validation
+
+  const handleName = (e) => {
+    setName(e);
+    handleValidateName(e);
+  }
+
+  const handleValidateName = (e) => {
+    const resoult = validation.validationCreateProject({name: e});
+    console.log('resoult',resoult);
+
+    if(resoult?.isValid) {
+      setNameErrorMessage('');
+    } else {
+      resoult?.reason == 'name' ? setNameErrorMessage(resoult?.error) : setNameErrorMessage('');
+    }
+  }
+
+  const handleDescription = (e) => {
+    setDescription(e);
+    handleValidateDescription(e);
+  }
+
+  const handleValidateDescription = (e) => {
+
+    const resoult = validation.validationCreateProject({description: e});
+    console.log('resoult',resoult);
+
+    if(resoult?.isValid) {
+      setDescriptionErrorMessage('');
+    } else {
+      resoult?.reason == 'description' ? setDescriptionErrorMessage(resoult?.error) : setDescriptionErrorMessage('');
+    }
+  }
+
+  const handleRequest = (e) => {
+    setRequest(e);
+    handleValidateRequest(e);
+  }
+
+  const handleValidateRequest = (e) => {
+
+    const resoult = validation.validationCreateProject({request: e});
+    console.log('resoult',resoult);
+
+    if(resoult?.isValid) {
+      setRequestErrorMessage('');
+    } else {
+      resoult?.reason == 'request' ? setRequestErrorMessage(resoult?.error) : setRequestErrorMessage('');
+    }
+  }
+  const handlePlacementPeriod = (e) => {
+    setPlacementPeriod(e);
+    handleValidatePlacementPeriod(e);
+  }
+
+  const handleValidatePlacementPeriod = (e) => {
+
+    const resoult = validation.validationCreateProject({placementPeriod: e});
+    console.log('resoult',resoult);
+
+    if(resoult?.isValid) {
+      setPlacementPeriodErrorMessage('');
+    } else {
+      resoult?.reason == 'placementPeriod' ? setPlacementPeriodErrorMessage(resoult?.error) : setPlacementPeriodErrorMessage('');
+    }
+  }
+  const handleTargetAmount = (e) => {
+    setTargetAmount(e);
+    handleValidateTargetAmount(e);
+  }
+
+  const handleValidateTargetAmount = (e) => {
+
+    const resoult = validation.validationCreateProject({targetAmount: e});
+    console.log('resoult',resoult);
+
+    if(resoult?.isValid) {
+      setTargetAmountErrorMessage('');
+    } else {
+      resoult?.reason == 'targetAmount' ? setTargetAmountErrorMessage(resoult?.error) : setTargetAmountErrorMessage('');
+    }
+  }
 
   return (
     <div className="new_project_wraper">
@@ -184,6 +288,14 @@ const NewProject = () => {
         <h2>Apply</h2>
       </div>
       {/* <div className=''> */}
+
+      <div className="new_project_image_wrap">
+        {imagesSrc.length != 0 && imagesSrc.map((image,idx) => (
+          <div key={idx} className="new_project_image_block">
+            <img src={image} className="new_project_image"/>
+          </div>
+        ))}
+      </div>
 
       <div className="input_wrap">
         <input
@@ -207,7 +319,7 @@ const NewProject = () => {
             id="name"
             type="text"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => handleName(e.target.value)}
           />
         </div>
         {nameErrorMessage && <p className="danger">{nameErrorMessage}</p>}
@@ -242,7 +354,7 @@ const NewProject = () => {
             id="description"
             type="text"
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={(e) => handleDescription(e.target.value)}
           />
         </div>
         {descriptionErrorMessage && (
@@ -254,7 +366,7 @@ const NewProject = () => {
             id="request"
             type="text"
             value={request}
-            onChange={(e) => setRequest(e.target.value)}
+            onChange={(e) => handleRequest(e.target.value)}
           />
         </div>
         {requestErrorMessage && <p className="danger">{requestErrorMessage}</p>}
@@ -263,7 +375,7 @@ const NewProject = () => {
           <input
             id="dynamicTeam"
             type="text"
-            value={teamBlocks.length > 0 ? teamBlocks[0] : ""}
+            value={currentUser?.lastName ? `${currentUser.lastName} ${currentUser.firstName}` : ''}
             onChange={(e) => {
               const updatedBlocks = [...teamBlocks];
               if (updatedBlocks.length === 0) {
@@ -294,14 +406,13 @@ const NewProject = () => {
     )
 ))}
         </div>
-        {teamErrorMessage && <p className="danger">{teamErrorMessage}</p>}
         <div className="input_item">
           <label htmlFor="placement">Placement period*</label>
           <input
             id="placement"
             type="text"
             value={placementPeriod}
-            onChange={(e) => setPlacementPeriod(e.target.value)}
+            onChange={(e) => handlePlacementPeriod(e.target.value)}
           />
         </div>
         {placementPeriodErrorMessage && (
@@ -313,7 +424,7 @@ const NewProject = () => {
             id="target"
             type="text"
             value={targetAmount}
-            onChange={(e) => setTargetAmount(e.target.value)}
+            onChange={(e) => handleTargetAmount(e.target.value)}
           />
         </div>
         {targetAmountErrorMessage && (
@@ -357,7 +468,6 @@ const NewProject = () => {
             </div>
           ))}
         </div>
-        {bonusErrorMessage && <p className="danger">{bonusErrorMessage}</p>}
         <div className="input_checkbox_wrap">
           <div className="input_checkbox_wrap-item">
             <input

@@ -12,16 +12,11 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
   const [socialNetwork, setSocialNetwork] = useState('');
-  const [passport, setPassport] = useState('');
-  const [requisites, setRequisites] = useState('');
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
   const [phoneErrorMessage, setPhoneErrorMessage] = useState('');
   const [firstNameErrorMessage, setFirstNameErrorMessage] = useState('');
   const [lastNameErrorMessage, setLastNameErrorMessage] = useState('');
-  const [passportErrorMessage, setPassportErrorMessage] = useState('');
-  const [socialNetworkErrorMessage, setSocialNetworkErrorMessage] = useState('');
-  const [requisitesErrorMessage, setRequisitesErrorMessage] = useState('');
   const [userAgreement, setUserAgreement] = useState('');
 
   const navigate = useNavigate();
@@ -29,11 +24,13 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
 
   const handleRegistration = async () => {
     try {
-      const resoult = validator.validationRegistration({password, phone, firstName, lastName, passport, socialNetwork, requisites});
+      console.log('wrok');
+      const resoult = validator.validationRegistration({ email, password, phone, firstName, lastName, socialNetwork});
       handleValidateEmail(email);
+      console.log('resoult',resoult);
 
       if(resoult.isValid && userAgreement) {
-      const data = await dispatch(registration({email, password, firstName, lastName, phone, socialNetwork, passport, requisites}));
+      const data = await dispatch(registration({email, password, firstName, lastName, phone, socialNetwork}));
       if('user' in data.payload) {
         setEmailErrorMessage('');
         setPasswordErrorMessage('');
@@ -44,14 +41,11 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
         alert(data.payload.message)
       }
       } else {
-        // resoult.reason == 'email' ? setEmailErrorMessage(resoult.error) : setEmailErrorMessage('');
+        resoult?.reason == 'email' ? setEmailErrorMessage(resoult?.error) : setEmailErrorMessage('');
         resoult.reason == 'password' ? setPasswordErrorMessage(resoult.error) : setPasswordErrorMessage('');
         resoult.reason == 'phone' ? setPhoneErrorMessage(resoult.error) : setPhoneErrorMessage('');
         resoult.reason == 'firstName' ? setFirstNameErrorMessage(resoult.error) : setFirstNameErrorMessage('');
         resoult.reason == 'lastName' ? setLastNameErrorMessage(resoult.error) : setLastNameErrorMessage('');
-        resoult.reason == 'passport' ? setPassportErrorMessage(resoult.error) : setPassportErrorMessage('');
-        resoult.reason == 'socialNetwork' ? setSocialNetworkErrorMessage(resoult.error) : setSocialNetworkErrorMessage('');
-        resoult.reason == 'requisites' ? setRequisitesErrorMessage(resoult.error) : setRequisitesErrorMessage('');
       }
     } catch(error) {
       console.log(error);
@@ -60,6 +54,8 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
 
   console.log('userAgreement',userAgreement);
 
+  //--Valodation functions
+
   const handleEmail = (e) => {
     setEmail(e);
     handleValidateEmail(e);
@@ -67,12 +63,69 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
 
   const handleValidateEmail = (e) => {
     const resoult = validator.validationRegistration({email: e});
-    console.log('resoult',resoult);
+    console.log('resoult email',resoult);
 
     if(resoult?.isValid) {
       setEmailErrorMessage('');
     } else {
       resoult?.reason == 'email' ? setEmailErrorMessage(resoult?.error) : setEmailErrorMessage('');
+    }
+  }
+  const handleFirstName = (e) => {
+    setFirstName(e);
+    handleValidateFirstName(e);
+  }
+
+  const handleValidateFirstName = (e) => {
+    const resoult = validator.validationRegistration({firstName: e});
+
+    if(resoult?.isValid) {
+      setFirstNameErrorMessage('');
+    } else {
+      resoult?.reason == 'firstName' ? setFirstNameErrorMessage(resoult?.error) : setFirstNameErrorMessage('');
+    }
+  }
+  const handleLastName = (e) => {
+    setLastName(e);
+    handleValidateLastName(e);
+  }
+
+  const handleValidateLastName = (e) => {
+    const resoult = validator.validationRegistration({lastName: e});
+
+    if(resoult?.isValid) {
+      setLastNameErrorMessage('');
+    } else {
+      resoult?.reason == 'lastName' ? setLastNameErrorMessage(resoult?.error) : setLastNameErrorMessage('');
+    }
+  }
+
+  const handlePhone = (e) => {
+    setPhone(e);
+    handleValidatePhone(e);
+  }
+
+  const handleValidatePhone = (e) => {
+    const resoult = validator.validationRegistration({phone: e});
+
+    if(resoult?.isValid) {
+      setPhoneErrorMessage('');
+    } else {
+      resoult?.reason == 'phone' ? setPhoneErrorMessage(resoult?.error) : setPhoneErrorMessage('');
+    }
+  }
+  const handlePassword = (e) => {
+    setPassword(e);
+    handleValidatePassword(e);
+  }
+
+  const handleValidatePassword = (e) => {
+    const resoult = validator.validationRegistration({password: e});
+
+    if(resoult?.isValid) {
+      setPasswordErrorMessage('');
+    } else {
+      resoult?.reason == 'password' ? setPasswordErrorMessage(resoult?.error) : setPasswordErrorMessage('');
     }
   }
   
@@ -93,7 +146,7 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
           <input id="first_name" 
           type="text" 
           value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}/>
+          onChange={(e) => handleFirstName(e.target.value)}/>
         </div>
         {firstNameErrorMessage && <p className="danger">{firstNameErrorMessage}</p>}
         <div className="input_item">
@@ -101,51 +154,34 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
           <input id="lust_name" 
           type="text" 
           value={lastName}
-          onChange={(e) => setLastName(e.target.value)}/>
+          onChange={(e) => handleLastName(e.target.value)}/>
         </div>
         {lastNameErrorMessage && <p className="danger">{lastNameErrorMessage}</p>}
         <div className="input_item">
-          <label htmlFor="phone">phone phone*</label>
+          <label htmlFor="phone">Number phone*</label>
           <input id="phone" 
           type="phone" 
           value={phone}
-          onChange={(e) => setPhone(e.target.value)}/>
+          onChange={(e) => handlePhone(e.target.value)}/>
         </div>
         {phoneErrorMessage && <p className="danger">{phoneErrorMessage}</p>}
         <div className="input_item">
           <label htmlFor="socia">
-            Specify a social network to contact you *
+            Specify a social network to contact you
           </label>
           <input id="socia" 
           type="text"
           value={socialNetwork}
           onChange={(e) => setSocialNetwork(e.target.value)}/>
         </div>
-        {socialNetworkErrorMessage && <p className="danger">{socialNetworkErrorMessage}</p>}
         <div className="input_item">
           <label htmlFor="password1">Password *</label>
           <input id="password1" 
           type="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}/>
+          onChange={(e) => handlePassword(e.target.value)}/>
         </div>
         {passwordErrorMessage && <p className="danger">{passwordErrorMessage}</p>}
-        <div className="input_item">
-          <label htmlFor="passport">Passport *</label>
-          <input id="passport" 
-          type="passport" 
-          value={passport}
-          onChange={(e) => setPassport(e.target.value)}/>
-        </div>
-        {passportErrorMessage && <p className="danger">{passportErrorMessage}</p>}
-        <div className="input_item">
-          <label htmlFor="requi">Requisites *</label>
-          <input id="requi" 
-          type="text" 
-          value={requisites}
-          onChange={(e) => setRequisites(e.target.value)}/>
-        </div>
-        {requisitesErrorMessage && <p className="danger">{requisitesErrorMessage}</p>}
       </div>
       <div className="input_checkbox_wrap">
         <div className="input_checkbox_wrap-item">
