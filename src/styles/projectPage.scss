@@ -249,6 +249,43 @@ input{
     padding: 0 10px;
 }
 
+
+
+.timer_wraper{
+    display: flex;
+    width: 100%;
+    max-width: 500px;
+    height: 120px;
+    justify-content: center;
+    align-items: center;
+    background-color: #f3714215 ;
+    gap: 10px;
+}
+
+.timer_item{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.item_number{
+    font-size: 60px;
+    color: #494949;
+    line-height: 1;
+}
+
+.item_text{
+    display: flex;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+    font-family: Poppins;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: #000;
+}
 // filter
 
 .aside_filters{
