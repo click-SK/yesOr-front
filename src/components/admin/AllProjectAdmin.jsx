@@ -7,6 +7,8 @@ const AllProjectAdmin = ({projectArr, verified, handleChangeFunc, setReloadUserD
     const [isOpenModalConfirm, setIsOpenModalConfirm] = useState(false)
     const [isOpenModalUnConfirm, setIsOpenModalUnConfirm] = useState(false)
     const [isOpenHistory, setIsOpenHistory] = useState(false)
+
+    console.log('projectArr 555',projectArr);
     
     return (
       <div className="project_wrap">
@@ -68,6 +70,7 @@ const AllProjectAdmin = ({projectArr, verified, handleChangeFunc, setReloadUserD
       <UserHistoryDonat
       setIsOpen = {setIsOpenHistory}
       isUser = {false}
+      project={item.projects}
       />
       }
           </div>

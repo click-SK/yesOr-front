@@ -1,54 +1,47 @@
-import React from 'react';
-import '../../../styles/modalWindow.scss'
+import React from "react";
+import "../../../styles/modalWindow.scss";
 
-const UserHistoryDonat = ({setIsOpen, isUser}) => {
-
-    const historyArr = [
-        {
-            name: 'Prontorize File',
-            amount: 1000
-        },
-        {
-            name: 'Prontorize',
-            amount: 3000
-        },
-        {
-            name: 'AAXR',
-            amount: 500
-        },
-    ]
-
-    return (
-        <div className='modal_wrap'>
-            <div className='item_body pad'>
-                <h2>History</h2>
-                <div className='content_modal'>
-                    <div className='title_wrap'>
-                        {isUser ? 
-                        <p>Project name</p> :
-                        <p>User name</p>
-                        }
-                        <p>Donation amount</p>
-                        {!isUser &&
-                        <p>Coment</p>
-                        }
-                    </div>
-                        {historyArr.map((item,idx) => (
-                        <div kay={idx} className='info_wrap'>
-                            <p>{item.name}</p>
-                            <p>{item.amount}$</p>
-                            {!isUser &&
-                            <p>Coment</p>
-                            }
-                         </div>
-                        ))}
-                </div>
-                <button
-                onClick={() => setIsOpen(state => !state)}
-                >Close</button>
+const UserHistoryDonat = ({ setIsOpen, isUser, user, project }) => {
+    console.log('project',project);
+  return (
+    <div className="modal_wrap">
+      <div className="item_body pad">
+        <h2>History</h2>
+        {isUser ? (
+          <div className="content_modal">
+            <div className="title_wrap">
+              <p>Project name</p>
+              <p>Donation amount</p>
+              <p>Coment</p>
             </div>
-        </div>
-    );
+            {user?.donatesProjects.map((item) => (
+              <div key={item._id} className="info_wrap">
+                <p>{item?.project?.name}</p>
+                <p>{item?.sum}$</p>
+                <p>{item?.comment ? item?.comment : "-----"}</p>
+                <p>{item?.date}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="content_modal">
+            <div className="title_wrap">
+              <p>User name</p>
+              <p>Donation amount</p>
+            </div>
+            {project?.donatsHistory.map((item) => (
+              <div key={item._id} className="info_wrap">
+                <p>{item?.user}</p>
+                <p>{item?.sum}</p>
+                <p>{item?.date}</p>
+              </div>
+            ))}
+          </div>
+        )}
+        <button onClick={() => setIsOpen((state) => !state)}>Close</button>
+      </div>
+    </div>
+  );
 };
 
 export default UserHistoryDonat;
