@@ -5,13 +5,16 @@ import SavedProject from "./SavedProject";
 import ProfileInfo from "./ProfileInfo";
 import SettingPrifile from "./SettingPrifile";
 import MyPriject from "./MyPriject";
+import {AiFillStar} from 'react-icons/ai';
 import "../../styles/profile.scss";
+import ProjectDonat from "./ProjectDonat";
 
 const ProfilePage = () => {
   const [isOpenProject, setIsOpenProject] = useState(true);
   const [isOpenProfile, setIsOpenProfile] = useState(false);
   const [isOpenSetting, setIsOpenSetting] = useState(false);
   const [isOpenMyProject, setIsOpenMyProject] = useState(false);
+  const [isOpenDonatProject, setIsOpenDonatProject] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [reloadUser, setReloadUser] = useState(false);
   const { user } = useSelector((state) => state.authUser.user);
@@ -93,9 +96,22 @@ const ProfilePage = () => {
       </ul>
       <div className="profile_content_wraper">
         {isOpenProject && (
-          <SavedProject
+          <>
+          <div className="donat_project">
+            <AiFillStar
+            onClick={() => setIsOpenDonatProject(!isOpenDonatProject)}/>
+          </div>
+          {!isOpenDonatProject ?
+            <SavedProject
+              savedProjects={currentUser && currentUser.savedProjects}
+            /> 
+            :
+            <ProjectDonat
             savedProjects={currentUser && currentUser.savedProjects}
-          />
+            setIsOpen = {setIsOpenDonatProject}
+            />
+          }
+          </>
         )}
         {isOpenProfile && (
           <ProfileInfo openSetting={openSetting} currentUser={currentUser} />

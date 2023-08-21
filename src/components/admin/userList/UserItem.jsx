@@ -3,38 +3,48 @@ import { BASE_URL } from "../../../http/baseUrl";
 import UserModal from "./UserModal";
 import axios from "axios";
 import { AiOutlineLock, AiOutlineUnlock } from "react-icons/ai";
+import { HiOutlineDocumentSearch } from "react-icons/hi";
 import ModalProjectConfirm from "../ModalProjectConfirm";
+import UserHistoryDonat from './UserHistoryDonat.jsx'
+import UserDocument from "./UserDocument";
+
 const UserItem = ({ item, setReloadUserData }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isOpenDocuments, setIsOpenDocuments] = useState(false)
+  const [isOpenHistory, setIsOpenHistory] = useState(false)
   const [isOpenModalConfirm, setIsOpenModalConfirm] = useState(false);
   const [isOpenModalUnConfirm, setIsOpenModalUnConfirm] = useState(false);
 
   const handleBlockedUser = () => {
     try {
-      axios.patch(`${BASE_URL}/update-user-activated`, {
-        id: item._id,
-        isActivated: !item.isActivated,
-      }).then(() => {
-        setTimeout(() => {
-          setReloadUserData((state) => !state)
-        },500)
-      })
-    } catch(error) {
+      axios
+        .patch(`${BASE_URL}/update-user-activated`, {
+          id: item._id,
+          isActivated: !item.isActivated,
+        })
+        .then(() => {
+          setTimeout(() => {
+            setReloadUserData((state) => !state);
+          }, 500);
+        });
+    } catch (error) {
       console.log(error);
     }
   };
   const handleVerifiedUser = () => {
-    console.log('work');
+    console.log("work");
     try {
-      axios.patch(`${BASE_URL}/update-user-verified`, {
-        id: item._id,
-        isVerified: !item.isVerified,
-      }).then(() => {
-        setTimeout(() => {
-          setReloadUserData((state) => !state)
-        },500)
-      })
-    } catch(error) {
+      axios
+        .patch(`${BASE_URL}/update-user-verified`, {
+          id: item._id,
+          isVerified: !item.isVerified,
+        })
+        .then(() => {
+          setTimeout(() => {
+            setReloadUserData((state) => !state);
+          }, 500);
+        });
+    } catch (error) {
       console.log(error);
     }
   };
@@ -63,13 +73,20 @@ const UserItem = ({ item, setReloadUserData }) => {
             />
           )}
         </div>
-      </div>
-      <div onClick={handleBlockedUser}>
-        {item.isActivated ? (
-          <AiOutlineUnlock style={{ width: "30px", height: "30px" }} />
-        ) : (
-          <AiOutlineLock style={{ width: "30px", height: "30px" }} />
-        )}
+        <div className="block_user_btn" onClick={handleBlockedUser}>
+          {item.isActivated ? (
+            <img src="./icons/block.svg" alt="" />
+          ) : (
+            <AiOutlineLock />
+          )}
+        </div>
+        <img
+          className="history_icon"
+          src="./icons/solar_history-outline.svg"
+          alt=""
+          onClick={() => setIsOpenHistory(!isOpenHistory)}
+        />
+        <HiOutlineDocumentSearch onClick={() => setIsOpenDocuments(!isOpenDocuments)}/>
       </div>
       <UserModal
         isOpen={isOpenModal}
@@ -89,6 +106,17 @@ const UserItem = ({ item, setReloadUserData }) => {
         setIsOpen={setIsOpenModalUnConfirm}
         handleChangeFunc={handleVerifiedUser}
       />
+      {isOpenHistory && 
+      <UserHistoryDonat
+      setIsOpen = {setIsOpenHistory}
+      isUser = {true}
+      />
+      }
+      {isOpenDocuments &&
+        <UserDocument
+        setIsOpen = {setIsOpenDocuments}
+        />
+      }
     </div>
   );
 };
