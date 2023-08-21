@@ -19,12 +19,22 @@
 
 .admin_project_item{
     justify-content: space-between;
+    max-height: 150px;
+    overflow: hidden;
     // padding: 0 80px;
     p{
         flex: 35% 1;
         display: flex;
         justify-content: center;
+        max-height: 130px;
+        overflow: hidden;
     }
+}
+
+.react-tooltip {
+    font-size: 14px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
 }
 
 .admin_project_item_svg{
