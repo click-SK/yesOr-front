@@ -11,7 +11,7 @@ const AllProjectAdmin = ({ projectArr, verified, handleChangeFunc, setReloadUser
     const [isOpenModalConfirm, setIsOpenModalConfirm] = useState(false);
     const [isOpenModalUnConfirm, setIsOpenModalUnConfirm] = useState(false);
     const [isOpenHistory, setIsOpenHistory] = useState(false);
-    const [projectMainPage, setProjectMainPage] = useState([]); // State to store projects on the main page
+    const [projectMainPage, setProjectMainPage] = useState([]); 
 
     const truncateText = (text, maxLength) => {
         if (text.length <= maxLength) {
