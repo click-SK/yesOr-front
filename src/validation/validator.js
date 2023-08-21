@@ -5,18 +5,30 @@ function isValidEmail(email) {
 
 
 
-export const validationRegistration = ({email, phone, password, firstName, lastName}) => {
+export const validationRegistration = ({email, phone, password, firstName, lastName, secondPassword}) => {
     try {
       let valid = {
         isValid: true,
         error: '',
         reason: ''
       }
+      const firstPassword = password;
+      console.log('password',password);
+      console.log('secondPassword',secondPassword);
+      console.log('email',email);
+      console.log('firstPassword',firstPassword);
+
       if(!isValidEmail(email)) {
         console.log('not valid email');
         valid.isValid = false;
         valid.error = 'email error';
         valid.reason = 'email';
+      }
+
+      if(firstPassword != secondPassword) {
+        valid.isValid = false;
+        valid.error = 'secondPassword error';
+        valid.reason = 'secondPassword';
       }
 
       if(password?.length <= 7) {

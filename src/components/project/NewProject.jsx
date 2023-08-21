@@ -277,6 +277,8 @@ const NewProject = () => {
     }
   }
 
+  console.log('imagesSrc',imagesSrc);
+
   return (
     <div className="new_project_wraper">
       {!currentUser?.isVerified && (
@@ -289,13 +291,36 @@ const NewProject = () => {
       </div>
       {/* <div className=''> */}
 
-      <div className="new_project_image_wrap">
+      {/* <div className="new_project_image_wrap">
         {imagesSrc.length != 0 && imagesSrc.map((image,idx) => (
           <div key={idx} className="new_project_image_block">
             <img src={image} className="new_project_image"/>
+            <video controls>
+      <source src={image} type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
           </div>
         ))}
+      </div> */}
+      <div className="new_project_image_wrap">
+  {imagesSrc.length !== 0 && imagesSrc.map((data, idx) => {
+    const mimeType = data.startsWith('data:video') ? 'video/mp4' : 'image/jpeg';
+    const fileType = mimeType.startsWith('video') ? 'video' : 'image';
+
+    return (
+      <div key={idx} className="new_project_image_block">
+        {fileType === 'image' ? (
+          <img src={data} className="new_project_image" alt={`Image ${idx}`} />
+        ) : (
+          <video controls className="new_project_image">
+            <source src={data} type={mimeType} />
+            Your browser does not support the video tag.
+          </video>
+        )}
       </div>
+    );
+  })}
+</div>
 
       <div className="input_wrap">
         <input
