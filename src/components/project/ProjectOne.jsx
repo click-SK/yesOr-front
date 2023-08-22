@@ -2,17 +2,20 @@ import React, {useState, useEffect} from 'react';
 import { useSelector } from 'react-redux';
 import { BASE_URL } from '../../http/baseUrl';
 import axios from "axios";
-import { Link } from 'react-router-dom'; 
+import { Link, useNavigate } from 'react-router-dom'; 
 import {AiFillStar} from 'react-icons/ai';
 import '../../styles/projectPage.scss'
 import moment from 'moment';
+// import { useNavigate } from 'react-router-dom';
 import DonatsModal from './donatsComp/DonatsModal';
 import HistoryDonats from './historiDonats/HistoryDonats';
+import ModalComent from './ModalComent';
 
 const ProjectOne = () => {
     const [currentProject, setCurrentProject] = useState(null);
     const [projectId, setProjectId] = useState('');
     const [isOpenDonat, setIsOpenDonat] = useState(false)
+    const [isOpenComent, setIsOpenComent] = useState(false)
     const [donatsValue, setDonatsValue] = useState(0);
     const [fullName, setFullName] = useState('');
     const [timeLeft, setTimeLeft] = useState('');
@@ -21,6 +24,16 @@ const ProjectOne = () => {
     const [minutsLeft, setMinutsLeft] = useState (null)
     const [secondLeft, setSecondLeft] = useState (null)
     const [percentCollected, setPercentCollected] = useState(0);
+
+    const [commentsArr, setComentsArr] = useState([
+        {
+            img: '/file/proj/1.png',
+            name: 'fullname',
+            coment: 'Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.  Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.  ',
+            date: '24.08.2023'
+        }
+    ])
+
     // const [currentImg, setCurrentImg] = useState('/file/proj/1.png')
     // const [imgProject, setImgProject] = useState([
     //     '/file/proj/1.png',
@@ -33,6 +46,7 @@ const ProjectOne = () => {
     const [imgProject, setImgProject] = useState([]);
 
     const {user} = useSelector((state) => state.authUser.user);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const url = window.location.href;
@@ -180,18 +194,17 @@ const ProjectOne = () => {
     }, [currentProject]);
 
 
+
     console.log('currentProject', deysLeft);
     console.log('imgProject', imgProject);
 
     return (
-      <div className="project_wraper">
-        <div className="btn_back">
-          <Link to="/discover">
-            <button>Back</button>
-          </Link>
-        </div>
-        <div className="profile_title">
-          <h2>Project</h2>
+    <div className='project_wraper'>
+            <div className="btn_back">
+                <button onClick={() => navigate(-1)}>Back</button>
+            </div>
+            <div className='profile_title'>
+                <h2>Project</h2>
         </div>
         <div className="project_info">
           <div className="left_column">
@@ -219,126 +232,140 @@ const ProjectOne = () => {
                   imgProject.map((data, idx) => {
                     const extension = data.split(".").pop(); // Отримуємо розширення файлу
 
-                    console.log('extension',extension);
+
+console.log('extension',extension);
 
 
-                    return (
-                      <div key={idx} className="new_project_image_block">
-                        {extension == 'jpg' &&
-                         <img key={idx} src={`${BASE_URL}${data}`} onClick={() => setCurrentImg(data)} alt="" />}
-                        {extension == 'mp4' &&
-                         <video key={idx} src={`${BASE_URL}${data}`} onClick={() => setCurrentImg(data)} alt="" />}
-                      </div>
-                    );
-                  })}
-              </div>
-            </div>
-            <div className="project_description">
-              <h4>Description</h4>
-              <p>{currentProject?.description}</p>
-            </div>
-            <div className="project_description">
-              <h4>Target amount</h4>
-              <p>{currentProject?.target}</p>
-              <h4>Colected amount</h4>
-              <p>{currentProject?.amountCollected}</p>
-            </div>
-          </div>
-          <div className="right_column">
-            <div className="timer_wraper">
-              <div className="timer_item">
-                <p className="item_number">{deysLeft} :</p>
-                <p className="item_text">Days</p>
-              </div>
-              <div className="timer_item">
-                <p className="item_number">{hourLeft} :</p>
-                <p className="item_text">Hours</p>
-              </div>
-              <div className="timer_item">
-                <p className="item_number">{minutsLeft} :</p>
-                <p className="item_text">Minutes</p>
-              </div>
-              <div className="timer_item">
-                <p className="item_number">{secondLeft} </p>
-                <p className="item_text">Second</p>
-              </div>
-            </div>
-            <div className="project_name_wrap">
-              <img src="" alt="" />
-              <div>
-                <h4>Name</h4>
-                <p>{currentProject?.name} </p>
-              </div>
-              <AiFillStar
-                className={
-                  user &&
-                  currentProject &&
-                  user.savedProjects.includes(currentProject._id)
-                    ? "star_rating_active"
-                    : "star_rating_disabled"
-                }
-                onClick={handleStarRating}
-              />
-            </div>
-            <div className="project_details">
-              <div className="details_item">
-                <h4>Category</h4>
-                <p>{currentProject?.category}</p>
-              </div>
-              <div className="details_item">
-                <h4>Placement period</h4>
-                <p>{currentProject?.period?.countDays} Days</p>
-                {/* <h4>Time left</h4>
+return (
+  <div key={idx} className="new_project_image_block">
+    {extension == 'jpg' &&
+     <img key={idx} src={`${BASE_URL}${data}`} onClick={() => setCurrentImg(data)} alt="" />}
+    {extension == 'mp4' &&
+     <video key={idx} src={`${BASE_URL}${data}`} onClick={() => setCurrentImg(data)} alt="" />}
+  </div>
+);
+})}
+</div>
+</div>
+                        <div className='project_description-info'>
+                            <h4>Description</h4>
+                            <p className='descript_text'>{currentProject?.description}</p>
+                        </div>
+                        <div className='project_amount'>
+                            <div>
+                            <h4>Target amount</h4>
+                            <p>{currentProject?.target}</p>
+                            </div>
+                            <div>
+                            <h4>Colected amount</h4>
+                            <p>{currentProject?.amountCollected}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='right_column'>
+                        <div className='timer_wraper'>
+                                <div className='timer_item'>
+                                    <p className='item_number'>{deysLeft} :</p>
+                                    <p className='item_text'>Days</p>
+                                </div>
+                                <div className='timer_item'>
+                                    <p className='item_number'>{hourLeft} :</p>
+                                    <p className='item_text'>Hours</p>
+                                </div>
+                                <div className='timer_item'>
+                                    <p className='item_number'>{minutsLeft} :</p>
+                                    <p className='item_text'>Minutes</p>
+                                </div>
+                                <div className='timer_item'>
+                                    <p className='item_number'>{secondLeft} </p>
+                                    <p className='item_text'>Second</p>
+                                </div>
+                        </div>
+                        <div className='project_name_wrap'>
+                            <img src='' alt="" />
+                            <div>
+                                <h4>Name</h4>
+                                <p>{currentProject?.name} </p>
+                            </div>
+                            <button onClick={() => setIsOpenDonat(!isOpenDonat)}>Donate</button>
+        {isOpenDonat && 
+        <DonatsModal setIsOpen={setIsOpenDonat} currentProject={currentProject}/>}
+                            <AiFillStar className={user && currentProject && user.savedProjects.includes(currentProject._id) ? 'star_rating_active' : 'star_rating_disabled'} onClick={handleStarRating}/>
+                        </div>
+                        <div className='project_details'>
+                            <div className='details_item'>
+                                <h4>Category</h4>
+                                <p>{currentProject?.category}</p>
+                            </div>
+                            <div className='details_item'>
+                            <h4>Placement period</h4>
+                            <p>{currentProject?.period?.countDays} Days</p>
+                            {/* <h4>Time left</h4>
                             <p>{timeLeft && timeLeft} </p> */}
-              </div>
-              <div className="details_item">
-                <h4>Subcategory</h4>
-                <p>{currentProject?.subcategory}</p>
-              </div>
-              <div className="details_item">
-                <h4>Team </h4>
-                <div>
-                  {currentProject?.team.map((item, idx) => (
-                    <p key={idx}>{item}</p>
-                  ))}
-                </div>
-              </div>
+                            </div>
+                            <div className='details_item'>
+                            <h4>Subcategory</h4>
+                            <p>{currentProject?.subcategory}</p>
+                            </div>
+                            <div className='details_item'>
+                            <h4>Team </h4>
+                            <div className='team_wrap'>{currentProject?.team.map((item,idx) => (
+                                <p key={idx}>{item} </p>
+                            ))}</div>
+                            </div>
+                        </div>
+                        <div className='project_request'>
+                            <h4>Request</h4>
+                            <p>{currentProject?.request}</p>
+                        </div>
+                        <div className='project_bonus'>
+                            <h4>Bonus for investors </h4>
+                            <div className='bonus_wrap'>{currentProject?.bonus.map((item) => (
+                                <div className='bonus_item' key={item._id}>
+                                    <p>{item.title}</p>
+                                    <p>{item.amount} $</p>
+                                </div>
+                            ))}</div>
+                        </div>
+                    </div>
             </div>
-            <div className="project_request">
-              <h4>Request</h4>
-              <p>{currentProject?.request}</p>
-            </div>
-            <div className="project_bonus">
-              <h4>Bonus for investors </h4>
-              <div>
-                {currentProject?.bonus.map((item) => (
-                  <div key={item._id}>
-                    <p>{item.title}</p>
-                    <p>{item.amount}</p>
-                  </div>
+            <div className='donat_block'>
+                <h4>DONAT HISTORY</h4>
+                {currentProject && user && currentProject.user == user._id &&
+                currentProject?.donatsHistory.map((item) => (
+                    <div className='donat_history_wrap' key={item._id}>
+                        <p className='donat_history-item'>{item.date}</p>
+                        <p className='donat_history-item'>{item.user}</p>
+                        <p className='donat_history-item'>{item.sum} $</p>
+                        <p className='donat_history-item'>{item.text}</p>
+                    </div>
                 ))}
-              </div>
             </div>
-          </div>
-        </div>
-        {currentProject &&
-          user &&
-          currentProject.user == user._id &&
-          currentProject?.donatsHistory.map((item) => (
-            <div key={item._id}>
-              <p>Name: {item.user}</p>
-              <p>Sum: {item.sum}</p>
-              <p>Comment: {item.text}</p>
-              <p>Date: {item.date}</p>
+            <div className='coments_block'>
+                <h4>Comments</h4>
+                <button
+                onClick={() => setIsOpenComent(!isOpenComent)}
+                >leave a comment</button>
+                <div className='coments_wrap'>
+                    {commentsArr.map((item, idx) => (
+                        <div key={idx} className='coment_item'>
+                            <img className='coment_img' src={item.img} alt="" srcset="" />
+                            <p className='coment_name'>{item.name}</p>
+                            <p className='coment_coment'>{item.coment}</p>
+                            <p className='coment_date'>{item.date}</p>
+                        </div>
+                    ))
+                    }
+                </div>
             </div>
-          ))}
-        <button onClick={() => setIsOpenDonat(!isOpenDonat)}>Open modal</button>
-        {isOpenDonat && (
-          <DonatsModal
-            setIsOpen={setIsOpenDonat}
-            currentProject={currentProject}
-          />
-        )}
+            {isOpenComent && 
+            <ModalComent
+            setIsOpen={setIsOpenComent}/>
+            }
+        {/* <button onClick={() => setIsOpenDonat(!isOpenDonat)}>Open modal</button>
+        {isOpenDonat && 
+        <DonatsModal setIsOpen={setIsOpenDonat} currentProject={currentProject}/>} */}
+
       </div>
     );
 };

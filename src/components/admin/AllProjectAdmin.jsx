@@ -36,7 +36,7 @@ const AllProjectAdmin = ({ projectArr, verified, handleChangeFunc, setReloadUser
         return projectMainPage.some((p) => p._id === project._id);
     };
 
-    console.log('projectMainPage',projectMainPage);
+    
     return (
         <div className="project_wrap">
             <div className="project_header">

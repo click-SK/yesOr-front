@@ -282,7 +282,7 @@ const NewProject = () => {
     }
   }
 
-  console.log('imagesSrc',imagesSrc);
+
 
   return (
     <div className="new_project_wraper">
@@ -401,7 +401,7 @@ const NewProject = () => {
         </div>
         {requestErrorMessage && <p className="danger">{requestErrorMessage}</p>}
         <div className="input_item">
-          <label htmlFor="dynamicTeam">Owner*</label>
+          {/* <label htmlFor="dynamicTeam">Owner*</label>
           <input
             id="dynamicTeam"
             type="text"
@@ -414,13 +414,13 @@ const NewProject = () => {
               updatedBlocks[0] = e.target.value;
               setTeamBlocks(updatedBlocks);
             }}
-          />
+          /> */}
           <div className="team_dynamic_wrap">
             <label className="team_label" htmlFor="team">Team</label>
             <button className="btn_add_team" onClick={handleAddTeamBlock}><BsPersonFillAdd/></button>
           </div>
           {teamBlocks.map((block, index) => (
-    index !== 0 && (
+    
         <div id="team" key={index} className="team-block">
             <input
                 type="text"
@@ -433,7 +433,7 @@ const NewProject = () => {
             />
             <button className="btn_add_team" onClick={() => handleRemoveTeamBlock(index)}>-</button>
         </div>
-    )
+    
 ))}
         </div>
         <div className="input_item">
