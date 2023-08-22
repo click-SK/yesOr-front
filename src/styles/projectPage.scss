@@ -21,6 +21,7 @@
     top: 0;
     display: flex;
     padding: 25px;
+    gap: 30px;
 }
 
 .profile_title{
@@ -286,7 +287,7 @@ input{
 
 .descript_text{
     max-height: 400px;
-    overflow-y: auto;
+    overflow: auto;
 }
 
 

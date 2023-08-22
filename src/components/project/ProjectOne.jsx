@@ -10,11 +10,13 @@ import moment from 'moment';
 import DonatsModal from './donatsComp/DonatsModal';
 import HistoryDonats from './historiDonats/HistoryDonats';
 import ModalComent from './ModalComent';
+import EditProject from '../profile/EditProject';
 
 const ProjectOne = () => {
     const [currentProject, setCurrentProject] = useState(null);
     const [projectId, setProjectId] = useState('');
     const [isOpenDonat, setIsOpenDonat] = useState(false)
+    const [isOpenEditProject, setIsOpenEditProject] = useState(false)
     const [isOpenComent, setIsOpenComent] = useState(false)
     const [donatsValue, setDonatsValue] = useState(0);
     const [fullName, setFullName] = useState('');
@@ -55,7 +57,6 @@ const ProjectOne = () => {
         setProjectId(id);
     },[])
 
-    console.log('timeLeft',timeLeft);
 
     useEffect(() => {
         if(projectId) {
@@ -68,7 +69,7 @@ const ProjectOne = () => {
         }
     },[projectId])
 
-    console.log('currentProject 1',currentProject );
+
 
     
 
@@ -195,13 +196,20 @@ const ProjectOne = () => {
 
 
 
-    console.log('currentProject', deysLeft);
-    console.log('imgProject', imgProject);
 
     return (
     <div className='project_wraper'>
+                {isOpenEditProject && 
+                    <EditProject
+                    selectedProject = {currentProject}
+                    setIsOpen = {setIsOpenEditProject}
+                    />
+                }
             <div className="btn_back">
                 <button onClick={() => navigate(-1)}>Back</button>
+                {currentProject && user && currentProject.user == user._id &&
+                    <button onClick={() => setIsOpenEditProject(!isOpenEditProject)}>Edite</button>
+                }
             </div>
             <div className='profile_title'>
                 <h2>Project</h2>
@@ -289,7 +297,7 @@ return (
                             </div>
                             <button onClick={() => setIsOpenDonat(!isOpenDonat)}>Donate</button>
         {isOpenDonat && 
-        <DonatsModal setIsOpen={setIsOpenDonat} currentProject={currentProject}/>}
+                        <DonatsModal setIsOpen={setIsOpenDonat} currentProject={currentProject}/>}
                             <AiFillStar className={user && currentProject && user.savedProjects.includes(currentProject._id) ? 'star_rating_active' : 'star_rating_disabled'} onClick={handleStarRating}/>
                         </div>
                         <div className='project_details'>

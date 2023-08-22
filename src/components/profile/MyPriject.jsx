@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import ProjectListTemplate from '../project/ProjectListTemplate';
 
+
 const MyProject = ({ userProjects }) => {
     const [activeTab, setActiveTab] = useState('active'); // 'active' or 'inactive'
 
@@ -17,16 +18,16 @@ const MyProject = ({ userProjects }) => {
     };
 
     return (
-        <div className='project_wrap'>
+        <div className='project_wrap my_project_wrap'>
             <ul className='tabs profile_nav'>
                 <li
-                    className={`profile_nav_item  ${activeTab === 'active' ? 'active_tab' : ''}`}
+                    className={`profile_nav_item my_proj_tabs  ${activeTab === 'active' ? 'active_tab' : ''}`}
                     onClick={() => handleTabChange('active')}
                 >
                     Active Projects
                 </li> 
                 <li
-                    className={`profile_nav_item  ${activeTab === 'inactive' ? 'active_tab' : ''}`}
+                    className={`profile_nav_item my_proj_tabs  ${activeTab === 'inactive' ? 'active_tab' : ''}`}
                     onClick={() => handleTabChange('inactive')}
                 >
                     Inactive Projects

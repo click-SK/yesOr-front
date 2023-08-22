@@ -30,6 +30,15 @@
     }
 }
 
+.edit_curent_project{
+    position: absolute;
+    z-index: 9999;
+    width: 100%;
+    left: 0;
+    top: -150px;
+    background-color: #fbd8cb;
+}
+
 .categori_wrap{
     display: flex;
     width: 100%;
