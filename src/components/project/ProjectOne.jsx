@@ -24,14 +24,7 @@ const ProjectOne = () => {
     const [minutsLeft, setMinutsLeft] = useState (null)
     const [secondLeft, setSecondLeft] = useState (null)
     const [percentCollected, setPercentCollected] = useState(0);
-    const [currentImg, setCurrentImg] = useState('/file/proj/1.png')
-    const [imgProject, setImgProject] = useState([
-        '/file/proj/1.png',
-        '/file/proj/2.png',
-        '/file/proj/3.png',
-        '/file/proj/4.png',
-        '/file/proj/5.png',
-    ])
+
     const [commentsArr, setComentsArr] = useState([
         {
             img: '/file/proj/1.png',
@@ -40,6 +33,18 @@ const ProjectOne = () => {
             date: '24.08.2023'
         }
     ])
+
+    // const [currentImg, setCurrentImg] = useState('/file/proj/1.png')
+    // const [imgProject, setImgProject] = useState([
+    //     '/file/proj/1.png',
+    //     '/file/proj/2.png',
+    //     '/file/proj/3.png',
+    //     '/file/proj/4.png',
+    //     '/file/proj/5.png',
+    // ])
+    const [currentImg, setCurrentImg] = useState();
+    const [imgProject, setImgProject] = useState([]);
+
     const {user} = useSelector((state) => state.authUser.user);
     const navigate = useNavigate();
 
@@ -55,7 +60,11 @@ const ProjectOne = () => {
     useEffect(() => {
         if(projectId) {
             axios.get(`${BASE_URL}/get-one-project/${projectId}`)
-            .then((res) => setCurrentProject(res.data))
+            .then((res) => {
+                setCurrentProject(res.data);
+                setImgProject(res.data.projectMedia)
+                setCurrentImg(res.data.projectMedia[0])
+            })
         }
     },[projectId])
 
@@ -185,7 +194,9 @@ const ProjectOne = () => {
     }, [currentProject]);
 
 
-    console.log('onatsHistory', currentProject?.donatsHistory);
+
+    console.log('currentProject', deysLeft);
+    console.log('imgProject', imgProject);
 
     return (
     <div className='project_wraper'>
@@ -194,25 +205,48 @@ const ProjectOne = () => {
             </div>
             <div className='profile_title'>
                 <h2>Project</h2>
+        </div>
+        <div className="project_info">
+          <div className="left_column">
+            <div className="target_wrap">
+              <div className="target_wrap_title">
+                <p>{currentProject?.target} $</p>
+              </div>
+              <div className="target_range">
+                <div
+                  className="target_curent"
+                  style={{ width: `${percentCollected}%` }}
+                ></div>
+              </div>
+              <p style={{ width: `${percentCollected}%`, textAlign: "right" }}>
+                {percentCollected}%
+              </p>
             </div>
-            <div className='project_info'>
-                    <div className='left_column'>
-                        <div className='target_wrap'>
-                            <div className='target_wrap_title'><p>{currentProject?.target} $</p></div>
-                            <div className='target_range'>
-                                <div className='target_curent' style={{ width: `${percentCollected}%` }} ></div>
-                            </div>
-                            <p style={{width:`${percentCollected}%`, textAlign:'right'}}>{percentCollected}%</p>
-                        </div>
-                        <div className='project_description_wrap'>
-                            <img className='main_img' src={currentImg} alt="" />
-                            <div className='second_img_wrap'>
+            <div className="project_description_wrap">
+              <img className="main_img" src={`${BASE_URL}${currentImg}`} alt="" />
+              <div className="second_img_wrap">
+                {/* {imgProject?.length != 0 && imgProject.map((item,idx) => (
+                                    <img key={idx} src={`${BASE_URL}${item}`} onClick={() => setCurrentImg(item)} alt="" />
+                                ))} */}
+                {imgProject.length !== 0 &&
+                  imgProject.map((data, idx) => {
+                    const extension = data.split(".").pop(); // Отримуємо розширення файлу
 
-                                {imgProject.map((item,idx) => (
-                                    <img key={idx} src={item} onClick={() => setCurrentImg(item)} alt="" />
-                                ))}
-                            </div>
-                        </div>
+
+console.log('extension',extension);
+
+
+return (
+  <div key={idx} className="new_project_image_block">
+    {extension == 'jpg' &&
+     <img key={idx} src={`${BASE_URL}${data}`} onClick={() => setCurrentImg(data)} alt="" />}
+    {extension == 'mp4' &&
+     <video key={idx} src={`${BASE_URL}${data}`} onClick={() => setCurrentImg(data)} alt="" />}
+  </div>
+);
+})}
+</div>
+</div>
                         <div className='project_description-info'>
                             <h4>Description</h4>
                             <p className='descript_text'>{currentProject?.description}</p>
@@ -331,7 +365,8 @@ const ProjectOne = () => {
         {/* <button onClick={() => setIsOpenDonat(!isOpenDonat)}>Open modal</button>
         {isOpenDonat && 
         <DonatsModal setIsOpen={setIsOpenDonat} currentProject={currentProject}/>} */}
-        </div>
+
+      </div>
     );
 };
 
