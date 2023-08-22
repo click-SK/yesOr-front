@@ -136,7 +136,10 @@ const NewProject = () => {
         formData.append("name", name);
         formData.append("description", description);
         formData.append("request", request);
-        formData.append("team", teamBlocks);
+        // formData.append("team", teamBlocks);
+        for (const block of teamBlocks) {
+          formData.append("team", block);
+      }
         formData.append("period", JSON.stringify({startDate: '',countDays: placementPeriod}));
         formData.append("target", targetAmount);
         formData.append("category", selectedCategory?.category);
@@ -176,6 +179,8 @@ const NewProject = () => {
     }
     console.log("disabled");
   };
+
+  console.log('teamBlocks',teamBlocks);
 
   const handleAddTeamBlock = () => {
     setTeamBlocks((prevBlocks) => [...prevBlocks, ""]);
@@ -277,7 +282,7 @@ const NewProject = () => {
     }
   }
 
-  console.log('teams', teamBlocks);
+
 
   return (
     <div className="new_project_wraper">
@@ -291,13 +296,36 @@ const NewProject = () => {
       </div>
       {/* <div className=''> */}
 
-      <div className="new_project_image_wrap">
+      {/* <div className="new_project_image_wrap">
         {imagesSrc.length != 0 && imagesSrc.map((image,idx) => (
           <div key={idx} className="new_project_image_block">
             <img src={image} className="new_project_image"/>
+            <video controls>
+      <source src={image} type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
           </div>
         ))}
+      </div> */}
+      <div className="new_project_image_wrap">
+  {imagesSrc.length !== 0 && imagesSrc.map((data, idx) => {
+    const mimeType = data.startsWith('data:video') ? 'video/mp4' : 'image/jpeg';
+    const fileType = mimeType.startsWith('video') ? 'video' : 'image';
+
+    return (
+      <div key={idx} className="new_project_image_block">
+        {fileType === 'image' ? (
+          <img src={data} className="new_project_image" alt={`Image ${idx}`} />
+        ) : (
+          <video controls className="new_project_image">
+            <source src={data} type={mimeType} />
+            Your browser does not support the video tag.
+          </video>
+        )}
       </div>
+    );
+  })}
+</div>
 
       <div className="input_wrap">
         <input

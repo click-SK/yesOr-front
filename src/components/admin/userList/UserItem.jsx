@@ -31,6 +31,8 @@ const UserItem = ({ item, setReloadUserData }) => {
       console.log(error);
     }
   };
+
+  console.log('user list item',item);
   const handleVerifiedUser = () => {
     console.log("work");
     try {
@@ -110,6 +112,7 @@ const UserItem = ({ item, setReloadUserData }) => {
       <UserHistoryDonat
       setIsOpen = {setIsOpenHistory}
       isUser = {true}
+      user={item}
       />
       }
       {isOpenDocuments &&

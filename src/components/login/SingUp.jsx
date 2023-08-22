@@ -8,12 +8,14 @@ import * as validator from "../../validation/validator.js";
 const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [secondPassword, setSecondPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
   const [socialNetwork, setSocialNetwork] = useState('');
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
   const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
+  const [secondPasswordErrorMessage, setSecondPasswordErrorMessage] = useState('');
   const [phoneErrorMessage, setPhoneErrorMessage] = useState('');
   const [firstNameErrorMessage, setFirstNameErrorMessage] = useState('');
   const [lastNameErrorMessage, setLastNameErrorMessage] = useState('');
@@ -25,7 +27,7 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
   const handleRegistration = async () => {
     try {
       console.log('wrok');
-      const resoult = validator.validationRegistration({ email, password, phone, firstName, lastName, socialNetwork});
+      const resoult = validator.validationRegistration({ email, password, phone, firstName, lastName, socialNetwork, secondPassword});
       handleValidateEmail(email);
       console.log('resoult',resoult);
 
@@ -43,6 +45,7 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
       } else {
         resoult?.reason == 'email' ? setEmailErrorMessage(resoult?.error) : setEmailErrorMessage('');
         resoult.reason == 'password' ? setPasswordErrorMessage(resoult.error) : setPasswordErrorMessage('');
+        resoult.reason == 'secondPassword' ? setSecondPasswordErrorMessage(resoult.error) : setSecondPasswordErrorMessage('');
         resoult.reason == 'phone' ? setPhoneErrorMessage(resoult.error) : setPhoneErrorMessage('');
         resoult.reason == 'firstName' ? setFirstNameErrorMessage(resoult.error) : setFirstNameErrorMessage('');
         resoult.reason == 'lastName' ? setLastNameErrorMessage(resoult.error) : setLastNameErrorMessage('');
@@ -121,11 +124,27 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
 
   const handleValidatePassword = (e) => {
     const resoult = validator.validationRegistration({password: e});
-
+    console.log('password resoult',resoult);
     if(resoult?.isValid) {
       setPasswordErrorMessage('');
+      console.log('password resoult yes');
     } else {
       resoult?.reason == 'password' ? setPasswordErrorMessage(resoult?.error) : setPasswordErrorMessage('');
+      console.log('password resoult no');
+    }
+  }
+  const handleSecondPassword = (e) => {
+    setSecondPassword(e);
+    handleValidateSecondPassword(e);
+  }
+
+  const handleValidateSecondPassword = (e) => {
+    const resoult = validator.validationRegistration({secondPassword: e, password});
+    console.log('second password resoult',resoult);
+    if(resoult?.isValid) {
+      setSecondPasswordErrorMessage('');
+    } else {
+      resoult?.reason == 'secondPassword' ? setSecondPasswordErrorMessage(resoult?.error) : setSecondPasswordErrorMessage('');
     }
   }
   
@@ -182,6 +201,14 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
           onChange={(e) => handlePassword(e.target.value)}/>
         </div>
         {passwordErrorMessage && <p className="danger">{passwordErrorMessage}</p>}
+        <div className="input_item">
+          <label htmlFor="password2">Second Password *</label>
+          <input id="password2" 
+          type="password"
+          value={secondPassword}
+          onChange={(e) => handleSecondPassword(e.target.value)}/>
+        </div>
+        {secondPasswordErrorMessage && <p className="danger">{secondPasswordErrorMessage}</p>}
       </div>
       <div className="input_checkbox_wrap">
         <div className="input_checkbox_wrap-item">
