@@ -10,6 +10,7 @@ import moment from 'moment';
 import DonatsModal from './donatsComp/DonatsModal';
 import HistoryDonats from './historiDonats/HistoryDonats';
 import ModalComent from './ModalComent';
+import EditProject from '../profile/EditProject';
 
 const ProjectOne = () => {
     const [currentProject, setCurrentProject] = useState(null);
