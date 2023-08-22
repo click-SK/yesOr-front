@@ -66,7 +66,7 @@ const AllProjectAdmin = ({ projectArr, verified, handleChangeFunc, setReloadUser
         })
     }
 
-    console.log('projectMainPage',projectMainPage);
+    
     return (
         <div className="project_wrap">
             <div className="project_header">
