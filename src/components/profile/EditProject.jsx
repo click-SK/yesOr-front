@@ -44,6 +44,7 @@ const EditProject = ({selectedProject,setIsOpen}) => {
             setPlacementPeriod(selectedProject.period.countDays);
             setTargetAmount(selectedProject.target);
             setBonusBlocks(selectedProject.bonus);
+            setTeamBlocks(selectedProject.team)
         }
     }, []);
 
