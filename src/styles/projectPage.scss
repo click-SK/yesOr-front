@@ -173,6 +173,9 @@
 }
 .project_wrap_page{
     flex: 0 1 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
 }
 
 #dynamicTeam{
