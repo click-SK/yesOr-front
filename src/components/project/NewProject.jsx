@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import * as validation from "../../validation/validator";
 import $api from "../../http/httpUser";
 import { BsPersonFillAdd } from 'react-icons/bs';
-
+import { useNavigate } from "react-router-dom";
 const NewProject = () => {
   const [images, setImages] = useState([]);
   const [imagesSrc, setImagesSrc] = useState([]);
@@ -35,6 +35,8 @@ const NewProject = () => {
   const [targetAmountErrorMessage, setTargetAmountErrorMessage] = useState("");
   const [categoryErrorMessage, setCategoryErrorMessage] = useState("");
   const { user } = useSelector((state) => state.authUser.user);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (images.length > 0) {
@@ -151,7 +153,7 @@ const NewProject = () => {
         .then(() => {
           setTimeout(() => {
             alert('Project added')
-            window.location.reload();
+            navigate('/')
           },500)
         })
       } else {
