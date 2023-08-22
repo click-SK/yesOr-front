@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ModalProjectConfirm from './ModalProjectConfirm';
 import { Link } from 'react-router-dom';
 import { BiAddToQueue } from 'react-icons/bi';
 import { TiDocumentDelete } from 'react-icons/ti';
 import { Tooltip } from 'react-tooltip'; 
-
+import axios from 'axios';
+import { BASE_URL } from '../../http/baseUrl';
 import UserHistoryDonat from './userList/UserHistoryDonat';
 
 const AllProjectAdmin = ({ projectArr, verified, handleChangeFunc, setReloadUserData }) => {
@@ -12,6 +13,13 @@ const AllProjectAdmin = ({ projectArr, verified, handleChangeFunc, setReloadUser
     const [isOpenModalUnConfirm, setIsOpenModalUnConfirm] = useState(false);
     const [isOpenHistory, setIsOpenHistory] = useState(false);
     const [projectMainPage, setProjectMainPage] = useState([]); 
+
+    useEffect(() => {
+        axios.get(`${BASE_URL}/get-project-main-page`)
+        .then((res) => {
+            setProjectMainPage(res.data)
+        })
+    },[])
 
     const truncateText = (text, maxLength) => {
         if (text.length <= maxLength) {
@@ -24,17 +32,39 @@ const AllProjectAdmin = ({ projectArr, verified, handleChangeFunc, setReloadUser
         return truncatedText.substr(0, lastSpaceIndex) + '...';
     };
 
-    const toggleProjectOnMainPage = (project) => {
-        if (projectMainPage.some((p) => p._id === project._id)) {
-            setProjectMainPage(projectMainPage.filter((p) => p._id !== project._id));
-        } else {
-            setProjectMainPage([...projectMainPage, project]);
-        }
-    };
+    // const toggleProjectOnMainPage = (project) => {
+    //     if (projectMainPage.some((p) => p._id === project._id)) {
+    //         setProjectMainPage(projectMainPage.filter((p) => p._id !== project._id));
+    //     } else {
+    //         setProjectMainPage([...projectMainPage, project]);
+    //     }
+    // };
 
-    const isProjectOnMainPage = (project) => {
-        return projectMainPage.some((p) => p._id === project._id);
-    };
+    // const isProjectOnMainPage = (project) => {
+    //     return projectMainPage.some((p) => p._id === project._id);
+    // };
+
+    const handleSendProjectOnMainPage = (item) => {
+        axios.post(`${BASE_URL}/add-project-main-page`, {
+            projectId: item?.projects?._id
+        }).then((res) => {
+            setTimeout(() => {
+                alert('Project added to main page')
+                console.log('res',res);
+            },500)
+        })
+    }
+    const handleRemoveProjectFromMainPage = (item) => {
+        axios.delete(`${BASE_URL}/remove-project-main-page`, {
+            // projectId: item?.projects?._id,
+            // currentId: item._id
+        }).then((res) => {
+            setTimeout(() => {
+                alert('Project added to main page')
+                console.log('res',res);
+            },500)
+        })
+    }
 
     console.log('projectMainPage',projectMainPage);
     return (
@@ -79,17 +109,19 @@ const AllProjectAdmin = ({ projectArr, verified, handleChangeFunc, setReloadUser
                             alt=""
                             onClick={() => setIsOpenHistory(!isOpenHistory)}
                         />
-                        {isProjectOnMainPage(item.projects) ? (
+                        <div >
+                        {true ? (
                             <TiDocumentDelete
                                 title="Remove from main"
-                                onClick={() => toggleProjectOnMainPage(item.projects)}
+                                onClick={() => handleRemoveProjectFromMainPage(item)}
                             />
                         ) : (
                             <BiAddToQueue
                                 title="Add to the main page"
-                                onClick={() => toggleProjectOnMainPage(item.projects)}
+                                onClick={() => handleSendProjectOnMainPage(item)}
                             />
                         )}
+                        </div>
                     </div>
                     <ModalProjectConfirm
                         title={"Confirm Verification?"}
