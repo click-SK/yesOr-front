@@ -10,7 +10,6 @@ const ModalProjectConfirm = ({isOpenModal, setIsOpen, title, handleChangeFunc, i
            console.log(error); 
         }
     }
-
     return (
         <>
             {isOpenModal &&

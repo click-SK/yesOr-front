@@ -1,27 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { HiOutlineArrowNarrowLeft, HiOutlineArrowNarrowRight } from 'react-icons/hi';
-
+import axios from "axios";
+import { BASE_URL } from "../../http/baseUrl";
 const ProjectsMain = () => {
-  const projectData = [
-    {
-      id: 1,
-      image: './mainPage/courosel/project/image 1.png',
-      name: 'Name project 1',
-    },
-    {
-      id: 2,
-      image: './mainPage/courosel/project/image 2.png',
-      name: 'Name project 2',
-    },
-    {
-      id: 3,
-      image: './mainPage/courosel/project/image 3.png',
-      name: 'Name project 3',
-    },
-  ];
+  // const projectData = [
+  //   {
+  //     id: 1,
+  //     image: './mainPage/courosel/project/image 1.png',
+  //     name: 'Name project 1',
+  //   },
+  //   {
+  //     id: 2,
+  //     image: './mainPage/courosel/project/image 2.png',
+  //     name: 'Name project 2',
+  //   },
+  //   {
+  //     id: 3,
+  //     image: './mainPage/courosel/project/image 3.png',
+  //     name: 'Name project 3',
+  //   },
+  // ];
 
   const [activeIndex, setActiveIndex] = useState(2);
   const [animationDirection, setAnimationDirection] = useState(null);
+  const [projectData, setProjectData] = useState([]);
+
+  console.log('projectData',projectData);
+
+  useEffect(() => {
+    axios.get(`${BASE_URL}/get-project-main-page`).then((res) => {
+      setProjectData(res.data);
+    });
+  }, []);
 
   const handlePrev = () => {
     setAnimationDirection('prev');
@@ -51,9 +61,13 @@ const ProjectsMain = () => {
     }, 5);
   };
 
-  const activeProject = projectData.find((project) => project.id === activeIndex);
-  const prevProject = projectData.find((project) => project.id === (activeIndex === 1 ? projectData.length : activeIndex - 1));
-  const nextProject = projectData.find((project) => project.id === (activeIndex === projectData.length ? 1 : activeIndex + 1));
+  const activeProject = projectData.length != 0 && projectData.find((project) => project.id === activeIndex);
+  const prevProject = projectData.length != 0 && projectData.find((project) => project.id === (activeIndex === 1 ? projectData.length : activeIndex - 1));
+  const nextProject = projectData.length != 0 && projectData.find((project) => project.id === (activeIndex === projectData.length ? 1 : activeIndex + 1));
+
+  console.log('activeProject',activeProject);
+  console.log('prevProject',prevProject);
+  console.log('nextProject',nextProject);
 
   return (
     <section id="project" className="section project">
@@ -63,16 +77,16 @@ const ProjectsMain = () => {
       <div className="project_carousel">
         <div className="project_img_wrap">
           <div className={`project_second ${animationDirection === 'prev' ? 'active' : ''}`}>
-            <img src={prevProject.image} alt="" />
-            <p className="project_second_name">{prevProject.name}</p>
+            <img src={prevProject?.image} alt="" />
+            <p className="project_second_name">{prevProject?.name}</p>
           </div>
           <div className={`project_active ${animationDirection ? 'inactive' : 'active'}`}>
-            <img src={activeProject.image} alt="" />
-            <p className="project_active_name">{activeProject.name}</p>
+            <img src={activeProject?.image} alt="" />
+            <p className="project_active_name">{activeProject?.name}</p>
           </div>
           <div className={`project_second ${animationDirection === 'next' ? 'active' : ''}`}>
-            <img src={nextProject.image} alt="" />
-            <p className="project_second_name">{nextProject.name}</p>
+            <img src={nextProject?.image} alt="" />
+            <p className="project_second_name">{nextProject?.name}</p>
           </div>
         </div>
         <div className='courosel_control'>
