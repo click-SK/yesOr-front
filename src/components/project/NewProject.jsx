@@ -136,7 +136,10 @@ const NewProject = () => {
         formData.append("name", name);
         formData.append("description", description);
         formData.append("request", request);
-        formData.append("team", teamBlocks);
+        // formData.append("team", teamBlocks);
+        for (const block of teamBlocks) {
+          formData.append("team", block);
+      }
         formData.append("period", JSON.stringify({startDate: '',countDays: placementPeriod}));
         formData.append("target", targetAmount);
         formData.append("category", selectedCategory?.category);
@@ -176,6 +179,8 @@ const NewProject = () => {
     }
     console.log("disabled");
   };
+
+  console.log('teamBlocks',teamBlocks);
 
   const handleAddTeamBlock = () => {
     setTeamBlocks((prevBlocks) => [...prevBlocks, ""]);

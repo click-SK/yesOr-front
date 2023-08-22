@@ -105,7 +105,13 @@ const AllProjectAdmin = ({ projectArr, verified, handleChangeFunc, setReloadUser
                         handleChangeFunc={handleChangeFunc}
                         item={item}
                     />
-                    {isOpenHistory && <UserHistoryDonat setIsOpen={setIsOpenHistory} isUser={false} />}
+                    {/* {isOpenHistory && <UserHistoryDonat 
+                    setIsOpen={setIsOpenHistory} 
+                    isUser={false} />} */}
+                    {isOpenHistory && <UserHistoryDonat 
+                          setIsOpen = {setIsOpenHistory}
+                          isUser = {false}
+                          project={item.projects} />}
                 </div>
             ))}
         </div>
