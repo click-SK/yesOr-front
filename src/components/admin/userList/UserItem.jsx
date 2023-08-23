@@ -56,7 +56,7 @@ const UserItem = ({ item, setReloadUserData }) => {
       <img src={`${BASE_URL}${item.userImage}`} alt="" />
       <p>{item.firstName + " " + item.lastName}</p>
 
-      <button onClick={() => setIsOpenModal(!isOpenModal)}> Open modal</button>
+      {/* <button onClick={() => setIsOpenModal(!isOpenModal)}> Open modal</button> */}
 
       <div className="admin_project_item_svg">
         <img src="./icons/ph_chat-centered-dots-light.svg" alt="" />

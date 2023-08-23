@@ -183,6 +183,8 @@ p{
 
 .project_second{
     position: relative;
+    width: 100%;
+    height: 100%;
     max-width: 397px;
     max-height: 387px;
     padding: 30px 56px 20px;
@@ -211,6 +213,7 @@ p{
     font-size: 14px;
     font-family: 'Artegra text';
     color: $color_prime;
+    text-align: center;
 }
 
 .project_active{
@@ -229,12 +232,13 @@ p{
 }
 
 .project_active_name{
-    margin-top: 50px;
+    margin-top: 20px;
     font-size: 36px;
     color: $color_white;
     font-family: 'Artegra text';
     font-weight: 400;
     line-height: 51px;
+    text-align: center;
 }
 
 .courosel_control{

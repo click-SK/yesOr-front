@@ -2,30 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { HiOutlineArrowNarrowLeft, HiOutlineArrowNarrowRight } from 'react-icons/hi';
 import axios from "axios";
 import { BASE_URL } from "../../http/baseUrl";
-const ProjectsMain = () => {
-  // const projectData = [
-  //   {
-  //     id: 1,
-  //     image: './mainPage/courosel/project/image 1.png',
-  //     name: 'Name project 1',
-  //   },
-  //   {
-  //     id: 2,
-  //     image: './mainPage/courosel/project/image 2.png',
-  //     name: 'Name project 2',
-  //   },
-  //   {
-  //     id: 3,
-  //     image: './mainPage/courosel/project/image 3.png',
-  //     name: 'Name project 3',
-  //   },
-  // ];
 
-  const [activeIndex, setActiveIndex] = useState(2);
+const ProjectsMain = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
   const [animationDirection, setAnimationDirection] = useState(null);
   const [projectData, setProjectData] = useState([]);
-
-  console.log('projectData',projectData);
 
   useEffect(() => {
     axios.get(`${BASE_URL}/get-project-main-page`).then((res) => {
@@ -37,8 +18,8 @@ const ProjectsMain = () => {
     setAnimationDirection('prev');
     setTimeout(() => {
       setActiveIndex((prevIndex) => {
-        if (prevIndex === 1) {
-          return projectData.length;
+        if (prevIndex === 0) {
+          return projectData.length - 1;
         } else {
           return prevIndex - 1;
         }
@@ -51,23 +32,19 @@ const ProjectsMain = () => {
     setAnimationDirection('next');
     setTimeout(() => {
       setActiveIndex((prevIndex) => {
-        if (prevIndex === projectData.length) {
-          return 1;
+        if (prevIndex === projectData.length - 1) {
+          return 0;
         } else {
           return prevIndex + 1;
         }
       });
       setAnimationDirection(null);
-    }, 5);
+    }, 500);
   };
 
-  const activeProject = projectData.length != 0 && projectData.find((project) => project.id === activeIndex);
-  const prevProject = projectData.length != 0 && projectData.find((project) => project.id === (activeIndex === 1 ? projectData.length : activeIndex - 1));
-  const nextProject = projectData.length != 0 && projectData.find((project) => project.id === (activeIndex === projectData.length ? 1 : activeIndex + 1));
-
-  console.log('activeProject',activeProject);
-  console.log('prevProject',prevProject);
-  console.log('nextProject',nextProject);
+  const activeProject = projectData[activeIndex]?.project;
+  const prevProject = projectData[(activeIndex - 1 + projectData.length) % projectData.length]?.project;
+  const nextProject = projectData[(activeIndex + 1) % projectData.length]?.project;
 
   return (
     <section id="project" className="section project">
@@ -91,10 +68,10 @@ const ProjectsMain = () => {
         </div>
         <div className='courosel_control'>
           <div className='left_arrow' onClick={handlePrev}>
-            <img src="./icons/Arrow left.svg" alt="" />
+            <HiOutlineArrowNarrowLeft />
           </div>
           <div className='right_arrow' onClick={handleNext}>
-            <img src="./icons/Arrow right.svg" alt="" />
+            <HiOutlineArrowNarrowRight />
           </div>
         </div>
       </div>
