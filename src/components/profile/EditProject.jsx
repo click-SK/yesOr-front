@@ -21,7 +21,6 @@ const EditProject = ({selectedProject,setIsOpen}) => {
     const [request, setRequest] = useState("");
     const [placementPeriod, setPlacementPeriod] = useState(0);
     const [targetAmount, setTargetAmount] = useState(0);
-    const [userAgreement, setUserAgreement] = useState(false);
     const [currentUser, setCurrentUser] = useState({});
     const [reloadUser, setReloadUser] = useState({});
     const [teamBlocks, setTeamBlocks] = useState([]);
@@ -70,6 +69,8 @@ const EditProject = ({selectedProject,setIsOpen}) => {
         loadImageSrcs();
       }
     }, [images]);
+
+    console.log('selectedProject',selectedProject);
   
 
   
@@ -142,67 +143,71 @@ const EditProject = ({selectedProject,setIsOpen}) => {
   
     const handleCreateNewProject = () => {
       try {
-        // const resoult = validation.validationCreateProject({
-        //   targetAmount,
-        //   placementPeriod,
-        //   request,
-        //   description,
-        //   name,
-        //   category: selectedCategory?.category,
-        // });
+        const resoult = validation.validationCreateProject({
+          targetAmount,
+          placementPeriod,
+          request,
+          description,
+          name,
+          category: selectedCategory?.category,
+        });
         
         setIsOpen(state => !state)
         
 
-        // if (resoult.isValid && userAgreement) {
-        //   const formData = new FormData();
-        //   images.forEach((image, index) => {
-        //     console.log("image", image);
-        //     formData.append(`projectMedia`, image);
-        //   });
-        //   formData.append('bonus', JSON.stringify(bonusBlocks));
-        //   formData.append("userId", user._id);
-        //   formData.append("name", name);
-        //   formData.append("description", description);
-        //   formData.append("request", request);
-        //   // formData.append("team", teamBlocks);
-        //   for (const block of teamBlocks) {
-        //     formData.append("team", block);
-        // }
-        //   formData.append("period", JSON.stringify({startDate: '',countDays: placementPeriod}));
-        //   formData.append("target", targetAmount);
-        //   formData.append("category", selectedCategory?.category);
-        //   formData.append(
-        //     "subcategory",
-        //     selectedSubCategory ? selectedSubCategory.name : ""
-        //   );
-        //   axios.post(`${BASE_URL}/create-project`, formData)
-        //   .then(() => {
-        //     setTimeout(() => {
-        //       alert('Project added')
-        //       window.location.reload();
-        //     },500)
-        //   })
-        // } else {
-        //   resoult.reason == "name"
-        //     ? setNameErrorMessage(resoult.error)
-        //     : setNameErrorMessage("");
-        //   resoult.reason == "description"
-        //     ? setDescriptionErrorMessage(resoult.error)
-        //     : setDescriptionErrorMessage("");
-        //   resoult.reason == "request"
-        //     ? setRequestErrorMessage(resoult.error)
-        //     : setRequestErrorMessage("");
-        //   resoult.reason == "placementPeriod"
-        //     ? setPlacementPeriodErrorMessage(resoult.error)
-        //     : setPlacementPeriodErrorMessage("");
-        //   resoult.reason == "targetAmount"
-        //     ? setTargetAmountErrorMessage(resoult.error)
-        //     : setTargetAmountErrorMessage("");
-        //   resoult.reason == "category"
-        //     ? setCategoryErrorMessage(resoult.error)
-        //     : setCategoryErrorMessage("");
-        // }
+        if (resoult.isValid) {
+          const formData = new FormData();
+          images.forEach((image, index) => {
+            console.log("image", image);
+            formData.append(`projectMedia`, image);
+          });
+          formData.append('bonus', JSON.stringify(bonusBlocks));
+          formData.append("projectId", selectedProject._id);
+          formData.append("name", name);
+          formData.append("description", description);
+          formData.append("request", request);
+          // formData.append("team", teamBlocks);
+          for (const block of teamBlocks) {
+            formData.append("team", block);
+        }
+          formData.append("period", JSON.stringify({startDate: '',countDays: placementPeriod}));
+          formData.append("target", targetAmount);
+          formData.append("category", selectedCategory?.category);
+          formData.append(
+            "subcategory",
+            selectedSubCategory && selectedSubCategory.name
+              ? selectedSubCategory.name
+              : subCategoryArray.length !== 0
+              ? subCategoryArray[0].name
+              : ""
+          );
+          axios.patch(`${BASE_URL}/update-project`, formData)
+          .then(() => {
+            setTimeout(() => {
+              alert('Project updated')
+              window.location.reload();
+            },500)
+          })
+        } else {
+          resoult.reason == "name"
+            ? setNameErrorMessage(resoult.error)
+            : setNameErrorMessage("");
+          resoult.reason == "description"
+            ? setDescriptionErrorMessage(resoult.error)
+            : setDescriptionErrorMessage("");
+          resoult.reason == "request"
+            ? setRequestErrorMessage(resoult.error)
+            : setRequestErrorMessage("");
+          resoult.reason == "placementPeriod"
+            ? setPlacementPeriodErrorMessage(resoult.error)
+            : setPlacementPeriodErrorMessage("");
+          resoult.reason == "targetAmount"
+            ? setTargetAmountErrorMessage(resoult.error)
+            : setTargetAmountErrorMessage("");
+          resoult.reason == "category"
+            ? setCategoryErrorMessage(resoult.error)
+            : setCategoryErrorMessage("");
+        }
       } catch (e) {
         console.log(e);
       }
@@ -303,6 +308,11 @@ const EditProject = ({selectedProject,setIsOpen}) => {
         resoult?.reason == 'targetAmount' ? setTargetAmountErrorMessage(resoult?.error) : setTargetAmountErrorMessage('');
       }
     }
+
+    console.log('selectedSubCategory',selectedSubCategory);
+    console.log('selectedCategory',selectedCategory);
+    console.log('subCategoryArray',subCategoryArray[0]?.name);
+    console.log('subCategoryArray 2',selectedSubCategory?.name);
   
     return (
       <div className="new_project_wraper edit_curent_project">
@@ -519,21 +529,6 @@ const EditProject = ({selectedProject,setIsOpen}) => {
             ))}
           </div>
           <div className="input_checkbox_wrap">
-            <div className="input_checkbox_wrap-item">
-              <input
-                className="checkbox_input"
-                id="remember_me"
-                type="checkbox"
-                checked={userAgreement}
-                onChange={() => setUserAgreement((state) => !state)}
-              />
-              <label
-                htmlFor="remember_me"
-                className={userAgreement ? "" : "danger"}
-              >
-                Confirm user agreement
-              </label>
-            </div>
             <Link to="/rules">
               <p>
                 Rules <img src="./icons/ph_info-light2.svg" alt="" />
@@ -545,7 +540,7 @@ const EditProject = ({selectedProject,setIsOpen}) => {
           disabled={currentUser?.isVerified ? false : true}
           onClick={handleCreateNewProject}
         >
-          Save
+          Update
         </button>
         {/* </div> */}
       </div>

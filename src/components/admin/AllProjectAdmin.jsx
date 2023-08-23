@@ -10,6 +10,7 @@ const AllProjectAdmin = ({
 }) => {
   const [projectMainPage, setProjectMainPage] = useState([]);
   const [mainPageProjectIdArray, setMainPageProjectIdArray] = useState([]);
+  const [reloadProjectMainPage, setReloadProjectMainPage] = useState(false);
 
   useEffect(() => {
     axios.get(`${BASE_URL}/get-project-main-page`).then((res) => {
@@ -20,7 +21,7 @@ const AllProjectAdmin = ({
       })
       setMainPageProjectIdArray(onlyId);
     });
-  }, []);
+  }, [reloadProjectMainPage]);
 
   const reversedProjectArr = [...projectArr].reverse();
 
@@ -41,6 +42,7 @@ const AllProjectAdmin = ({
           verified={verified}
           onlyId={mainPageProjectIdArray}
           projectMainPage={projectMainPage}
+          setReload={setReloadProjectMainPage}
         />
       ))}
 
