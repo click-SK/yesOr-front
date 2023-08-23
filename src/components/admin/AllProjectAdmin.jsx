@@ -13,14 +13,18 @@ const AllProjectAdmin = ({
   const [reloadProjectMainPage, setReloadProjectMainPage] = useState(false);
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/get-project-main-page`).then((res) => {
-      setProjectMainPage(res.data);
-      let onlyId = [];
-      res.data.forEach((item) => {
-        onlyId.push(item.project._id);
-      })
-      setMainPageProjectIdArray(onlyId);
-    });
+    try {
+      axios.get(`${BASE_URL}/get-project-main-page`).then((res) => {
+        setProjectMainPage(res.data);
+        let onlyId = [];
+        res.data.forEach((item) => {
+          onlyId.push(item?.project?._id);
+        })
+        setMainPageProjectIdArray(onlyId);
+      });
+    } catch(error) {
+        console.log(error);
+    }
   }, [reloadProjectMainPage]);
 
   const reversedProjectArr = [...projectArr].reverse();
@@ -37,7 +41,7 @@ const AllProjectAdmin = ({
       {reversedProjectArr.map((item, idx) => (
         <ProjectItem
           item={item}
-          key={item._id}
+          key={item?._id}
           handleChangeFunc={handleChangeFunc}
           verified={verified}
           onlyId={mainPageProjectIdArray}

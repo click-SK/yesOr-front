@@ -29,10 +29,10 @@ const ProfileInfo = ({openSetting, currentUser}) => {
         </div>
         <div className="content">
           <div className="user_info">
-            <h2>{currentUser.firstName}</h2>
-            <p>{currentUser.email}</p>
-            <p>{currentUser.phone}</p>
-            {currentUser.isVerified 
+            <h2>{currentUser?.firstName}</h2>
+            <p>{currentUser?.email}</p>
+            <p>{currentUser?.phone}</p>
+            {currentUser?.isVerified 
             ?
             <p style={{color: 'green'}}>Verified</p> 
             :

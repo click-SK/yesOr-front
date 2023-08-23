@@ -11,37 +11,49 @@ const ProjectsMain = () => {
   const [projectData, setProjectData] = useState([]);
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/get-project-main-page`).then((res) => {
-      setProjectData(res.data);
-    });
+    try {
+      axios.get(`${BASE_URL}/get-project-main-page`).then((res) => {
+        setProjectData(res.data);
+      });
+    } catch(error) {
+        console.log(error);
+    }
   }, []);
 
   const handlePrev = () => {
-    setAnimationDirection('prev');
-    setTimeout(() => {
-      setActiveIndex((prevIndex) => {
-        if (prevIndex === 0) {
-          return projectData.length - 1;
-        } else {
-          return prevIndex - 1;
-        }
-      });
-      setAnimationDirection(null);
-    }, 500);
+    try {
+      setAnimationDirection('prev');
+      setTimeout(() => {
+        setActiveIndex((prevIndex) => {
+          if (prevIndex === 0) {
+            return projectData.length - 1;
+          } else {
+            return prevIndex - 1;
+          }
+        });
+        setAnimationDirection(null);
+      }, 500);
+    } catch(error) {
+        console.log(error);
+    }
   };
 
   const handleNext = () => {
-    setAnimationDirection('next');
-    setTimeout(() => {
-      setActiveIndex((prevIndex) => {
-        if (prevIndex === projectData.length - 1) {
-          return 0;
-        } else {
-          return prevIndex + 1;
-        }
-      });
-      setAnimationDirection(null);
-    }, 500);
+    try {
+      setAnimationDirection('next');
+      setTimeout(() => {
+        setActiveIndex((prevIndex) => {
+          if (prevIndex === projectData.length - 1) {
+            return 0;
+          } else {
+            return prevIndex + 1;
+          }
+        });
+        setAnimationDirection(null);
+      }, 500);
+    } catch(error) {
+        console.log(error);
+    }
   };
 
   const activeProject = projectData[activeIndex]?.project;

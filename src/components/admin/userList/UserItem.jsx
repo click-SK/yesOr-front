@@ -19,8 +19,8 @@ const UserItem = ({ item, setReloadUserData }) => {
     try {
       axios
         .patch(`${BASE_URL}/update-user-activated`, {
-          id: item._id,
-          isActivated: !item.isActivated,
+          id: item?._id,
+          isActivated: !item?.isActivated,
         })
         .then(() => {
           setTimeout(() => {
@@ -53,15 +53,15 @@ const UserItem = ({ item, setReloadUserData }) => {
 
   return (
     <div className="project_item admin_project_item" key={item._id}>
-      <img src={`${BASE_URL}${item.userImage}`} alt="" />
-      <p>{item.firstName + " " + item.lastName}</p>
+      <img src={`${BASE_URL}${item?.userImage}`} alt="" />
+      <p>{item?.firstName + " " + item?.lastName}</p>
 
       {/* <button onClick={() => setIsOpenModal(!isOpenModal)}> Open modal</button> */}
 
       <div className="admin_project_item_svg">
         <img src="./icons/ph_chat-centered-dots-light.svg" alt="" />
         <div>
-          {!item.isVerified ? (
+          {!item?.isVerified ? (
             <img
               onClick={() => setIsOpenModalConfirm(!isOpenModalConfirm)}
               src="./icons/ph_info-light.svg"
@@ -76,7 +76,7 @@ const UserItem = ({ item, setReloadUserData }) => {
           )}
         </div>
         <div className="block_user_btn" onClick={handleBlockedUser}>
-          {item.isActivated ? (
+          {item?.isActivated ? (
             <img src="./icons/block.svg" alt="" />
           ) : (
             <AiOutlineLock />
@@ -93,8 +93,8 @@ const UserItem = ({ item, setReloadUserData }) => {
       <UserModal
         isOpen={isOpenModal}
         setIsOpen={setIsOpenModal}
-        documents={item.userDocuments.length != 0 && item.userDocuments}
-        name={item.firstName}
+        documents={item?.userDocuments.length != 0 && item?.userDocuments}
+        name={item?.firstName}
       />
       <ModalProjectConfirm
         title={"Confirm Verification?"}

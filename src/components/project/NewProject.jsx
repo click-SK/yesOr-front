@@ -59,28 +59,37 @@ const NewProject = () => {
     }
   }, [images]);
 
-  console.log('imagesSrc',imagesSrc);
-
-
   const inputFileRef = useRef(null);
 
   useEffect(() => {
-    if (allCategory.length != 0) {
-      handleSetDefaultCategory();
+    try {
+      if (allCategory.length != 0) {
+        handleSetDefaultCategory();
+      }
+    } catch(error) {
+        console.log(error);
     }
   }, [allCategory, subCategoryArray]);
 
   useEffect(() => {
-    axios
-      .get(`${BASE_URL}/get-all-category`)
-      .then((res) => setAllCategory(res.data));
+    try {
+        axios
+          .get(`${BASE_URL}/get-all-category`)
+          .then((res) => setAllCategory(res.data));
+      } catch(error) {
+          console.log(error);
+      }
   }, []);
 
   useEffect(() => {
-    setSelectedSubCategory(null);
-    setSubCategoryArray([]);
-    if (selectedCategory && selectedCategory.subcategory.length != 0) {
-      setSubCategoryArray(selectedCategory.subcategory);
+    try {
+      setSelectedSubCategory(null);
+      setSubCategoryArray([]);
+      if (selectedCategory && selectedCategory.subcategory.length != 0) {
+        setSubCategoryArray(selectedCategory.subcategory);
+      }
+    } catch(error) {
+        console.log(error);
     }
   }, [selectedCategory]);
 
@@ -93,14 +102,17 @@ const NewProject = () => {
       console.log(error);
     }
   }, [user, reloadUser]);
-  console.log("currentUser", currentUser?.isVerified);
 
   const handleSetDefaultCategory = () => {
-    if (!selectedCategory) {
-      setSelectedCategory(allCategory[0]);
-    }
-    if (!selectedSubCategory) {
-      setSelectedSubCategory(subCategoryArray[0]);
+    try {
+      if (!selectedCategory) {
+        setSelectedCategory(allCategory[0]);
+      }
+      if (!selectedSubCategory) {
+        setSelectedSubCategory(subCategoryArray[0]);
+      }
+    } catch(error) {
+        console.log(error);
     }
   };
 
@@ -113,8 +125,6 @@ const NewProject = () => {
       console.log(error);
     }
   };
-
-  console.log('placementPeriod',placementPeriod);
 
   const handleCreateNewProject = () => {
     try {
@@ -208,13 +218,17 @@ const NewProject = () => {
   }
 
   const handleValidateName = (e) => {
-    const resoult = validation.validationCreateProject({name: e});
-    console.log('resoult',resoult);
-
-    if(resoult?.isValid) {
-      setNameErrorMessage('');
-    } else {
-      resoult?.reason == 'name' ? setNameErrorMessage(resoult?.error) : setNameErrorMessage('');
+    try {
+      const resoult = validation.validationCreateProject({name: e});
+      console.log('resoult',resoult);
+  
+      if(resoult?.isValid) {
+        setNameErrorMessage('');
+      } else {
+        resoult?.reason == 'name' ? setNameErrorMessage(resoult?.error) : setNameErrorMessage('');
+      }
+    } catch(error) {
+        console.log(error);
     }
   }
 
@@ -224,14 +238,17 @@ const NewProject = () => {
   }
 
   const handleValidateDescription = (e) => {
-
-    const resoult = validation.validationCreateProject({description: e});
-    console.log('resoult',resoult);
-
-    if(resoult?.isValid) {
-      setDescriptionErrorMessage('');
-    } else {
-      resoult?.reason == 'description' ? setDescriptionErrorMessage(resoult?.error) : setDescriptionErrorMessage('');
+    try {
+      const resoult = validation.validationCreateProject({description: e});
+      console.log('resoult',resoult);
+  
+      if(resoult?.isValid) {
+        setDescriptionErrorMessage('');
+      } else {
+        resoult?.reason == 'description' ? setDescriptionErrorMessage(resoult?.error) : setDescriptionErrorMessage('');
+      } 
+    } catch(error) {
+        console.log(error);
     }
   }
 
@@ -241,14 +258,17 @@ const NewProject = () => {
   }
 
   const handleValidateRequest = (e) => {
-
-    const resoult = validation.validationCreateProject({request: e});
-    console.log('resoult',resoult);
-
-    if(resoult?.isValid) {
-      setRequestErrorMessage('');
-    } else {
-      resoult?.reason == 'request' ? setRequestErrorMessage(resoult?.error) : setRequestErrorMessage('');
+    try {
+      const resoult = validation.validationCreateProject({request: e});
+      console.log('resoult',resoult);
+  
+      if(resoult?.isValid) {
+        setRequestErrorMessage('');
+      } else {
+        resoult?.reason == 'request' ? setRequestErrorMessage(resoult?.error) : setRequestErrorMessage('');
+      }
+    } catch(error) {
+        console.log(error);
     }
   }
   const handlePlacementPeriod = (e) => {
@@ -257,14 +277,17 @@ const NewProject = () => {
   }
 
   const handleValidatePlacementPeriod = (e) => {
-
-    const resoult = validation.validationCreateProject({placementPeriod: e});
-    console.log('resoult',resoult);
-
-    if(resoult?.isValid) {
-      setPlacementPeriodErrorMessage('');
-    } else {
-      resoult?.reason == 'placementPeriod' ? setPlacementPeriodErrorMessage(resoult?.error) : setPlacementPeriodErrorMessage('');
+    try {
+      const resoult = validation.validationCreateProject({placementPeriod: e});
+      console.log('resoult',resoult);
+  
+      if(resoult?.isValid) {
+        setPlacementPeriodErrorMessage('');
+      } else {
+        resoult?.reason == 'placementPeriod' ? setPlacementPeriodErrorMessage(resoult?.error) : setPlacementPeriodErrorMessage('');
+      }
+    } catch(error) {
+        console.log(error);
     }
   }
   const handleTargetAmount = (e) => {
@@ -273,14 +296,17 @@ const NewProject = () => {
   }
 
   const handleValidateTargetAmount = (e) => {
-
-    const resoult = validation.validationCreateProject({targetAmount: e});
-    console.log('resoult',resoult);
-
-    if(resoult?.isValid) {
-      setTargetAmountErrorMessage('');
-    } else {
-      resoult?.reason == 'targetAmount' ? setTargetAmountErrorMessage(resoult?.error) : setTargetAmountErrorMessage('');
+    try {
+      const resoult = validation.validationCreateProject({targetAmount: e});
+      console.log('resoult',resoult);
+  
+      if(resoult?.isValid) {
+        setTargetAmountErrorMessage('');
+      } else {
+        resoult?.reason == 'targetAmount' ? setTargetAmountErrorMessage(resoult?.error) : setTargetAmountErrorMessage('');
+      }
+    } catch(error) {
+        console.log(error);
     }
   }
 
@@ -296,19 +322,6 @@ const NewProject = () => {
       <div className="profile_title">
         <h2>Apply</h2>
       </div>
-      {/* <div className=''> */}
-
-      {/* <div className="new_project_image_wrap">
-        {imagesSrc.length != 0 && imagesSrc.map((image,idx) => (
-          <div key={idx} className="new_project_image_block">
-            <img src={image} className="new_project_image"/>
-            <video controls>
-      <source src={image} type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-          </div>
-        ))}
-      </div> */}
       <div className="new_project_image_wrap">
   {imagesSrc.length !== 0 && imagesSrc.map((data, idx) => {
     const mimeType = data.startsWith('data:video') ? 'video/mp4' : 'image/jpeg';
@@ -403,20 +416,6 @@ const NewProject = () => {
         </div>
         {requestErrorMessage && <p className="danger">{requestErrorMessage}</p>}
         <div className="input_item">
-          {/* <label htmlFor="dynamicTeam">Owner*</label>
-          <input
-            id="dynamicTeam"
-            type="text"
-            value={currentUser?.lastName ? `${currentUser.lastName} ${currentUser.firstName}` : ''}
-            onChange={(e) => {
-              const updatedBlocks = [...teamBlocks];
-              if (updatedBlocks.length === 0) {
-                updatedBlocks.push(""); // Додавання нового блоку при введенні в порожній масив
-              }
-              updatedBlocks[0] = e.target.value;
-              setTeamBlocks(updatedBlocks);
-            }}
-          /> */}
           <div className="team_dynamic_wrap">
             <label className="team_label" htmlFor="team">Team</label>
             <button className="btn_add_team" onClick={handleAddTeamBlock}><BsPersonFillAdd/></button>

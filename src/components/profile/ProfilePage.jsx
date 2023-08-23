@@ -103,7 +103,7 @@ const ProfilePage = () => {
           </div>
           {!isOpenDonatProject ?
             <SavedProject
-              savedProjects={currentUser && currentUser.savedProjects}
+              savedProjects={currentUser && currentUser?.savedProjects}
             /> 
             :
             <ProjectDonat
@@ -124,7 +124,7 @@ const ProfilePage = () => {
           />
         )}
         {isOpenMyProject && (
-          <MyPriject userProjects={currentUser && currentUser.projects} />
+          <MyPriject userProjects={currentUser && currentUser?.projects} />
         )}
       </div>
     </div>

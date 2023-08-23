@@ -35,17 +35,22 @@ const AdminProfile = () => {
       }, [admin, reloadUserData]);
 
       useEffect(() => {
-        axios.get(`${BASE_URL}/get-all-verified-projects`)
-        .then((res) => setAllVerifiedProject(res.data))
+        try {
+            axios.get(`${BASE_URL}/get-all-verified-projects`)
+            .then((res) => setAllVerifiedProject(res.data))
+        } catch(error) {
+            console.log(error);
+        }
       },[reloadUserData])
 
       useEffect(() => {
-        axios.get(`${BASE_URL}/get-all-not-verified-projects`)
-        .then((res) => setAllNotVerifiedProject(res.data))
+          try {
+            axios.get(`${BASE_URL}/get-all-not-verified-projects`)
+            .then((res) => setAllNotVerifiedProject(res.data))
+        } catch(error) {
+            console.log(error);
+        }
       },[reloadUserData])
-
-      console.log('allVerifiedProject',allVerifiedProject);
-      console.log('allNotVerifiedProject',allNotVerifiedProject);
 
     const handleLogout = () => {
         try {
@@ -76,26 +81,32 @@ const AdminProfile = () => {
     }
 
     const handleAddToVerified = (item) => {
-        axios.post(`${BASE_URL}/add-project-to-verified`, {
-            projectId: item.projects._id,
-            currentId: item._id
-        }).then(() => {
-            setTimeout(() => {
-                setReloadUserData((state) => !state)
-            },1000)
-        })
-        console.log('handleAddToVerified',item);
+        try {
+            axios.post(`${BASE_URL}/add-project-to-verified`, {
+                projectId: item?.projects?._id,
+                currentId: item?._id
+            }).then(() => {
+                setTimeout(() => {
+                    setReloadUserData((state) => !state)
+                },1000)
+            })
+        } catch(error) {
+            console.log(error);
+        }
     }
     const handleRemoveFromVerified = (item) => {
-        axios.post(`${BASE_URL}/add-project-to-not-verified`, {
-            projectId: item.projects._id,
-            currentId: item._id
-        }).then(() => {
-            setTimeout(() => {
-                setReloadUserData((state) => !state)
-            },1000)
-        })
-        console.log('handleRemoveFromVerified',item);
+        try {
+            axios.post(`${BASE_URL}/add-project-to-not-verified`, {
+                projectId: item?.projects?._id,
+                currentId: item?._id
+            }).then(() => {
+                setTimeout(() => {
+                    setReloadUserData((state) => !state)
+                },1000)
+            })
+        } catch(error) {
+            console.log(error);
+        }
     }
 
  
