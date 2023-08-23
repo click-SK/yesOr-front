@@ -11,7 +11,7 @@ const ProjectListTemplate = ({item}) => {
         <img src={`./file/Rectangle 53.png`} alt="itemimg" />}
         <div className='project_item-column'>
           <h4>Info</h4>
-          <p>{item?.request}</p>
+          <p>{item?.name}</p>
         </div>
         <div className='project_item-column'>
           <h4>Budget</h4>
