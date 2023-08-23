@@ -249,7 +249,7 @@ const ProjectOne = () => {
             </p>
           </div>
           <div className="project_description_wrap">
-            {['jpg', 'jpeg', 'png'].includes(currentExtension) && (
+            {['jpg', 'jpeg', 'png', 'JPG'].includes(currentExtension) && (
             <img className="main_img" src={`${BASE_URL}${currentImg}`} alt="" />
             )}
             {['mp4', 'webm'].includes(currentExtension) && (
@@ -265,7 +265,7 @@ const ProjectOne = () => {
 
                   return (
                     <div key={idx} className="new_project_image_block">
-                      {['jpg', 'jpeg', 'png'].includes(extension) && (
+                      {['jpg', 'jpeg', 'png', 'JPG'].includes(extension) && (
                         <img
                           key={idx}
                           src={`${BASE_URL}${data}`}
