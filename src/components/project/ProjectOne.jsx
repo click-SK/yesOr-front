@@ -11,6 +11,7 @@ import DonatsModal from "./donatsComp/DonatsModal";
 import HistoryDonats from "./historiDonats/HistoryDonats";
 import ModalComent from "./ModalComent";
 import EditProject from "../profile/EditProject";
+import SliderProject from "./SliderProject";
 
 const ProjectOne = () => {
   const [currentProject, setCurrentProject] = useState(null);
@@ -248,44 +249,14 @@ const ProjectOne = () => {
               {percentCollected}%
             </p>
           </div>
-          <div className="project_description_wrap">
-            {['jpg', 'jpeg', 'png', 'JPG'].includes(currentExtension) && (
-            <img className="main_img" src={`${BASE_URL}${currentImg}`} alt="" />
-            )}
-            {['mp4', 'webm'].includes(currentExtension) && (
-            <video controls className="main_img" src={`${BASE_URL}${currentImg}`} alt="" />
-            )}
-            <div className="second_img_wrap">
-              {/* {imgProject?.length != 0 && imgProject.map((item,idx) => (
-                                    <img key={idx} src={`${BASE_URL}${item}`} onClick={() => setCurrentImg(item)} alt="" />
-                                ))} */}
-              {imgProject.length !== 0 &&
-                imgProject.map((data, idx) => {
-                  const extension = data.split(".").pop(); // Отримуємо розширення файлу
+          <SliderProject
+          currentExtension = {currentExtension}
+          BASE_URL = {BASE_URL}
+          currentImg = {currentImg}
+          imgProject = {imgProject}
+          setCurrentImg = {setCurrentImg}
+          />
 
-                  return (
-                    <div key={idx} className="new_project_image_block">
-                      {['jpg', 'jpeg', 'png', 'JPG'].includes(extension) && (
-                        <img
-                          key={idx}
-                          src={`${BASE_URL}${data}`}
-                          onClick={() => setCurrentImg(data)}
-                          alt=""
-                        />
-                      )}
-                      {['mp4', 'webm'].includes(extension) && (
-                        <video
-                          key={idx}
-                          src={`${BASE_URL}${data}`}
-                          onClick={() => setCurrentImg(data)}
-                          alt=""
-                        />
-                      )}
-                    </div>
-                  );
-                })}
-            </div>
-          </div>
           <div className="project_description-info">
             <h4>Description</h4>
             <p className="descript_text">{currentProject?.description}</p>
@@ -385,12 +356,12 @@ const ProjectOne = () => {
           </div>
         </div>
       </div>
-      <div className="donat_block">
-        <h4>DONAT HISTORY</h4>
         {currentProject &&
           user &&
           currentProject.user == user._id &&
-          currentProject?.donatsHistory.map((item) => (
+      <div className="donat_block">
+        <h4>DONAT HISTORY</h4>
+          {currentProject?.donatsHistory.map((item) => (
             <div className="donat_history_wrap" key={item._id}>
               <p className="donat_history-item">{item.date}</p>
               <p className="donat_history-item">{item.user}</p>
@@ -399,6 +370,7 @@ const ProjectOne = () => {
             </div>
           ))}
       </div>
+      }
       <div className="coments_block">
         <h4>Comments</h4>
         <button onClick={() => setIsOpenComent(!isOpenComent)}>

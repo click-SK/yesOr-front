@@ -22,13 +22,18 @@ const ProjectAllList = () => {
         }
     },[])
 
+    console.log('allProjects', allProjects);
+
     return (
         <div className='profile_wrap'>
             <div className='profile_title'>
                 <h2>Project</h2>
                 <div className='top_filters'>
                     <FilterDataPicker/>
-                    <FilterSearch/>
+                    <FilterSearch 
+                    allProjects = {allProjects}
+                    setAllProjects ={setAllProjects}
+                    />
                     <FilterByName/>
                 </div>
             </div>
