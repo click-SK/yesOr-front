@@ -7,7 +7,7 @@ import { TiDocumentDelete } from "react-icons/ti";
 import { Tooltip } from "react-tooltip";
 import axios from "axios";
 import { BASE_URL } from "../../http/baseUrl";
-const ProjectItem = ({item, handleChangeFunc, verified, onlyId, projectMainPage}) => {
+const ProjectItem = ({item, handleChangeFunc, verified, onlyId, projectMainPage, setReload}) => {
     const [isOpenModalConfirm, setIsOpenModalConfirm] = useState(false);
     const [isOpenModalUnConfirm, setIsOpenModalUnConfirm] = useState(false);
     const [isOpenHistory, setIsOpenHistory] = useState(false);
@@ -31,32 +31,27 @@ const ProjectItem = ({item, handleChangeFunc, verified, onlyId, projectMainPage}
           .then((res) => {
             setTimeout(() => {
               alert("Project added to main page");
+              setReload((state) => !state);
             }, 500);
           });
       };
 
       const handleRemoveProjectFromMainPage = (item) => {
         const currentProject = projectMainPage.filter((proj) => proj.project._id == item.projects._id);
-        console.log('currentProject',currentProject[0]?._id);
-        console.log('currentProject 2',currentProject);
         if(currentProject) {
           axios.delete(`${BASE_URL}/remove-project-main-page`, {
             data: {
               projectId: item.projects._id,
               currentId: currentProject[0]?._id
             }
-        }).then((res) => {
+        }).then(() => {
             setTimeout(() => {
                 alert('Project added to main page')
-                console.log('res',res);
+                setReload((state) => !state);
             },500)
         })
         }
-        console.log('remove item',item?.projects?._id);
       };
-
-      console.log("item project", item);
-      console.log("onlyId", onlyId);
 
     return (
         <div key={item._id} className="project_item admin_project_item">

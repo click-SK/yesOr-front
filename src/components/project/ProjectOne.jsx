@@ -51,7 +51,6 @@ const ProjectOne = () => {
   const { user } = useSelector((state) => state.authUser.user);
   const navigate = useNavigate();
   const currentExtension = currentImg && currentImg.split(".").pop(); // Отримуємо розширення файлу
-  console.log('currentExtension',currentExtension);
 
   useEffect(() => {
     const url = window.location.href;
@@ -104,15 +103,12 @@ const ProjectOne = () => {
         };
       }
 
-      console.log("date", moment().utcOffset(3)._d);
-
       // Приклад використання
       const startDate = currentProject?.period?.startDate;
-      console.log("startDate", !!startDate);
+
       const daysToAdd = currentProject?.period?.countDays;
 
       const remainingTime = calculateTimeDifference(startDate, daysToAdd);
-      console.log("remainingTime", remainingTime.days);
       if (!!startDate) {
         setTimeLeft(
           `${remainingTime.days} days, ${remainingTime.hours} hours, ${remainingTime.minutes} minutes`
@@ -266,8 +262,6 @@ const ProjectOne = () => {
               {imgProject.length !== 0 &&
                 imgProject.map((data, idx) => {
                   const extension = data.split(".").pop(); // Отримуємо розширення файлу
-
-                  console.log("extension", extension);
 
                   return (
                     <div key={idx} className="new_project_image_block">

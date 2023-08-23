@@ -45,9 +45,10 @@ const EditProject = ({selectedProject,setIsOpen}) => {
             setTargetAmount(selectedProject.target);
             setBonusBlocks(selectedProject.bonus);
             setTeamBlocks(selectedProject.team)
+            // setSelectedCategory(selectedProject.category)
+            // setSubCategoryArray(selectedProject.subcategory)
         }
     }, []);
-
 
     useEffect(() => {
       if (images.length > 0) {
@@ -80,6 +81,11 @@ const EditProject = ({selectedProject,setIsOpen}) => {
         handleSetDefaultCategory();
       }
     }, [allCategory, subCategoryArray]);
+    // useEffect(() => {
+    //   if (allCategory.length != 0) {
+    //     handleSetDefaultCategory();
+    //   }
+    // }, [allCategory, subCategoryArray]);
   
     useEffect(() => {
       axios
@@ -104,14 +110,21 @@ const EditProject = ({selectedProject,setIsOpen}) => {
         console.log(error);
       }
     }, [user, reloadUser]);
-    
   
     const handleSetDefaultCategory = () => {
       if (!selectedCategory) {
-        setSelectedCategory(allCategory[0]);
+        allCategory.forEach((category) => {
+          if(category.category == selectedProject.category) {
+            setSelectedCategory(category);
+          }
+        })
       }
       if (!selectedSubCategory) {
-        setSelectedSubCategory(subCategoryArray[0]);
+        subCategoryArray.forEach((category) => {
+          if(category.name == selectedProject.subcategory) {
+            setSelectedSubCategory(category);
+          }
+        })
       }
     };
   
@@ -193,7 +206,6 @@ const EditProject = ({selectedProject,setIsOpen}) => {
       } catch (e) {
         console.log(e);
       }
-      console.log("disabled");
     };
   
   
@@ -222,7 +234,6 @@ const EditProject = ({selectedProject,setIsOpen}) => {
   
     const handleValidateName = (e) => {
       const resoult = validation.validationCreateProject({name: e});
-      console.log('resoult',resoult);
   
       if(resoult?.isValid) {
         setNameErrorMessage('');
@@ -239,7 +250,6 @@ const EditProject = ({selectedProject,setIsOpen}) => {
     const handleValidateDescription = (e) => {
   
       const resoult = validation.validationCreateProject({description: e});
-      console.log('resoult',resoult);
   
       if(resoult?.isValid) {
         setDescriptionErrorMessage('');
@@ -256,7 +266,6 @@ const EditProject = ({selectedProject,setIsOpen}) => {
     const handleValidateRequest = (e) => {
   
       const resoult = validation.validationCreateProject({request: e});
-      console.log('resoult',resoult);
   
       if(resoult?.isValid) {
         setRequestErrorMessage('');
@@ -272,7 +281,6 @@ const EditProject = ({selectedProject,setIsOpen}) => {
     const handleValidatePlacementPeriod = (e) => {
   
       const resoult = validation.validationCreateProject({placementPeriod: e});
-      console.log('resoult',resoult);
   
       if(resoult?.isValid) {
         setPlacementPeriodErrorMessage('');
@@ -288,7 +296,6 @@ const EditProject = ({selectedProject,setIsOpen}) => {
     const handleValidateTargetAmount = (e) => {
   
       const resoult = validation.validationCreateProject({targetAmount: e});
-      console.log('resoult',resoult);
   
       if(resoult?.isValid) {
         setTargetAmountErrorMessage('');
@@ -296,8 +303,6 @@ const EditProject = ({selectedProject,setIsOpen}) => {
         resoult?.reason == 'targetAmount' ? setTargetAmountErrorMessage(resoult?.error) : setTargetAmountErrorMessage('');
       }
     }
-  
-    console.log('selectedProject', selectedProject);
   
     return (
       <div className="new_project_wraper edit_curent_project">
@@ -373,6 +378,8 @@ const EditProject = ({selectedProject,setIsOpen}) => {
                 item={allCategory}
                 isCategory={true}
                 isSubcategory={false}
+                editCategory={selectedProject.category}
+                isEdit={true}
               />
             )}
             {subCategoryArray.length != 0 && (
@@ -383,6 +390,8 @@ const EditProject = ({selectedProject,setIsOpen}) => {
                 item={subCategoryArray}
                 isCategory={false}
                 isSubcategory={true}
+                editCategory={selectedProject.subcategory}
+                isEdit={true}
               />
             )}
           </div>
