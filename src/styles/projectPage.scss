@@ -113,22 +113,7 @@
     object-fit: cover;
 }
 
-.second_img_wrap{
-    flex: 0 1 17%;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    gap: 10px;
-    justify-content: space-between;
-    img, video{
-        width: 100%;
-        height: auto;
-        max-width: 120px;
-        max-height: 80px;
-        object-fit: cover;
-        
-    }
-}
+
 
 
 .right_column{

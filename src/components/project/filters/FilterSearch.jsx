@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FiSearch } from 'react-icons/fi';
 
 
-const FilterSearch = () => {
+const FilterSearch = ({allProjects, setAllProjects}) => {
 
     const [serchValue, setSearchValue] = useState('') 
 
