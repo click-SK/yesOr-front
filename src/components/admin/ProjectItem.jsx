@@ -57,7 +57,7 @@ const ProjectItem = ({item, handleChangeFunc, verified, onlyId, projectMainPage,
         <div key={item._id} className="project_item admin_project_item">
           <Link
             to={`/project/${item.projects._id}`}
-            className="project_item admin_project_item"
+            // className="project_item admin_project_item"
           >
             <p>{item.projects.name}</p>
             <p>{item.projects.category}</p>

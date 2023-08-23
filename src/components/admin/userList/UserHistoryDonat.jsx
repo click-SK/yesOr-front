@@ -5,7 +5,7 @@ const UserHistoryDonat = ({ setIsOpen, isUser, user, project }) => {
     console.log('project',project);
   return (
     <div className="modal_wrap">
-      <div className="item_body pad">
+      <div className="item_body pad modal_wraper_donat">
         <h2>History</h2>
         {isUser ? (
           <div className="content_modal">
