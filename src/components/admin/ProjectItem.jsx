@@ -24,16 +24,20 @@ const ProjectItem = ({item, handleChangeFunc, verified, onlyId, projectMainPage,
       };
 
     const handleSendProjectOnMainPage = (item) => {
-        axios
-          .post(`${BASE_URL}/add-project-main-page`, {
-            projectId: item?.projects?._id,
-          })
-          .then((res) => {
-            setTimeout(() => {
-              alert("Project added to main page");
-              setReload((state) => !state);
-            }, 500);
-          });
+      try {
+            axios
+              .post(`${BASE_URL}/add-project-main-page`, {
+                projectId: item?.projects?._id,
+              })
+              .then((res) => {
+                setTimeout(() => {
+                  alert("Project added to main page");
+                  setReload((state) => !state);
+                }, 500);
+              });
+          } catch(error) {
+              console.log(error);
+          }
       };
 
       const handleRemoveProjectFromMainPage = (item) => {
@@ -59,10 +63,10 @@ const ProjectItem = ({item, handleChangeFunc, verified, onlyId, projectMainPage,
             to={`/project/${item.projects._id}`}
             // className="project_item admin_project_item"
           >
-            <p>{item.projects.name}</p>
-            <p>{item.projects.category}</p>
-            <p>{truncateText(item.projects.description, 50)}</p>
-            <p>{item.projects.target}</p>
+            <p>{item?.projects?.name}</p>
+            <p>{item?.projects?.category}</p>
+            <p>{truncateText(item?.projects?.description, 50)}</p>
+            <p>{item?.projects?.target}</p>
           </Link>
           <div className="admin_project_item_svg">
             <img src="./icons/ph_chat-centered-dots-light.svg" alt="" />
@@ -86,7 +90,7 @@ const ProjectItem = ({item, handleChangeFunc, verified, onlyId, projectMainPage,
               onClick={() => setIsOpenHistory(!isOpenHistory)}
             />
             <div>
-              {onlyId.includes(item.projects._id) ? (
+              {onlyId.includes(item?.projects?._id) ? (
                 <TiDocumentDelete
                   title="Remove from main"
                   onClick={() => handleRemoveProjectFromMainPage(item)}
@@ -117,7 +121,7 @@ const ProjectItem = ({item, handleChangeFunc, verified, onlyId, projectMainPage,
             <UserHistoryDonat
               setIsOpen={setIsOpenHistory}
               isUser={false}
-              project={item.projects}
+              project={item?.projects}
             />
           )}
         </div>

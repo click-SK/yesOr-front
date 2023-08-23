@@ -33,7 +33,7 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
           });
           if(resoult.isValid) {
             axios.patch(`${BASE_URL}/donats-project`, {
-                projectId: currentProject._id,
+                projectId: currentProject?._id,
                 sum: amount,
                 user: `${nameFirst} ${nameLast}`,
                 comment: description,
@@ -89,7 +89,6 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
     
       const handleValidateLastName = (e) => {
         const resoult = validator.validationDonate({nameLast: e});
-        console.log('resoult',resoult);
     
         if(resoult?.isValid) {
             setLastNameErrorMessage('');

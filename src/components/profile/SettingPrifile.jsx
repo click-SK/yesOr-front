@@ -26,40 +26,43 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloa
       reader.readAsDataURL(image);
     }
   }, [image]);
-  console.log('image',image);
 
   useEffect(() => {
-    setFirstName(currentUser.firstName);
-    setLastName(currentUser.lastName);
-    setPhone(currentUser.phone);
-    setSocialNetwork(currentUser.socialNetwork);
-    setPassport(currentUser.passport);
-    setRequisites(currentUser.requisites);
-    setEmail(currentUser.email);
+    setFirstName(currentUser?.firstName);
+    setLastName(currentUser?.lastName);
+    setPhone(currentUser?.phone);
+    setSocialNetwork(currentUser?.socialNetwork);
+    setPassport(currentUser?.passport);
+    setRequisites(currentUser?.requisites);
+    setEmail(currentUser?.email);
   },[currentUser])
 
   const handleUpdateUserData = () => {
-    const formData = new FormData();
-    formData.append("userImage", image);
-    formData.append("email", email);
-    formData.append("requisites", requisites);
-    formData.append("passport", passport);
-    formData.append("socialNetwork", socialNetwork);
-    formData.append("phone", phone);
-    formData.append("lastName", lastName);
-    formData.append("firstName", firstName);
-    formData.append("id", currentUser._id);
-    console.log('formData',formData);
-    axios.patch(`${BASE_URL}/update-user-data`, formData).then(() =>
-    setTimeout(() => {
-      setReloadUser((state) => !state)
-    },500))
+    try {
+      const formData = new FormData();
+      formData.append("userImage", image);
+      formData.append("email", email);
+      formData.append("requisites", requisites);
+      formData.append("passport", passport);
+      formData.append("socialNetwork", socialNetwork);
+      formData.append("phone", phone);
+      formData.append("lastName", lastName);
+      formData.append("firstName", firstName);
+      formData.append("id", currentUser._id);
+      console.log('formData',formData);
+      axios.patch(`${BASE_URL}/update-user-data`, formData).then(() =>
+      setTimeout(() => {
+        setReloadUser((state) => !state)
+      },500))
+    } catch(error) {
+        console.log(error);
+    }
   }
 
   const handleUpdateUserPassword = () => {
     try {
       axios.patch(`${BASE_URL}/update-user-password`, {
-        id: currentUser._id,
+        id: currentUser?._id,
         currentPassword,
         newPassword
       })

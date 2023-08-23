@@ -41,8 +41,8 @@ const SelectChoseCategory = ({ item, title, state, setState, isCategory, isSubca
               key={el._id}
               onClick={() => selectItemFunc(el)}
             >
-              {isCategory && el.category}
-              {isSubcategory && el.name}
+              {isCategory && el?.category}
+              {isSubcategory && el?.name}
             </div>
           ))}
         </div>
@@ -51,8 +51,8 @@ const SelectChoseCategory = ({ item, title, state, setState, isCategory, isSubca
       :
       <div className="custom-select">
       <div className="selected-option" onClick={() => setIsOpen(!isOpen)}>
-        {isCategory && (state && state.category) || item[0].category}
-        {isSubcategory && (state && state.name) || item[0].name}
+        {isCategory && (state && state?.category) || item[0].category}
+        {isSubcategory && (state && state?.name) || item[0].name}
       </div>
       {isOpen && (
         <div className="options">
@@ -62,8 +62,8 @@ const SelectChoseCategory = ({ item, title, state, setState, isCategory, isSubca
               key={el._id}
               onClick={() => selectItemFunc(el)}
             >
-              {isCategory && el.category}
-              {isSubcategory && el.name}
+              {isCategory && el?.category}
+              {isSubcategory && el?.name}
             </div>
           ))}
         </div>
