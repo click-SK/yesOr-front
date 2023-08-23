@@ -22,6 +22,8 @@ const AllProjectAdmin = ({
     });
   }, []);
 
+  const reversedProjectArr = [...projectArr].reverse();
+
   return (
     <div className="project_wrap">
       <div className="project_header">
@@ -31,9 +33,17 @@ const AllProjectAdmin = ({
         <h4>Budget</h4>
         <h4></h4>
       </div>
-      {projectArr.map((item, idx) => (
-        <ProjectItem item={item} key={item._id} handleChangeFunc={handleChangeFunc} verified={verified} onlyId={mainPageProjectIdArray} projectMainPage={projectMainPage}/>
+      {reversedProjectArr.map((item, idx) => (
+        <ProjectItem
+          item={item}
+          key={item._id}
+          handleChangeFunc={handleChangeFunc}
+          verified={verified}
+          onlyId={mainPageProjectIdArray}
+          projectMainPage={projectMainPage}
+        />
       ))}
+
     </div>
   );
 };

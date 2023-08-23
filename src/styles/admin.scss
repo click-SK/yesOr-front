@@ -27,10 +27,10 @@
     align-items: center;
 
     p{
-        flex: 35% 1;
+        flex: 0 1 35%;
         display: flex;
         justify-content: center;
-        max-height: 130px;
+        // max-height: 130px;
         overflow: hidden;
     }
     a{
@@ -98,6 +98,10 @@
 }
 
 //modal user
+
+.modal_wraper_donat{
+    width: 100%;
+}
 
 .user_wrap{
     position: absolute;

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { HiOutlineArrowNarrowLeft, HiOutlineArrowNarrowRight } from 'react-icons/hi';
 import axios from "axios";
 import { BASE_URL } from "../../http/baseUrl";
+import { Link } from 'react-router-dom';
+
 
 const ProjectsMain = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -46,6 +48,8 @@ const ProjectsMain = () => {
   const prevProject = projectData[(activeIndex - 1 + projectData.length) % projectData.length]?.project;
   const nextProject = projectData[(activeIndex + 1) % projectData.length]?.project;
 
+  console.log('activeProject',activeProject);
+
   return (
     <section id="project" className="section project">
       <div className="project_description">
@@ -54,15 +58,18 @@ const ProjectsMain = () => {
       <div className="project_carousel">
         <div className="project_img_wrap">
           <div className={`project_second ${animationDirection === 'prev' ? 'active' : ''}`}>
-            <img src={prevProject?.image} alt="" />
+            <img  src={`${BASE_URL}${prevProject?.projectMedia[0]}`} alt="" />
             <p className="project_second_name">{prevProject?.name}</p>
           </div>
-          <div className={`project_active ${animationDirection ? 'inactive' : 'active'}`}>
-            <img src={activeProject?.image} alt="" />
-            <p className="project_active_name">{activeProject?.name}</p>
-          </div>
+          {/* <Link to={`/project/${item.project?._id}`}></Link> */}
+          <Link to={`/project/${activeProject?._id}`}>
+            <div className={`project_active ${animationDirection ? 'inactive' : 'active'}`}>
+              <img src={`${BASE_URL}${activeProject?.projectMedia[0]}`}  alt="" />
+              <p className="project_active_name">{activeProject?.name}</p>
+            </div>
+          </Link>
           <div className={`project_second ${animationDirection === 'next' ? 'active' : ''}`}>
-            <img src={nextProject?.image} alt="" />
+            <img src={`${BASE_URL}${nextProject?.projectMedia[0]}`} alt="" />
             <p className="project_second_name">{nextProject?.name}</p>
           </div>
         </div>

@@ -17,6 +17,9 @@ const MyProject = ({ userProjects }) => {
         setActiveTab(tab);
     };
 
+    const reversedActiveProjects = [...activeProjects].reverse();
+    const reversedInactiveProjects = [...inactiveProjects].reverse();
+
     return (
         <div className='project_wrap my_project_wrap'>
             <ul className='tabs profile_nav'>
@@ -35,13 +38,13 @@ const MyProject = ({ userProjects }) => {
             </ul>
             <div className='project_list'>
                 {activeTab === 'active' &&
-                    activeProjects.map((item) => (
+                    reversedActiveProjects.map((item) => (
                         <Link to={`/project/${item._id}`} key={item._id}>
                             <ProjectListTemplate item={item} />
                         </Link>
                     ))}
                 {activeTab === 'inactive' &&
-                    inactiveProjects.map((item) => (
+                    reversedInactiveProjects.map((item) => (
                         <Link to={`/project/${item._id}`} key={item._id}>
                             <ProjectListTemplate item={item} />
                         </Link>
