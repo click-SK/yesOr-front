@@ -77,12 +77,12 @@ const ProjectAllList = () => {
                     <FilterDataPicker/>
                     <FilterSearch 
                         allProjects={allProjects}
-                        setAllProjects={setAllProjects}
+                        setAllProjects={setFilteredProjects}
                         initialProjects={initialProjects}
                     />
                     <FilterByName
                     allProjects={allProjects}
-                    setAllProjects={setAllProjects}
+                    setAllProjects={setFilteredProjects}
                     />
                 </div>
             </div>
