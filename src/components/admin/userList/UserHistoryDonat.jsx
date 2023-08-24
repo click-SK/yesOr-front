@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import "../../../styles/modalWindow.scss";
-
+import Pagination from "../../Pagination";
 const UserHistoryDonat = ({ setIsOpen, isUser, user, project }) => {
+  const [paginationArray, setPaginationArray] = useState([]);
     console.log('project',project);
   return (
     <div className="modal_wrap">
@@ -14,7 +15,7 @@ const UserHistoryDonat = ({ setIsOpen, isUser, user, project }) => {
               <p>Donation amount</p>
               <p>Coment</p>
             </div>
-            {user?.donatesProjects.map((item) => (
+            {paginationArray.length != 0 && paginationArray.map((item) => (
               <div key={item._id} className="info_wrap">
                 <p>{item?.project?.name}</p>
                 <p>{item?.sum}$</p>
@@ -22,6 +23,7 @@ const UserHistoryDonat = ({ setIsOpen, isUser, user, project }) => {
                 <p>{item?.date}</p>
               </div>
             ))}
+            <Pagination dataArray={user?.donatesProjects} setFilterArray={setPaginationArray}/>
           </div>
         ) : (
           <div className="content_modal">
@@ -29,13 +31,14 @@ const UserHistoryDonat = ({ setIsOpen, isUser, user, project }) => {
               <p>User name</p>
               <p>Donation amount</p>
             </div>
-            {project?.donatsHistory.map((item) => (
+            {paginationArray.length != 0 && paginationArray.map((item) => (
               <div key={item._id} className="info_wrap">
                 <p>{item?.user}</p>
                 <p>{item?.sum}</p>
                 <p>{item?.date}</p>
               </div>
             ))}
+            <Pagination dataArray={project?.donatsHistory} setFilterArray={setPaginationArray}/>
           </div>
         )}
         <button onClick={() => setIsOpen((state) => !state)}>Close</button>
