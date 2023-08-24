@@ -6,8 +6,6 @@ const Pagination = ({dataArray, setFilterArray}) => {
     const [progressBar, setProgressBar] = useState(0);
     const [currentItems, setСurrentItems] = useState([]);
     // const [itemsPerPage, setItemsPerPage] = useState(1);
-    const [indexOfLastItem, setIndexOfLastItem] = useState(1);
-    const [indexOfFirstItem, setIndexOfFirstItem] = useState(1);
 
     const itemsPerPage = 1;
     const pageNumbers = [];
@@ -21,8 +19,6 @@ const Pagination = ({dataArray, setFilterArray}) => {
         const firstItem = lastItem - itemsPerPage;
         const curerent = dataArray.slice(firstItem, lastItem);
         console.log(curerent);
-        setIndexOfLastItem(lastItem);
-        setIndexOfFirstItem(firstItem);
         setСurrentItems(curerent);
       },[dataArray, currentPage])
 

@@ -9,8 +9,7 @@ import axios from 'axios';
 import { BASE_URL } from '../../http/baseUrl';
 import ProjectListTemplate from './ProjectListTemplate';
 import { Link } from 'react-router-dom';
-
-
+import Pagination from '../Pagination';
 
 const ProjectAllList = () => {
     const [allProjects, setAllProjects] = useState([]);
@@ -19,6 +18,7 @@ const ProjectAllList = () => {
     const [allCategory, setAllCategory] = useState([]);
     const [subCatArr, setSubCatArr] = useState([])
     const [showResult, setShowResult] = useState(false)
+    const [paginationArray, setPaginationArray] = useState([]);
     
 
     useEffect(() => {
@@ -43,12 +43,6 @@ const ProjectAllList = () => {
           }
       }, []);
 
-
-
-    // console.log('allCategory',allProjects.projects.subcategory);
-    // console.log('subCatArr',subCatArr);
-
-
     const handleSubCatArrChange = () => {
         if (subCatArr.length === 0) {
             // Якщо subCatArr порожній, показуємо всі проекти
@@ -66,8 +60,6 @@ const ProjectAllList = () => {
             setAllProjects(filteredProjects);
         }
     };
-
-    // console.log('allProjects', allProjects);
 
     return (
         <div className='profile_wrap'>
@@ -106,13 +98,14 @@ const ProjectAllList = () => {
                     />
                 </div>
                 <div className='project_wrap project_wrap_page'>
-                    {filteredProjects.length !== 0 && filteredProjects.map((item) => (
+                    {paginationArray.length !== 0 && paginationArray.map((item) => (
                         <Link to={`/project/${item?.projects?._id}`} key={item._id}>
                             <ProjectListTemplate item={item?.projects} />
                         </Link>
                     ))}
                 </div>
             </div>
+            <Pagination dataArray={allProjects} setFilterArray={setPaginationArray}/>
         </div>
     );
 };

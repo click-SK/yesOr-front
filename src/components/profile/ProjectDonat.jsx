@@ -1,19 +1,23 @@
-import React, {useState} from 'react';
-import ProjectPage from '../project/ProjectPage';
-import ProjectListTemplate from '../project/ProjectListTemplate';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
-import {AiFillStar} from 'react-icons/ai';
+import Pagination from '../Pagination';
 
 const ProjectDonat = ({savedProjects, setIsOpen, user}) => {
+    const [paginationArray, setPaginationArray] = useState([]);
+    const [reversedProjectArr, setReversedProjectArr] = useState([]);
 
-    const reverseDonatesProjects = [...user.donatesProjects].reverse();
+    useEffect(() => {
+        const reverse = [...user.donatesProjects].reverse();
+        setReversedProjectArr(reverse)
+      },[user])
+
     return (
         <div className='project_wrap new_modal_project donat_wrap_page'>
             <div className="profile_title favorit_title">
                 <button onClick={() => setIsOpen(state => !state )}>Close</button>
                 <h2>Favorite</h2>
             </div>
-            {reverseDonatesProjects.map((item,idx)=>(
+            {paginationArray.map((item,idx)=>(
                     <Link to={`/project/${item.project?._id}`}>
                 <div className='project_item'>
                         <div className='project_item-column'>
@@ -33,7 +37,7 @@ const ProjectDonat = ({savedProjects, setIsOpen, user}) => {
                 </div>
                     </Link>
             ))}
-
+            <Pagination dataArray={reversedProjectArr} setFilterArray={setPaginationArray}/>
         </div>
     );
 };

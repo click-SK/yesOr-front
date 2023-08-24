@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../http/baseUrl";
 import ProjectItem from "./ProjectItem";
+import Pagination from "../Pagination";
 const AllProjectAdmin = ({
   projectArr,
   verified,
@@ -11,6 +12,13 @@ const AllProjectAdmin = ({
   const [projectMainPage, setProjectMainPage] = useState([]);
   const [mainPageProjectIdArray, setMainPageProjectIdArray] = useState([]);
   const [reloadProjectMainPage, setReloadProjectMainPage] = useState(false);
+  const [reversedProjectArr, setReversedProjectArr] = useState([]);
+  const [paginationArray, setPaginationArray] = useState([]);
+
+  useEffect(() => {
+    const reverse = [...projectArr].reverse();
+    setReversedProjectArr(reverse)
+  },[projectArr])
 
   useEffect(() => {
     try {
@@ -27,7 +35,7 @@ const AllProjectAdmin = ({
     }
   }, [reloadProjectMainPage]);
 
-  const reversedProjectArr = [...projectArr].reverse();
+  // const reversedProjectArr = [...projectArr].reverse();
 
   return (
     <div className="project_wrap">
@@ -38,7 +46,7 @@ const AllProjectAdmin = ({
         <h4>Budget</h4>
         <h4></h4>
       </div>
-      {reversedProjectArr.map((item, idx) => (
+      {paginationArray.map((item, idx) => (
         <ProjectItem
           item={item}
           key={item?._id}
@@ -49,7 +57,7 @@ const AllProjectAdmin = ({
           setReload={setReloadProjectMainPage}
         />
       ))}
-
+      <Pagination dataArray={reversedProjectArr} setFilterArray={setPaginationArray}/>
     </div>
   );
 };

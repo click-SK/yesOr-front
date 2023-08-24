@@ -12,7 +12,8 @@ import HistoryDonats from "./historiDonats/HistoryDonats";
 import ModalComent from "./ModalComent";
 import EditProject from "../profile/EditProject";
 import SliderProject from "./SliderProject";
-
+import ProjectComments from "./ProjectComments";
+import ProjectdonatsHistory from "./ProjectdonatsHistory";
 const ProjectOne = () => {
   const [currentProject, setCurrentProject] = useState(null);
   const [projectId, setProjectId] = useState("");
@@ -34,6 +35,13 @@ const ProjectOne = () => {
       name: "fullname",
       coment:
         "Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.  Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.  ",
+      date: "24.08.2023",
+    },
+    {
+      img: "/file/proj/1.png",
+      name: "fullname 2",
+      coment:
+        "22222222222222222222222222222222222222",
       date: "24.08.2023",
     },
   ]);
@@ -242,8 +250,6 @@ const ProjectOne = () => {
     }
   }, [currentProject]);
 
-  console.log('currentProject',currentProject);
-
   return (
     <div className="project_wraper">
       {isOpenEditProject && (
@@ -387,33 +393,14 @@ const ProjectOne = () => {
         {currentProject &&
           user &&
           currentProject?.user == user?._id &&
-      <div className="donat_block">
-        <h4>DONAT HISTORY</h4>
-          {currentProject?.donatsHistory.map((item) => (
-            <div className="donat_history_wrap" key={item._id}>
-              <p className="donat_history-item">{item.date}</p>
-              <p className="donat_history-item">{item.user}</p>
-              <p className="donat_history-item">{item.sum} $</p>
-              <p className="donat_history-item">{item.text}</p>
-            </div>
-          ))}
-      </div>
+          <ProjectdonatsHistory donatsHistory={currentProject?.donatsHistory}/>
       }
       <div className="coments_block">
         <h4>Comments</h4>
         <button onClick={() => setIsOpenComent(!isOpenComent)}>
           leave a comment
         </button>
-        <div className="coments_wrap">
-          {commentsArr.map((item, idx) => (
-            <div key={idx} className="coment_item">
-              <img className="coment_img" src={item?.img} alt="" />
-              <p className="coment_name">{item?.name}</p>
-              <p className="coment_coment">{item?.coment}</p>
-              <p className="coment_date">{item?.date}</p>
-            </div>
-          ))}
-        </div>
+        <ProjectComments commentsArr={commentsArr}/>
       </div>
       {isOpenComent && <ModalComent setIsOpen={setIsOpenComent} />}
       {/* <button onClick={() => setIsOpenDonat(!isOpenDonat)}>Open modal</button>
