@@ -162,8 +162,9 @@ const NewProject = () => {
         axios.post(`${BASE_URL}/create-project`, formData)
         .then(() => {
           setTimeout(() => {
-            alert('Project added')
-            navigate('/')
+            alert('Project added');
+            window.scrollTo(0, 0);
+            navigate('/');
           },500)
         })
       } else {

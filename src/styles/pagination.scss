@@ -1,0 +1,56 @@
+@import './templateColor.scss';
+@import './tamplateButtons.scss';
+
+.pagination_block {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pagination_button_wrap{
+    display: flex;
+    max-width: 120px;
+    width: 100%;
+    margin: 10px 0;
+    height: 25px;
+    justify-content: center;
+    gap: 10px;
+}
+
+.pagination_button {
+    height: 60px;
+    width: 60px;
+    padding: 0;
+}
+
+.pagination_courosel_count{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // padding-top: 447px;
+    bottom: -20%;
+    right: 5%;
+    width: 255px;
+    margin-left: auto;
+    margin-right: 80px;
+}
+
+.pagination_count_value{
+    cursor: pointer;
+}
+
+.pagination_count_progress{
+    position: relative;
+    width: 80%;
+    height: 2px;
+    background: #E0D3D3;
+
+    .pagination_progress_active{
+        position: absolute;
+        width: 20%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        z-index: 1000;
+        background: $color_prime;
+    }
+}

@@ -9,7 +9,6 @@ import UserHistoryDonat from './UserHistoryDonat.jsx'
 import UserDocument from "./UserDocument";
 
 const UserItem = ({ item, setReloadUserData }) => {
-  const [isOpenModal, setIsOpenModal] = useState(false);
   const [isOpenDocuments, setIsOpenDocuments] = useState(false)
   const [isOpenHistory, setIsOpenHistory] = useState(false)
   const [isOpenModalConfirm, setIsOpenModalConfirm] = useState(false);
@@ -56,8 +55,6 @@ const UserItem = ({ item, setReloadUserData }) => {
       <img src={`${BASE_URL}${item?.userImage}`} alt="" />
       <p>{item?.firstName + " " + item?.lastName}</p>
 
-      {/* <button onClick={() => setIsOpenModal(!isOpenModal)}> Open modal</button> */}
-
       <div className="admin_project_item_svg">
         <img src="./icons/ph_chat-centered-dots-light.svg" alt="" />
         <div>
@@ -90,12 +87,6 @@ const UserItem = ({ item, setReloadUserData }) => {
         />
         <HiOutlineDocumentSearch onClick={() => setIsOpenDocuments(!isOpenDocuments)}/>
       </div>
-      <UserModal
-        isOpen={isOpenModal}
-        setIsOpen={setIsOpenModal}
-        documents={item?.userDocuments.length != 0 && item?.userDocuments}
-        name={item?.firstName}
-      />
       <ModalProjectConfirm
         title={"Confirm Verification?"}
         isOpenModal={isOpenModalConfirm}
@@ -116,9 +107,12 @@ const UserItem = ({ item, setReloadUserData }) => {
       />
       }
       {isOpenDocuments &&
-        <UserDocument
-        setIsOpen = {setIsOpenDocuments}
-        />
+      <UserModal
+      isOpen={isOpenDocuments}
+      setIsOpen={setIsOpenDocuments}
+      documents={item?.userDocuments.length != 0 && item?.userDocuments}
+      name={item?.firstName}
+    />
       }
     </div>
   );
