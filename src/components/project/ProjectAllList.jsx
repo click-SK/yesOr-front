@@ -74,7 +74,9 @@ const ProjectAllList = () => {
             <div className='profile_title'>
                 <h2>Project</h2>
                 <div className='top_filters'>
-                    <FilterDataPicker/>
+                    <FilterDataPicker
+                     allProjects={allProjects}
+                     setAllProjects={setFilteredProjects}/>
                     <FilterSearch 
                         allProjects={allProjects}
                         setAllProjects={setFilteredProjects}

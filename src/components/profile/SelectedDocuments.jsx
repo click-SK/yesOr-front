@@ -3,6 +3,8 @@ import SelectedDocumentItem from "./SelectedDocumentItem";
 import axios from "axios";
 import {BASE_URL} from '../../http/baseUrl';
 import { useSelector } from "react-redux";
+
+
 const SelectedDocuments = () => {
     const [passportNewImage1, setPassportNewImage1] = useState(null);
     const [passportNewImage1Src, setPassportNewImage1Src] = useState(null);
