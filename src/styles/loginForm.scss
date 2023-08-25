@@ -207,6 +207,18 @@ button{
     display: none;
 }
 
+.password_toggle_icon {
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.password_input_container {
+    position: relative;
+}
+
 
 
 @media (max-height: 850px){

@@ -75,20 +75,26 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloa
     setImage(e.target.files[0]);
   };
 
+  console.log('currentUser.userImage',currentUser.userImage);
+
   return (
     <div className="profile_user_wrap">
       <div className="photo_profile">
+        {currentUser.userImage 
+        ?
         <img
-          className="photo_profile_hero"
-          src={imageSrc || `${BASE_URL}${currentUser.userImage}`}
-          alt=""
-        />
-        {/* <img
-          className="photo_profile_hero"
-          src={`${BASE_URL}/${currentUser.userImage}`}
-          alt=""
-        /> */}
-                    <input
+        className="photo_profile_hero"
+        src={imageSrc || `${BASE_URL}${currentUser.userImage}`}
+        alt=""
+      />
+        :
+        <img
+        className="photo_profile_hero"
+        src='/icons/no-avatar.webp'
+        alt=""
+      />
+        }
+            <input
               type="file"
               name="img"
               onChange={handleImageChange}

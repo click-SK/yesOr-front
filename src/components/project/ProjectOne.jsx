@@ -250,6 +250,7 @@ const ProjectOne = () => {
     }
   }, [currentProject]);
 
+  console.log('currentProject',currentProject);
   return (
     <div className="project_wraper">
       {isOpenEditProject && (
@@ -402,10 +403,7 @@ const ProjectOne = () => {
         </button>
         <ProjectComments commentsArr={commentsArr}/>
       </div>
-      {isOpenComent && <ModalComent setIsOpen={setIsOpenComent} />}
-      {/* <button onClick={() => setIsOpenDonat(!isOpenDonat)}>Open modal</button>
-        {isOpenDonat && 
-        <DonatsModal setIsOpen={setIsOpenDonat} currentProject={currentProject}/>} */}
+      {isOpenComent && <ModalComent setIsOpen={setIsOpenComent} user={user} projectId={currentProject._id}/>}
     </div>
   );
 };

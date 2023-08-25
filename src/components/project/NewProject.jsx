@@ -9,6 +9,7 @@ import * as validation from "../../validation/validator";
 import $api from "../../http/httpUser";
 import { BsPersonFillAdd } from 'react-icons/bs';
 import { useNavigate } from "react-router-dom";
+import ErrorMessage from "../validation/ErrorMessage";
 const NewProject = () => {
   const [images, setImages] = useState([]);
   const [imagesSrc, setImagesSrc] = useState([]);
@@ -215,7 +216,11 @@ const NewProject = () => {
 
   const handleName = (e) => {
     setName(e);
-    handleValidateName(e);
+    if(e != '') {
+      handleValidateName(e);
+    } else {
+      setNameErrorMessage('');
+    }
   }
 
   const handleValidateName = (e) => {
@@ -235,7 +240,12 @@ const NewProject = () => {
 
   const handleDescription = (e) => {
     setDescription(e);
-    handleValidateDescription(e);
+    setName(e);
+    if(e != '') {
+      handleValidateDescription(e);
+    } else {
+      setDescriptionErrorMessage('');
+    }
   }
 
   const handleValidateDescription = (e) => {
@@ -255,7 +265,11 @@ const NewProject = () => {
 
   const handleRequest = (e) => {
     setRequest(e);
-    handleValidateRequest(e);
+    if(e != '') {
+      handleValidateRequest(e);
+    } else {
+      setRequestErrorMessage('');
+    }
   }
 
   const handleValidateRequest = (e) => {
@@ -274,7 +288,11 @@ const NewProject = () => {
   }
   const handlePlacementPeriod = (e) => {
     setPlacementPeriod(e);
-    handleValidatePlacementPeriod(e);
+    if(e != '') {
+      handleValidatePlacementPeriod(e);
+    } else {
+      setPlacementPeriodErrorMessage('');
+    }
   }
 
   const handleValidatePlacementPeriod = (e) => {
@@ -293,7 +311,11 @@ const NewProject = () => {
   }
   const handleTargetAmount = (e) => {
     setTargetAmount(e);
-    handleValidateTargetAmount(e);
+    if(e != '') {
+      handleValidateTargetAmount(e);
+    } else {
+      setTargetAmountErrorMessage('');
+    }
   }
 
   const handleValidateTargetAmount = (e) => {
@@ -360,7 +382,7 @@ const NewProject = () => {
           {images.length != 0 ? "Documents uploaded" : "Upload documents"}
         </button>
         <div className="input_item">
-          <label htmlFor="name">Name*</label>
+          <label htmlFor="name">Name *</label>
           <input
             id="name"
             type="text"
@@ -368,7 +390,7 @@ const NewProject = () => {
             onChange={(e) => handleName(e.target.value)}
           />
         </div>
-        {nameErrorMessage && <p className="danger">{nameErrorMessage}</p>}
+        <ErrorMessage errorMessage={nameErrorMessage}/>
         <div className="categori_wrap">
           {allCategory.length != 0 && (
             <SelectChoseCategory
@@ -391,11 +413,9 @@ const NewProject = () => {
             />
           )}
         </div>
-        {categoryErrorMessage && (
-          <p className="danger">{categoryErrorMessage}</p>
-        )}
+        <ErrorMessage errorMessage={categoryErrorMessage}/>
         <div className="input_item">
-          <label htmlFor="description">Description*</label>
+          <label htmlFor="description">Description *</label>
           <textarea
             id="description"
             type="text"
@@ -403,11 +423,9 @@ const NewProject = () => {
             onChange={(e) => handleDescription(e.target.value)}
           />
         </div>
-        {descriptionErrorMessage && (
-          <p className="danger">{descriptionErrorMessage}</p>
-        )}
+        <ErrorMessage errorMessage={descriptionErrorMessage}/>
         <div className="input_item">
-          <label htmlFor="request">Request*</label>
+          <label htmlFor="request">Request *</label>
           <textarea
             id="request"
             type="text"
@@ -415,7 +433,7 @@ const NewProject = () => {
             onChange={(e) => handleRequest(e.target.value)}
           />
         </div>
-        {requestErrorMessage && <p className="danger">{requestErrorMessage}</p>}
+        <ErrorMessage errorMessage={requestErrorMessage}/>
         <div className="input_item">
           <div className="team_dynamic_wrap">
             <label className="team_label" htmlFor="team">Team</label>
@@ -439,7 +457,7 @@ const NewProject = () => {
 ))}
         </div>
         <div className="input_item">
-          <label htmlFor="placement">Placement period*</label>
+          <label htmlFor="placement">Placement period *</label>
           <input
             id="placement"
             type="text"
@@ -447,11 +465,9 @@ const NewProject = () => {
             onChange={(e) => handlePlacementPeriod(e.target.value)}
           />
         </div>
-        {placementPeriodErrorMessage && (
-          <p className="danger">{placementPeriodErrorMessage}</p>
-        )}
+        <ErrorMessage errorMessage={placementPeriodErrorMessage}/>
         <div className="input_item">
-          <label htmlFor="terget">Target amount*</label>
+          <label htmlFor="terget">Target amount *</label>
           <input
             id="target"
             type="text"
@@ -459,9 +475,7 @@ const NewProject = () => {
             onChange={(e) => handleTargetAmount(e.target.value)}
           />
         </div>
-        {targetAmountErrorMessage && (
-          <p className="danger">{targetAmountErrorMessage}</p>
-        )}
+        <ErrorMessage errorMessage={targetAmountErrorMessage}/>
         <div className="input_item">
           <div className="title_bonus">
             <label htmlFor="bonus">Bonus for investors </label>

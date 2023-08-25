@@ -54,7 +54,6 @@ const UserItem = ({ item, setReloadUserData }) => {
     <div className="project_item admin_project_item" key={item._id}>
       <img src={`${BASE_URL}${item?.userImage}`} alt="" />
       <p>{item?.firstName + " " + item?.lastName}</p>
-
       <div className="admin_project_item_svg">
         <img src="./icons/ph_chat-centered-dots-light.svg" alt="" />
         <div>
