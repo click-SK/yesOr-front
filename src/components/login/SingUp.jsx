@@ -193,32 +193,32 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
                 type="text" 
                 value={email}
                 onChange={(e) => handleEmail(e.target.value)}/>
-            </div>
             <ErrorMessage errorMessage={emailErrorMessage}/>
+            </div>
         <div className="input_item">
           <label htmlFor="first_name">First name *</label>
           <input id="first_name" 
           type="text" 
           value={firstName}
           onChange={(e) => handleFirstName(e.target.value)}/>
-        </div>
         <ErrorMessage errorMessage={firstNameErrorMessage}/>
+        </div>
         <div className="input_item">
           <label htmlFor="lust_name">Last name *</label>
           <input id="lust_name" 
           type="text" 
           value={lastName}
           onChange={(e) => handleLastName(e.target.value)}/>
-        </div>
         <ErrorMessage errorMessage={lastNameErrorMessage}/>
+        </div>
         <div className="input_item">
           <label htmlFor="phone">Phone*</label>
           <input id="phone" 
           type="phone" 
           value={phone}
           onChange={(e) => handlePhone(e.target.value)}/>
-        </div>
         <ErrorMessage errorMessage={phoneErrorMessage}/>
+        </div>
         <div className="input_item">
           <label htmlFor="socia">
             Specify a social network to contact you
@@ -241,8 +241,8 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
           {showPassword ? <RiEyeCloseFill /> : <RiEyeFill />}
         </div>
       </div>
-    </div>
         <ErrorMessage errorMessage={passwordErrorMessage}/>
+    </div>
         <div className="input_item">
       <label htmlFor="password2">Repeat password *</label>
       <div className="password_input_container">

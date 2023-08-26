@@ -11,21 +11,29 @@
     text-align: left;
     padding: 0 5px;
     cursor: pointer;
+    border: 1px solid #494949;
+    min-height: 34px;
+    outline: none;
+    background: transparent;
+
     .selected-option{
         width: 100%;
     }
     .options{
         position: absolute;
-        background: $color_text_white;
+        background: #fde3db;
         width: 100%;
-        border: 1px solid #ccc;
+        border: 1px solid #494949;
         border-radius: 4px;
         left: 0;
-        top: 0;
+        top: 25px;
         z-index: 1000;
         max-height: 350px;
         overflow-y: auto;
-        
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding: 5px 0;
         .option{
             padding-left: 15px;
             &:hover{
@@ -41,4 +49,18 @@
             }  
         }
     }
+}
+
+.wrap_document_upload{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+}
+
+.btn_profile-upload{
+    padding: 5px 10px;
+    border: 0.5px solid #F37042;
+    width: 100%;
+    // max-width: 93px;
 }

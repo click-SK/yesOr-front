@@ -42,15 +42,17 @@ const ProfileInfo = ({openSetting, currentUser}) => {
         <div className="content">
           <div className="user_info">
             <h2>{currentUser?.firstName}</h2>
+
+            {currentUser?.isVerified 
+            ?
+            <p style={{color: 'green'}}>Verified</p> 
+            :
+            <p style={{color: 'red'}}>Not verified</p> }
             <p>{currentUser?.email}</p>
             <p>{currentUser?.phone}</p>
-            {currentUser?.isVerified ? (
-              <p style={{ color: "green" }}>Verified</p>
-            ) : (
-              <p style={{ color: "red" }}>Not verified</p>
-            )}
-            <button onClick={() => openSetting()}>Edite</button>
-            <button onClick={handleLogout}>Logout</button>
+            <button className='btn_profile-edit' onClick={() => openSetting()}>Edite</button>
+            <button className='btn_profile-logout' onClick={handleLogout}>Logout</button>
+
           </div>
         </div>
       </div>

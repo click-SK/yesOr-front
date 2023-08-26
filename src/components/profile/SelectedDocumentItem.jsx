@@ -19,11 +19,11 @@ const SelectedDocumentItem = ({src, setSrc, image, label, inputName, setImage}) 
       };
 
     return (
-        <div className="input_item">
+        <div className="input_item wrap_document_item">
         <label htmlFor={inputName}>{label}</label>
         {src && (
-          <div style={{width: '100px', height: '100px'}}>
-            <img src={src} style={{width: '100%', height: '100%'}}/>
+          <div className='img_documents_wrapper'>
+            <img src={src} className='img_document' />
           </div>
         )}
         <input
@@ -33,7 +33,7 @@ const SelectedDocumentItem = ({src, setSrc, image, label, inputName, setImage}) 
           ref={inputFileRef}
           hidden
         />
-        <button onClick={() => inputFileRef.current.click()}>
+        <button className='btn_download_document' onClick={() => inputFileRef.current.click()}>
           Download
         </button>
       </div>
