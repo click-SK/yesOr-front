@@ -75,6 +75,9 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloa
     setImage(e.target.files[0]);
   };
 
+  const documentOptions = ["Passport", "Driver's License"];
+  const passportTypeOptions = ["New", "Old"];
+
   return (
     <div className="profile_user_wrap">
       <div className="photo_profile">
@@ -98,8 +101,8 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloa
         <img className="edit_photo_profile" onClick={() => inputFileRef.current.click()} src="./file/edit.svg" alt="" />
       </div>
       <div className="content">
-        <div>
-          <div className="input_wrap">
+        <div className="wrap_block">
+          <div className="input_wrap-profile">
             <div className="input_item">
               <label htmlFor="email">Email*</label>
               <input
@@ -166,11 +169,11 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloa
               />
             </div>
           </div>
-          <button onClick={handleUpdateUserData}>Save</button>
+          <button className="btn_profile-edit" onClick={handleUpdateUserData}>Save</button>
         </div>
-        <div className="content">
         <div>
-          <div className="input_wrap">
+        <div className="wrap_block">
+          <div className="input_wrap-profile">
           <div className="input_item">
               <label htmlFor="current-password">Curren password *</label>
               <input
@@ -190,8 +193,8 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloa
               />
             </div>
           </div>
-          <button onClick={handleUpdateUserPassword}>Change password</button>
-        </div>
+          <button className="btn_profile-logout" onClick={handleUpdateUserPassword}>Change password</button>
+          </div>
       </div>
       <SelectedDocuments/>
       </div>

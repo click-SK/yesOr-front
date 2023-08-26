@@ -3,6 +3,8 @@ import SelectedDocumentItem from "./SelectedDocumentItem";
 import axios from "axios";
 import {BASE_URL} from '../../http/baseUrl';
 import { useSelector } from "react-redux";
+import CustomSelect from "./selects/CustomSelect";
+
 
 
 const SelectedDocuments = () => {
@@ -25,8 +27,10 @@ const SelectedDocuments = () => {
     const [driverDocumentImage2, setDriverDocumentImage2] = useState(null);
     const [driverDocumentImage2Src, setDriverDocumentImage2Src] = useState(null);
 
-    const [documentType, setDocumentType] = useState("passport");
-    const [passportType, setPassportType] = useState("new");
+    const [documentType, setDocumentType] = useState("Passport");
+    const [passportType, setPassportType] = useState("New");
+    const [documentOptions, setDocumentOptions] = useState(["Passport", "Driver's License"]);
+    const [passportTypeOptions, setPassportTypeOptions] = useState(["New", "Old"]);
 
     const cleanState = () => {
       setPassportNewImage1('');
@@ -90,22 +94,21 @@ const SelectedDocuments = () => {
         }
       }
 
+
+
   
     return (
-      <div className="content">
-        <div className="input_item">
-          <label htmlFor="document_type">Document Type</label>
-          <select
-            id="document_type"
-            value={documentType}
-            onChange={handleDocumentTypeChange}
-          >
-            <option value="passport">Passport</option>
-            <option value="driverLicense">Driver's License</option>
-          </select>
-        </div>
-        {documentType === "driverLicense" && (
-          <div>
+      <div className="wrap_document_upload">
+    <div className="input_item">
+      <label htmlFor="document_type">Document Type</label>
+      <CustomSelect
+        options={documentOptions}
+        value={documentType}
+        onChange={setDocumentType}
+      />
+    </div>
+        {documentType === "Driver's License" && (
+          <div className="photo_document_list">
                 <SelectedDocumentItem label={"Front Side of Driver's License"} 
                 src={driverDocumentImage1Src} 
                 inputName={'front_side'} 
@@ -120,21 +123,20 @@ const SelectedDocuments = () => {
                 setImage={setDriverDocumentImage2}/>
           </div>
         )}
-        {documentType === "passport" && (
+        {documentType === "Passport" && (
           <div>
+
+          
             <div className="input_item">
               <label htmlFor="passport_type">Passport Type</label>
-              <select
-                id="passport_type"
-                value={passportType}
-                onChange={handlePassportTypeChange}
-              >
-                <option value="new">New</option>
-                <option value="old">Old</option>
-              </select>
+              <CustomSelect
+              options={passportTypeOptions}
+              value={passportType}
+              onChange={setPassportType}
+            />
             </div>
-            {passportType === "new" && (
-              <div>
+            {passportType === "New" && (
+              <div className="photo_document_list">
                 <SelectedDocumentItem label={'Front Page of Passport'} 
                 src={passportNewImage1Src} 
                 inputName={'front_page'} 
@@ -149,8 +151,8 @@ const SelectedDocuments = () => {
                 setImage={setPassportNewImage2}/>
               </div>
             )}
-            {passportType === "old" && (
-              <div>
+            {passportType === "Old" && (
+              <div className="photo_document_list photo_document_list-old">
                 <SelectedDocumentItem label={'Page 1 of Passport'} 
                 src={passportOldmage1Src} 
                 inputName={'page1'} 
@@ -185,9 +187,9 @@ const SelectedDocuments = () => {
             )}
           </div>
         )}
-        <div style={{marginTop: '20px'}}>
-            <button onClick={handleUploadDocuments}>Upload documents</button>
-        </div>
+        <div className="btn_wrap" >
+            <button className="btn_profile-upload" onClick={handleUploadDocuments}>Upload documents</button>
+        </div> 
       </div>
     );
 };
