@@ -137,8 +137,21 @@ const NewProject = () => {
         name,
         category: selectedCategory?.category,
       });
+      let isValid = false;
 
-      if (resoult.isValid && userAgreement) {
+      if(resoult.length == 0) {
+        isValid = true;
+      } else {
+        resoult.forEach((item) => {
+          item.reason == 'name' && setNameErrorMessage(item?.error);
+          item.reason == 'description' && setDescriptionErrorMessage(item.error);
+          item.reason == 'request' && setRequestErrorMessage(item.error);
+          item.reason == 'placementPeriod' && setPlacementPeriodErrorMessage(item.error);
+          item.reason == 'targetAmount' && setTargetAmountErrorMessage(item.error);
+        })
+      }
+
+      if (isValid && userAgreement) {
         const formData = new FormData();
         images.forEach((image, index) => {
           console.log("image", image);
@@ -168,26 +181,7 @@ const NewProject = () => {
             navigate('/');
           },500)
         })
-      } else {
-        resoult.reason == "name"
-          ? setNameErrorMessage(resoult.error)
-          : setNameErrorMessage("");
-        resoult.reason == "description"
-          ? setDescriptionErrorMessage(resoult.error)
-          : setDescriptionErrorMessage("");
-        resoult.reason == "request"
-          ? setRequestErrorMessage(resoult.error)
-          : setRequestErrorMessage("");
-        resoult.reason == "placementPeriod"
-          ? setPlacementPeriodErrorMessage(resoult.error)
-          : setPlacementPeriodErrorMessage("");
-        resoult.reason == "targetAmount"
-          ? setTargetAmountErrorMessage(resoult.error)
-          : setTargetAmountErrorMessage("");
-        resoult.reason == "category"
-          ? setCategoryErrorMessage(resoult.error)
-          : setCategoryErrorMessage("");
-      }
+      } 
     } catch (e) {
       console.log(e);
     }
@@ -226,12 +220,12 @@ const NewProject = () => {
   const handleValidateName = (e) => {
     try {
       const resoult = validation.validationCreateProject({name: e});
-      console.log('resoult',resoult);
-  
-      if(resoult?.isValid) {
-        setNameErrorMessage('');
+      if(resoult.length !== 0) {
+        resoult.forEach((item) => {
+          item.reason == 'name' ? setNameErrorMessage(item.error) : setNameErrorMessage('');
+        })
       } else {
-        resoult?.reason == 'name' ? setNameErrorMessage(resoult?.error) : setNameErrorMessage('');
+        setNameErrorMessage('');
       }
     } catch(error) {
         console.log(error);
@@ -240,7 +234,6 @@ const NewProject = () => {
 
   const handleDescription = (e) => {
     setDescription(e);
-    setName(e);
     if(e != '') {
       handleValidateDescription(e);
     } else {
@@ -251,13 +244,13 @@ const NewProject = () => {
   const handleValidateDescription = (e) => {
     try {
       const resoult = validation.validationCreateProject({description: e});
-      console.log('resoult',resoult);
-  
-      if(resoult?.isValid) {
-        setDescriptionErrorMessage('');
+      if(resoult.length !== 0) {
+        resoult.forEach((item) => {
+          item.reason == 'description' ? setDescriptionErrorMessage(item.error) : setDescriptionErrorMessage('');
+        })
       } else {
-        resoult?.reason == 'description' ? setDescriptionErrorMessage(resoult?.error) : setDescriptionErrorMessage('');
-      } 
+        setDescriptionErrorMessage('');
+      }
     } catch(error) {
         console.log(error);
     }
@@ -275,12 +268,12 @@ const NewProject = () => {
   const handleValidateRequest = (e) => {
     try {
       const resoult = validation.validationCreateProject({request: e});
-      console.log('resoult',resoult);
-  
-      if(resoult?.isValid) {
-        setRequestErrorMessage('');
+      if(resoult.length !== 0) {
+        resoult.forEach((item) => {
+          item.reason == 'request' ? setRequestErrorMessage(item.error) : setRequestErrorMessage('');
+        })
       } else {
-        resoult?.reason == 'request' ? setRequestErrorMessage(resoult?.error) : setRequestErrorMessage('');
+        setRequestErrorMessage('');
       }
     } catch(error) {
         console.log(error);
@@ -298,12 +291,12 @@ const NewProject = () => {
   const handleValidatePlacementPeriod = (e) => {
     try {
       const resoult = validation.validationCreateProject({placementPeriod: e});
-      console.log('resoult',resoult);
-  
-      if(resoult?.isValid) {
-        setPlacementPeriodErrorMessage('');
+      if(resoult.length !== 0) {
+        resoult.forEach((item) => {
+          item.reason == 'placementPeriod' ? setPlacementPeriodErrorMessage(item.error) : setPlacementPeriodErrorMessage('');
+        })
       } else {
-        resoult?.reason == 'placementPeriod' ? setPlacementPeriodErrorMessage(resoult?.error) : setPlacementPeriodErrorMessage('');
+        setPlacementPeriodErrorMessage('');
       }
     } catch(error) {
         console.log(error);
@@ -321,19 +314,17 @@ const NewProject = () => {
   const handleValidateTargetAmount = (e) => {
     try {
       const resoult = validation.validationCreateProject({targetAmount: e});
-      console.log('resoult',resoult);
-  
-      if(resoult?.isValid) {
-        setTargetAmountErrorMessage('');
+      if(resoult.length !== 0) {
+        resoult.forEach((item) => {
+          item.reason == 'targetAmount' ? setTargetAmountErrorMessage(item.error) : setTargetAmountErrorMessage('');
+        })
       } else {
-        resoult?.reason == 'targetAmount' ? setTargetAmountErrorMessage(resoult?.error) : setTargetAmountErrorMessage('');
+        setTargetAmountErrorMessage('');
       }
     } catch(error) {
         console.log(error);
     }
   }
-
-
 
   return (
     <div className="new_project_wraper">

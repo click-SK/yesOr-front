@@ -32,7 +32,22 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
             validity,
             cvv,
           });
-          if(resoult.isValid) {
+          let isValid = false;
+
+          if(resoult.length == 0) {
+            isValid = true;
+          } else {
+            resoult.forEach((item) => {
+              item.reason == 'nameFirst' && setFirstNameErrorMessage(item?.error);
+              item.reason == 'nameLast' && setLastNameErrorMessage(item.error);
+              item.reason == 'amount' && setAmountErrorMessage(item.error);
+              item.reason == 'card' && setNumberCardErrorMessage(item.error);
+              item.reason == 'validity' && setNumberCardDateErrorMessage(item.error);
+              item.reason == 'cvv' && setNumberCardCVVErrorMessage(item.error);
+            })
+          }
+
+          if(isValid) {
             axios.patch(`${BASE_URL}/donats-project`, {
                 projectId: currentProject?._id,
                 sum: amount,
@@ -43,26 +58,7 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
                 alert('succeed donates')
                 window.location.reload();
             })
-          } else {
-            resoult.reason == "nameFirst"
-              ? setFirstNameErrorMessage(resoult.error)
-              : setFirstNameErrorMessage("");
-            resoult.reason == "nameLast"
-              ? setLastNameErrorMessage(resoult.error)
-              : setLastNameErrorMessage("");
-            resoult.reason == "amount"
-              ? setAmountErrorMessage(resoult.error)
-              : setAmountErrorMessage("");
-            resoult.reason == "card"
-              ? setNumberCardErrorMessage(resoult.error)
-              : setNumberCardErrorMessage("");
-            resoult.reason == "validity"
-              ? setNumberCardDateErrorMessage(resoult.error)
-              : setNumberCardDateErrorMessage("");
-            resoult.reason == "cvv"
-              ? setNumberCardCVVErrorMessage(resoult.error)
-              : setNumberCardCVVErrorMessage("");
-          }
+          } 
     }
 
 
@@ -79,12 +75,13 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
     
       const handleValidateFirstName = (e) => {
         const resoult = validator.validationDonate({nameFirst: e});
-        console.log('resoult',resoult);
-    
-        if(resoult?.isValid) {
-            setFirstNameErrorMessage('');
+
+        if(resoult.length !== 0) {
+          resoult.forEach((item) => {
+            item.reason == 'nameFirst' ? setFirstNameErrorMessage(item.error) : setFirstNameErrorMessage('');
+          })
         } else {
-          resoult?.reason == 'nameFirst' ? setFirstNameErrorMessage(resoult?.error) : setFirstNameErrorMessage('');
+          setFirstNameErrorMessage('');
         }
       }
     const handleLastName = (e) => {
@@ -98,11 +95,13 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
     
       const handleValidateLastName = (e) => {
         const resoult = validator.validationDonate({nameLast: e});
-    
-        if(resoult?.isValid) {
-            setLastNameErrorMessage('');
+
+        if(resoult.length !== 0) {
+          resoult.forEach((item) => {
+            item.reason == 'nameLast' ? setLastNameErrorMessage(item.error) : setLastNameErrorMessage('');
+          })
         } else {
-          resoult?.reason == 'nameLast' ? setLastNameErrorMessage(resoult?.error) : setLastNameErrorMessage('');
+          setLastNameErrorMessage('');
         }
       }
     const handleAmount = (e) => {
@@ -116,12 +115,13 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
     
       const handleValidateAmount = (e) => {
         const resoult = validator.validationDonate({amount: e});
-        console.log('resoult',resoult);
-    
-        if(resoult?.isValid) {
-            setAmountErrorMessage('');
+
+        if(resoult.length !== 0) {
+          resoult.forEach((item) => {
+            item.reason == 'amount' ? setAmountErrorMessage(item.error) : setAmountErrorMessage('');
+          })
         } else {
-          resoult?.reason == 'amount' ? setAmountErrorMessage(resoult?.error) : setAmountErrorMessage('');
+          setAmountErrorMessage('');
         }
       }
     const handleCard = (e) => {
@@ -135,12 +135,13 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
     
       const handleValidateCard = (e) => {
         const resoult = validator.validationDonate({card: e});
-        console.log('resoult',resoult);
-    
-        if(resoult?.isValid) {
-            setNumberCardErrorMessage('');
+
+        if(resoult.length !== 0) {
+          resoult.forEach((item) => {
+            item.reason == 'card' ? setNumberCardErrorMessage(item.error) : setNumberCardErrorMessage('');
+          })
         } else {
-          resoult?.reason == 'card' ? setNumberCardErrorMessage(resoult?.error) : setNumberCardErrorMessage('');
+          setNumberCardErrorMessage('');
         }
       }
     const handleValidity = (e) => {
@@ -154,12 +155,13 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
     
       const handleValidateValidity = (e) => {
         const resoult = validator.validationDonate({validity: e});
-        console.log('resoult',resoult);
-    
-        if(resoult?.isValid) {
-            setNumberCardDateErrorMessage('');
+
+        if(resoult.length !== 0) {
+          resoult.forEach((item) => {
+            item.reason == 'validity' ? setNumberCardDateErrorMessage(item.error) : setNumberCardDateErrorMessage('');
+          })
         } else {
-          resoult?.reason == 'validity' ? setNumberCardDateErrorMessage(resoult?.error) : setNumberCardDateErrorMessage('');
+          setNumberCardDateErrorMessage('');
         }
       }
     const handleCVV = (e) => {
@@ -173,12 +175,13 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
     
       const handleValidateCVV = (e) => {
         const resoult = validator.validationDonate({cvv: e});
-        console.log('resoult',resoult);
-    
-        if(resoult?.isValid) {
-            setNumberCardCVVErrorMessage('');
+
+        if(resoult.length !== 0) {
+          resoult.forEach((item) => {
+            item.reason == 'cvv' ? setNumberCardCVVErrorMessage(item.error) : setNumberCardCVVErrorMessage('');
+          })
         } else {
-          resoult?.reason == 'cvv' ? setNumberCardCVVErrorMessage(resoult?.error) : setNumberCardCVVErrorMessage('');
+          setNumberCardCVVErrorMessage('');
         }
       }
 

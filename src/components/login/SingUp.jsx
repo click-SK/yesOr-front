@@ -32,10 +32,21 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
     try {
       console.log('wrok');
       const resoult = validator.validationRegistration({ email, password, phone, firstName, lastName, socialNetwork, secondPassword});
-      handleValidateEmail(email);
-      console.log('resoult',resoult);
+      let isValid = false;
+      if(resoult.length == 0) {
+        isValid = true;
+      } else {
+        resoult.forEach((item) => {
+          item.reason == 'email' && setEmailErrorMessage(item?.error);
+          item.reason == 'password' && setPasswordErrorMessage(item.error);
+          item.reason == 'secondPassword' && setSecondPasswordErrorMessage(item.error);
+          item.reason == 'phone' && setPhoneErrorMessage(item.error);
+          item.reason == 'lastName' && setLastNameErrorMessage(item.error);
+          item.reason == 'firstName' && setFirstNameErrorMessage(item.error);
+        })
+      }
 
-      if(resoult.isValid && userAgreement) {
+      if(isValid && userAgreement) {
       const data = await dispatch(registration({email, password, firstName, lastName, phone, socialNetwork}));
       if('user' in data.payload) {
         setEmailErrorMessage('');
@@ -46,14 +57,7 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
       } else {
         alert(data.payload.message)
       }
-      } else {
-        resoult?.reason == 'email' ? setEmailErrorMessage(resoult?.error) : setEmailErrorMessage('');
-        resoult.reason == 'password' ? setPasswordErrorMessage(resoult.error) : setPasswordErrorMessage('');
-        resoult.reason == 'secondPassword' ? setSecondPasswordErrorMessage(resoult.error) : setSecondPasswordErrorMessage('');
-        resoult.reason == 'phone' ? setPhoneErrorMessage(resoult.error) : setPhoneErrorMessage('');
-        resoult.reason == 'firstName' ? setFirstNameErrorMessage(resoult.error) : setFirstNameErrorMessage('');
-        resoult.reason == 'lastName' ? setLastNameErrorMessage(resoult.error) : setLastNameErrorMessage('');
-      }
+      } 
     } catch(error) {
       console.log(error);
     }
@@ -81,12 +85,11 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
 
   const handleValidateEmail = (e) => {
     const resoult = validator.validationRegistration({email: e});
-    console.log('resoult email',resoult);
 
-    if(resoult?.isValid) {
-      setEmailErrorMessage('');
-    } else {
-      resoult?.reason == 'email' ? setEmailErrorMessage(resoult?.error) : setEmailErrorMessage('');
+    if(resoult.length !== 0) {
+      resoult.forEach((item) => {
+        item.reason == 'email' ? setEmailErrorMessage(item.error) : setEmailErrorMessage('');
+      })
     }
   }
   const handleFirstName = (e) => {
@@ -101,10 +104,10 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
   const handleValidateFirstName = (e) => {
     const resoult = validator.validationRegistration({firstName: e});
 
-    if(resoult?.isValid) {
-      setFirstNameErrorMessage('');
-    } else {
-      resoult?.reason == 'firstName' ? setFirstNameErrorMessage(resoult?.error) : setFirstNameErrorMessage('');
+    if(resoult.length !== 0) {
+      resoult.forEach((item) => {
+        item.reason == 'firstName' ? setFirstNameErrorMessage(item.error) : setFirstNameErrorMessage('');
+      })
     }
   }
   const handleLastName = (e) => {
@@ -119,10 +122,10 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
   const handleValidateLastName = (e) => {
     const resoult = validator.validationRegistration({lastName: e});
 
-    if(resoult?.isValid) {
-      setLastNameErrorMessage('');
-    } else {
-      resoult?.reason == 'lastName' ? setLastNameErrorMessage(resoult?.error) : setLastNameErrorMessage('');
+    if(resoult.length !== 0) {
+      resoult.forEach((item) => {
+        item.reason == 'lastName' ? setLastNameErrorMessage(item.error) : setLastNameErrorMessage('');
+      })
     }
   }
 
@@ -138,10 +141,10 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
   const handleValidatePhone = (e) => {
     const resoult = validator.validationRegistration({phone: e});
 
-    if(resoult?.isValid) {
-      setPhoneErrorMessage('');
-    } else {
-      resoult?.reason == 'phone' ? setPhoneErrorMessage(resoult?.error) : setPhoneErrorMessage('');
+    if(resoult.length !== 0) {
+      resoult.forEach((item) => {
+        item.reason == 'phone' ? setPhoneErrorMessage(item.error) : setPhoneErrorMessage('');
+      })
     }
   }
   const handlePassword = (e) => {
@@ -155,13 +158,11 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
 
   const handleValidatePassword = (e) => {
     const resoult = validator.validationRegistration({password: e});
-    console.log('password resoult',resoult);
-    if(resoult?.isValid) {
-      setPasswordErrorMessage('');
-      console.log('password resoult yes');
-    } else {
-      resoult?.reason == 'password' ? setPasswordErrorMessage(resoult?.error) : setPasswordErrorMessage('');
-      console.log('password resoult no');
+
+    if(resoult.length !== 0) {
+      resoult.forEach((item) => {
+        item.reason == 'password' ? setPasswordErrorMessage(item.error) : setPasswordErrorMessage('');
+      })
     }
   }
   const handleSecondPassword = (e) => {
@@ -175,11 +176,11 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
 
   const handleValidateSecondPassword = (e) => {
     const resoult = validator.validationRegistration({secondPassword: e, password});
-    console.log('second password resoult',resoult);
-    if(resoult?.isValid) {
-      setSecondPasswordErrorMessage('');
-    } else {
-      resoult?.reason == 'secondPassword' ? setSecondPasswordErrorMessage(resoult?.error) : setSecondPasswordErrorMessage('');
+
+    if(resoult.length !== 0) {
+      resoult.forEach((item) => {
+        item.reason == 'secondPassword' ? setSecondPasswordErrorMessage(item.error) : setSecondPasswordErrorMessage('');
+      })
     }
   }
   

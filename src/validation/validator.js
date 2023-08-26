@@ -5,93 +5,110 @@ function isValidEmail(email) {
 
 export const validationRegistration = ({email, phone, password, firstName, lastName, secondPassword}) => {
     try {
-      let valid = {
-        isValid: true,
-        error: '',
-        reason: ''
-      }
+      let arr = [];
       const firstPassword = password;
 
       if(!isValidEmail(email)) {
-        console.log('not valid email');
-        valid.isValid = false;
-        valid.error = 'This email is not valid';
-        valid.reason = 'email';
+        arr.push({
+          isValid: false,
+          error: 'This email is not valid',
+          reason: 'email'
+        })
       }
 
       if(firstPassword != secondPassword) {
-        valid.isValid = false;
-        valid.error = 'Unfaithful repeat password';
-        valid.reason = 'secondPassword';
+        arr.push({
+          isValid: false,
+          error: 'Unfaithful repeat password',
+          reason: 'secondPassword'
+        })
       }
 
       if(password?.length <= 7) {
-        valid.isValid = false;
-        valid.error = 'The password must be at least 7 characters long';
-        valid.reason = 'password';
+        arr.push({
+          isValid: false,
+          error: 'The password must be at least 7 characters long',
+          reason: 'password'
+        })
       }
 
       if(phone?.length <= 9) {
-        valid.isValid = false;
-        valid.error = 'Phone must be minimum 10 symbols';
-        valid.reason = 'phone';
+        arr.push({
+          isValid: false,
+          error: 'Phone must be minimum 10 symbols',
+          reason: 'phone'
+        })
       }
       if(firstName?.length <= 1) {
-        valid.isValid = false;
-        valid.error = 'First name must be minimum 2 mymbols';
-        valid.reason = 'firstName';
+        arr.push({
+          isValid: false,
+          error: 'First name must be minimum 2 symbols',
+          reason: 'firstName'
+        })
       }
       if(lastName?.length <= 1) {
-        valid.isValid = false;
-        valid.error = 'Last name must be minimum 2 mymbols';
-        valid.reason = 'lastName';
+        arr.push({
+          isValid: false,
+          error: 'Last name must be minimum 2 symbols',
+          reason: 'lastName'
+        })
       }
 
-      return valid;
+      return arr;
 
     } catch (e) {
       console.log(e);
     }
   };
   
-export const validationCreateProject = ({ targetAmount, placementPeriod, request, description, name}) => {
+  export const validationCreateProject = ({ targetAmount, placementPeriod, request, description, name}) => {
     try {
-      let valid = {
-        isValid: true,
-        error: '',
-        reason: ''
-      }
+      let arr = [];
+
       if(name?.length <= 1) {
-        valid.isValid = false;
-        valid.error = 'Name must be minimum 2 mymbols';
-        valid.reason = 'name';
+        console.log('name',name);
+        arr.push({
+          isValid: false,
+          error: 'Name must be minimum 2 symbols',
+          reason: 'name'
+        })
       }
 
       if(description?.length <= 14) {
-        valid.isValid = false;
-        valid.error = 'Description must be minimum 15 mymbols';
-        valid.reason = 'description';
+        arr.push({
+          isValid: false,
+          error: 'Description must be minimum 15 symbols',
+          reason: 'description'
+        })
       }
 
-      if(request?.length <= 4) {
-        valid.isValid = false;
-        valid.error = 'Request must be minimum 15 mymbols';
-        valid.reason = 'request';
+      if(request?.length <= 9) {
+        arr.push({
+          isValid: false,
+          error: 'Request must be minimum 10 symbols',
+          reason: 'request'
+        })
       }
 
       if(placementPeriod <= 1) {
-        valid.isValid = false;
-        valid.error = 'Placement period must be minimum 2 days';
-        valid.reason = 'placementPeriod';
+        arr.push({
+          isValid: false,
+          error: 'Placement period must be minimum 2 days',
+          reason: 'placementPeriod'
+        })
       }
 
       if(targetAmount <= 9) {
-        valid.isValid = false;
-        valid.error = 'Target amount must be minimum 10$';
-        valid.reason = 'targetAmount';
+        arr.push({
+          isValid: false,
+          error: 'Target amount must be minimum 10$',
+          reason: 'targetAmount'
+        })
       }
 
-      return valid;
+      console.log('validator arr',arr);
+
+      return arr;
 
     } catch (e) {
       console.log(e);
@@ -99,47 +116,82 @@ export const validationCreateProject = ({ targetAmount, placementPeriod, request
   };
 export const validationDonate = ({ nameFirst, nameLast, amount, card, validity, cvv}) => {
     try {
-      let valid = {
-        isValid: true,
-        error: '',
-        reason: ''
-      }
+      let arr = [];
+
       if(nameFirst?.length <= 1) {
-        valid.isValid = false;
-        valid.error = 'First name must be minimum 2 mymbols';
-        valid.reason = 'nameFirst';
+        arr.push({
+          isValid: false,
+          error: 'First name must be minimum 2 mymbols',
+          reason: 'nameFirst'
+        })
       }
 
       if(nameLast?.length <= 1) {
-        valid.isValid = false;
-        valid.error = 'Last name must be minimum 2 mymbols';
-        valid.reason = 'nameLast';
+        arr.push({
+          isValid: false,
+          error: 'Last name must be minimum 2 mymbols',
+          reason: 'nameLast'
+        })
       }
 
       if(card?.length <= 15) {
-        valid.isValid = false;
-        valid.error = 'Card must be minimum 16 symbols';
-        valid.reason = 'card';
+        arr.push({
+          isValid: false,
+          error: 'Card must be minimum 16 symbols',
+          reason: 'card'
+        })
       }
 
       if(validity?.length <= 6) {
-        valid.isValid = false;
-        valid.error = 'Date must be minimum 7 symbols';
-        valid.reason = 'validity';
+        arr.push({
+          isValid: false,
+          error: 'Date must be minimum 7 symbols',
+          reason: 'validity'
+        })
       }
       if(cvv?.length <= 2) {
-        valid.isValid = false;
-        valid.error = 'CVV must be minimum 3 symbols';
-        valid.reason = 'cvv';
+        arr.push({
+          isValid: false,
+          error: 'CVV must be minimum 3 symbols',
+          reason: 'cvv'
+        })
       }
 
       if(amount <= 1) {
-        valid.isValid = false;
-        valid.error = 'Amount must be minimum 2$';
-        valid.reason = 'amount';
+        arr.push({
+          isValid: false,
+          error: 'Amount must be minimum 2$',
+          reason: 'amount'
+        })
       }
 
-      return valid;
+      return arr;
+
+    } catch (e) {
+      console.log(e);
+    }
+  };
+export const validationComment = ({ name, description}) => {
+    try {
+      let arr = [];
+
+      if(name?.length <= 1) {
+        arr.push({
+          isValid: false,
+          error: 'Name must be minimum 2 mymbols',
+          reason: 'name'
+        })
+      }
+
+      if(description?.length <= 4) {
+        arr.push({
+          isValid: false,
+          error: 'description must be minimum 5 mymbols',
+          reason: 'description'
+        })
+      }
+
+      return arr;
 
     } catch (e) {
       console.log(e);
