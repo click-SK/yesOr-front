@@ -4,12 +4,15 @@ import UserModal from "./UserModal";
 import axios from "axios";
 import { AiOutlineLock, AiOutlineUnlock } from "react-icons/ai";
 import { HiOutlineDocumentSearch } from "react-icons/hi";
+import { BsInfoCircleFill } from "react-icons/bs";
 import ModalProjectConfirm from "../ModalProjectConfirm";
 import UserHistoryDonat from './UserHistoryDonat.jsx'
 import UserDocument from "./UserDocument";
+import UserInfoItem from "./UserInfoItem";
 
 const UserItem = ({ item, setReloadUserData }) => {
   const [isOpenDocuments, setIsOpenDocuments] = useState(false)
+  const [isOpenInfoUser, setIsOpenInfoUser] = useState(false)
   const [isOpenHistory, setIsOpenHistory] = useState(false)
   const [isOpenModalConfirm, setIsOpenModalConfirm] = useState(false);
   const [isOpenModalUnConfirm, setIsOpenModalUnConfirm] = useState(false);
@@ -50,10 +53,17 @@ const UserItem = ({ item, setReloadUserData }) => {
     }
   };
 
+  console.log('isOpenInfoUser', isOpenInfoUser);
+
   return (
-    <div className="project_item admin_project_item" key={item._id}>
+    <div className={`project_item admin_project_item ${isOpenInfoUser ? 'open_info_user' : ''}`} key={item._id}>
+      <div className={`user_wrap_item `}>
       <img src={`${BASE_URL}${item?.userImage}`} alt="" />
-      <p>{item?.firstName + " " + item?.lastName}</p>
+      <p>{item?.firstName + " " + item?.lastName }
+       <BsInfoCircleFill
+       onClick={()=>setIsOpenInfoUser(!isOpenInfoUser)}
+       className="info_user_icon"
+       /></p>
       <div className="admin_project_item_svg">
         <img src="./icons/ph_chat-centered-dots-light.svg" alt="" />
         <div>
@@ -86,6 +96,8 @@ const UserItem = ({ item, setReloadUserData }) => {
         />
         <HiOutlineDocumentSearch onClick={() => setIsOpenDocuments(!isOpenDocuments)}/>
       </div>
+
+
       <ModalProjectConfirm
         title={"Confirm Verification?"}
         isOpenModal={isOpenModalConfirm}
@@ -113,6 +125,13 @@ const UserItem = ({ item, setReloadUserData }) => {
       name={item?.firstName}
     />
       }
+      
+
+    </div>
+    <UserInfoItem
+      setIsOpen = {setIsOpenInfoUser}
+      isOpenInfoUser = {isOpenInfoUser}
+      />
     </div>
   );
 };
