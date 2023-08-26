@@ -4,6 +4,7 @@ import axios from "axios";
 import { BASE_URL } from '../../../http/baseUrl';
 import { useSelector } from 'react-redux';
 import * as validator from '../../../validation/validator';
+import ErrorMessage from '../../validation/ErrorMessage';
 const DonatsModal = ({setIsOpen, currentProject}) => {
     const [nameFirst, setNameFirst] = useState("");
     const [nameLast, setNameLast] = useState("");
@@ -69,7 +70,11 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
 
     const handleFirstName = (e) => {
         setNameFirst(e);
-        handleValidateFirstName(e);
+        if(e != '') {
+          handleValidateFirstName(e);
+        } else {
+          setFirstNameErrorMessage('');
+        }
       }
     
       const handleValidateFirstName = (e) => {
@@ -84,7 +89,11 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
       }
     const handleLastName = (e) => {
         setNameLast(e);
-        handleValidateLastName(e);
+        if(e != '') {
+          handleValidateLastName(e);
+        } else {
+          setLastNameErrorMessage('');
+        }
       }
     
       const handleValidateLastName = (e) => {
@@ -98,7 +107,11 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
       }
     const handleAmount = (e) => {
         setAmount(e);
-        handleValidateAmount(e);
+        if(e != '') {
+          handleValidateAmount(e);
+        } else {
+          setAmountErrorMessage('');
+        }
       }
     
       const handleValidateAmount = (e) => {
@@ -113,7 +126,11 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
       }
     const handleCard = (e) => {
         setCard(e);
-        handleValidateCard(e);
+        if(e != '') {
+          handleValidateCard(e);
+        } else {
+          setNumberCardErrorMessage('');
+        }
       }
     
       const handleValidateCard = (e) => {
@@ -128,7 +145,11 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
       }
     const handleValidity = (e) => {
         setValidity(e);
-        handleValidateValidity(e);
+        if(e != '') {
+          handleValidateValidity(e);
+        } else {
+          setNumberCardDateErrorMessage('');
+        }
       }
     
       const handleValidateValidity = (e) => {
@@ -143,7 +164,11 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
       }
     const handleCVV = (e) => {
         setCvv(e);
-        handleValidateCVV(e);
+        if(e != '') {
+          handleValidateCVV(e);
+        } else {
+          setNumberCardCVVErrorMessage('');
+        }
       }
     
       const handleValidateCVV = (e) => {
@@ -166,17 +191,17 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
                 <h2>Please donate</h2>
                 <div className='content_modal'>
                 <div className="input_item">
-                    <label htmlFor="name">First Name*</label>
+                    <label htmlFor="name">First Name *</label>
                     <input
                         id="name"
                         type="text"
                         value={nameFirst}
                         onChange={(e) => handleFirstName(e.target.value)}
                     /> 
+                <ErrorMessage errorMessage={firstNameErrorMessage}/>
                 </div>
-                {firstNameErrorMessage && <p className="danger">{firstNameErrorMessage}</p>}
                 <div className="input_item">
-                    <label htmlFor="name">Last Name*</label>
+                    <label htmlFor="name">Last Name *</label>
                     <input
                         id="name"
                         type="text"
@@ -184,9 +209,9 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
                         onChange={(e) => handleLastName(e.target.value)}
                     /> 
                 </div>
-                {lastNameErrorMessage && <p className="danger">{lastNameErrorMessage}</p>}
+                <ErrorMessage errorMessage={lastNameErrorMessage}/>
                 <div className="input_item">
-          <label htmlFor="description">Comment*</label>
+          <label htmlFor="description">Comment *</label>
           <textarea
             id="description"
             type="text"
@@ -195,7 +220,7 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
           />
             </div>
             <div className="input_item">
-                    <label htmlFor="amount">Donation amount*</label>
+                    <label htmlFor="amount">Donation amount *</label>
                     <input
                         id="amount"
                         type="number"
@@ -203,9 +228,9 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
                         onChange={(e) => handleAmount(e.target.value)}
                     /> 
                 </div>
-                {amountErrorMessage && <p className="danger">{amountErrorMessage}</p>}
+                <ErrorMessage errorMessage={amountErrorMessage}/>
                 <div className="input_item">
-                    <label htmlFor="amount">Number card*</label>
+                    <label htmlFor="amount">Number card *</label>
                     <input
                         id="amount"
                         type="number"
@@ -213,7 +238,7 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
                         onChange={(e) => handleCard(e.target.value)}
                     /> 
                 </div>
-                {numberCardErrorMessage && <p className="danger">{numberCardErrorMessage}</p>}
+                <ErrorMessage errorMessage={numberCardErrorMessage}/>
                 <div className="two_input_wrap">
                 <div className="input_item">
                     <label htmlFor="amount">Validity *</label>
@@ -224,7 +249,7 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
                         onChange={(e) => handleValidity(e.target.value)}
                     /> 
                 </div>
-                {numberCardDateErrorMessage && <p className="danger">{numberCardDateErrorMessage}</p>}
+                <ErrorMessage errorMessage={numberCardDateErrorMessage}/>
                 <div className="input_item">
                     <label htmlFor="amount">CVV *</label>
                     <input
@@ -234,7 +259,7 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
                         onChange={(e) => handleCVV(e.target.value)}
                     /> 
                 </div>
-                {numberCardCVVErrorMessage && <p className="danger">{numberCardCVVErrorMessage}</p>}
+                <ErrorMessage errorMessage={numberCardCVVErrorMessage}/>
                 </div>
                 </div>
                 <button onClick={handleSendDonats}>Confirm</button>

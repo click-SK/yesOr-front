@@ -1,14 +1,46 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../../styles/modalWindow.scss";
-// import axios from "axios";
-// import { BASE_URL } from "../../../http/baseUrl";
-// import { useSelector } from "react-redux";
-// import * as validator from "../../../validation/validator";
-
-const ModalComent = ({setIsOpen}) => {
+import axios from "axios";
+import { BASE_URL } from "../../http/baseUrl";
+const ModalComent = ({setIsOpen, user, projectId}) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [description, setDescription] = useState("");
+
+  console.log('user',user);
+
+  useEffect(() => {
+    if(user) {
+      setName(user.firstName);
+      setEmail(user.email);
+    }
+  },[])
+
+  const handleSendComment = () => {
+    if(user) {
+      axios.patch(`${BASE_URL}/add-project-comment`, {
+        userId: user._id,
+        comment: description,
+        projectId
+      }).then(() => {
+        setTimeout(() => {
+          window.location.reload();
+        },500)
+      })
+    } else {
+      axios.patch(`${BASE_URL}/add-project-comment`, {
+        name,
+        email,
+        comment: description,
+        projectId
+      }).then(() => {
+        setTimeout(() => {
+          alert('Comments added')
+          window.location.reload();
+        },500)
+      })
+    }
+  }
   return (
     <div className="modal_wrap">
       <div className="item_body pad">
@@ -47,7 +79,7 @@ const ModalComent = ({setIsOpen}) => {
             />
           </div>
         </div>
-          <button>Save</button>
+          <button onClick={handleSendComment}>Save</button>
       </div>
     </div>
   );

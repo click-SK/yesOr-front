@@ -1,0 +1,8 @@
+@import './templateColor.scss';
+@import './tamplateButtons.scss';
+@import './tamplateInputs.scss';
+
+.error_message {
+    color: $color_error;
+    font-size: 12px;
+}

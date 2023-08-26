@@ -3,8 +3,6 @@ function isValidEmail(email) {
   return emailPattern.test(email);
 }
 
-
-
 export const validationRegistration = ({email, phone, password, firstName, lastName, secondPassword}) => {
     try {
       let valid = {
@@ -13,43 +11,39 @@ export const validationRegistration = ({email, phone, password, firstName, lastN
         reason: ''
       }
       const firstPassword = password;
-      console.log('password',password);
-      console.log('secondPassword',secondPassword);
-      console.log('email',email);
-      console.log('firstPassword',firstPassword);
 
       if(!isValidEmail(email)) {
         console.log('not valid email');
         valid.isValid = false;
-        valid.error = 'email error';
+        valid.error = 'This email is not valid';
         valid.reason = 'email';
       }
 
       if(firstPassword != secondPassword) {
         valid.isValid = false;
-        valid.error = 'secondPassword error';
+        valid.error = 'Unfaithful repeat password';
         valid.reason = 'secondPassword';
       }
 
       if(password?.length <= 7) {
         valid.isValid = false;
-        valid.error = 'password error';
+        valid.error = 'The password must be at least 7 characters long';
         valid.reason = 'password';
       }
 
-      if(phone?.length <=4) {
+      if(phone?.length <= 9) {
         valid.isValid = false;
-        valid.error = 'phone error';
+        valid.error = 'Phone must be minimum 10 symbols';
         valid.reason = 'phone';
       }
       if(firstName?.length <= 1) {
         valid.isValid = false;
-        valid.error = 'firstName error';
+        valid.error = 'First name must be minimum 2 mymbols';
         valid.reason = 'firstName';
       }
       if(lastName?.length <= 1) {
         valid.isValid = false;
-        valid.error = 'lastName error';
+        valid.error = 'Last name must be minimum 2 mymbols';
         valid.reason = 'lastName';
       }
 
@@ -69,31 +63,31 @@ export const validationCreateProject = ({ targetAmount, placementPeriod, request
       }
       if(name?.length <= 1) {
         valid.isValid = false;
-        valid.error = 'name error';
+        valid.error = 'Name must be minimum 2 mymbols';
         valid.reason = 'name';
       }
 
-      if(description?.length <= 5) {
+      if(description?.length <= 14) {
         valid.isValid = false;
-        valid.error = 'description error';
+        valid.error = 'Description must be minimum 15 mymbols';
         valid.reason = 'description';
       }
 
-      if(request?.length <= 5) {
+      if(request?.length <= 4) {
         valid.isValid = false;
-        valid.error = 'request error';
+        valid.error = 'Request must be minimum 15 mymbols';
         valid.reason = 'request';
       }
 
       if(placementPeriod <= 1) {
         valid.isValid = false;
-        valid.error = 'placementPeriod error';
+        valid.error = 'Placement period must be minimum 2 days';
         valid.reason = 'placementPeriod';
       }
 
-      if(targetAmount <= 1) {
+      if(targetAmount <= 9) {
         valid.isValid = false;
-        valid.error = 'targetAmount error';
+        valid.error = 'Target amount must be minimum 10$';
         valid.reason = 'targetAmount';
       }
 
@@ -112,36 +106,36 @@ export const validationDonate = ({ nameFirst, nameLast, amount, card, validity, 
       }
       if(nameFirst?.length <= 1) {
         valid.isValid = false;
-        valid.error = 'nameFirst error';
+        valid.error = 'First name must be minimum 2 mymbols';
         valid.reason = 'nameFirst';
       }
 
       if(nameLast?.length <= 1) {
         valid.isValid = false;
-        valid.error = 'nameLast error';
+        valid.error = 'Last name must be minimum 2 mymbols';
         valid.reason = 'nameLast';
       }
 
-      if(card?.length <= 8) {
+      if(card?.length <= 15) {
         valid.isValid = false;
-        valid.error = 'card error';
+        valid.error = 'Card must be minimum 16 symbols';
         valid.reason = 'card';
       }
 
-      if(validity?.length <= 4) {
+      if(validity?.length <= 6) {
         valid.isValid = false;
-        valid.error = 'validity error';
+        valid.error = 'Date must be minimum 7 symbols';
         valid.reason = 'validity';
       }
       if(cvv?.length <= 2) {
         valid.isValid = false;
-        valid.error = 'cvv error';
+        valid.error = 'CVV must be minimum 3 symbols';
         valid.reason = 'cvv';
       }
 
       if(amount <= 1) {
         valid.isValid = false;
-        valid.error = 'amount error';
+        valid.error = 'Amount must be minimum 2$';
         valid.reason = 'amount';
       }
 

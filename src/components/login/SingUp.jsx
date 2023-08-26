@@ -5,6 +5,8 @@ import axios from "axios";
 import { registration } from "../../store/authUser";
 import { useDispatch } from "react-redux";
 import * as validator from "../../validation/validator.js";
+import ErrorMessage from "../validation/ErrorMessage";
+import { RiEyeFill, RiEyeCloseFill } from 'react-icons/ri';
 const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,6 +22,8 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
   const [firstNameErrorMessage, setFirstNameErrorMessage] = useState('');
   const [lastNameErrorMessage, setLastNameErrorMessage] = useState('');
   const [userAgreement, setUserAgreement] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -57,11 +61,22 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
 
   console.log('userAgreement',userAgreement);
 
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+  const toggleShowPasswordRepeat = () => {
+    setShowPasswordRepeat(!showPasswordRepeat);
+  };
+
   //--Valodation functions
 
   const handleEmail = (e) => {
     setEmail(e);
-    handleValidateEmail(e);
+    if(e != '') {
+      handleValidateEmail(e);
+    } else {
+      setEmailErrorMessage('');
+    }
   }
 
   const handleValidateEmail = (e) => {
@@ -76,7 +91,11 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
   }
   const handleFirstName = (e) => {
     setFirstName(e);
-    handleValidateFirstName(e);
+    if(e != '') {
+      handleValidateFirstName(e);
+    } else {
+      setFirstNameErrorMessage('');
+    }
   }
 
   const handleValidateFirstName = (e) => {
@@ -90,7 +109,11 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
   }
   const handleLastName = (e) => {
     setLastName(e);
-    handleValidateLastName(e);
+    if(e != '') {
+      handleValidateLastName(e);
+    } else {
+      setLastNameErrorMessage('');
+    }
   }
 
   const handleValidateLastName = (e) => {
@@ -105,7 +128,11 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
 
   const handlePhone = (e) => {
     setPhone(e);
-    handleValidatePhone(e);
+    if(e != '') {
+      handleValidatePhone(e);
+    } else {
+      setPhoneErrorMessage('');
+    }
   }
 
   const handleValidatePhone = (e) => {
@@ -119,7 +146,11 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
   }
   const handlePassword = (e) => {
     setPassword(e);
-    handleValidatePassword(e);
+    if(e != '') {
+      handleValidatePassword(e);
+    } else {
+      setPasswordErrorMessage('');
+    }
   }
 
   const handleValidatePassword = (e) => {
@@ -135,7 +166,11 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
   }
   const handleSecondPassword = (e) => {
     setSecondPassword(e);
-    handleValidateSecondPassword(e);
+    if(e != '') {
+      handleValidateSecondPassword(e);
+    } else {
+      setSecondPasswordErrorMessage('');
+    }
   }
 
   const handleValidateSecondPassword = (e) => {
@@ -159,31 +194,31 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
                 value={email}
                 onChange={(e) => handleEmail(e.target.value)}/>
             </div>
-            {emailErrorMessage && <p className="danger">{emailErrorMessage}</p>}
+            <ErrorMessage errorMessage={emailErrorMessage}/>
         <div className="input_item">
-          <label htmlFor="first_name">First name*</label>
+          <label htmlFor="first_name">First name *</label>
           <input id="first_name" 
           type="text" 
           value={firstName}
           onChange={(e) => handleFirstName(e.target.value)}/>
         </div>
-        {firstNameErrorMessage && <p className="danger">{firstNameErrorMessage}</p>}
+        <ErrorMessage errorMessage={firstNameErrorMessage}/>
         <div className="input_item">
-          <label htmlFor="lust_name">Last name*</label>
+          <label htmlFor="lust_name">Last name *</label>
           <input id="lust_name" 
           type="text" 
           value={lastName}
           onChange={(e) => handleLastName(e.target.value)}/>
         </div>
-        {lastNameErrorMessage && <p className="danger">{lastNameErrorMessage}</p>}
+        <ErrorMessage errorMessage={lastNameErrorMessage}/>
         <div className="input_item">
-          <label htmlFor="phone">Number phone*</label>
+          <label htmlFor="phone">Phone*</label>
           <input id="phone" 
           type="phone" 
           value={phone}
           onChange={(e) => handlePhone(e.target.value)}/>
         </div>
-        {phoneErrorMessage && <p className="danger">{phoneErrorMessage}</p>}
+        <ErrorMessage errorMessage={phoneErrorMessage}/>
         <div className="input_item">
           <label htmlFor="socia">
             Specify a social network to contact you
@@ -193,22 +228,36 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
           value={socialNetwork}
           onChange={(e) => setSocialNetwork(e.target.value)}/>
         </div>
-        <div className="input_item">
-          <label htmlFor="password1">Password *</label>
-          <input id="password1" 
-          type="password"
+            <div className="input_item">
+      <label htmlFor="password1">Password *</label>
+      <div className="password_input_container">
+        <input
+          id="password1"
+          type={showPassword ? 'text' : 'password'}
           value={password}
-          onChange={(e) => handlePassword(e.target.value)}/>
+          onChange={(e) => handlePassword(e.target.value)}
+        />
+        <div className="password_toggle_icon" onClick={toggleShowPassword}>
+          {showPassword ? <RiEyeCloseFill /> : <RiEyeFill />}
         </div>
-        {passwordErrorMessage && <p className="danger">{passwordErrorMessage}</p>}
+      </div>
+    </div>
+        <ErrorMessage errorMessage={passwordErrorMessage}/>
         <div className="input_item">
-          <label htmlFor="password2">Second Password *</label>
-          <input id="password2" 
-          type="password"
+      <label htmlFor="password2">Repeat password *</label>
+      <div className="password_input_container">
+        <input
+          id="password2"
+          type={showPasswordRepeat ? 'text' : 'password'}
           value={secondPassword}
-          onChange={(e) => handleSecondPassword(e.target.value)}/>
+          onChange={(e) => handleSecondPassword(e.target.value)}
+        />
+        <div className="password_toggle_icon" onClick={toggleShowPasswordRepeat}>
+          {showPasswordRepeat ? <RiEyeCloseFill /> : <RiEyeFill />}
         </div>
-        {secondPasswordErrorMessage && <p className="danger">{secondPasswordErrorMessage}</p>}
+      </div>
+    </div>
+        <ErrorMessage errorMessage={secondPasswordErrorMessage}/>
       </div>
       <div className="input_checkbox_wrap">
         <div className="input_checkbox_wrap-item">

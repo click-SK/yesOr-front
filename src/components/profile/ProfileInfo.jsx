@@ -25,11 +25,24 @@ const ProfileInfo = ({openSetting, currentUser}) => {
     return (
       <div className="profile_user_wrap">
         <div className="photo_profile">
-          <img className="photo_profile_hero" src={`${BASE_URL}${currentUser.userImage}`} alt="" />
+          {currentUser.userImage ? (
+            <img
+              className="photo_profile_hero"
+              src={`${BASE_URL}${currentUser.userImage}`}
+              alt=""
+            />
+          ) : (
+            <img
+              className="photo_profile_hero"
+              src="/icons/no-avatar.webp"
+              alt=""
+            />
+          )}
         </div>
         <div className="content">
           <div className="user_info">
             <h2>{currentUser?.firstName}</h2>
+
             {currentUser?.isVerified 
             ?
             <p style={{color: 'green'}}>Verified</p> 
@@ -39,6 +52,7 @@ const ProfileInfo = ({openSetting, currentUser}) => {
             <p>{currentUser?.phone}</p>
             <button className='btn_profile-edit' onClick={() => openSetting()}>Edite</button>
             <button className='btn_profile-logout' onClick={handleLogout}>Logout</button>
+
           </div>
         </div>
       </div>
