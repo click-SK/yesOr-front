@@ -7,7 +7,7 @@ import { TiDocumentDelete } from "react-icons/ti";
 import { Tooltip } from "react-tooltip";
 import axios from "axios";
 import { BASE_URL } from "../../http/baseUrl";
-const ProjectItem = ({item, handleChangeFunc, verified, onlyId, projectMainPage, setReload}) => {
+const ProjectItem = ({item, handleChangeFunc, verified, onlyId, projectMainPage, setReload, setIsOpenChat}) => {
     const [isOpenModalConfirm, setIsOpenModalConfirm] = useState(false);
     const [isOpenModalUnConfirm, setIsOpenModalUnConfirm] = useState(false);
     const [isOpenHistory, setIsOpenHistory] = useState(false);
@@ -69,7 +69,7 @@ const ProjectItem = ({item, handleChangeFunc, verified, onlyId, projectMainPage,
             <p>{item?.projects?.target}</p>
           </Link>
           <div className="admin_project_item_svg">
-            <img src="./icons/ph_chat-centered-dots-light.svg" alt="" />
+            <img src="./icons/ph_chat-centered-dots-light.svg" alt="" onClick={() => setIsOpenChat(state => !state)}/>
             {!verified ? (
               <img
                 onClick={() => setIsOpenModalConfirm(!isOpenModalConfirm)}
