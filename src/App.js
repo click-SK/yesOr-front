@@ -1,7 +1,8 @@
 
-import React, {useEffect} from 'react';
-import { Routes, Route } from "react-router-dom";
+import React, {useEffect, useState} from 'react';
+import { Routes, Route, useLocation } from "react-router-dom";
 import Header from './components/Header';
+import AlternateHeader from './components/AlternateHeader';
 import MainPage from './components/mainPage/MainPage'
 import Footer from './components/Footer';
 import LoginForm from './components/login/LoginForm';
@@ -15,14 +16,19 @@ import ProjectOne from './components/project/ProjectOne';
 import { checkAuthUser } from './store/authUser';
 import { checkAuthAdmin } from './store/authAdmin';
 import { useDispatch, useSelector } from 'react-redux';
+import ChatIcon from './components/chat/ChatIcon';
+import ChatWrap from './components/chat/ChatWrap';
 import './App.css';
 
 function App() {
   const dispatch = useDispatch();
   const isAuthUser = useSelector((state) => state.authUser.isAuthUser);
   const isAdmin = useSelector((state) => state.authAdmin.isAdmin);
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+  const [isOpenChat, setIsOpenChat] = useState(false)
 
-  // console.log('isAuthUser',isAuthUser);
+  console.log('isAuthUser',isOpenChat);
 
   useEffect(() => {
     if(localStorage.getItem('Y-R-U-T')) {
@@ -38,8 +44,19 @@ function App() {
   },[])
   return (
     <div className="App">
-      <Header/>
-      <Header/>
+      {/* <Header/> */}
+      {/* <Header/> */}
+      <ChatIcon
+      isOpen = {isOpenChat}
+      setIsOpen ={setIsOpenChat}
+      />
+      
+      <ChatWrap
+        isOpen = {isOpenChat}
+        setIsOpen = {setIsOpenChat}
+      />
+      
+      {isHomePage ? <Header /> : <AlternateHeader />}
         <Routes>
           <Route path='/' element={<MainPage/>}/>
           {/* {!isAuthUser && <Route path='/login' element={<LoginForm/>}/>} */}

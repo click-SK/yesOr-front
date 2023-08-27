@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import AboutUsMain from './AboutUsSection';
 import ProjectsMain from './ProjectsSection';
 import CategoriesSection from './CategoriesSection';
@@ -9,13 +9,50 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkAuthAdmin } from '../../store/authAdmin';
 import { checkAuthUser } from '../../store/authUser';
+import { useLocation } from 'react-router-dom';
 
 const MainPage = () => {
     const dispatch = useDispatch();
     const isAuthUser = useSelector((state) => state.authUser.isAuthUser);
     const isAdmin = useSelector((state) => state.authAdmin.isAdmin);
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const scrollTarget = params.get('scroll');
 
     console.log('isAuthUserMainP',isAuthUser);
+
+    useEffect(() => {
+        if (scrollTarget === 'about_us') {
+          const aboutUsSection = document.getElementById('about_us');
+          if (aboutUsSection) {
+            aboutUsSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }, [scrollTarget]);
+    useEffect(() => {
+        if (scrollTarget === 'categories') {
+          const aboutUsSection = document.getElementById('categories');
+          if (aboutUsSection) {
+            aboutUsSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }, [scrollTarget]);
+    useEffect(() => {
+        if (scrollTarget === 'team') {
+          const aboutUsSection = document.getElementById('team');
+          if (aboutUsSection) {
+            aboutUsSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }, [scrollTarget]);
+    useEffect(() => {
+        if (scrollTarget === 'information') {
+          const aboutUsSection = document.getElementById('information');
+          if (aboutUsSection) {
+            aboutUsSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }, [scrollTarget]);
     
     const startProjectLink = isAuthUser ? '/new-project' : '/login';
 

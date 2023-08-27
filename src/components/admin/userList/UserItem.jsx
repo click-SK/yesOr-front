@@ -9,8 +9,9 @@ import ModalProjectConfirm from "../ModalProjectConfirm";
 import UserHistoryDonat from './UserHistoryDonat.jsx'
 import UserDocument from "./UserDocument";
 import UserInfoItem from "./UserInfoItem";
+import ChatWrap from "../../chat/ChatWrap";
 
-const UserItem = ({ item, setReloadUserData }) => {
+const UserItem = ({ item, setReloadUserData, setIsOpenChat }) => {
   const [isOpenDocuments, setIsOpenDocuments] = useState(false)
   const [isOpenInfoUser, setIsOpenInfoUser] = useState(false)
   const [isOpenHistory, setIsOpenHistory] = useState(false)
@@ -53,7 +54,7 @@ const UserItem = ({ item, setReloadUserData }) => {
     }
   };
 
-  console.log('isOpenInfoUser', isOpenInfoUser);
+  // console.log('InfoUser', item);
 
   return (
     <div className={`project_item admin_project_item ${isOpenInfoUser ? 'open_info_user' : ''}`} key={item._id}>
@@ -65,7 +66,7 @@ const UserItem = ({ item, setReloadUserData }) => {
        className="info_user_icon"
        /></p>
       <div className="admin_project_item_svg">
-        <img src="./icons/ph_chat-centered-dots-light.svg" alt="" />
+        <img src="./icons/ph_chat-centered-dots-light.svg" alt=""  onClick ={() => setIsOpenChat(state => !state)}/>
         <div>
           {!item?.isVerified ? (
             <img
@@ -131,6 +132,7 @@ const UserItem = ({ item, setReloadUserData }) => {
     <UserInfoItem
       setIsOpen = {setIsOpenInfoUser}
       isOpenInfoUser = {isOpenInfoUser}
+      item = {item}
       />
     </div>
   );

@@ -3,6 +3,7 @@ import axios from "axios";
 import { BASE_URL } from "../../http/baseUrl";
 import ProjectItem from "./ProjectItem";
 import Pagination from "../Pagination";
+import ChatWrap from "../chat/ChatWrap";
 const AllProjectAdmin = ({
   projectArr,
   verified,
@@ -14,6 +15,7 @@ const AllProjectAdmin = ({
   const [reloadProjectMainPage, setReloadProjectMainPage] = useState(false);
   const [reversedProjectArr, setReversedProjectArr] = useState([]);
   const [paginationArray, setPaginationArray] = useState([]);
+  const [isOpenChat, setIsOpenChat] = useState(false)
 
   useEffect(() => {
     const reverse = [...projectArr].reverse();
@@ -55,9 +57,14 @@ const AllProjectAdmin = ({
           onlyId={mainPageProjectIdArray}
           projectMainPage={projectMainPage}
           setReload={setReloadProjectMainPage}
+          setIsOpenChat={setIsOpenChat}
         />
       ))}
       <Pagination dataArray={reversedProjectArr} setFilterArray={setPaginationArray}/>
+      <ChatWrap
+        setIsOpen = {setIsOpenChat}
+        isOpen = {isOpenChat}
+        />
     </div>
   );
 };
