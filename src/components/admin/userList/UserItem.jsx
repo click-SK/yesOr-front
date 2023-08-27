@@ -11,12 +11,14 @@ import UserDocument from "./UserDocument";
 import UserInfoItem from "./UserInfoItem";
 import ChatWrap from "../../chat/ChatWrap";
 
-const UserItem = ({ item, setReloadUserData, setIsOpenChat }) => {
+const UserItem = ({ item, setReloadUserData}) => {
   const [isOpenDocuments, setIsOpenDocuments] = useState(false)
   const [isOpenInfoUser, setIsOpenInfoUser] = useState(false)
   const [isOpenHistory, setIsOpenHistory] = useState(false)
   const [isOpenModalConfirm, setIsOpenModalConfirm] = useState(false);
   const [isOpenModalUnConfirm, setIsOpenModalUnConfirm] = useState(false);
+  const [isOpenChat, setIsOpenChat] = useState(false)
+
 
   const handleBlockedUser = () => {
     try {
@@ -35,9 +37,8 @@ const UserItem = ({ item, setReloadUserData, setIsOpenChat }) => {
     }
   };
 
-  console.log('user list item',item);
+
   const handleVerifiedUser = () => {
-    console.log("work");
     try {
       axios
         .patch(`${BASE_URL}/update-user-verified`, {
@@ -54,7 +55,15 @@ const UserItem = ({ item, setReloadUserData, setIsOpenChat }) => {
     }
   };
 
-  // console.log('InfoUser', item);
+  const handleCreateOrOpenChat = () => {
+
+    setIsOpenChat(state => !state)
+    axios.post(`${BASE_URL}/create-messanger`, {
+        userId: item._id
+    })
+}
+
+
 
   return (
     <div className={`project_item admin_project_item ${isOpenInfoUser ? 'open_info_user' : ''}`} key={item._id}>
@@ -66,7 +75,7 @@ const UserItem = ({ item, setReloadUserData, setIsOpenChat }) => {
        className="info_user_icon"
        /></p>
       <div className="admin_project_item_svg">
-        <img src="./icons/ph_chat-centered-dots-light.svg" alt=""  onClick ={() => setIsOpenChat(state => !state)}/>
+        <img src="./icons/ph_chat-centered-dots-light.svg" alt=""  onClick ={() => handleCreateOrOpenChat()}/>
         <div>
           {!item?.isVerified ? (
             <img
@@ -134,6 +143,13 @@ const UserItem = ({ item, setReloadUserData, setIsOpenChat }) => {
       isOpenInfoUser = {isOpenInfoUser}
       item = {item}
       />
+              <ChatWrap
+        setIsOpen = {setIsOpenChat}
+        isOpen = {isOpenChat}
+        user={item}
+        isUser={false}
+        isAdmin={true}
+        />
     </div>
   );
 };

@@ -28,7 +28,6 @@ const ProfilePage = () => {
       console.log(error);
     }
   }, [user, reloadUser]);
-  console.log("currentUser", user);
 
   const openProject = () => {
     setIsOpenProject(true);

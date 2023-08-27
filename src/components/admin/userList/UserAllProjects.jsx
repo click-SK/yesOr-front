@@ -6,7 +6,6 @@ import Pagination from '../../Pagination';
 const UserAllProjects = ({projects, setIsOpen}) => {
     const [paginationArray, setPaginationArray] = useState([]);
     const [savedArray, setSavedArray] = useState([]);
-    // console.log('savedProjects',projects);
 
     useEffect(() => {
         if(projects) {

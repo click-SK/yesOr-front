@@ -80,11 +80,9 @@ const SelectedDocuments = () => {
           const formData = new FormData();
           formData.append("id", user._id);
           images.forEach((image, index) => {
-            console.log('images',image);
             formData.append(`userDocuments`, image);
           });
           axios.patch(`${BASE_URL}/upload-user-document`, formData).then((response) => {
-            console.log(response.data);
           }).catch((error) => {
             console.log(error);
           });

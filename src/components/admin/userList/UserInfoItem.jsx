@@ -3,7 +3,7 @@ import UserAllProjects from './UserAllProjects';
 
 const UserInfoItem = ({setIsOpen,isOpenInfoUser,item}) => {
     const [isOpenAllProjects, setIsOpenAllProjects] = useState(false)
-    console.log('item', item);
+
     return (
         <div className={`item_info_wrapper ${isOpenInfoUser ? 'item_info_wrapper-open' : '' }`}>
             <div className='info_curent_user'>

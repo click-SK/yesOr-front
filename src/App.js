@@ -24,11 +24,11 @@ function App() {
   const dispatch = useDispatch();
   const isAuthUser = useSelector((state) => state.authUser.isAuthUser);
   const isAdmin = useSelector((state) => state.authAdmin.isAdmin);
+  const admin = useSelector((state) => state.authAdmin.user);
   const location = useLocation();
+  const {user} = useSelector((state) => state.authUser.user);
   const isHomePage = location.pathname === '/';
   const [isOpenChat, setIsOpenChat] = useState(false)
-
-  console.log('isAuthUser',isOpenChat);
 
   useEffect(() => {
     if(localStorage.getItem('Y-R-U-T')) {
@@ -54,6 +54,9 @@ function App() {
       <ChatWrap
         isOpen = {isOpenChat}
         setIsOpen = {setIsOpenChat}
+        user={user}
+        isUser={true}
+        isAdmin={false}
       />
       
       {isHomePage ? <Header /> : <AlternateHeader />}

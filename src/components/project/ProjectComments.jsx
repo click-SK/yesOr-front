@@ -23,7 +23,7 @@ const ProjectComments = ({commentsArr, projectId, setReload}) => {
       console.log(error);
     }
   }
-  console.log('commentsArr',commentsArr);
+  
     return (
         <div className="coments_wrap">
           {paginationArray.map((item, idx) => (

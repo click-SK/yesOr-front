@@ -49,7 +49,6 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloa
       formData.append("lastName", lastName);
       formData.append("firstName", firstName);
       formData.append("id", currentUser._id);
-      console.log('formData',formData);
       axios.patch(`${BASE_URL}/update-user-data`, formData).then(() =>
       setTimeout(() => {
         setReloadUser((state) => !state)

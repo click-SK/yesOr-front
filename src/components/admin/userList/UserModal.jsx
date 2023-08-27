@@ -4,8 +4,6 @@ const UserModal = ({ isOpen, setIsOpen, documents, name }) => {
 
     if (!isOpen) return null;
 
-    console.log('documents',documents);
-
     return (
         <div className="modal-overlay">
         <div className="modal">
