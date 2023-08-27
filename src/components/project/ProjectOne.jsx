@@ -5,7 +5,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { AiFillStar } from "react-icons/ai";
 import "../../styles/projectPage.scss";
-import moment from "moment";
+// import moment from "moment";
 // import { useNavigate } from 'react-router-dom';
 import DonatsModal from "./donatsComp/DonatsModal";
 import HistoryDonats from "./historiDonats/HistoryDonats";
@@ -14,6 +14,7 @@ import EditProject from "../profile/EditProject";
 import SliderProject from "./SliderProject";
 import ProjectComments from "./ProjectComments";
 import ProjectdonatsHistory from "./ProjectdonatsHistory";
+import CountingTime from "./CountingTime";
 const ProjectOne = () => {
   const [currentProject, setCurrentProject] = useState(null);
   const [projectId, setProjectId] = useState("");
@@ -22,12 +23,8 @@ const ProjectOne = () => {
   const [isOpenComent, setIsOpenComent] = useState(false);
   const [donatsValue, setDonatsValue] = useState(0);
   const [fullName, setFullName] = useState("");
-  const [timeLeft, setTimeLeft] = useState("");
-  const [deysLeft, setDaysLeft] = useState(null);
-  const [hourLeft, setHourLeft] = useState(null);
-  const [minutsLeft, setMinutsLeft] = useState(null);
-  const [secondLeft, setSecondLeft] = useState(null);
   const [percentCollected, setPercentCollected] = useState(0);
+  const [reloadProject, setReloadProject] = useState(0);
 
   const [commentsArr, setComentsArr] = useState([
     {
@@ -76,65 +73,7 @@ const ProjectOne = () => {
     } catch(error) {
       console.log(error);
     }
-  }, [projectId]);
-
-  useEffect(() => {
-    try {
-      if (currentProject) {
-        const collected = currentProject.amountCollected;
-        const target = currentProject.target;
-        const percent = (collected / target) * 100;
-        setPercentCollected(percent);
-      }
-    } catch(error) {
-      console.log(error);
-    }
-  }, [currentProject]);
-
-  useEffect(() => {
-    try {
-      if (currentProject) {
-        function calculateTimeDifference(startDate, days) {
-          const currentDate = moment().utcOffset(3);
-          const futureDate = moment(startDate).add(days, "days");
-  
-          const timeDifference = futureDate.diff(currentDate);
-  
-          const remainingDays = Math.floor(
-            timeDifference / (1000 * 60 * 60 * 24)
-          );
-          const remainingHours = Math.floor(
-            (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-          );
-          const remainingMinutes = Math.floor(
-            (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
-          );
-  
-          return {
-            days: remainingDays,
-            hours: remainingHours,
-            minutes: remainingMinutes,
-          };
-        }
-  
-        // Приклад використання
-        const startDate = currentProject?.period?.startDate;
-  
-        const daysToAdd = currentProject?.period?.countDays;
-  
-        const remainingTime = calculateTimeDifference(startDate, daysToAdd);
-        if (!!startDate) {
-          setTimeLeft(
-            `${remainingTime.days} days, ${remainingTime.hours} hours, ${remainingTime.minutes} minutes`
-          );
-        } else {
-          setTimeLeft("0");
-        }
-      }
-    } catch(error) {
-      console.log(error);
-    }
-  }, [currentProject]);
+  }, [projectId, reloadProject]);
 
   const handleSavedProject = () => {
     try {
@@ -177,80 +116,6 @@ const ProjectOne = () => {
     }
   };
 
-  const handleSendDonats = () => {
-    try {
-        axios
-          .patch(`${BASE_URL}/donats-project`, {
-            projectId: currentProject._id,
-            sum: donatsValue,
-            user: fullName,
-            comment: "Test",
-            userId: user._id,
-          })
-          .then(() => {
-            alert("succeed donates");
-            window.location.reload();
-            setFullName("");
-            setDonatsValue(0);
-          });
-      } catch(error) {
-        console.log(error);
-      }
-  };
-
-  useEffect(() => {
-    try {
-      if (
-        currentProject &&
-        currentProject?.period &&
-        currentProject?.period?.startDate &&
-        currentProject?.period?.countDays
-      ) {
-        const endDate = new Date(currentProject.period.startDate);
-        endDate.setDate(endDate.getDate() + currentProject.period.countDays);
-  
-        const timerInterval = setInterval(() => {
-          const currentDate = new Date();
-          const timeDifference = endDate - currentDate;
-  
-          if (timeDifference > 0) {
-            const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-            const hours = Math.floor(
-              (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-            );
-            const minutes = Math.floor(
-              (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
-            );
-            const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-  
-            const formattedDays = days.toString().padStart(2, "0");
-            const formattedHours = hours.toString().padStart(2, "0");
-            const formattedMinutes = minutes.toString().padStart(2, "0");
-            const formattedSeconds = seconds.toString().padStart(2, "0");
-  
-            setTimeLeft(
-              `${formattedDays} : ${formattedHours} : ${formattedMinutes} : ${formattedSeconds}`
-            );
-            setDaysLeft(formattedDays);
-            setHourLeft(formattedHours);
-            setMinutsLeft(formattedMinutes);
-            setSecondLeft(formattedSeconds);
-          } else {
-            clearInterval(timerInterval);
-            setTimeLeft("Time Expired");
-          }
-        }, 1000);
-  
-        return () => {
-          clearInterval(timerInterval);
-        };
-      }
-    } catch(error) {
-      console.log(error);
-    }
-  }, [currentProject]);
-
-  console.log('currentProject',currentProject);
   return (
     <div className="project_wraper">
       {isOpenEditProject && (
@@ -310,26 +175,9 @@ const ProjectOne = () => {
           </div>
         </div>
         <div className="right_column">
-          <div className="timer_wraper">
-            <div className="timer_item">
-              <p className="item_number">{deysLeft} :</p>
-              <p className="item_text">Days</p>
-            </div>
-            <div className="timer_item">
-              <p className="item_number">{hourLeft} :</p>
-              <p className="item_text">Hours</p>
-            </div>
-            <div className="timer_item">
-              <p className="item_number">{minutsLeft} :</p>
-              <p className="item_text">Minutes</p>
-            </div>
-            <div className="timer_item">
-              <p className="item_number">{secondLeft} </p>
-              <p className="item_text">Second</p>
-            </div>
-          </div>
+          <CountingTime currentProject={currentProject} setPercentCollected={setPercentCollected}/>
           <div className="project_name_wrap">
-            <img src="" alt="" />
+            <img src={user?.userImage ? user?.userImage : '/icons/no-avatar.webp'} alt="" />
             <div>
               <h4>Name</h4>
               <p>{currentProject?.name} </p>
@@ -401,7 +249,8 @@ const ProjectOne = () => {
         <button onClick={() => setIsOpenComent(!isOpenComent)}>
           leave a comment
         </button>
-        <ProjectComments commentsArr={commentsArr}/>
+        {currentProject && currentProject?.comments.length != 0 && 
+        <ProjectComments commentsArr={currentProject?.comments} projectId={currentProject?._id} setReload={setReloadProject}/>}
       </div>
       {isOpenComent && <ModalComent setIsOpen={setIsOpenComent} user={user} projectId={currentProject._id}/>}
     </div>
