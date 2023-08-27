@@ -53,7 +53,7 @@ const UserItem = ({ item, setReloadUserData }) => {
     }
   };
 
-  console.log('isOpenInfoUser', isOpenInfoUser);
+  // console.log('InfoUser', item);
 
   return (
     <div className={`project_item admin_project_item ${isOpenInfoUser ? 'open_info_user' : ''}`} key={item._id}>
@@ -131,6 +131,7 @@ const UserItem = ({ item, setReloadUserData }) => {
     <UserInfoItem
       setIsOpen = {setIsOpenInfoUser}
       isOpenInfoUser = {isOpenInfoUser}
+      item = {item}
       />
     </div>
   );

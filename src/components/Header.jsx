@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import '../styles/header.scss'
 import { Link } from "react-router-dom";
+import { checkAuthUser } from '.././store/authUser';
+import { checkAuthAdmin } from '.././store/authAdmin';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const Header = () => {
@@ -8,7 +11,23 @@ const Header = () => {
     const [isClose, setIsClose] = useState(true);
     const [isChaked, setIsChaked] = useState(false);
     const [i, setI] = useState(0);
+    const dispatch = useDispatch();
+    const isAuthUser = useSelector((state) => state.authUser.isAuthUser);
+    const isAdmin = useSelector((state) => state.authAdmin.isAdmin);
 
+    useEffect(() => {
+      if(localStorage.getItem('Y-R-U-T')) {
+        setTimeout(() => {
+          dispatch(checkAuthUser())
+        },500)
+      }
+      if(localStorage.getItem('Y-R-A-T')) {
+        setTimeout(() => {
+          dispatch(checkAuthAdmin())
+        },500)
+      }
+    },[])
+    
     const hendlerOpenMenu = () =>{
         setIsOpenBurger(!isOpenBurger);
         setIsChaked(!isChaked)
@@ -67,7 +86,12 @@ const Header = () => {
                 </nav>
                 <div className='profile_button'>
                     
-                        <Link to='/login'><button>Sign up</button></Link> 
+                                <Link to='/login'>                              
+                                {isAuthUser ?
+                                <img src="./icons/Profile.svg" alt="" />
+                                :
+                                <button>Sign up</button>
+                                }</Link>  
                 </div>
             </div>
             {isOpenBurger && 
@@ -95,7 +119,12 @@ const Header = () => {
                         </ul>
                     </nav>
                     <div className='profile_button'>
-                            <Link to='/login'><button>Sign up</button></Link> 
+                            <Link to='/login'>                              
+                                {isAuthUser ?
+                                <img src="./icons/Profile.svg" alt="" />
+                                :
+                                <button>Sign up</button>
+                                }</Link> 
                     </div>
                     <div className='social'>
                     <img src="./icons/ph_telegram-logo-thin-burger.svg" alt="" />
