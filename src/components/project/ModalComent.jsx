@@ -11,8 +11,6 @@ const ModalComent = ({setIsOpen, user, projectId}) => {
   const [nameErrorMessage, setNameErrorMessage] = useState("");
   const [descriptionErrorMessage, setDescriptionErrorMessage] = useState("");
 
-  console.log('user',user);
-
   useEffect(() => {
     if(user) {
       setName(user.firstName);

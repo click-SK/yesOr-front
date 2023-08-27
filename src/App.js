@@ -24,11 +24,11 @@ function App() {
   const dispatch = useDispatch();
   const isAuthUser = useSelector((state) => state.authUser.isAuthUser);
   const isAdmin = useSelector((state) => state.authAdmin.isAdmin);
+  const admin = useSelector((state) => state.authAdmin.user);
   const location = useLocation();
+  const {user} = useSelector((state) => state.authUser.user);
   const isHomePage = location.pathname === '/';
   const [isOpenChat, setIsOpenChat] = useState(false)
-
-  console.log('isAuthUser',isOpenChat);
 
   useEffect(() => {
     if(localStorage.getItem('Y-R-U-T')) {
@@ -46,33 +46,36 @@ function App() {
     <div className="App">
       {/* <Header/> */}
       {/* <Header/> */}
-      <ChatIcon
-      isOpen = {isOpenChat}
-      setIsOpen ={setIsOpenChat}
-      />
-      
-      <ChatWrap
-        isOpen = {isOpenChat}
-        setIsOpen = {setIsOpenChat}
-      />
-      
-      {isHomePage ? <Header /> : <AlternateHeader />}
-        <Routes>
-          <Route path='/' element={<MainPage/>}/>
-          {/* {!isAuthUser && <Route path='/login' element={<LoginForm/>}/>} */}
-          <Route path='/login' element={<LoginForm/>}/>
-          {!isAuthUser && <Route path='/login' element={<LoginForm/>}/>}
-          {isAuthUser && <Route path='/profile' element={<ProfilePage/>}/>}
-          <Route path='/new-project' element={<NewProject/>}/>
-          <Route path='/rules' element={<RulesProject/>}/>
-          <Route path='/admin-login' element={<AdminLogin/>}/>
-          <Route path='/discover' element={<ProjectAllList/>}/>
-          <Route path='/project/:id' element={<ProjectOne/>}/>
-          {isAdmin && <Route path='/admin-profile' element={<AdminProfile/>}/>}
-          {/* <Route path='/admin-profile' element={<AdminProfile/>}/> */}
-        </Routes>
-      <Footer/>
 
+      {isAuthUser && 
+        <>
+        <ChatIcon isOpen={isOpenChat} setIsOpen={setIsOpenChat} />
+        {isOpenChat && <ChatWrap
+          isOpen={isOpenChat}
+          setIsOpen={setIsOpenChat}
+          user={user}
+          isUser={true}
+          isAdmin={false}
+        />}
+        </>
+      }
+
+      {isHomePage ? <Header /> : <AlternateHeader />}
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        {/* {!isAuthUser && <Route path='/login' element={<LoginForm/>}/>} */}
+        <Route path="/login" element={<LoginForm />} />
+        {!isAuthUser && <Route path="/login" element={<LoginForm />} />}
+        {isAuthUser && <Route path="/profile" element={<ProfilePage />} />}
+        <Route path="/new-project" element={<NewProject />} />
+        <Route path="/rules" element={<RulesProject />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
+        <Route path="/discover" element={<ProjectAllList />} />
+        <Route path="/project/:id" element={<ProjectOne />} />
+        {isAdmin && <Route path="/admin-profile" element={<AdminProfile />} />}
+        {/* <Route path='/admin-profile' element={<AdminProfile/>}/> */}
+      </Routes>
+      <Footer />
     </div>
   );
 }

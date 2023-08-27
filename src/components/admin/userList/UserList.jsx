@@ -2,7 +2,6 @@ import React, { useState } from "react";
 // import ModalProjectConfirm from "../ModalProjectConfirm";
 import Pagination from '../../Pagination';
 import UserItem from "./UserItem";
-import ChatWrap from "../../chat/ChatWrap";
 
 const UserList = ({allusers, setReloadUserData }) => {
   const [paginationArray, setPaginationArray] = useState([]);
@@ -19,10 +18,6 @@ const UserList = ({allusers, setReloadUserData }) => {
         />
       ))}
         <Pagination dataArray={allusers} setFilterArray={setPaginationArray}/>
-        <ChatWrap
-        setIsOpen = {setIsOpenChat}
-        isOpen = {isOpenChat}
-        />
     </div>
   );
 };

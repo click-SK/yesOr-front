@@ -96,8 +96,6 @@ const AboutUsMain = () => {
   const prevProject = projectData.find((project) => project.id === (activeIndex === 1 ? projectData.length : activeIndex - 1));
   const nextProject = projectData.find((project) => project.id === (activeIndex === projectData.length ? 1 : activeIndex + 1));
 
-  // console.log('activeIndex',activeIndex);
-
   return (
     <section id='about_us' className='section about_us'>
       <div className='about_us_description'>

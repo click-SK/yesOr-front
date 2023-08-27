@@ -61,10 +61,12 @@ const AllProjectAdmin = ({
         />
       ))}
       <Pagination dataArray={reversedProjectArr} setFilterArray={setPaginationArray}/>
+      {isOpenChat &&
       <ChatWrap
         setIsOpen = {setIsOpenChat}
         isOpen = {isOpenChat}
         />
+      }
     </div>
   );
 };

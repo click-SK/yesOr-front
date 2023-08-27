@@ -35,7 +35,6 @@ const SliderProject = ({ currentExtension, BASE_URL, currentImg, imgProject, set
         setCurrentImg(data);
         const newDataIndex = imgProject.findIndex(item => item === data);
         updateVisibleImages(newDataIndex);
-        console.log('data', data);
     };
 
     return (

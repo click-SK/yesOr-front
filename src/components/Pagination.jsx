@@ -18,7 +18,7 @@ const Pagination = ({dataArray, setFilterArray}) => {
         const lastItem = currentPage * itemsPerPage;
         const firstItem = lastItem - itemsPerPage;
         const curerent = dataArray.slice(firstItem, lastItem);
-        console.log(curerent);
+
         setСurrentItems(curerent);
       },[dataArray, currentPage])
 
@@ -28,9 +28,9 @@ const Pagination = ({dataArray, setFilterArray}) => {
 
       useEffect(() => {
         let length = pageNumbers.length;
-        console.log('length',length);
+
         let progress = (currentPage/length) * 100;
-        console.log('progress',progress);
+
         setProgressBar(progress)
     },[currentPage, dataArray])
 

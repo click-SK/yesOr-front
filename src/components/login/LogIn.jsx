@@ -14,7 +14,6 @@ const LogIn = ({hendlerChangeblock, isSingIn, mobile}) => {
     const handleLogin = async () => {
         try {
             const data = await dispatch(login({email, password}));
-            console.log('login data',data);
             if('user' in data.payload) {
                 localStorage.setItem('Y-R-U-T', data.payload.accessToken)
                 navigate('/profile');

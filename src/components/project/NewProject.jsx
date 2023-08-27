@@ -154,7 +154,6 @@ const NewProject = () => {
       if (isValid && userAgreement) {
         const formData = new FormData();
         images.forEach((image, index) => {
-          console.log("image", image);
           formData.append(`projectMedia`, image);
         });
         formData.append('bonus', JSON.stringify(bonusBlocks));
@@ -185,10 +184,7 @@ const NewProject = () => {
     } catch (e) {
       console.log(e);
     }
-    console.log("disabled");
   };
-
-  console.log('teamBlocks',teamBlocks);
 
   const handleAddTeamBlock = () => {
     setTeamBlocks((prevBlocks) => [...prevBlocks, ""]);

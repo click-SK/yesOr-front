@@ -3,7 +3,7 @@ import "../../../styles/modalWindow.scss";
 import Pagination from "../../Pagination";
 const UserHistoryDonat = ({ setIsOpen, isUser, user, project }) => {
   const [paginationArray, setPaginationArray] = useState([]);
-    console.log('project',project);
+  
   return (
     <div className="modal_wrap">
       <div className="item_body pad modal_wraper_donat">

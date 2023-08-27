@@ -19,8 +19,6 @@ const MainPage = () => {
     const params = new URLSearchParams(location.search);
     const scrollTarget = params.get('scroll');
 
-    console.log('isAuthUserMainP',isAuthUser);
-
     useEffect(() => {
         if (scrollTarget === 'about_us') {
           const aboutUsSection = document.getElementById('about_us');

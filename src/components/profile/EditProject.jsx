@@ -163,7 +163,6 @@ const EditProject = ({ selectedProject, setIsOpen }) => {
       if (resoult.isValid) {
         const formData = new FormData();
         images.forEach((image, index) => {
-          console.log("image", image);
           formData.append(`projectMedia`, image);
         });
         formData.append("bonus", JSON.stringify(bonusBlocks));

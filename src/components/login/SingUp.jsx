@@ -30,7 +30,6 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
 
   const handleRegistration = async () => {
     try {
-      console.log('wrok');
       const resoult = validator.validationRegistration({ email, password, phone, firstName, lastName, socialNetwork, secondPassword});
       let isValid = false;
       if(resoult.length == 0) {
@@ -62,8 +61,6 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
       console.log(error);
     }
   }
-
-  console.log('userAgreement',userAgreement);
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
