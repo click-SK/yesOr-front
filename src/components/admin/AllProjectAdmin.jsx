@@ -3,7 +3,6 @@ import axios from "axios";
 import { BASE_URL } from "../../http/baseUrl";
 import ProjectItem from "./ProjectItem";
 import Pagination from "../Pagination";
-import ChatWrap from "../chat/ChatWrap";
 const AllProjectAdmin = ({
   projectArr,
   verified,
@@ -58,15 +57,10 @@ const AllProjectAdmin = ({
           projectMainPage={projectMainPage}
           setReload={setReloadProjectMainPage}
           setIsOpenChat={setIsOpenChat}
+          isOpenChat={isOpenChat}
         />
       ))}
       <Pagination dataArray={reversedProjectArr} setFilterArray={setPaginationArray}/>
-      {isOpenChat &&
-      <ChatWrap
-        setIsOpen = {setIsOpenChat}
-        isOpen = {isOpenChat}
-        />
-      }
     </div>
   );
 };
