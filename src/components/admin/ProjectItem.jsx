@@ -7,7 +7,8 @@ import { TiDocumentDelete } from "react-icons/ti";
 import { Tooltip } from "react-tooltip";
 import axios from "axios";
 import { BASE_URL } from "../../http/baseUrl";
-const ProjectItem = ({item, handleChangeFunc, verified, onlyId, projectMainPage, setReload, setIsOpenChat}) => {
+import ChatWrap from '../chat/ChatWrap';
+const ProjectItem = ({item, handleChangeFunc, verified, onlyId, projectMainPage, setReload, isOpenChat, setIsOpenChat}) => {
     const [isOpenModalConfirm, setIsOpenModalConfirm] = useState(false);
     const [isOpenModalUnConfirm, setIsOpenModalUnConfirm] = useState(false);
     const [isOpenHistory, setIsOpenHistory] = useState(false);
@@ -124,6 +125,15 @@ const ProjectItem = ({item, handleChangeFunc, verified, onlyId, projectMainPage,
               project={item?.projects}
             />
           )}
+        {isOpenChat &&
+      <ChatWrap
+        setIsOpen = {setIsOpenChat}
+        isOpen = {isOpenChat}
+        user={item?.projects?.user}
+        isUser={false}
+        isAdmin={true}
+        />
+      }
         </div>
     );
 };
