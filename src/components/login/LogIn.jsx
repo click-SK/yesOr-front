@@ -33,8 +33,8 @@ const LogIn = ({hendlerChangeblock, isSingIn, mobile}) => {
       };
     return (
         <div className='form_wrap_item log_in_form'>
-        <FormTitle hendlerChange={hendlerChangeblock} isSingIn={isSingIn}/>
         <div className='input_wrap'>
+        <FormTitle hendlerChange={hendlerChangeblock} isSingIn={isSingIn}/>
             <div className='input_item'>
                 <label htmlFor="email">Email*</label>
                 <input id={mobile ? 'email-login-user-mobile' : 'email-login-user'} 
