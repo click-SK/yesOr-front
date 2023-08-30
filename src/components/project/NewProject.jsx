@@ -16,6 +16,8 @@ const NewProject = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const [subCategoryArray, setSubCategoryArray] = useState([]);
+  const [secondCategory, setSecondCategory] = useState('');
+  const [secondSubCategory, setSecondSubCategory] = useState('');
   const [allCategory, setAllCategory] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -35,9 +37,12 @@ const NewProject = () => {
     useState("");
   const [targetAmountErrorMessage, setTargetAmountErrorMessage] = useState("");
   const [categoryErrorMessage, setCategoryErrorMessage] = useState("");
+  const [secondCategoryErrorMessage, setSecondCategoryErrorMessage] = useState('');
+  const [secondSubCategoryErrorMessage, setSecondSubCategoryErrorMessage] = useState('');
   const { user } = useSelector((state) => state.authUser.user);
 
   const navigate = useNavigate();
+
 
   useEffect(() => {
     if (images.length > 0) {
@@ -170,10 +175,10 @@ const NewProject = () => {
       }
         formData.append("period", JSON.stringify({startDate: '',countDays: placementPeriod}));
         formData.append("target", targetAmount);
-        formData.append("category", selectedCategory?.category);
+        formData.append("category", secondCategory || selectedCategory?.category);
         formData.append(
           "subcategory",
-          selectedSubCategory ? selectedSubCategory?.name : ""
+          secondSubCategory || (selectedSubCategory ? selectedSubCategory?.name : secondSubCategory)
         );
         axios.post(`${BASE_URL}/create-project`, formData)
         .then(() => {
@@ -188,6 +193,15 @@ const NewProject = () => {
       console.log(e);
     }
   };
+
+  useEffect(() => {
+    setSecondSubCategory('');
+    setSecondCategory('');
+  },[selectedSubCategory, selectedCategory])
+
+  const handleSetSecondSubCategory = (e) => {
+    setSecondSubCategory(e);
+  }
 
   const handleAddTeamBlock = () => {
     setTeamBlocks((prevBlocks) => [...prevBlocks, ""]);
@@ -301,6 +315,7 @@ const NewProject = () => {
         console.log(error);
     }
   }
+
   const handleTargetAmount = (e) => {
     setTargetAmount(e);
     if(e != '') {
@@ -324,9 +339,53 @@ const NewProject = () => {
         console.log(error);
     }
   }
+  const handleSecondCategory = (e) => {
+    setSecondCategory(e);
+    console.log('event',e);
+    if(e != '') {
+      handleValidateSecondCategory(e);
+    } else {
+      setSecondCategoryErrorMessage('');
+    }
+  }
 
-  console.log("selectedCategory",selectedCategory);
-  console.log("selectedSubCategory",selectedSubCategory);
+  const handleValidateSecondCategory = (e) => {
+    try {
+      const resoult = validation.validationCreateProject({secondCategory: e});
+      if(resoult.length !== 0) {
+        resoult.forEach((item) => {
+          item.reason == 'secondCategory' ? setSecondCategoryErrorMessage(item.error) : setSecondCategoryErrorMessage('');
+        })
+      } else {
+        setSecondCategoryErrorMessage('');
+      }
+    } catch(error) {
+        console.log(error);
+    }
+  }
+  const handleSecondSubCategory = (e) => {
+    setTargetAmount(e);
+    if(e != '') {
+      handleValidateTargetAmount(e);
+    } else {
+      setTargetAmountErrorMessage('');
+    }
+  }
+
+  const handleValidateSecondSubCategory = (e) => {
+    try {
+      const resoult = validation.validationCreateProject({targetAmount: e});
+      if(resoult.length !== 0) {
+        resoult.forEach((item) => {
+          item.reason == 'targetAmount' ? setTargetAmountErrorMessage(item.error) : setTargetAmountErrorMessage('');
+        })
+      } else {
+        setTargetAmountErrorMessage('');
+      }
+    } catch(error) {
+        console.log(error);
+    }
+  }
 
   return (
     <div className="new_project_wraper">
@@ -414,19 +473,34 @@ const NewProject = () => {
           )}
         </div>
         {selectedCategory?.category == "Miscellaneous" ? (
+          <>
           <div className="input_item">
             <label htmlFor="name">Write category *</label>
             <input
               id="category"
               type="text"
-              value={name}
-              onChange={(e) => handleName(e.target.value)}
+              value={secondCategory}
+              onChange={(e) => handleSecondCategory(e.target.value)}
+            />
+          </div>
+          <ErrorMessage errorMessage={secondCategoryErrorMessage} />
+          </>
+        ) : (
+          <></>
+        )}
+        {selectedSubCategory?.name == "Other IT Solutions" || selectedSubCategory?.name == 'Other Inventions' ? (
+          <div className="input_item">
+            <label htmlFor="name">Write sub category *</label>
+            <input
+              id="category"
+              type="text"
+              value={secondSubCategory}
+              onChange={(e) => handleSetSecondSubCategory(e.target.value)}
             />
           </div>
         ) : (
-          "No"
+          <></>
         )}
-        <ErrorMessage errorMessage={categoryErrorMessage} />
         <div className="input_item">
           <label htmlFor="description">Description *</label>
           <textarea
