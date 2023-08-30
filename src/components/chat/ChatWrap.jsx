@@ -3,7 +3,7 @@ import { AiOutlineSend,AiOutlineClose } from 'react-icons/ai';
 import axios from 'axios';
 import { BASE_URL } from '../../http/baseUrl';
 import { useSelector } from 'react-redux';
-const ChatWrap = ({setIsOpen, isOpen, user, isUser, isAdmin}) => {
+const ChatWrap = ({setIsOpen, isOpen, user, isUser, isAdmin, animation, setAnimation}) => {
     const [allMesseges, setAllMesseges] = useState([]);
     const [currentChat, setCurrentChat] = useState([]);
     const [message, setMessage] = useState('');
@@ -79,37 +79,36 @@ const ChatWrap = ({setIsOpen, isOpen, user, isUser, isAdmin}) => {
     }
 
     return (
-        <div className={`chat_wraper ${isOpen ? "chat_wraper-open" : 'chat_wraper-close' }`} ref={chatContainerRef}>
+        <div className={`chat_wraper ${animation ? "chat_wraper-open" : 'chat_wraper-close' }`} ref={chatContainerRef}>
             <div className='chat_header'>
                 <img src="./icons/admin.svg" alt="" />
                 <div className='admin_info'>
                     <h5>{isAdmin ? user?.firstName : 'Admin'}</h5>
                     <p><span></span> Online</p>
                 </div>
-                <button onClick={() => setIsOpen(state => !state)}><AiOutlineClose/></button>
+                <button onClick={() => setAnimation(state => !state)}><AiOutlineClose/></button>
             </div>
             <div className='chat_body'>
                 <div className='massage'>
                     {allMesseges && allMesseges.length != 0 && allMesseges.map((mes) => (
                         <div key={mes?._id} className={`message_item ${user?._id == mes?.user ? 'user_message' : 'admin_message'}`}>
-                        <div>
-                            {user?._id == mes?.user && <p>{user?.firstName}</p>}
-                            {user?._id !== mes?.user && <p>Administration</p>}
-                        </div>
-                        <div style={{width: '50px', height:'50px'}}>
+                        <div className='icon_chat_user'>
                             {user?._id == mes?.user 
                             ? 
                             user?.userImage 
                             ?
-                            <img src={`${BASE_URL}${user?.userImage}`} style={{width: '100%', height: '100%'}}/>
+                            <img src={`${BASE_URL}${user?.userImage}`} />
                             :
-                            <img src='/icons/no-avatar.webp' style={{width: '100%', height: '100%'}}/>
+                            <img src='/icons/no-avatar.webp' />
                             :
-                            <img src='/icons/no-avatar.webp' style={{width: '100%', height: '100%'}}/>}
+                            <img src='/icons/no-avatar.webp'/>}
                         </div>
-                        <div>
+                        <div className='text_item_massage'>
+                            {user?._id == mes?.user && <p>{user?.firstName}</p>}
+                            {user?._id !== mes?.user && <p>Administration</p>}
                             <p>{mes?.message}</p>
                         </div>
+
                         </div>
                     ))}
                 </div>

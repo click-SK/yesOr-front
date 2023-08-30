@@ -22,6 +22,7 @@ import './App.css';
 
 function App() {
   const dispatch = useDispatch();
+  const [animation, setAnimation] = useState(false);
   const isAuthUser = useSelector((state) => state.authUser.isAuthUser);
   const isAdmin = useSelector((state) => state.authAdmin.isAdmin);
   const admin = useSelector((state) => state.authAdmin.user);
@@ -42,6 +43,21 @@ function App() {
       },500)
     }
   },[])
+
+  useEffect(() => {
+    if(animation){
+      setIsOpenChat(true);
+    } else {
+      const timeoutId = setTimeout(() => {
+        setIsOpenChat(false);
+      }, 800);
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [animation]);
+
+
+
   return (
     <div className="App">
       {/* <Header/> */}
@@ -49,13 +65,15 @@ function App() {
 
       {isAuthUser && 
         <>
-        <ChatIcon isOpen={isOpenChat} setIsOpen={setIsOpenChat} />
+        <ChatIcon isOpen={animation} setIsOpen={setAnimation} />
         {isOpenChat && <ChatWrap
           isOpen={isOpenChat}
           setIsOpen={setIsOpenChat}
           user={user}
           isUser={true}
           isAdmin={false}
+          animation={animation}
+          setAnimation={setAnimation}
         />}
         </>
       }
