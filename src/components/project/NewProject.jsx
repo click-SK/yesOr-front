@@ -127,6 +127,9 @@ const NewProject = () => {
     }
   };
 
+  console.log('selectedCategory?.category',selectedCategory?.category);
+  console.log('selectedSubCategory.name',selectedSubCategory?.name);
+
   const handleCreateNewProject = () => {
     try {
       const resoult = validation.validationCreateProject({
@@ -170,7 +173,7 @@ const NewProject = () => {
         formData.append("category", selectedCategory?.category);
         formData.append(
           "subcategory",
-          selectedSubCategory ? selectedSubCategory.name : ""
+          selectedSubCategory ? selectedSubCategory?.name : ""
         );
         axios.post(`${BASE_URL}/create-project`, formData)
         .then(() => {
@@ -322,6 +325,9 @@ const NewProject = () => {
     }
   }
 
+  console.log("selectedCategory",selectedCategory);
+  console.log("selectedSubCategory",selectedSubCategory);
+
   return (
     <div className="new_project_wraper">
       {!currentUser?.isVerified && (
@@ -333,24 +339,31 @@ const NewProject = () => {
         <h2>Apply</h2>
       </div>
       <div className="new_project_image_wrap">
-  {imagesSrc.length !== 0 && imagesSrc.map((data, idx) => {
-    const mimeType = data.startsWith('data:video') ? 'video/mp4' : 'image/jpeg';
-    const fileType = mimeType.startsWith('video') ? 'video' : 'image';
+        {imagesSrc.length !== 0 &&
+          imagesSrc.map((data, idx) => {
+            const mimeType = data.startsWith("data:video")
+              ? "video/mp4"
+              : "image/jpeg";
+            const fileType = mimeType.startsWith("video") ? "video" : "image";
 
-    return (
-      <div key={idx} className="new_project_image_block">
-        {fileType === 'image' ? (
-          <img src={data} className="new_project_image" alt={`Image ${idx}`} />
-        ) : (
-          <video controls className="new_project_image">
-            <source src={data} type={mimeType} />
-            Your browser does not support the video tag.
-          </video>
-        )}
+            return (
+              <div key={idx} className="new_project_image_block">
+                {fileType === "image" ? (
+                  <img
+                    src={data}
+                    className="new_project_image"
+                    alt={`Image ${idx}`}
+                  />
+                ) : (
+                  <video controls className="new_project_image">
+                    <source src={data} type={mimeType} />
+                    Your browser does not support the video tag.
+                  </video>
+                )}
+              </div>
+            );
+          })}
       </div>
-    );
-  })}
-</div>
 
       <div className="input_wrap">
         <input
@@ -377,7 +390,7 @@ const NewProject = () => {
             onChange={(e) => handleName(e.target.value)}
           />
         </div>
-        <ErrorMessage errorMessage={nameErrorMessage}/>
+        <ErrorMessage errorMessage={nameErrorMessage} />
         <div className="categori_wrap">
           {allCategory.length != 0 && (
             <SelectChoseCategory
@@ -400,7 +413,20 @@ const NewProject = () => {
             />
           )}
         </div>
-        <ErrorMessage errorMessage={categoryErrorMessage}/>
+        {selectedCategory?.category == "Miscellaneous" ? (
+          <div className="input_item">
+            <label htmlFor="name">Write category *</label>
+            <input
+              id="category"
+              type="text"
+              value={name}
+              onChange={(e) => handleName(e.target.value)}
+            />
+          </div>
+        ) : (
+          "No"
+        )}
+        <ErrorMessage errorMessage={categoryErrorMessage} />
         <div className="input_item">
           <label htmlFor="description">Description *</label>
           <textarea
@@ -410,7 +436,7 @@ const NewProject = () => {
             onChange={(e) => handleDescription(e.target.value)}
           />
         </div>
-        <ErrorMessage errorMessage={descriptionErrorMessage}/>
+        <ErrorMessage errorMessage={descriptionErrorMessage} />
         <div className="input_item">
           <label htmlFor="request">Request *</label>
           <textarea
@@ -420,28 +446,35 @@ const NewProject = () => {
             onChange={(e) => handleRequest(e.target.value)}
           />
         </div>
-        <ErrorMessage errorMessage={requestErrorMessage}/>
+        <ErrorMessage errorMessage={requestErrorMessage} />
         <div className="input_item">
           <div className="team_dynamic_wrap">
-            <label className="team_label" htmlFor="team">Team</label>
-            <button className="btn_add_team" onClick={handleAddTeamBlock}><BsPersonFillAdd/></button>
+            <label className="team_label" htmlFor="team">
+              Team
+            </label>
+            <button className="btn_add_team" onClick={handleAddTeamBlock}>
+              <BsPersonFillAdd />
+            </button>
           </div>
           {teamBlocks.map((block, index) => (
-    
-        <div id="team" key={index} className="team-block">
-            <input
+            <div id="team" key={index} className="team-block">
+              <input
                 type="text"
                 value={teamBlocks[index]}
                 onChange={(e) => {
-                    setTeamBlocks((prevBlocks) =>
-                        prevBlocks.map((b, i) => (i === index ? e.target.value : b))
-                    );
+                  setTeamBlocks((prevBlocks) =>
+                    prevBlocks.map((b, i) => (i === index ? e.target.value : b))
+                  );
                 }}
-            />
-            <button className="btn_add_team" onClick={() => handleRemoveTeamBlock(index)}>-</button>
-        </div>
-    
-))}
+              />
+              <button
+                className="btn_add_team"
+                onClick={() => handleRemoveTeamBlock(index)}
+              >
+                -
+              </button>
+            </div>
+          ))}
         </div>
         <div className="input_item">
           <label htmlFor="placement">Placement period *</label>
@@ -452,7 +485,7 @@ const NewProject = () => {
             onChange={(e) => handlePlacementPeriod(e.target.value)}
           />
         </div>
-        <ErrorMessage errorMessage={placementPeriodErrorMessage}/>
+        <ErrorMessage errorMessage={placementPeriodErrorMessage} />
         <div className="input_item">
           <label htmlFor="terget">Target amount *</label>
           <input
@@ -462,12 +495,13 @@ const NewProject = () => {
             onChange={(e) => handleTargetAmount(e.target.value)}
           />
         </div>
-        <ErrorMessage errorMessage={targetAmountErrorMessage}/>
+        <ErrorMessage errorMessage={targetAmountErrorMessage} />
         <div className="input_item">
           <div className="title_bonus">
             <label htmlFor="bonus">Bonus for investors </label>
-            <button className="btn_add_team" onClick={handleAddBonusBlock}>+</button>
-
+            <button className="btn_add_team" onClick={handleAddBonusBlock}>
+              +
+            </button>
           </div>
           {bonusBlocks.map((block, index) => (
             <div key={index} className="bonus-block">
@@ -497,7 +531,12 @@ const NewProject = () => {
                   }
                 />
               </div>
-              <button className="btn_add_team" onClick={() => handleRemoveBonusBlock(index)}>-</button>
+              <button
+                className="btn_add_team"
+                onClick={() => handleRemoveBonusBlock(index)}
+              >
+                -
+              </button>
             </div>
           ))}
         </div>
