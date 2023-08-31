@@ -61,11 +61,11 @@ export const validationRegistration = ({email, phone, password, firstName, lastN
     }
   };
   
-  export const validationCreateProject = ({ targetAmount, placementPeriod, request, description, name, secondCategory, secondSubCategory, isCategory}) => {
+  export const validationCreateProject = ({ targetAmount, placementPeriod, request, description, name, secondCategory, secondSubCategory}) => {
     try {
       let arr = [];
 
-      console.log('secondCategory',secondCategory);
+      console.log('secondSubCategory',secondSubCategory);
 
       if(name?.length <= 1) {
         console.log('name',name);
@@ -75,7 +75,7 @@ export const validationRegistration = ({email, phone, password, firstName, lastN
           reason: 'name'
         })
       }
-      if(isCategory && secondCategory?.length <= 1) {
+      if(secondCategory?.length <= 1) {
         console.log('secondCategory WORK!!!!!!!!!!!!!!!');
         arr.push({
           isValid: false,
@@ -83,7 +83,7 @@ export const validationRegistration = ({email, phone, password, firstName, lastN
           reason: 'secondCategory'
         })
       }
-      if(secondSubCategory && secondSubCategory?.length <= 1) {
+      if(secondSubCategory?.length <= 1) {
         arr.push({
           isValid: false,
           error: 'Sub сtegory must be minimum 2 symbols',

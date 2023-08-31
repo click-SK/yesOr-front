@@ -137,25 +137,51 @@ const NewProject = () => {
 
   const handleCreateNewProject = () => {
     try {
-      const resoult = validation.validationCreateProject({
-        targetAmount,
-        placementPeriod,
-        request,
-        description,
-        name,
-        category: selectedCategory?.category,
-      });
+      let resoult;
+      if (selectedCategory?.category == "Miscellaneous") {
+        resoult = validation.validationCreateProject({
+          targetAmount,
+          placementPeriod,
+          request,
+          description,
+          name,
+          category: selectedCategory?.category,
+          secondCategory
+        });
+      } else if (selectedSubCategory?.name == "Other IT Solutions" || selectedSubCategory?.name == 'Other Inventions') {
+        resoult = validation.validationCreateProject({
+          targetAmount,
+          placementPeriod,
+          request,
+          description,
+          name,
+          category: selectedCategory?.category,
+          secondSubCategory
+        });
+      } else {
+        resoult = validation.validationCreateProject({
+          targetAmount,
+          placementPeriod,
+          request,
+          description,
+          name,
+          category: selectedCategory?.category,
+        });
+      }
       let isValid = false;
 
       if(resoult.length == 0) {
         isValid = true;
       } else {
         resoult.forEach((item) => {
+          console.log('item validation',item.reason);
           item.reason == 'name' && setNameErrorMessage(item?.error);
           item.reason == 'description' && setDescriptionErrorMessage(item.error);
           item.reason == 'request' && setRequestErrorMessage(item.error);
           item.reason == 'placementPeriod' && setPlacementPeriodErrorMessage(item.error);
           item.reason == 'targetAmount' && setTargetAmountErrorMessage(item.error);
+          selectedCategory?.category == "Miscellaneous" && item.reason == 'secondCategory' && setSecondCategoryErrorMessage(item.error);
+          (selectedSubCategory?.name == "Other IT Solutions" || selectedSubCategory?.name == 'Other Inventions') && item.reason == 'secondSubCategory' && setSecondSubCategoryErrorMessage(item.error);
         })
       }
 
@@ -351,36 +377,40 @@ const NewProject = () => {
 
   const handleValidateSecondCategory = (e) => {
     try {
-      const resoult = validation.validationCreateProject({secondCategory: e});
-      if(resoult.length !== 0) {
-        resoult.forEach((item) => {
-          item.reason == 'secondCategory' ? setSecondCategoryErrorMessage(item.error) : setSecondCategoryErrorMessage('');
-        })
-      } else {
-        setSecondCategoryErrorMessage('');
+      if(selectedCategory?.category == "Miscellaneous") {        
+        const resoult = validation.validationCreateProject({secondCategory: e});
+        if(resoult.length !== 0) {
+          resoult.forEach((item) => {
+            item.reason == 'secondCategory' ? setSecondCategoryErrorMessage(item.error) : setSecondCategoryErrorMessage('');
+          })
+        } else {
+          setSecondCategoryErrorMessage('');
+        }
       }
     } catch(error) {
         console.log(error);
     }
   }
   const handleSecondSubCategory = (e) => {
-    setTargetAmount(e);
+    setSecondSubCategory(e);
     if(e != '') {
-      handleValidateTargetAmount(e);
+      handleValidateSecondSubCategory(e);
     } else {
-      setTargetAmountErrorMessage('');
+      setSecondSubCategoryErrorMessage('');
     }
   }
 
   const handleValidateSecondSubCategory = (e) => {
     try {
-      const resoult = validation.validationCreateProject({targetAmount: e});
-      if(resoult.length !== 0) {
-        resoult.forEach((item) => {
-          item.reason == 'targetAmount' ? setTargetAmountErrorMessage(item.error) : setTargetAmountErrorMessage('');
-        })
-      } else {
-        setTargetAmountErrorMessage('');
+      if(selectedSubCategory?.name == "Other IT Solutions" || selectedSubCategory?.name == 'Other Inventions') {
+        const resoult = validation.validationCreateProject({secondSubCategory: e});
+        if(resoult.length !== 0) {
+          resoult.forEach((item) => {
+            item.reason == 'secondSubCategory' ? setSecondSubCategoryErrorMessage(item.error) : setSecondSubCategoryErrorMessage('');
+          })
+        } else {
+          setSecondSubCategoryErrorMessage('');
+        }
       }
     } catch(error) {
         console.log(error);
@@ -489,15 +519,18 @@ const NewProject = () => {
           <></>
         )}
         {selectedSubCategory?.name == "Other IT Solutions" || selectedSubCategory?.name == 'Other Inventions' ? (
-          <div className="input_item">
+          <>
+            <div className="input_item">
             <label htmlFor="name">Write sub category *</label>
             <input
               id="category"
               type="text"
               value={secondSubCategory}
-              onChange={(e) => handleSetSecondSubCategory(e.target.value)}
+              onChange={(e) => handleSecondSubCategory(e.target.value)}
             />
           </div>
+          <ErrorMessage errorMessage={secondSubCategoryErrorMessage} />
+          </>
         ) : (
           <></>
         )}
