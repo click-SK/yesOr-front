@@ -1,51 +1,74 @@
 import React, { useEffect, useState } from 'react';
+import MultiRangeSlider from './rangeSlide/MultiRangeSlider';
 
 const FilterBudget = ({ allProjects, setFilteredProjects }) => {
-    const [budgetArr, setBudgetArr] = useState([]);
-    const [minBudget, setMinBudget] = useState(0);
-    const [maxBudget, setMaxBudget] = useState(10000);
-    const [valueBudget, setValueBudget] = useState(maxBudget);
+  const [minBudget, setMinBudget] = useState(0);
+  const [maxBudget, setMaxBudget] = useState(10000);
+  const [valueBudget, setValueBudget] = useState([minBudget, maxBudget]);
 
-    useEffect(() => {
-        const budgetSumArr = allProjects.map((item) => item.projects.target);
-        setBudgetArr(budgetSumArr);
+  useEffect(() => {
+    const budgetSumArr = allProjects.map((item) => item.projects.target);
+    const min = Math.min(...budgetSumArr);
+    const max = Math.max(...budgetSumArr);
 
-        // Знайдіть мінімальне та максимальне значення бюджету
-        const min = Math.min(...budgetSumArr);
-        const max = Math.max(...budgetSumArr);
+    setMinBudget(min);
+    setMaxBudget(max);
+    setValueBudget([min, max]);
+  }, [allProjects]);
 
-        setMinBudget(min);
-        setMaxBudget(max);
-    }, [allProjects]);
-
-    // Оновлюємо список фільтрованих проектів на основі вибраного діапазону бюджету
-    useEffect(() => {
-        const filtered = allProjects.filter(
-            (project) => project.projects.target <= valueBudget
-        );
-        setFilteredProjects(filtered);
-    }, [valueBudget, allProjects, setFilteredProjects]);
-
-    return (
-        <div className='filter_budget_wrap'>
-            <div className='title_filt_bidget'>
-                <h3>Budget</h3>
-            </div>
-            <div className='filter_budget_input_wrap'>
-                <p>{minBudget}$</p>
-                <input
-                    style={{padding:'0px'}}
-                    className='budget_filter'
-                    type='range'
-                    value={valueBudget}
-                    onChange={(e) => setValueBudget(Number(e.target.value))}
-                    min={minBudget}
-                    max={maxBudget}
-                />
-                <p>{maxBudget}$</p>
-            </div>
-        </div>
+  useEffect(() => {
+    // Фільтрація проектів на основі вибраного діапазону бюджету
+    const filtered = allProjects.filter(
+      (project) => project.projects.target >= valueBudget[0] && project.projects.target <= valueBudget[1]
     );
+    setFilteredProjects(filtered);
+  }, [valueBudget, allProjects, setFilteredProjects]);
+
+  // Обробники зміни значень інпутів
+  const handleMinBudgetChange = (e) => {
+    const newMin = parseFloat(e.target.value);
+    if (newMin <= maxBudget) {
+      setMinBudget(newMin);
+      setValueBudget([newMin, maxBudget]);
+    }
+  };
+
+  const handleMaxBudgetChange = (e) => {
+    const newMax = parseFloat(e.target.value);
+    if (newMax >= minBudget) {
+      setMaxBudget(newMax);
+      setValueBudget([minBudget, newMax]);
+    }
+  };
+
+  return (
+    <div className='filter_budget_wrap'>
+      <div className='title_filt_bidget'>
+        <h3>Budget</h3>
+      </div>
+      <div className='filter_budget_input_wrap'>
+        <input
+          className='input_range_value'
+          type="number"
+          value={minBudget}
+          onChange={handleMinBudgetChange}
+        />
+        <MultiRangeSlider
+          min={minBudget}
+          setMin = {setMinBudget}
+          setMax = {setMaxBudget}
+          max={maxBudget}
+          onChange={(values) => setValueBudget([values.min, values.max])}
+        />
+        <input
+          className='input_range_value'
+          type="number"
+          value={maxBudget}
+          onChange={handleMaxBudgetChange}
+        />
+      </div>
+    </div>
+  );
 };
 
 export default FilterBudget;

@@ -80,6 +80,15 @@ a{
 //     display: none;
 // }
 
+.logo-header{
+  max-width: 78px;
+  max-height: 70px;
+  img{
+    width: 100%;
+    height: 100%;
+  }
+}
+
 .burger_icon{
     position: absolute;
     display: none;

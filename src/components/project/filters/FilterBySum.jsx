@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 
-const FilterByName = ({ allProjects, setAllProjects }) => {
+const FilterBySum = ({ allProjects, setAllProjects }) => {
     const [sortVar, setSortVar] = useState(1);
-    const [sortName, setSortName] = useState('By Name');
     const [isOpen, setIsOpen] = useState(false);
 
-    const sortNameArr = [
+    const sortBudgetArr = [
         {
             id: 1,
-            name: 'from A to Z'
+            name: 'Lowest Budget First'
         },
         {
             id: 2,
-            name: 'from Z to A'
+            name: 'Highest Budget First'
         },
     ];
 
@@ -21,15 +20,14 @@ const FilterByName = ({ allProjects, setAllProjects }) => {
         setSortVar(sortId);
         setIsOpen(false);
 
-
         if (sortId === 1) {
             const sortedProjects = allProjects.slice().sort((a, b) =>
-                a.projects.name.localeCompare(b.projects.name)
+                a.projects.target - b.projects.target
             );
             setAllProjects(sortedProjects);
         } else if (sortId === 2) {
             const sortedProjects = allProjects.slice().sort((a, b) =>
-                b.projects.name.localeCompare(a.projects.name)
+                b.projects.target - a.projects.target
             );
             setAllProjects(sortedProjects);
         }
@@ -38,11 +36,11 @@ const FilterByName = ({ allProjects, setAllProjects }) => {
     return (
         <div className={`filter_by_name-wrap  ${isOpen ? 'open_list-wrap' : ''}`}>
             <div onClick={() => setIsOpen(!isOpen)} className='value_sort'>
-                <p>{sortName} <IoIosArrowDown /> </p>
+                <p>By Budget <IoIosArrowDown /> </p>
             </div>
             <div className={`sort_var_item ${isOpen ? 'sort_var_item_open' : ''}`}>
-                {sortNameArr.map((item, idx) => (
-                    <p key={idx} onClick={() => handleSort(item.id, item.name)}>
+                {sortBudgetArr.map((item, idx) => (
+                    <p key={idx} onClick={() => handleSort(item.id)}>
                         {item.name}
                     </p>
                 ))}
@@ -51,4 +49,4 @@ const FilterByName = ({ allProjects, setAllProjects }) => {
     );
 };
 
-export default FilterByName;
+export default FilterBySum;

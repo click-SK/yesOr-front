@@ -4,7 +4,7 @@ import UserModal from "./UserModal";
 import axios from "axios";
 import { AiOutlineLock, AiOutlineUnlock } from "react-icons/ai";
 import { HiOutlineDocumentSearch } from "react-icons/hi";
-import { BsInfoCircleFill } from "react-icons/bs";
+import { BsInfoCircleFill, BsArrowBarDown } from "react-icons/bs";
 import ModalProjectConfirm from "../ModalProjectConfirm";
 import UserHistoryDonat from './UserHistoryDonat.jsx'
 import UserDocument from "./UserDocument";
@@ -75,14 +75,17 @@ console.log('isOpenChat',isOpenChat);
       key={item._id}
     >
       <div className={`user_wrap_item `}>
+        <div 
+        onClick={() => setIsOpenInfoUser(!isOpenInfoUser)}
+        className="user_information_wrap">
         <img src={`${BASE_URL}${item?.userImage}`} alt="" />
         <p>
           {item?.firstName + " " + item?.lastName}
-          <BsInfoCircleFill
-            onClick={() => setIsOpenInfoUser(!isOpenInfoUser)}
+          <BsArrowBarDown
             className="info_user_icon"
           />
         </p>
+        </div>
         <div className="admin_project_item_svg">
           <img
             src="./icons/ph_chat-centered-dots-light.svg"

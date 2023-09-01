@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 
-const FilterByName = ({ allProjects, setAllProjects }) => {
+const FilterByDate = ({ allProjects, setAllProjects }) => {
     const [sortVar, setSortVar] = useState(1);
-    const [sortName, setSortName] = useState('By Name');
     const [isOpen, setIsOpen] = useState(false);
 
-    const sortNameArr = [
+    const sortDateArr = [
         {
             id: 1,
-            name: 'from A to Z'
+            name: 'Newest First'
         },
         {
             id: 2,
-            name: 'from Z to A'
+            name: 'Oldest First'
         },
     ];
 
@@ -21,15 +20,14 @@ const FilterByName = ({ allProjects, setAllProjects }) => {
         setSortVar(sortId);
         setIsOpen(false);
 
-
         if (sortId === 1) {
             const sortedProjects = allProjects.slice().sort((a, b) =>
-                a.projects.name.localeCompare(b.projects.name)
+                new Date(b.projects.period.startDate) - new Date(a.projects.period.startDate)
             );
             setAllProjects(sortedProjects);
         } else if (sortId === 2) {
             const sortedProjects = allProjects.slice().sort((a, b) =>
-                b.projects.name.localeCompare(a.projects.name)
+                new Date(a.projects.period.startDate) - new Date(b.projects.period.startDate)
             );
             setAllProjects(sortedProjects);
         }
@@ -38,11 +36,11 @@ const FilterByName = ({ allProjects, setAllProjects }) => {
     return (
         <div className={`filter_by_name-wrap  ${isOpen ? 'open_list-wrap' : ''}`}>
             <div onClick={() => setIsOpen(!isOpen)} className='value_sort'>
-                <p>{sortName} <IoIosArrowDown /> </p>
+                <p>By Date <IoIosArrowDown /> </p>
             </div>
             <div className={`sort_var_item ${isOpen ? 'sort_var_item_open' : ''}`}>
-                {sortNameArr.map((item, idx) => (
-                    <p key={idx} onClick={() => handleSort(item.id, item.name)}>
+                {sortDateArr.map((item, idx) => (
+                    <p key={idx} onClick={() => handleSort(item.id)}>
                         {item.name}
                     </p>
                 ))}
@@ -51,4 +49,4 @@ const FilterByName = ({ allProjects, setAllProjects }) => {
     );
 };
 
-export default FilterByName;
+export default FilterByDate;

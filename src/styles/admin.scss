@@ -71,6 +71,13 @@
     transition: all 0.5s ease-in-out;
 }
 
+.user_information_wrap{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 40%;
+}
+
 .open_info_user{
     max-height: 500px;
     flex-direction: column;
@@ -109,6 +116,12 @@
 
 }
 
+.btn_wrap-admin{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 50px 0 0 0;
+}
 
 // modal Verified //
 

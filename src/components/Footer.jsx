@@ -12,7 +12,7 @@ const Footer = () => {
         <div className='footer'>
             <div className='row_top'>
                 <div className='logo_footer'>
-                    <Link to='/'><img src="./logo192.png" alt="" /></Link> 
+                    <Link to='/'><img src="./2.png" alt="" /></Link> 
                 </div>
                 <nav className='nav_footer'>
                     <ul className='nav_list nav_list_footer'>
@@ -32,7 +32,7 @@ const Footer = () => {
                         <Link to='/?scroll=information'>Information</Link>
                             </li>
                         <li className='nav_list_item'>
-                            <Link to='/rules'>Rules </Link></li>
+                            <Link to='/rules'>Terms</Link></li>
                     </ul>
                 </nav>
                 <div className='social'>
