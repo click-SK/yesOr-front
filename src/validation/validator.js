@@ -151,25 +151,25 @@ export const validationDonate = ({ nameFirst, nameLast, amount, card, validity, 
         })
       }
 
-      if(card?.length <= 15) {
+      if(card?.length <= 18 || card?.length >= 20) {
         arr.push({
           isValid: false,
-          error: 'Card must be minimum 16 symbols',
+          error: 'Card must be 16 symbols',
           reason: 'card'
         })
       }
 
-      if(validity?.length <= 6) {
+      if(validity?.length <= 4 || validity?.length >= 6) {
         arr.push({
           isValid: false,
-          error: 'Date must be minimum 7 symbols',
+          error: 'Date must be 5 symbols',
           reason: 'validity'
         })
       }
-      if(cvv?.length <= 2) {
+      if(cvv?.length <= 2 || cvv?.length >= 4) {
         arr.push({
           isValid: false,
-          error: 'CVV must be minimum 3 symbols',
+          error: 'CVV must be 3 symbols',
           reason: 'cvv'
         })
       }

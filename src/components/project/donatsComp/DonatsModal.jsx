@@ -53,7 +53,7 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
                 sum: amount,
                 user: `${nameFirst} ${nameLast}`,
                 comment: description,
-                userId: user._id
+                userId: user?._id
             }).then(() => {
                 alert('succeed donates')
                 window.location.reload();
@@ -124,14 +124,39 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
           setAmountErrorMessage('');
         }
       }
+    // const handleCard = (e) => {
+      // if(e.length > 16) {
+      //   e = e.slice(0, 16);
+      // }
+    //     setCard(e);
+        // if(e != '') {
+        //   handleValidateCard(e);
+        // } else {
+        //   setNumberCardErrorMessage('');
+        // }
+    //   }
+
     const handleCard = (e) => {
-        setCard(e);
-        if(e != '') {
-          handleValidateCard(e);
-        } else {
-          setNumberCardErrorMessage('');
-        }
+      if(e.length > 19) {
+        e = e.slice(0, 19);
       }
+      // Удаляем все нецифровые символы и дефисы
+      const input = e.replace(/[^0-9]/g, "");
+  
+      // Разбиваем номер карты на группы по 4 цифры и объединяем их с дефисами
+      const formattedCard = input.length != 0 ? input
+        .match(/.{1,4}/g)
+        .join("-")
+        :
+        ''
+  
+      setCard(formattedCard);
+      if(e != '') {
+        handleValidateCard(e);
+      } else {
+        setNumberCardErrorMessage('');
+      }
+    };
     
       const handleValidateCard = (e) => {
         const resoult = validator.validationDonate({card: e});
@@ -144,14 +169,25 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
           setNumberCardErrorMessage('');
         }
       }
-    const handleValidity = (e) => {
-        setValidity(e);
+
+      const handleValidity = (e) => {
+        if(e.length > 5) {
+          e = e.slice(0, 5);
+        }
         if(e != '') {
           handleValidateValidity(e);
         } else {
           setNumberCardDateErrorMessage('');
         }
-      }
+        let input = e;
+        // Удаляем все нецифровые символы
+        input = input.replace(/\D/g, "");
+        // Если длина ввода больше 2, добавляем "/" после первых двух символов
+        if (input.length > 2) {
+          input = input.slice(0, 2) + "/" + input.slice(2);
+        }
+        setValidity(input);
+      };
     
       const handleValidateValidity = (e) => {
         const resoult = validator.validationDonate({validity: e});
@@ -165,6 +201,9 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
         }
       }
     const handleCVV = (e) => {
+      if(e.length > 3) {
+        e = e.slice(0, 3);
+      }
         setCvv(e);
         if(e != '') {
           handleValidateCVV(e);
@@ -236,7 +275,7 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
                     <label htmlFor="amount">Number card *</label>
                     <input
                         id="amount"
-                        type="number"
+                        type="text"
                         value={card}
                         onChange={(e) => handleCard(e.target.value)}
                     /> 
@@ -247,7 +286,7 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
                     <label htmlFor="amount">Validity *</label>
                     <input
                         id="amount"
-                        type="number"
+                        type="text"
                         value={validity}
                         onChange={(e) => handleValidity(e.target.value)}
                     /> 
