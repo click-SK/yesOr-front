@@ -61,9 +61,11 @@ export const validationRegistration = ({email, phone, password, firstName, lastN
     }
   };
   
-  export const validationCreateProject = ({ targetAmount, placementPeriod, request, description, name}) => {
+  export const validationCreateProject = ({ targetAmount, placementPeriod, request, description, name, secondCategory, secondSubCategory}) => {
     try {
       let arr = [];
+
+      console.log('secondSubCategory',secondSubCategory);
 
       if(name?.length <= 1) {
         console.log('name',name);
@@ -71,6 +73,21 @@ export const validationRegistration = ({email, phone, password, firstName, lastN
           isValid: false,
           error: 'Name must be minimum 2 symbols',
           reason: 'name'
+        })
+      }
+      if(secondCategory?.length <= 1) {
+        console.log('secondCategory WORK!!!!!!!!!!!!!!!');
+        arr.push({
+          isValid: false,
+          error: 'Category must be minimum 2 symbols',
+          reason: 'secondCategory'
+        })
+      }
+      if(secondSubCategory?.length <= 1) {
+        arr.push({
+          isValid: false,
+          error: 'Sub сtegory must be minimum 2 symbols',
+          reason: 'secondSubCategory'
         })
       }
 
@@ -134,25 +151,25 @@ export const validationDonate = ({ nameFirst, nameLast, amount, card, validity, 
         })
       }
 
-      if(card?.length <= 15) {
+      if(card?.length <= 18 || card?.length >= 20) {
         arr.push({
           isValid: false,
-          error: 'Card must be minimum 16 symbols',
+          error: 'Card must be 16 symbols',
           reason: 'card'
         })
       }
 
-      if(validity?.length <= 6) {
+      if(validity?.length <= 4 || validity?.length >= 6) {
         arr.push({
           isValid: false,
-          error: 'Date must be minimum 7 symbols',
+          error: 'Date must be 5 symbols',
           reason: 'validity'
         })
       }
-      if(cvv?.length <= 2) {
+      if(cvv?.length <= 2 || cvv?.length >= 4) {
         arr.push({
           isValid: false,
-          error: 'CVV must be minimum 3 symbols',
+          error: 'CVV must be 3 symbols',
           reason: 'cvv'
         })
       }

@@ -16,6 +16,8 @@ const NewProject = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const [subCategoryArray, setSubCategoryArray] = useState([]);
+  const [secondCategory, setSecondCategory] = useState('');
+  const [secondSubCategory, setSecondSubCategory] = useState('');
   const [allCategory, setAllCategory] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -35,9 +37,12 @@ const NewProject = () => {
     useState("");
   const [targetAmountErrorMessage, setTargetAmountErrorMessage] = useState("");
   const [categoryErrorMessage, setCategoryErrorMessage] = useState("");
+  const [secondCategoryErrorMessage, setSecondCategoryErrorMessage] = useState('');
+  const [secondSubCategoryErrorMessage, setSecondSubCategoryErrorMessage] = useState('');
   const { user } = useSelector((state) => state.authUser.user);
 
   const navigate = useNavigate();
+
 
   useEffect(() => {
     if (images.length > 0) {
@@ -127,27 +132,56 @@ const NewProject = () => {
     }
   };
 
+  console.log('selectedCategory?.category',selectedCategory?.category);
+  console.log('selectedSubCategory.name',selectedSubCategory?.name);
+
   const handleCreateNewProject = () => {
     try {
-      const resoult = validation.validationCreateProject({
-        targetAmount,
-        placementPeriod,
-        request,
-        description,
-        name,
-        category: selectedCategory?.category,
-      });
+      let resoult;
+      if (selectedCategory?.category == "Miscellaneous") {
+        resoult = validation.validationCreateProject({
+          targetAmount,
+          placementPeriod,
+          request,
+          description,
+          name,
+          category: selectedCategory?.category,
+          secondCategory
+        });
+      } else if (selectedSubCategory?.name == "Other IT Solutions" || selectedSubCategory?.name == 'Other Inventions') {
+        resoult = validation.validationCreateProject({
+          targetAmount,
+          placementPeriod,
+          request,
+          description,
+          name,
+          category: selectedCategory?.category,
+          secondSubCategory
+        });
+      } else {
+        resoult = validation.validationCreateProject({
+          targetAmount,
+          placementPeriod,
+          request,
+          description,
+          name,
+          category: selectedCategory?.category,
+        });
+      }
       let isValid = false;
 
       if(resoult.length == 0) {
         isValid = true;
       } else {
         resoult.forEach((item) => {
+          console.log('item validation',item.reason);
           item.reason == 'name' && setNameErrorMessage(item?.error);
           item.reason == 'description' && setDescriptionErrorMessage(item.error);
           item.reason == 'request' && setRequestErrorMessage(item.error);
           item.reason == 'placementPeriod' && setPlacementPeriodErrorMessage(item.error);
           item.reason == 'targetAmount' && setTargetAmountErrorMessage(item.error);
+          selectedCategory?.category == "Miscellaneous" && item.reason == 'secondCategory' && setSecondCategoryErrorMessage(item.error);
+          (selectedSubCategory?.name == "Other IT Solutions" || selectedSubCategory?.name == 'Other Inventions') && item.reason == 'secondSubCategory' && setSecondSubCategoryErrorMessage(item.error);
         })
       }
 
@@ -167,10 +201,10 @@ const NewProject = () => {
       }
         formData.append("period", JSON.stringify({startDate: '',countDays: placementPeriod}));
         formData.append("target", targetAmount);
-        formData.append("category", selectedCategory?.category);
+        formData.append("category", secondCategory || selectedCategory?.category);
         formData.append(
           "subcategory",
-          selectedSubCategory ? selectedSubCategory.name : ""
+          secondSubCategory || (selectedSubCategory ? selectedSubCategory?.name : secondSubCategory)
         );
         axios.post(`${BASE_URL}/create-project`, formData)
         .then(() => {
@@ -185,6 +219,15 @@ const NewProject = () => {
       console.log(e);
     }
   };
+
+  useEffect(() => {
+    setSecondSubCategory('');
+    setSecondCategory('');
+  },[selectedSubCategory, selectedCategory])
+
+  const handleSetSecondSubCategory = (e) => {
+    setSecondSubCategory(e);
+  }
 
   const handleAddTeamBlock = () => {
     setTeamBlocks((prevBlocks) => [...prevBlocks, ""]);
@@ -298,6 +341,7 @@ const NewProject = () => {
         console.log(error);
     }
   }
+
   const handleTargetAmount = (e) => {
     setTargetAmount(e);
     if(e != '') {
@@ -321,6 +365,57 @@ const NewProject = () => {
         console.log(error);
     }
   }
+  const handleSecondCategory = (e) => {
+    setSecondCategory(e);
+    console.log('event',e);
+    if(e != '') {
+      handleValidateSecondCategory(e);
+    } else {
+      setSecondCategoryErrorMessage('');
+    }
+  }
+
+  const handleValidateSecondCategory = (e) => {
+    try {
+      if(selectedCategory?.category == "Miscellaneous") {        
+        const resoult = validation.validationCreateProject({secondCategory: e});
+        if(resoult.length !== 0) {
+          resoult.forEach((item) => {
+            item.reason == 'secondCategory' ? setSecondCategoryErrorMessage(item.error) : setSecondCategoryErrorMessage('');
+          })
+        } else {
+          setSecondCategoryErrorMessage('');
+        }
+      }
+    } catch(error) {
+        console.log(error);
+    }
+  }
+  const handleSecondSubCategory = (e) => {
+    setSecondSubCategory(e);
+    if(e != '') {
+      handleValidateSecondSubCategory(e);
+    } else {
+      setSecondSubCategoryErrorMessage('');
+    }
+  }
+
+  const handleValidateSecondSubCategory = (e) => {
+    try {
+      if(selectedSubCategory?.name == "Other IT Solutions" || selectedSubCategory?.name == 'Other Inventions') {
+        const resoult = validation.validationCreateProject({secondSubCategory: e});
+        if(resoult.length !== 0) {
+          resoult.forEach((item) => {
+            item.reason == 'secondSubCategory' ? setSecondSubCategoryErrorMessage(item.error) : setSecondSubCategoryErrorMessage('');
+          })
+        } else {
+          setSecondSubCategoryErrorMessage('');
+        }
+      }
+    } catch(error) {
+        console.log(error);
+    }
+  }
 
   return (
     <div className="new_project_wraper">
@@ -333,24 +428,31 @@ const NewProject = () => {
         <h2>Apply</h2>
       </div>
       <div className="new_project_image_wrap">
-  {imagesSrc.length !== 0 && imagesSrc.map((data, idx) => {
-    const mimeType = data.startsWith('data:video') ? 'video/mp4' : 'image/jpeg';
-    const fileType = mimeType.startsWith('video') ? 'video' : 'image';
+        {imagesSrc.length !== 0 &&
+          imagesSrc.map((data, idx) => {
+            const mimeType = data.startsWith("data:video")
+              ? "video/mp4"
+              : "image/jpeg";
+            const fileType = mimeType.startsWith("video") ? "video" : "image";
 
-    return (
-      <div key={idx} className="new_project_image_block">
-        {fileType === 'image' ? (
-          <img src={data} className="new_project_image" alt={`Image ${idx}`} />
-        ) : (
-          <video controls className="new_project_image">
-            <source src={data} type={mimeType} />
-            Your browser does not support the video tag.
-          </video>
-        )}
+            return (
+              <div key={idx} className="new_project_image_block">
+                {fileType === "image" ? (
+                  <img
+                    src={data}
+                    className="new_project_image"
+                    alt={`Image ${idx}`}
+                  />
+                ) : (
+                  <video controls className="new_project_image">
+                    <source src={data} type={mimeType} />
+                    Your browser does not support the video tag.
+                  </video>
+                )}
+              </div>
+            );
+          })}
       </div>
-    );
-  })}
-</div>
 
       <div className="input_wrap">
         <input
@@ -377,7 +479,7 @@ const NewProject = () => {
             onChange={(e) => handleName(e.target.value)}
           />
         </div>
-        <ErrorMessage errorMessage={nameErrorMessage}/>
+        <ErrorMessage errorMessage={nameErrorMessage} />
         <div className="categori_wrap">
           {allCategory.length != 0 && (
             <SelectChoseCategory
@@ -400,7 +502,38 @@ const NewProject = () => {
             />
           )}
         </div>
-        <ErrorMessage errorMessage={categoryErrorMessage}/>
+        {selectedCategory?.category == "Miscellaneous" ? (
+          <>
+          <div className="input_item">
+            <label htmlFor="name">Write category *</label>
+            <input
+              id="category"
+              type="text"
+              value={secondCategory}
+              onChange={(e) => handleSecondCategory(e.target.value)}
+            />
+          </div>
+          <ErrorMessage errorMessage={secondCategoryErrorMessage} />
+          </>
+        ) : (
+          <></>
+        )}
+        {selectedSubCategory?.name == "Other IT Solutions" || selectedSubCategory?.name == 'Other Inventions' ? (
+          <>
+            <div className="input_item">
+            <label htmlFor="name">Write sub category *</label>
+            <input
+              id="category"
+              type="text"
+              value={secondSubCategory}
+              onChange={(e) => handleSecondSubCategory(e.target.value)}
+            />
+          </div>
+          <ErrorMessage errorMessage={secondSubCategoryErrorMessage} />
+          </>
+        ) : (
+          <></>
+        )}
         <div className="input_item">
           <label htmlFor="description">Description *</label>
           <textarea
@@ -410,7 +543,7 @@ const NewProject = () => {
             onChange={(e) => handleDescription(e.target.value)}
           />
         </div>
-        <ErrorMessage errorMessage={descriptionErrorMessage}/>
+        <ErrorMessage errorMessage={descriptionErrorMessage} />
         <div className="input_item">
           <label htmlFor="request">Request *</label>
           <textarea
@@ -420,28 +553,35 @@ const NewProject = () => {
             onChange={(e) => handleRequest(e.target.value)}
           />
         </div>
-        <ErrorMessage errorMessage={requestErrorMessage}/>
+        <ErrorMessage errorMessage={requestErrorMessage} />
         <div className="input_item">
           <div className="team_dynamic_wrap">
-            <label className="team_label" htmlFor="team">Team</label>
-            <button className="btn_add_team" onClick={handleAddTeamBlock}><BsPersonFillAdd/></button>
+            <label className="team_label" htmlFor="team">
+              Team
+            </label>
+            <button className="btn_add_team" onClick={handleAddTeamBlock}>
+              <BsPersonFillAdd />
+            </button>
           </div>
           {teamBlocks.map((block, index) => (
-    
-        <div id="team" key={index} className="team-block">
-            <input
+            <div id="team" key={index} className="team-block">
+              <input
                 type="text"
                 value={teamBlocks[index]}
                 onChange={(e) => {
-                    setTeamBlocks((prevBlocks) =>
-                        prevBlocks.map((b, i) => (i === index ? e.target.value : b))
-                    );
+                  setTeamBlocks((prevBlocks) =>
+                    prevBlocks.map((b, i) => (i === index ? e.target.value : b))
+                  );
                 }}
-            />
-            <button className="btn_add_team" onClick={() => handleRemoveTeamBlock(index)}>-</button>
-        </div>
-    
-))}
+              />
+              <button
+                className="btn_add_team"
+                onClick={() => handleRemoveTeamBlock(index)}
+              >
+                -
+              </button>
+            </div>
+          ))}
         </div>
         <div className="input_item">
           <label htmlFor="placement">Placement period *</label>
@@ -452,7 +592,7 @@ const NewProject = () => {
             onChange={(e) => handlePlacementPeriod(e.target.value)}
           />
         </div>
-        <ErrorMessage errorMessage={placementPeriodErrorMessage}/>
+        <ErrorMessage errorMessage={placementPeriodErrorMessage} />
         <div className="input_item">
           <label htmlFor="terget">Target amount *</label>
           <input
@@ -462,12 +602,13 @@ const NewProject = () => {
             onChange={(e) => handleTargetAmount(e.target.value)}
           />
         </div>
-        <ErrorMessage errorMessage={targetAmountErrorMessage}/>
+        <ErrorMessage errorMessage={targetAmountErrorMessage} />
         <div className="input_item">
           <div className="title_bonus">
             <label htmlFor="bonus">Bonus for investors </label>
-            <button className="btn_add_team" onClick={handleAddBonusBlock}>+</button>
-
+            <button className="btn_add_team" onClick={handleAddBonusBlock}>
+              +
+            </button>
           </div>
           {bonusBlocks.map((block, index) => (
             <div key={index} className="bonus-block">
@@ -497,7 +638,12 @@ const NewProject = () => {
                   }
                 />
               </div>
-              <button className="btn_add_team" onClick={() => handleRemoveBonusBlock(index)}>-</button>
+              <button
+                className="btn_add_team"
+                onClick={() => handleRemoveBonusBlock(index)}
+              >
+                -
+              </button>
             </div>
           ))}
         </div>

@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import FormTitle from './FormTitle';
 import { login } from '../../store/authUser';
 import { useDispatch } from 'react-redux';
+import { RiEyeFill, RiEyeCloseFill } from 'react-icons/ri';
 const LogIn = ({hendlerChangeblock, isSingIn, mobile}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
+    const [showPassword, setShowPassword] = useState(false);
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
@@ -31,6 +32,10 @@ const LogIn = ({hendlerChangeblock, isSingIn, mobile}) => {
             handleLogin();
         }
       };
+
+      const toggleShowPassword = () => {
+        setShowPassword(!showPassword);
+      };
     return (
         <div className='form_wrap_item log_in_form'>
         <div className='input_wrap'>
@@ -45,11 +50,16 @@ const LogIn = ({hendlerChangeblock, isSingIn, mobile}) => {
             </div>
             <div className='input_item'>
                 <label htmlFor="password">Password*</label>
+                <div className="password_input_container">
                 <input id={mobile ? 'password-login-user-mobile' : 'password-login-user'} 
-                type="password" 
+                type={showPassword ? 'text' : 'password'}
                 value={password}
                 onKeyDown={handleKeyDown}
                 onChange={(e) => setPassword(e.target.value)}/>
+        <div className="password_toggle_icon" onClick={toggleShowPassword}>
+          {showPassword ? <RiEyeCloseFill /> : <RiEyeFill />}
+        </div>
+                </div>
             </div>
         </div>
             <div className='input_checkbox_wrap input_checkbox_wrap-item'>
