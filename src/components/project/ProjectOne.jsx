@@ -232,7 +232,7 @@ const ProjectOne = () => {
               {currentProject?.bonus.map((item) => (
                 <div className="bonus_item" key={item._id}>
                   <p>{item?.title}</p>
-                  <p>{item?.amount} $</p>
+                  <p>{item?.amount ? `${item?.amount} $` : ''}</p>
                 </div>
               ))}
             </div>
