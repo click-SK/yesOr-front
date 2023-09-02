@@ -387,6 +387,9 @@ input{
     display: flex;
     flex-direction: column;
     gap: 20px;
+    .filter_by_name-wrap{
+        display: none;
+    }
 }
 
 .filter_budget_wrap{
@@ -650,8 +653,121 @@ input{
         color: #F37042;
     }
 
+    .btn-close-aside{
+        display: none;
+    }
+    .btn-open-aside{
+        display: none;
+      }
 
+@media (max-width: 1250px){
+    .filter_budget_input_wrap {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        .input_range_value{
+            border: 1px solid #494949;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+        }
+    }
+    .top_filters {
+        flex-wrap: wrap;
+    }
+}
 
+@media (max-width: 1210px){
+    .top_filters{
+        .filter_by_name-wrap{
+            display: none;
+        }
+        .fillter_search_wrap{
+            max-width: none;
+        } 
+    }
+
+    .btn-open-aside{
+        display: flex;
+        // flex-direction: column;
+        justify-content: center;
+        position: fixed;
+        left: -10px;
+        top: 16%;
+        gap: 7px;
+        align-items: center;
+        border: 1px solid #494949;
+        padding: 10px 30px;
+        border-radius: 20px;
+        transform: rotate(90deg);
+        transform-origin: left bottom;
+        background: #F37042;
+        p{
+            font-size: 24px;
+            color: #fff;
+            // transform: rotate(90deg); /* Завертаємо текст на 90 градусів */
+            // transform-origin: left bottom; /* Задаємо точку обертання (лівий нижній кут) */
+            // white-space: nowrap; /* Забороняємо перенесення тексту на новий рядок */
+        }
+        svg{
+            width: 30px;
+            height: 30px;
+            color: #fff;
+        }
+      }
+
+    .aside_filters{
+        display: flex;
+    }
+
+    .close-aside{
+        display: none;
+    }
+
+    .open-aside{
+
+    }
+
+    .aside_filters{
+        position: absolute;
+        border: 1px solid #494949;
+        background: #fde2d9;
+        top: 0;
+        left: 0;
+        width: 390px;
+        height: 100%;
+        padding: 40px 20px;
+        z-index: 1000;
+        .btn-close-aside{
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            width: 100%;
+            svg{
+                width: 40px;
+                height: 40px;
+                fill: #494949;
+                &:hover{
+                    fill: #F37042;
+                }
+            }
+        }
+        .filter_by_name-wrap{
+            display: flex;
+            width: 100%;
+        }
+    }
+    .project_wrap_page{
+        flex: 0 1 100%;
+        width: 100%;
+    }
+
+}
 @media (max-width: 670px){
     .project_info {
         flex-direction: column;

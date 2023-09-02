@@ -12,10 +12,12 @@ import { BASE_URL } from '../../http/baseUrl';
 import ProjectListTemplate from './ProjectListTemplate';
 import { Link } from 'react-router-dom';
 import Pagination from '../Pagination';
+import { BiArrowFromRight, BiArrowFromLeft, BiArrowFromBottom } from 'react-icons/bi';
 import MultiRangeSlider from './filters/rangeSlide/MultiRangeSlider';
 
 const ProjectAllList = () => {
     const [allProjects, setAllProjects] = useState([]);
+    const [isOpenAside, setIsOpenAside] = useState(false)
     const [filteredProjects, setFilteredProjects] = useState([]);
     const [initialProjects, setInitialProjects] = useState([]);
     const [allCategory, setAllCategory] = useState([]);
@@ -91,8 +93,32 @@ const ProjectAllList = () => {
                     />
                 </div>
             </div>
-            <div className='profile_content_wraper project_content_wraper'>
-                <div className='aside_filters'>
+            <div className={`profile_content_wraper project_content_wraper `}>
+                <div 
+                onClick={() => setIsOpenAside(state => !state)}
+                className='btn-open-aside'>
+                     <p>Filters</p>
+                     <BiArrowFromBottom/>
+                </div>
+                <div className={`aside_filters ${isOpenAside ? 'open-aside' : 'close-aside'}`}>
+                    <div
+                    className='btn-close-aside'>
+                        <BiArrowFromRight
+                        onClick={() => setIsOpenAside(state => !state)}
+                        />
+                    </div>
+                    <FilterByName
+                    allProjects={allProjects}
+                    setAllProjects={setPaginationArray}
+                    />
+                    <FilterBySum
+                    allProjects={allProjects}
+                    setAllProjects={setPaginationArray}
+                    />
+                    <FilterByDate
+                    allProjects={allProjects}
+                    setAllProjects={setPaginationArray}
+                    />
                     <FilterBudget
                     allProjects={allProjects}
                     setAllProjects={setAllProjects}

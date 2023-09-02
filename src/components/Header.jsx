@@ -74,7 +74,7 @@ const Header = () => {
         <span></span>
       </label>
       </div>
-            <div className='nav_wrap'>
+            <div className='nav_wrap '>
                 <nav>
                     <ul className='nav_list'>
                         <li className='nav_list_item'><a href="#about_us">About us</a></li>

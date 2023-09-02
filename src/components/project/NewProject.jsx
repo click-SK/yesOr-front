@@ -465,7 +465,7 @@ const NewProject = () => {
         />
         <button
           onClick={() => inputFileRef.current.click()}
-          className={images.length != 0 ? "success" : ""}
+          className={` btn_upload ${images.length != 0 ? "success" : ""}`}
         >
           {" "}
           {images.length != 0 ? "Documents uploaded" : "Upload documents"}
@@ -665,7 +665,7 @@ const NewProject = () => {
           </div>
           <Link to="/rules">
             <p>
-              Rules <img src="./icons/ph_info-light2.svg" alt="" />
+              Terms <img src="./icons/ph_info-light2.svg" alt="" />
             </p>
           </Link>
         </div>
