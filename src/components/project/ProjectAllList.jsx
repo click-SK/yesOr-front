@@ -74,23 +74,23 @@ const ProjectAllList = () => {
                     {/* <FilterDataPicker
                      allProjects={allProjects}
                      setAllProjects={setFilteredProjects}/> */}
-                    <FilterBySum
+                    {/* <FilterBySum
                     allProjects={allProjects}
                     setAllProjects={setPaginationArray}
-                    />
-                    <FilterByDate
-                    allProjects={allProjects}
-                    setAllProjects={setPaginationArray}
-                    />
+                    /> */}
                     <FilterSearch 
                         allProjects={allProjects}
                         setAllProjects={setPaginationArray}
                         initialProjects={initialProjects}
                     />
-                    <FilterByName
+                    <FilterByDate
                     allProjects={allProjects}
                     setAllProjects={setPaginationArray}
                     />
+                    {/* <FilterByName
+                    allProjects={allProjects}
+                    setAllProjects={setPaginationArray}
+                    /> */}
                 </div>
             </div>
             <div className={`profile_content_wraper project_content_wraper `}>
@@ -107,14 +107,14 @@ const ProjectAllList = () => {
                         onClick={() => setIsOpenAside(state => !state)}
                         />
                     </div>
-                    <FilterByName
+                    {/* <FilterByName
                     allProjects={allProjects}
                     setAllProjects={setPaginationArray}
-                    />
-                    <FilterBySum
+                    /> */}
+                    {/* <FilterBySum
                     allProjects={allProjects}
                     setAllProjects={setPaginationArray}
-                    />
+                    /> */}
                     <FilterByDate
                     allProjects={allProjects}
                     setAllProjects={setPaginationArray}

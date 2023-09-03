@@ -566,7 +566,7 @@ input{
         flex-direction: row;
         align-items: center;
         justify-content: flex-start;
-        max-width: 610px;
+        // max-width: 610px;
         height: 40px;
         border: 1px solid #F37042;
         border-radius: 20px;
@@ -596,6 +596,7 @@ input{
     //  sort by name
 
     .filter_by_name-wrap{
+        position: relative;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -629,6 +630,14 @@ input{
     .sort_var_item_open{
         display: flex;
         flex-direction: column;
+        position: absolute;
+        top: -2px;
+        left: -3px;
+        border: 1px solid #F37042;
+        border-radius: 20px;
+        width: 104%;
+        background: #fde2d9;
+        padding: 5px 10px;
         p{
             font-size: 16px;
             &:hover{

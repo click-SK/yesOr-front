@@ -4,7 +4,6 @@ import MultiRangeSlider from './rangeSlide/MultiRangeSlider';
 const FilterBudget = ({ allProjects, setFilteredProjects }) => {
   const [minBudget, setMinBudget] = useState(0);
   const [maxBudget, setMaxBudget] = useState(10000);
-  const [valueBudget, setValueBudget] = useState([minBudget, maxBudget]);
 
   useEffect(() => {
     const budgetSumArr = allProjects.map((item) => item.projects.target);
@@ -13,32 +12,18 @@ const FilterBudget = ({ allProjects, setFilteredProjects }) => {
 
     setMinBudget(min);
     setMaxBudget(max);
-    setValueBudget([min, max]);
   }, [allProjects]);
 
   useEffect(() => {
-    // Фільтрація проектів на основі вибраного діапазону бюджету
     const filtered = allProjects.filter(
-      (project) => project.projects.target >= valueBudget[0] && project.projects.target <= valueBudget[1]
+      (project) => project.projects.target >= minBudget && project.projects.target <= maxBudget
     );
     setFilteredProjects(filtered);
-  }, [valueBudget, allProjects, setFilteredProjects]);
+  }, [minBudget, maxBudget, allProjects, setFilteredProjects]);
 
-  // Обробники зміни значень інпутів
-  const handleMinBudgetChange = (e) => {
-    const newMin = parseFloat(e.target.value);
-    if (newMin <= maxBudget) {
-      setMinBudget(newMin);
-      setValueBudget([newMin, maxBudget]);
-    }
-  };
-
-  const handleMaxBudgetChange = (e) => {
-    const newMax = parseFloat(e.target.value);
-    if (newMax >= minBudget) {
-      setMaxBudget(newMax);
-      setValueBudget([minBudget, newMax]);
-    }
+  const handleBudgetChange = (newMin, newMax) => {
+    setMinBudget(newMin);
+    setMaxBudget(newMax);
   };
 
   return (
@@ -51,20 +36,19 @@ const FilterBudget = ({ allProjects, setFilteredProjects }) => {
           className='input_range_value'
           type="number"
           value={minBudget}
-          onChange={handleMinBudgetChange}
+          onChange={(e) => handleBudgetChange(parseFloat(e.target.value), maxBudget)}
         />
         <MultiRangeSlider
+          allProjects={allProjects}
           min={minBudget}
-          setMin = {setMinBudget}
-          setMax = {setMaxBudget}
           max={maxBudget}
-          onChange={(values) => setValueBudget([values.min, values.max])}
+          onChange={handleBudgetChange}
         />
         <input
           className='input_range_value'
           type="number"
           value={maxBudget}
-          onChange={handleMaxBudgetChange}
+          onChange={(e) => handleBudgetChange(minBudget, parseFloat(e.target.value))}
         />
       </div>
     </div>
