@@ -126,7 +126,7 @@ const AlternateHeader = () => {
                             </li>
                         <li className='nav_list_item'>
                             {/* <a href="/?scroll=information">Information</a> */}
-                            <Link to='/rules'>Rules</Link>
+                            <Link to='/rules'>Terms</Link>
                             </li>
                     </ul>
                 </nav>

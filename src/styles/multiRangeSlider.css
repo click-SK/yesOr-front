@@ -76,7 +76,7 @@
   
   /* For Chrome browsers */
   .thumb::-webkit-slider-thumb {
-    background-color: #F37042;
+    background-color: #F87F00;
     border: none;
     border-radius: 50%;
     box-shadow: 0 0 1px 1px #b9532e;
@@ -90,7 +90,7 @@
   
   /* For Firefox browsers */
   .thumb::-moz-range-thumb {
-    background-color: #F37042;
+    background-color: #F87F00;
     border: none;
     border-radius: 50%;
     box-shadow: 0 0 1px 1px #b9532e;

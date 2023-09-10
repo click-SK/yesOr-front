@@ -73,8 +73,8 @@
 }
 
 .active_tab{
-    color: #F37042;
-    border-bottom: 1px solid #F37042;
+    color: #F87F00;
+    border-bottom: 1px solid #F87F00;
 }
 
 .my_proj_tabs{
@@ -226,7 +226,7 @@ p{
         width: 40px;
         cursor: pointer;
         &:hover{
-            fill: #F37042;
+            fill: #F87F00;
         }
     }
 }
@@ -303,8 +303,8 @@ p{
 .btn_download_document{
     background: transparent;
     padding: 5px 10px;
-    border: 0.5px solid #F37042;
-    color: #F37042;
+    border: 0.5px solid #F87F00;
+    color: #F87F00;
     max-width: 93px;
     display: flex;
     align-items: center;
@@ -317,8 +317,8 @@ p{
 .btn_profile-logout{
     background: transparent;
     padding: 5px 10px;
-    border: 0.5px solid #F37042;
-    color: #F37042;
+    border: 0.5px solid #F87F00;
+    color: #F87F00;
     width: 100%;
     max-width: 93px;
     display: flex;
@@ -330,8 +330,8 @@ p{
 .btn_profile-edit{
     // background: transparent;
     padding: 5px 10px;
-    border: 0.5px solid #F37042;
-    // color: #F37042;
+    border: 0.5px solid #F87F00;
+    // color: #F87F00;
     width: 100%;
     max-width: 93px;
     display: flex;

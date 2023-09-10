@@ -282,7 +282,7 @@ p{
     .right_arrow{
         position: relative;
         background: $color_prime;
-        color: $color_prime;
+        color: #fff;
         width: 60px;
         height: 60px;
         display: flex;
@@ -443,7 +443,7 @@ p{
         margin-left: 30px;
         width: 190px;
         height: 2px;
-        background: #F37042;
+        background: #F87F00;
     }
 
 }
@@ -937,7 +937,7 @@ p{
         min-width: 315px;
         max-width: 426px;
         padding: 15px 15px 10px;
-        background: #F37042;
+        background: #F87F00;
         img {
             width: 100%;
             object-fit: contain;
@@ -1006,7 +1006,7 @@ p{
 
     }
     .team_name {
-        color: #F37042;
+        color: #F87F00;
         font-weight: 300;
         font-size: 18px;
         line-height: 36px;
