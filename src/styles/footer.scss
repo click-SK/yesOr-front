@@ -24,6 +24,7 @@
 
 .row_top{
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
 }
 
@@ -33,16 +34,20 @@
 }
 
 .nav_list_footer{
+    flex-direction: column;
     font-weight: 300;
     font-size: 18px;
     line-height: 27px;
+
 }
 
 .social{
     display: flex;
     gap: 15px;
+    justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    margin-bottom: 50px;
     a{
         width: 100px;
         height: 100px;

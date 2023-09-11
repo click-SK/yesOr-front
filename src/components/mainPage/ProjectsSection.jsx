@@ -9,6 +9,7 @@ const ProjectsMain = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animationDirection, setAnimationDirection] = useState(null);
   const [projectData, setProjectData] = useState([]);
+  const [percentCollected, setPercentCollected] = useState(0);
 
   useEffect(() => {
     try {
@@ -62,6 +63,24 @@ const ProjectsMain = () => {
 
   console.log('activeProject',activeProject);
 
+  // const percent = (collected / target) * 100;
+  // setPercentCollected(percent);
+
+  useEffect(() => {
+    try {
+      if (activeProject) {
+        const collected = activeProject?.amountCollected;
+        const target = activeProject?.target;
+        const percent = (collected / target) * 100;
+        setPercentCollected(percent);
+      }
+    } catch(error) {
+      console.log(error);
+    }
+  }, [activeProject]);
+
+
+
   return (
     <section id="project" className="section project">
       <div className="project_description">
@@ -78,6 +97,20 @@ const ProjectsMain = () => {
             <div className={`project_active ${animationDirection ? 'inactive' : 'active'}`}>
               <img src={`${BASE_URL}${activeProject?.projectMedia[0]}`}  alt="" />
               <p className="project_active_name">{activeProject?.name}</p>
+                      <div className="target_wrap main_page-project-amount">
+                        <div className="target_wrap_title main_page-project-title ">
+                          <p>{activeProject?.target} $</p>
+                        </div>
+                        <div className="target_range">
+                          <div
+                          className="target_curent"
+                          style={{ width: `${percentCollected}%` }}
+                          ></div>
+                      </div>
+                        <p style={{ width: `${percentCollected}%`, textAlign: "right", maxWidth:'100%' }}>
+                          {percentCollected.toFixed(2)}%
+                        </p>
+                    </div>
             </div>
           </Link>
           <div className={`project_second ${animationDirection === 'next' ? 'active' : ''}`}>
