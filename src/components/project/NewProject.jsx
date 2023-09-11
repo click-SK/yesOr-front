@@ -132,8 +132,7 @@ const NewProject = () => {
     }
   };
 
-  console.log('selectedCategory?.category',selectedCategory?.category);
-  console.log('selectedSubCategory.name',selectedSubCategory?.name);
+
 
   const handleCreateNewProject = () => {
     try {

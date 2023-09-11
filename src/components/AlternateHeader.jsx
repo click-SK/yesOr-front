@@ -179,10 +179,15 @@ const AlternateHeader = () => {
                     <div className='header_btn alt_header'>
                                 <Link
                                 to='/discover'>
-                                    <button>Discover</button>
+                                    <button
+                                    onClick={() => hendlerMenuClose() }
+                                    >Discover</button>
                                 </Link>
                                 <Link to={startProjectLink}>
-                                    <button>Start a project</button>
+                                  
+                                    <button
+                                    onClick={() => hendlerMenuClose() }
+                                    >Start a project</button>
                                 </Link>
                             </div>
                     <div className='profile_button'>
