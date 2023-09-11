@@ -416,6 +416,8 @@ const NewProject = () => {
     }
   }
 
+  console.log('block.amount', bonusBlocks[0].amount.length !== 0 );
+
   return (
     <div className="new_project_wraper">
       {!currentUser?.isVerified && (
@@ -541,8 +543,8 @@ const NewProject = () => {
             value={description}
             onChange={(e) => handleDescription(e.target.value)}
           />
-        </div>
         <ErrorMessage errorMessage={descriptionErrorMessage} />
+        </div>
         <div className="input_item">
           <label htmlFor="request">Request *</label>
           <textarea
@@ -551,8 +553,8 @@ const NewProject = () => {
             value={request}
             onChange={(e) => handleRequest(e.target.value)}
           />
-        </div>
         <ErrorMessage errorMessage={requestErrorMessage} />
+        </div>
         <div className="input_item">
           <div className="team_dynamic_wrap">
             <label className="team_label" htmlFor="team">
@@ -593,7 +595,7 @@ const NewProject = () => {
         </div>
         <ErrorMessage errorMessage={placementPeriodErrorMessage} />
         <div className="input_item">
-          <label htmlFor="terget">Target amount *</label>
+          <label htmlFor="terget">Target amount $ *</label>
           <input
             id="target"
             type="text"
@@ -612,6 +614,18 @@ const NewProject = () => {
           {bonusBlocks.map((block, index) => (
             <div key={index} className="bonus-block">
               <div className="input_bonus_wrap">
+              <input
+                  type="text"
+                  placeholder="Amount $"
+                  value={`${block.amount}`}
+                  onChange={(e) =>
+                    setBonusBlocks((prevBlocks) =>
+                      prevBlocks.map((b, i) =>
+                        i === index ? { ...b, amount: e.target.value } : b
+                      )
+                    )
+                  }
+                />
                 <input
                   type="text"
                   placeholder="Title"
@@ -624,18 +638,7 @@ const NewProject = () => {
                     )
                   }
                 />
-                <input
-                  type="text"
-                  placeholder="Amount"
-                  value={block.amount}
-                  onChange={(e) =>
-                    setBonusBlocks((prevBlocks) =>
-                      prevBlocks.map((b, i) =>
-                        i === index ? { ...b, amount: e.target.value } : b
-                      )
-                    )
-                  }
-                />
+                
               </div>
               <button
                 className="btn_add_team"

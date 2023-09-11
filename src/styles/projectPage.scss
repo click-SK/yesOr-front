@@ -695,6 +695,10 @@ input{
     .top_filters {
         flex-wrap: wrap;
     }
+
+    .project_info{
+        flex-direction: column;
+    }
 }
 
 @media (max-width: 1210px){
@@ -786,6 +790,13 @@ input{
 @media (max-width: 670px){
     .project_info {
         flex-direction: column;
+    }
+}
+
+
+@media (max-width: 390px){
+    .aside_filters {
+        width: 100%;
     }
 }
 

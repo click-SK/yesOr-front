@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BASE_URL } from "../../../http/baseUrl";
 import UserModal from "./UserModal";
 import axios from "axios";
@@ -18,6 +18,7 @@ const UserItem = ({ item, setReloadUserData}) => {
   const [isOpenModalConfirm, setIsOpenModalConfirm] = useState(false);
   const [isOpenModalUnConfirm, setIsOpenModalUnConfirm] = useState(false);
   const [isOpenChat, setIsOpenChat] = useState(false)
+  const [animation, setAnimation] = useState(false);
 
 
   const handleBlockedUser = () => {
@@ -57,13 +58,27 @@ const UserItem = ({ item, setReloadUserData}) => {
 
   const handleCreateOrOpenChat = () => {
 
-    setIsOpenChat(state => !state)
+    setAnimation(state => !state)
     axios.post(`${BASE_URL}/create-messanger`, {
         userId: item._id
     })
 }
 
-console.log('isOpenChat',isOpenChat);
+console.log('isOpenChat',animation);
+
+useEffect(() => {
+  if(animation){
+    setIsOpenChat(true);
+  } else {
+    const timeoutId = setTimeout(() => {
+      setIsOpenChat(false);
+    }, 800);
+
+    return () => clearTimeout(timeoutId);
+  }
+}, [animation]);
+
+
 
 
 
@@ -158,15 +173,17 @@ console.log('isOpenChat',isOpenChat);
         isOpenInfoUser={isOpenInfoUser}
         item={item}
       />
-      {isOpenChat && (
+      {isOpenChat && 
         <ChatWrap
           setIsOpen={setIsOpenChat}
           isOpen={isOpenChat}
           user={item}
           isUser={false}
           isAdmin={true}
+          animation={animation}
+          setAnimation={setAnimation}
         />
-      )}
+      }
     </div>
   );
 };

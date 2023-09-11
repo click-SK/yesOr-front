@@ -116,6 +116,8 @@ const ProjectOne = () => {
     }
   };
 
+  console.log('percentCollected', percentCollected);
+
   return (
     <div className="project_wraper">
       {isOpenEditProject && (
@@ -147,8 +149,8 @@ const ProjectOne = () => {
                 style={{ width: `${percentCollected}%` }}
               ></div>
             </div>
-            <p style={{ width: `${percentCollected}%`, textAlign: "right" }}>
-              {percentCollected}%
+            <p style={{ width: `${percentCollected}%`, textAlign: "right", maxWidth:'100%' }}>
+              {percentCollected.toFixed(2)}%
             </p>
           </div>
           <SliderProject

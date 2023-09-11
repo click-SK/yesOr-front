@@ -27,17 +27,19 @@
     align-items: center;
 
     p{
-        flex: 0 1 35%;
+        flex: 0 1 25%;
         display: flex;
         justify-content: center;
-        // max-height: 130px;
         overflow: hidden;
-        gap: 20px;
+        gap: 0px;
     }
     a{
         display: flex;
     }
 }
+
+
+
 
 .react-tooltip {
     font-size: 14px;

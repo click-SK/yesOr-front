@@ -127,9 +127,9 @@ const Header = () => {
                                 }</Link> 
                     </div>
                     <div className='social'>
-                    <img src="./icons/ph_telegram-logo-thin-burger.svg" alt="" />
+                    {/* <img src="./icons/ph_telegram-logo-thin-burger.svg" alt="" />
                     <img src="./icons/openmoji_instagram-burger.svg" alt="" />
-                    <img src="./icons/twiter-burger.svg" alt="" />
+                    <img src="./icons/twiter-burger.svg" alt="" /> */}
                 </div>
                 </div>
             }
