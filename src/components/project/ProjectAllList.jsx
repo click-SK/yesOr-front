@@ -14,6 +14,8 @@ import { Link } from 'react-router-dom';
 import Pagination from '../Pagination';
 import { BiArrowFromRight, BiArrowFromLeft, BiArrowFromBottom } from 'react-icons/bi';
 import MultiRangeSlider from './filters/rangeSlide/MultiRangeSlider';
+import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const ProjectAllList = () => {
     const [allProjects, setAllProjects] = useState([]);
@@ -24,7 +26,11 @@ const ProjectAllList = () => {
     const [subCatArr, setSubCatArr] = useState([])
     const [showResult, setShowResult] = useState(false)
     const [paginationArray, setPaginationArray] = useState([]);
+    const { search } = useLocation();
     
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     useEffect(() => {
         try {
@@ -49,6 +55,7 @@ const ProjectAllList = () => {
       }, []);
 
     const handleSubCatArrChange = () => {
+        console.log('funk work');
         if (subCatArr.length === 0) {
             // Якщо subCatArr порожній, показуємо всі проекти
             setAllProjects(initialProjects);
@@ -60,11 +67,42 @@ const ProjectAllList = () => {
                     projectSubcategories.includes(subcat)
                 );
             });
-    
+            console.log('filteredProjects', filteredProjects);
+            
             // Оновлюємо список проектів
             setAllProjects(filteredProjects);
         }
     };
+
+//     useEffect(() => {
+//         console.log('say for');
+//       if (subCatArr.length !== 0){
+//         const timer = setTimeout(() => {
+//             handleSubCatArrChange()
+//             console.log('say Hi');
+
+//         }, 1000); 
+
+//         return () => clearTimeout(timer); 
+      
+//       }
+//   }, [subCatArr]);
+
+  console.log('subCatArr', subCatArr);
+
+    useEffect(() => {
+
+        const params = new URLSearchParams(search);
+        const initialSubcategories = params.get('cat');
+        
+        if (initialSubcategories) {
+            setSubCatArr(initialSubcategories.split(','));
+        }
+        
+        // Завантаження проектів, категорій, тощо
+    }, []);
+
+
 
     return (
         <div className='profile_wrap'>

@@ -1,19 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import FilterSubCategory from "./FilterSubCategory";
 
 const FilterChekbox = ({ item, idx, allCategory,setShowResult,subCatArr, setSubCatArr, showResult}) => {
-    // const [openStates, setOpenStates] = useState(Array(allCategory.length).fill(false));
     const [isOpen, setIsOpen] = useState(false)
-    // const [subCatArr, setSubCatArr] = useState([])
 
-    // const handleToggle = (index) => {
-    //     const newOpenStates = [...openStates];
-    //     newOpenStates[index] = !newOpenStates[index];
-    //     setOpenStates(newOpenStates);
-    // };
+  //   useEffect(() => {
+  //     if (subCatArr.length !== 0){
+  //       const timer = setTimeout(() => {
+  //         setShowResult(state => !state);
+  //       }, 500); 
+    
+  //       return () => clearTimeout(timer); 
+      
+  //     }
+  // }, []);
 
-    // console.log('subCatArr',subCatArr);
+
     
   return (
     <div className='category_wrap-item' >
