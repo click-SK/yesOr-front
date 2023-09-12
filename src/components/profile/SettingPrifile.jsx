@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import {BASE_URL} from '../../http/baseUrl';
 import SelectedDocuments from './SelectedDocuments';
+import ModalProjectConfirm from "../admin/ModalProjectConfirm";
 const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloadUser }) => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -14,6 +15,7 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloa
   const [newPassword, setNewPassword] = useState("");
   const [image, setImage] = useState(null);
   const [imageSrc, setImageSrc] = useState(null);
+  const [isOpenModalConfirm, setIsOpenModalConfirm] = useState(false);
 
   const inputFileRef = useRef(null);
 
@@ -174,7 +176,7 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloa
               />
             </div>
           </div>
-          <button className="btn_profile-edit" onClick={handleUpdateUserData}>Save</button>
+          <button className="btn_profile-edit" onClick={() => setIsOpenModalConfirm(!isOpenModalConfirm)}>Save</button>
         </div>
         <div>
         <div className="wrap_block">
@@ -203,6 +205,13 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloa
       </div>
       <SelectedDocuments/>
       </div>
+      <ModalProjectConfirm
+            title={"If you change your information, you will need to verify again"}
+            isOpenModal={isOpenModalConfirm}
+            setIsOpen={setIsOpenModalConfirm}
+            handleChangeFunc={handleUpdateUserData}
+            // item={item}
+          />
     </div>
   );
 };
