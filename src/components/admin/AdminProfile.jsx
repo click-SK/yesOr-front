@@ -3,6 +3,7 @@ import SavedProject from '../profile/SavedProject';
 import ProfileInfo from '../profile/ProfileInfo';
 import SettingPrifile from '../profile/SettingPrifile';
 import AllProjectAdmin from './AllProjectAdmin';
+import AllArchiveProject from './AllArchiveProject';
 import MyPriject from '../profile/MyPriject';
 import '../../styles/admin.scss';
 import { logout } from '../../store/authAdmin';
@@ -16,10 +17,12 @@ const AdminProfile = () => {
     const [isOpenAllUsers, setIsOpenAllUsers] = useState(true);
     const [isOpenProfile, setIsOpenProfile] = useState(false);
     const [isOpenSetting, setIsOpenSetting] = useState(false);
+    const [isOpenArchive, setIsOpenArchive] = useState(false);
     const [reloadUserData, setReloadUserData] = useState(false);
     const [allUsers, setAllUsers] = useState([]);
     const [allVerifiedProject, setAllVerifiedProject] = useState([]);
     const [allNotVerifiedProject, setAllNotVerifiedProject] = useState([]);
+    const [allArchiveProject, setAllArchiveProject] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -52,6 +55,15 @@ const AdminProfile = () => {
         }
       },[reloadUserData])
 
+      useEffect(() => {
+          try {
+            axios.get(`${BASE_URL}/get-allarchive-projects`)
+            .then((res) => setAllArchiveProject(res.data))
+        } catch(error) {
+            console.log(error);
+        }
+      },[reloadUserData])
+
     const handleLogout = () => {
         try {
             dispatch(logout({accessToken: user.accessToken}));
@@ -68,16 +80,25 @@ const AdminProfile = () => {
         setIsOpenAllUsers(true);
         setIsOpenProfile(false);
         setIsOpenSetting(false);
+        setIsOpenArchive(false);
     }
     const openProfile = () =>{
         setIsOpenProfile(true);
         setIsOpenAllUsers(false);
         setIsOpenSetting(false);
+        setIsOpenArchive(false);
     }
     const openSetting = () =>{
         setIsOpenProfile(false);
         setIsOpenAllUsers(false);
+        setIsOpenArchive(false);
         setIsOpenSetting(true);
+    }
+    const openArchive = () =>{
+        setIsOpenProfile(false);
+        setIsOpenAllUsers(false);
+        setIsOpenSetting(false);
+        setIsOpenArchive(true);
     }
 
     const handleAddToVerified = (item) => {
@@ -129,6 +150,9 @@ const AdminProfile = () => {
                 <li 
                 onClick={() => openSetting()}
                 className={`profile_nav_item ${isOpenSetting ? 'profile_nav_item-active' : ''}`}>Not verified</li>
+                <li 
+                onClick={() => openArchive()}
+                className={`profile_nav_item ${isOpenArchive ? 'profile_nav_item-active' : ''}`}>Archive</li>
             </ul>
             <div className='profile_content_wraper'>
                 {isOpenAllUsers &&
@@ -149,6 +173,13 @@ const AdminProfile = () => {
                     projectArr={allNotVerifiedProject && allNotVerifiedProject}
                     verified={false}
                     handleChangeFunc={handleAddToVerified}
+                    />
+                }
+                {isOpenArchive &&
+                    <AllArchiveProject
+                    projectArr={allArchiveProject && allArchiveProject}
+                    // verified={false}
+                    // handleChangeFunc={handleAddToVerified}
                     />
                 }
                 

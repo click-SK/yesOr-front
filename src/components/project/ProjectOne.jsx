@@ -116,7 +116,19 @@ const ProjectOne = () => {
     }
   };
 
+  const handleSendProjectToArchive = () => {
+    try {
+      axios.post(`${BASE_URL}/add-project-archive`, {
+        projectId: currentProject._id,
+      }).then(() => {
+        alert('Project added to archive')
+      })
+    }catch(error) {
+      console.log(error);
+    }
+  }
 
+  console.log('percentCollected',percentCollected);
 
   return (
     <div className="project_wraper">
@@ -153,6 +165,11 @@ const ProjectOne = () => {
               {percentCollected.toFixed(2)}%
             </p>
           </div>
+          {percentCollected >= 100 && currentProject && user && currentProject?.user == user?._id && currentProject?.isVerified &&
+          <div>
+          <button onClick={handleSendProjectToArchive}>Close project</button>
+        </div>
+          }
           <SliderProject
           currentExtension = {currentExtension}
           BASE_URL = {BASE_URL}
