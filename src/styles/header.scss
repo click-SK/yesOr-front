@@ -80,6 +80,19 @@ a{
 //     display: none;
 // }
 
+.logo-header{
+
+  a{
+    img{
+      max-width: 78px;
+      max-height: 70px;
+    }
+
+  }
+}
+
+
+
 .burger_icon{
     position: absolute;
     display: none;
@@ -175,7 +188,53 @@ a{
   }
 }
 
-@media (max-width: 801px){
+
+
+
+
+@media (max-width: 1370px){
+  .banner_head_buttons{
+    flex-direction: column;
+    button{
+      width: 100%;
+    }
+  }
+  .nav_wrap-alter {
+    width: 90%;
+    .header_btn {
+      display: flex;
+      gap: 12px;
+  }
+  }
+  .profile_button{
+    display: flex;
+    align-items: center;
+  }
+}
+@media (max-width: 1190px){
+  .banner_head_buttons{
+    display: flex;
+    flex-direction: row;
+    button{
+      width: 100%;
+      font-size: 10px;
+    }
+  }
+
+  .header_btn{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav_wrap {
+    width: 90%;
+  }
+  .nav_list_item{
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 1095px){
 
   .header{
     justify-content: space-between;
@@ -184,15 +243,37 @@ a{
     .nav_wrap{
         display: none;
     }
+
     .logo_burger{
       display: flex;
       justify-content: left;
       align-items: center;
       height: 138px;
       width: 100%;
+      max-width: 100%;
       padding: 20px;
       background: rgba(14, 14, 14, 0.77);
+      a{
+        img{
+          max-height: 70px;
+          max-width: 78px;
+        }
 
+      }
+    }
+
+    .alt_header{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      width: 100%;
+      margin: 0 0 30px 0;
+      button{
+        width: 100%;
+        padding: 9px 54px;
+      }
     }
 
     .burger_icon{
@@ -275,4 +356,9 @@ a{
         }
       }
 
+}
+
+.btn_wrap_main-p{
+  display: flex;
+  flex-direction: row;
 }

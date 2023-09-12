@@ -92,7 +92,7 @@ const AlternateHeader = () => {
         <span></span>
       </label>
       </div>
-            <div className='nav_wrap'>
+            <div className='nav_wrap nav_wrap-alter'>
             <div className='banner_head_buttons header_btn'>
                     <Link
                      to='/discover'>
@@ -126,7 +126,7 @@ const AlternateHeader = () => {
                             </li>
                         <li className='nav_list_item'>
                             {/* <a href="/?scroll=information">Information</a> */}
-                            <Link to='/rules'>Rules</Link>
+                            <Link to='/rules'>Terms</Link>
                             </li>
                     </ul>
                 </nav>
@@ -145,6 +145,7 @@ const AlternateHeader = () => {
                 <div id={`${isClose ? 'closed_anim' : ''}`} className={`nav_wrap_burger ${isOpenBurger? 'active_menu' : `not_active_menu`} `}>
                         <div className='logo-header logo_burger'>
                             <Link to='/'><img src="./logo192.png" alt="" /></Link> 
+                            
                         </div>
                     <nav>
                         <ul className='nav_list nav_list_burger '>
@@ -175,19 +176,35 @@ const AlternateHeader = () => {
                             </li>
                         </ul>
                     </nav>
+                    <div className='header_btn alt_header'>
+                                <Link
+                                to='/discover'>
+                                    <button
+                                    onClick={() => hendlerMenuClose() }
+                                    >Discover</button>
+                                </Link>
+                                <Link to={startProjectLink}>
+                                  
+                                    <button
+                                    onClick={() => hendlerMenuClose() }
+                                    >Start a project</button>
+                                </Link>
+                            </div>
                     <div className='profile_button'>
                             <Link to='/login'>
                                 {isAuthUser ?
-                                <img src="./icons/Profile.svg" alt="" />
+                                <img src="./icons/Profile.svg" alt="" 
+                                onClick={() => hendlerMenuClose() }
+                                />
                                 :
                                 <button>Sign up</button>
                                 }
                             </Link> 
                     </div>
                     <div className='social'>
-                    <img src="./icons/ph_telegram-logo-thin-burger.svg" alt="" />
+                    {/* <img src="./icons/ph_telegram-logo-thin-burger.svg" alt="" />
                     <img src="./icons/openmoji_instagram-burger.svg" alt="" />
-                    <img src="./icons/twiter-burger.svg" alt="" />
+                    <img src="./icons/twiter-burger.svg" alt="" /> */}
                 </div>
                 </div>
             }

@@ -12,7 +12,26 @@ const Footer = () => {
         <div className='footer'>
             <div className='row_top'>
                 <div className='logo_footer'>
-                    <Link to='/'><img src="./logo192.png" alt="" /></Link> 
+                    <Link to='/'><img src="./2.png" alt="" /></Link> 
+                </div>
+                <div className='social'>
+                    <a href="https://t.me/yesor_official"> 
+                    <img src="./icons/footer/22.png" alt="" />
+                    {/* <FaTelegramPlane/> */}
+                    </a>
+                    <a href="https://www.instagram.com/yesor_official"> 
+                    <img src="./icons/footer/16.png" alt="" />
+                    {/* <AiFillInstagram/> */}
+                    </a>
+                    <a href="https://twitter.com/YesOr_Official">
+                         {/* <img src="./icons/twiter.svg" alt="" />  */}
+                         <img src="./icons/footer/20.png" alt="" />
+                         </a> 
+                    <a href="https://www.tiktok.com/@yesor_official"> <img src="./icons/footer/21.png" alt="" />  </a> 
+                    <a href="https://www.facebook.com/profile.php?id=61550656619878"> <img src="./icons/footer/19.png" alt="" /></a> 
+                    <a href="tel:+380974499349"> <img src="./icons/footer/18.png" alt="" /> </a>  {/* Здійснення дзвінка */}
+                    <a href="mailto:yesor.official@gmail.com"> <img src="./icons/footer/16.png" alt="" /> </a>  {/* Відкриття пошти */}
+
                 </div>
                 <nav className='nav_footer'>
                     <ul className='nav_list nav_list_footer'>
@@ -32,31 +51,10 @@ const Footer = () => {
                         <Link to='/?scroll=information'>Information</Link>
                             </li>
                         <li className='nav_list_item'>
-                            <Link to='/rules'>Rules </Link></li>
+                            <Link to='/rules'>Terms</Link></li>
                     </ul>
                 </nav>
-                <div className='social'>
-                    <a href="https://t.me/yesor_official"> 
-                    {/* <img src="./icons/ph_telegram-logo-thin.svg" alt="" /> */}
-                    <FaTelegramPlane/>
-                    </a>
-                    <a href="https://www.instagram.com/yesor_official"> 
-                    {/* <img src="./icons/openmoji_instagram.svg" alt="" /> */}
-                    <AiFillInstagram/>
-                    </a>
-                    <a href="https://twitter.com/YesOr_Official">
-                         {/* <img src="./icons/twiter.svg" alt="" />  */}
-                         <FaTwitter/>
-                         </a> 
-                    <a href="https://www.tiktok.com/@yesor_official"> <FaTiktok/>  </a> 
-                    <a href="https://www.facebook.com/profile.php?id=61550656619878"> <FaFacebookF/></a> 
-                    <a href="tel:+380974499349"> <BsFillTelephoneFill/> </a>  {/* Здійснення дзвінка */}
-                    <a href="mailto:yesor.official@gmail.com"> <SiGmail/> </a>  {/* Відкриття пошти */}
-                    
-                    
-                   
-                    
-                </div>
+
             </div>
             <div className='row_bottom'>
                 <p>Copyright 2023 © All right reserved</p>

@@ -20,8 +20,8 @@
         border: 1px solid #494949;
         outline: none;
         &:focus-visible{
-            border: 1px solid #F37042;
-            color: #F37042;
+            border: 1px solid #F87F00;
+            color: #F87F00;
             min-height: 34px;
         }
     }
@@ -77,6 +77,8 @@
 }
 
 
+
+
 .warn_werificate{
     position: absolute;
     font-size: 24px;
@@ -92,9 +94,22 @@
     width: 100%;
     flex-wrap: wrap;
     justify-content: center;
+    gap: 10px;
 }
 
 .new_project_image {
     width: 100%;
     height: 100%;
+}
+
+
+
+@media (max-width: 600px){
+    .btn_upload{
+        width: 100%;
+        max-width: none;
+    }
+    .categori_wrap{
+        flex-direction: column;
+    }
 }

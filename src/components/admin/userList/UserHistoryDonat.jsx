@@ -4,16 +4,19 @@ import Pagination from "../../Pagination";
 const UserHistoryDonat = ({ setIsOpen, isUser, user, project }) => {
   const [paginationArray, setPaginationArray] = useState([]);
   
+  console.log('paginationArray', paginationArray);
+
   return (
     <div className="modal_wrap">
-      <div className="item_body pad modal_wraper_donat">
-        <h2>History</h2>
+      <div className="item_body pad modal_wraper_donat modal">
+        <h2 style={{marginTop:'300px'}}>History</h2>
         {isUser ? (
           <div className="content_modal">
             <div className="title_wrap">
               <p>Project name</p>
               <p>Donation amount</p>
               <p>Coment</p>
+              <p>Date</p>
             </div>
             {paginationArray.length != 0 && paginationArray.map((item) => (
               <div key={item._id} className="info_wrap">

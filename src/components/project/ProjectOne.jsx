@@ -116,6 +116,8 @@ const ProjectOne = () => {
     }
   };
 
+
+
   return (
     <div className="project_wraper">
       {isOpenEditProject && (
@@ -147,8 +149,8 @@ const ProjectOne = () => {
                 style={{ width: `${percentCollected}%` }}
               ></div>
             </div>
-            <p style={{ width: `${percentCollected}%`, textAlign: "right" }}>
-              {percentCollected}%
+            <p style={{ width: `${percentCollected}%`, textAlign: "right", maxWidth:'100%' }}>
+              {percentCollected.toFixed(2)}%
             </p>
           </div>
           <SliderProject
@@ -232,7 +234,7 @@ const ProjectOne = () => {
               {currentProject?.bonus.map((item) => (
                 <div className="bonus_item" key={item._id}>
                   <p>{item?.title}</p>
-                  <p>{item?.amount} $</p>
+                  <p>{item?.amount ? `${item?.amount} $` : ''}</p>
                 </div>
               ))}
             </div>

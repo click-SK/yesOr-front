@@ -226,11 +226,9 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
 
     return (
         <div className='modal_wrap'>
-            <div className='item_body pad'>
-            <div style={{marginTop: '50px'}}>
-            <button onClick={() => setIsOpen(state => !state)}>X</button>
-            </div>
-                <h2>Please donate</h2>
+            <div className='item_body pad modal'>
+
+                <h2 style={{margin:'500px 0 0 0'}}>Please donate</h2>
                 <div className='content_modal'>
                 <div className="input_item">
                     <label htmlFor="name">First Name *</label>
@@ -304,7 +302,10 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
                 <ErrorMessage errorMessage={numberCardCVVErrorMessage}/>
                 </div>
                 </div>
+                <div className="button-wrap-donats">
+                <button onClick={() => setIsOpen(state => !state)}>Discard</button>
                 <button onClick={handleSendDonats}>Confirm</button>
+                </div>
             </div>
         </div>
     );

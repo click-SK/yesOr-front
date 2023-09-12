@@ -4,7 +4,7 @@ const RulesProject = () => {
     return (
         <div className='new_project_wraper'>
             <div className='profile_title'>
-                <h2>Rules</h2>
+                <h2>Terms</h2>
             </div>
             <div className='rules_text'>
                 <p>Lorem ipsum dolor sit amet consectetur. Dolor id egestas aliquet mi id. Id euismod porta eget eros quis neque risus sit. Proin et sit eu nisi massa. Nunc est sed nunc nunc sed. Elementum neque euismod tristique et aliquet eget. </p>

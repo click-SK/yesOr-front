@@ -50,7 +50,7 @@ const ProfileInfo = ({openSetting, currentUser}) => {
             <p style={{color: 'red'}}>Not verified</p> }
             <p>{currentUser?.email}</p>
             <p>{currentUser?.phone}</p>
-            <button className='btn_profile-edit' onClick={() => openSetting()}>Edite</button>
+            <button className='btn_profile-edit' onClick={() => openSetting()}>Edit</button>
             <button className='btn_profile-logout' onClick={handleLogout}>Logout</button>
 
           </div>

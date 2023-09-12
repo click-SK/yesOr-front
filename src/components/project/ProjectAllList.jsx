@@ -5,14 +5,19 @@ import FilterCategories from './filters/filterCategory/FilterCategories';
 import FilterDataPicker from './filters/FilterDataPicker';
 import FilterSearch from './filters/FilterSearch';
 import FilterByName from './filters/FilterByName';
+import FilterByDate from './filters/FilterByDate';
+import FilterBySum from './filters/FilterBySum';
 import axios from 'axios';
 import { BASE_URL } from '../../http/baseUrl';
 import ProjectListTemplate from './ProjectListTemplate';
 import { Link } from 'react-router-dom';
 import Pagination from '../Pagination';
+import { BiArrowFromRight, BiArrowFromLeft, BiArrowFromBottom } from 'react-icons/bi';
+import MultiRangeSlider from './filters/rangeSlide/MultiRangeSlider';
 
 const ProjectAllList = () => {
     const [allProjects, setAllProjects] = useState([]);
+    const [isOpenAside, setIsOpenAside] = useState(false)
     const [filteredProjects, setFilteredProjects] = useState([]);
     const [initialProjects, setInitialProjects] = useState([]);
     const [allCategory, setAllCategory] = useState([]);
@@ -66,31 +71,68 @@ const ProjectAllList = () => {
             <div className='profile_title'>
                 <h2>Project</h2>
                 <div className='top_filters'>
-                    <FilterDataPicker
+                    {/* <FilterDataPicker
                      allProjects={allProjects}
-                     setAllProjects={setFilteredProjects}/>
+                     setAllProjects={setFilteredProjects}/> */}
+                    {/* <FilterBySum
+                    allProjects={allProjects}
+                    setAllProjects={setPaginationArray}
+                    /> */}
                     <FilterSearch 
                         allProjects={allProjects}
-                        setAllProjects={setFilteredProjects}
+                        setAllProjects={setPaginationArray}
                         initialProjects={initialProjects}
                     />
-                    <FilterByName
+                    <FilterByDate
                     allProjects={allProjects}
-                    setAllProjects={setFilteredProjects}
+                    setAllProjects={setPaginationArray}
                     />
+                    {/* <FilterByName
+                    allProjects={allProjects}
+                    setAllProjects={setPaginationArray}
+                    /> */}
                 </div>
             </div>
-            <div className='profile_content_wraper project_content_wraper'>
-                <div className='aside_filters'>
+            <div className={`profile_content_wraper project_content_wraper `}>
+                <div 
+                onClick={() => setIsOpenAside(state => !state)}
+                className='btn-open-aside'>
+                     <p>Filters</p>
+                     <BiArrowFromBottom/>
+                </div>
+                <div className={`aside_filters ${isOpenAside ? 'open-aside' : 'close-aside'}`}>
+                    <div
+                    className='btn-close-aside'>
+                        <BiArrowFromRight
+                        onClick={() => setIsOpenAside(state => !state)}
+                        />
+                    </div>
+                    {/* <FilterByName
+                    allProjects={allProjects}
+                    setAllProjects={setPaginationArray}
+                    /> */}
+                    {/* <FilterBySum
+                    allProjects={allProjects}
+                    setAllProjects={setPaginationArray}
+                    /> */}
+                    <FilterByDate
+                    allProjects={allProjects}
+                    setAllProjects={setPaginationArray}
+                    />
                     <FilterBudget
                     allProjects={allProjects}
                     setAllProjects={setAllProjects}
                     filteredProjects = {filteredProjects}
-                    setFilteredProjects = {setFilteredProjects}
+                    setFilteredProjects = {setPaginationArray}
                     />
+                    {/* <MultiRangeSlider
+                    min={0}
+                    max={1000}
+                    onChange={({ min, max }) => console.log(`min = ${min}, max = ${max}`)}
+                    /> */}
                     <FilterCategories
                     allCategory = {allCategory}
-                    setAllProjects={setFilteredProjects}
+                    setAllProjects={setPaginationArray}
                     allProjects = {allProjects}
                     setSubCatArr={setSubCatArr}
                     setShowResult={handleSubCatArrChange}
@@ -98,14 +140,16 @@ const ProjectAllList = () => {
                     />
                 </div>
                 <div className='project_wrap project_wrap_page'>
-                    {paginationArray.length !== 0 && paginationArray.map((item) => (
-                        <Link to={`/project/${item?.projects?._id}`} key={item._id}>
-                            <ProjectListTemplate item={item?.projects} />
-                        </Link>
-                    ))}
+                    <div className='warp_project_list'>
+                        {paginationArray.length !== 0 && paginationArray.map((item) => (
+                            <Link to={`/project/${item?.projects?._id}`} key={item._id}>
+                                <ProjectListTemplate item={item?.projects} />
+                            </Link>
+                        ))}
+                    </div>
+                    <Pagination dataArray={allProjects} setFilterArray={setPaginationArray}/>
                 </div>
             </div>
-            <Pagination dataArray={allProjects} setFilterArray={setPaginationArray}/>
         </div>
     );
 };

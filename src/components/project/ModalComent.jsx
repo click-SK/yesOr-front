@@ -107,9 +107,9 @@ const ModalComent = ({setIsOpen, user, projectId}) => {
   return (
     <div className="modal_wrap">
       <div className="item_body pad">
-        <div style={{ marginTop: "50px" }}>
+        {/* <div style={{ marginTop: "50px" }}>
           <button onClick={() => setIsOpen((state) => !state)}>X</button>
-        </div>
+        </div> */}
         <h2>Write your comment</h2>
         <div className="content_modal">
             <div className="two_input_wrap">
@@ -144,7 +144,11 @@ const ModalComent = ({setIsOpen, user, projectId}) => {
               <ErrorMessage errorMessage={descriptionErrorMessage}/>
           </div>
         </div>
-          <button onClick={handleSendComment}>Save</button>
+        <div style={{display:'flex', gap:'30px'}}>
+                <button onClick={() => setIsOpen(state => !state)}>Discard</button>
+
+                <button onClick={handleSendComment}>Save</button>
+                </div>
       </div>
     </div>
   );

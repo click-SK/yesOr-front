@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BASE_URL } from "../../../http/baseUrl";
 import UserModal from "./UserModal";
 import axios from "axios";
 import { AiOutlineLock, AiOutlineUnlock } from "react-icons/ai";
 import { HiOutlineDocumentSearch } from "react-icons/hi";
-import { BsInfoCircleFill } from "react-icons/bs";
+import { BsInfoCircleFill, BsArrowBarDown } from "react-icons/bs";
 import ModalProjectConfirm from "../ModalProjectConfirm";
 import UserHistoryDonat from './UserHistoryDonat.jsx'
 import UserDocument from "./UserDocument";
@@ -18,6 +18,7 @@ const UserItem = ({ item, setReloadUserData}) => {
   const [isOpenModalConfirm, setIsOpenModalConfirm] = useState(false);
   const [isOpenModalUnConfirm, setIsOpenModalUnConfirm] = useState(false);
   const [isOpenChat, setIsOpenChat] = useState(false)
+  const [animation, setAnimation] = useState(false);
 
 
   const handleBlockedUser = () => {
@@ -57,13 +58,27 @@ const UserItem = ({ item, setReloadUserData}) => {
 
   const handleCreateOrOpenChat = () => {
 
-    setIsOpenChat(state => !state)
+    setAnimation(state => !state)
     axios.post(`${BASE_URL}/create-messanger`, {
         userId: item._id
     })
 }
 
-console.log('isOpenChat',isOpenChat);
+console.log('isOpenChat',animation);
+
+useEffect(() => {
+  if(animation){
+    setIsOpenChat(true);
+  } else {
+    const timeoutId = setTimeout(() => {
+      setIsOpenChat(false);
+    }, 800);
+
+    return () => clearTimeout(timeoutId);
+  }
+}, [animation]);
+
+
 
 
 
@@ -75,14 +90,17 @@ console.log('isOpenChat',isOpenChat);
       key={item._id}
     >
       <div className={`user_wrap_item `}>
+        <div 
+        onClick={() => setIsOpenInfoUser(!isOpenInfoUser)}
+        className="user_information_wrap">
         <img src={`${BASE_URL}${item?.userImage}`} alt="" />
         <p>
           {item?.firstName + " " + item?.lastName}
-          <BsInfoCircleFill
-            onClick={() => setIsOpenInfoUser(!isOpenInfoUser)}
+          <BsArrowBarDown
             className="info_user_icon"
           />
         </p>
+        </div>
         <div className="admin_project_item_svg">
           <img
             src="./icons/ph_chat-centered-dots-light.svg"
@@ -155,15 +173,17 @@ console.log('isOpenChat',isOpenChat);
         isOpenInfoUser={isOpenInfoUser}
         item={item}
       />
-      {isOpenChat && (
+      {isOpenChat && 
         <ChatWrap
           setIsOpen={setIsOpenChat}
           isOpen={isOpenChat}
           user={item}
           isUser={false}
           isAdmin={true}
+          animation={animation}
+          setAnimation={setAnimation}
         />
-      )}
+      }
     </div>
   );
 };

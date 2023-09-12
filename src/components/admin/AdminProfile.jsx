@@ -113,8 +113,8 @@ const AdminProfile = () => {
 
     return (
 <div className='profile_wrap'>
-    <div>
-        <button onClick={handleLogout}>Logout</button>
+    <div className='btn_wrap-admin'>
+        <button className='btn_profile-logout' onClick={handleLogout}>Logout</button>
     </div>
             <div className='profile_title'>
                 {/* <h2>Personal area</h2> */}

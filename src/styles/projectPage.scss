@@ -93,7 +93,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    background: #F37042;
+    background: #F87F00;
     height: 100%;
     border-radius: 10px;
 }
@@ -161,6 +161,7 @@
     display: flex;
     flex-direction: column;
     gap: 50px;
+    justify-content: space-between;
 }
 
 #dynamicTeam{
@@ -386,6 +387,9 @@ input{
     display: flex;
     flex-direction: column;
     gap: 20px;
+    .filter_by_name-wrap{
+        display: none;
+    }
 }
 
 .filter_budget_wrap{
@@ -396,17 +400,28 @@ input{
 
 .title_filt_bidget{
     h3{
-        color: #F37042;
-        border-bottom: 2px solid #F37042;
+        color: #F87F00;
+        border-bottom: 2px solid #F87F00;
     }
 }
 
 .filter_budget_input_wrap{
     display: flex;
+    justify-content: center;
     gap: 10px;
     p{
        color: #00000040; 
     }
+    input{
+        border: none;
+        outline: none;
+        color: #00000040;
+    }
+}
+
+.input_range_value{
+    width: 100px;
+    font-size: 16px;
 }
 
 // filter categories
@@ -451,7 +466,7 @@ input{
 }
 
 .category_wrap_title-active{
-    background: #F37042;
+    background: #F87F00;
 }
 
 .category_wrap_sub-cat{
@@ -522,6 +537,8 @@ input{
     width: 100%;
     display: flex;
     justify-content: space-between;
+    height: 105px;
+    gap: 10px;
 }
 
 // data picker filter 
@@ -533,13 +550,13 @@ input{
     svg{
         width: 27px;
         height: 27px;
-        fill: #F37042;
+        fill: #F87F00;
     }
 }
 
 .input_date_fillter{
-    border-color: #F37042 ;
-    color: #F37042;
+    border-color: #F87F00 ;
+    color: #F87F00;
 }
 
 // filter search
@@ -549,9 +566,9 @@ input{
         flex-direction: row;
         align-items: center;
         justify-content: flex-start;
-        max-width: 610px;
+        // max-width: 610px;
         height: 40px;
-        border: 1px solid #F37042;
+        border: 1px solid #F87F00;
         border-radius: 20px;
         background: #F7E6E6;
         padding: 5px 20px;
@@ -563,6 +580,9 @@ input{
         input{
             outline: none;
             border: none;
+            &:focus-visible{
+                border: none;
+            }
         }
     }
 
@@ -576,17 +596,38 @@ input{
     //  sort by name
 
     .filter_by_name-wrap{
+        position: relative;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        border: 1px solid #F37042;
+        border: 1px solid #F87F00;
         border-radius: 20px;
         padding: 5px 10px;
         gap: 10px;
-        transition: all 0.5s ease-in-out;
+        transition: all 0.5s linear;
+        width: 230px;
+        height: 40px;
+        cursor: pointer;
+        svg{
+            transition: all 0.2s linear;
+        }
     }
 
+    .open_list-wrap{
+        svg{
+            rotate: 180deg;
+        }
+    }
+
+    .value_sort{
+        p{
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+    }
     .sort_var_item{
         display: none;
     }
@@ -594,8 +635,20 @@ input{
     .sort_var_item_open{
         display: flex;
         flex-direction: column;
+        position: absolute;
+        top: 45px;
+        left: -3px;
+        border: 1px solid #F87F00;
+        border-radius: 20px;
+        width: 104%;
+        background: #fde2d9;
+        padding: 5px 10px;
+        z-index: 1000;
         p{
             font-size: 16px;
+            &:hover{
+                color:#F87F00;
+            }
         }
     }
 
@@ -605,21 +658,145 @@ input{
         cursor: pointer;
         color: #494949;
         &:hover {
-            color: #F37042;
+            color: #F87F00;
         }
     }
     .star_rating_active {
         width: 40px;
         height: 40px;
         cursor: pointer;
-        color: #F37042;
+        color: #F87F00;
     }
 
+    .btn-close-aside{
+        display: none;
+    }
+    .btn-open-aside{
+        display: none;
+      }
 
+@media (max-width: 1250px){
+    .filter_budget_input_wrap {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        .input_range_value{
+            border: 1px solid #494949;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+        }
+    }
+    .top_filters {
+        flex-wrap: wrap;
+    }
 
+    .project_info{
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 1210px){
+    .top_filters{
+        .filter_by_name-wrap{
+            display: none;
+        }
+        .fillter_search_wrap{
+            max-width: none;
+        } 
+    }
+
+    .btn-open-aside{
+        display: flex;
+        // flex-direction: column;
+        justify-content: center;
+        position: fixed;
+        left: -10px;
+        top: 16%;
+        gap: 7px;
+        align-items: center;
+        border: 1px solid #494949;
+        padding: 10px 30px;
+        border-radius: 20px;
+        transform: rotate(90deg);
+        transform-origin: left bottom;
+        background: #F87F00;
+        p{
+            font-size: 24px;
+            color: #fff;
+            // transform: rotate(90deg); /* Завертаємо текст на 90 градусів */
+            // transform-origin: left bottom; /* Задаємо точку обертання (лівий нижній кут) */
+            // white-space: nowrap; /* Забороняємо перенесення тексту на новий рядок */
+        }
+        svg{
+            width: 30px;
+            height: 30px;
+            color: #fff;
+        }
+      }
+
+    .aside_filters{
+        display: flex;
+    }
+
+    .close-aside{
+        display: none;
+    }
+
+    .open-aside{
+
+    }
+
+    .aside_filters{
+        position: absolute;
+        border: 1px solid #494949;
+        background: #fde2d9;
+        top: 0;
+        left: 0;
+        width: 390px;
+        height: 100%;
+        padding: 40px 20px;
+        z-index: 1000;
+        .btn-close-aside{
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            width: 100%;
+            svg{
+                width: 40px;
+                height: 40px;
+                fill: #494949;
+                &:hover{
+                    fill: #F87F00;
+                }
+            }
+        }
+        .filter_by_name-wrap{
+            display: flex;
+            width: 100%;
+        }
+    }
+    .project_wrap_page{
+        flex: 0 1 100%;
+        width: 100%;
+    }
+
+}
 @media (max-width: 670px){
     .project_info {
         flex-direction: column;
+    }
+}
+
+
+@media (max-width: 390px){
+    .aside_filters {
+        width: 100%;
     }
 }
 

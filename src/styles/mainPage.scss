@@ -2,7 +2,7 @@
 @import './tamplateButtons.scss';
 
 .banner_head{
-    background-image: url("../../public/mainPage/banner_head.png");
+    background-image: url("../../public/mainPage/Background Page.png");
     background-size: cover;
     background-position: center;
     height: 847px;
@@ -183,6 +183,8 @@ p{
 
 .project_second{
     position: relative;
+    min-width: 150px;
+    min-height: 150px;
     width: 100%;
     height: 100%;
     max-width: 397px;
@@ -226,7 +228,7 @@ p{
         // width: 100%;
         // height: 100%; 
         width: 344px;
-        height: 360px; 
+        height: 320px; 
         object-fit: cover;
     }
 }
@@ -282,7 +284,7 @@ p{
     .right_arrow{
         position: relative;
         background: $color_prime;
-        color: $color_prime;
+        color: #fff;
         width: 60px;
         height: 60px;
         display: flex;
@@ -443,7 +445,7 @@ p{
         margin-left: 30px;
         width: 190px;
         height: 2px;
-        background: #F37042;
+        background: #F87F00;
     }
 
 }
@@ -638,6 +640,18 @@ p{
     background: $color_prime;
 }
 
+.main_page-project-amount{
+    background: #fff;
+    padding: 0 10px;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.main_page-project-title{
+    p{
+       font-size: 24px; 
+    }
+}
 
 @media (max-width: 1440px){
     .team{
@@ -937,7 +951,7 @@ p{
         min-width: 315px;
         max-width: 426px;
         padding: 15px 15px 10px;
-        background: #F37042;
+        background: #F87F00;
         img {
             width: 100%;
             object-fit: contain;
@@ -1006,7 +1020,7 @@ p{
 
     }
     .team_name {
-        color: #F37042;
+        color: #F87F00;
         font-weight: 300;
         font-size: 18px;
         line-height: 36px;

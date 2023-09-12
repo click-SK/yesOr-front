@@ -59,7 +59,7 @@ const MainPage = () => {
             <section className='section banner_head'>
                 <h1 className='banner_head_title'>YOUR CHOICE IS TO DO GOOD OR...</h1>
                 <p className='banner_head_descript'>The first and only social project of its kind</p>
-                <div className='banner_head_buttons'>
+                <div className='banner_head_buttons btn_wrap_main-p'>
                     <Link
                      to='/discover'>
                         <button>Discover</button>
