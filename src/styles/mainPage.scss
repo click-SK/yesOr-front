@@ -892,8 +892,8 @@ p{
     .categories_wrap{
         flex-direction: row;
         justify-content: flex-start;
-        flex-wrap: nowrap;
-        overflow: hidden;
+        // flex-wrap: nowrap;
+        // overflow: hidden;
     }
 
     .categories_wrap_item{
