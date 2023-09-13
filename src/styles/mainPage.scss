@@ -379,10 +379,12 @@ p{
     color: $color_white;
     padding: 30px 59px;
     transition: all 0.4s ease-in-out;
+    cursor: pointer;
     &:hover{
         color: $color_black;
         background: $color_white;
         border: 1px solid $color_prime;
+        scale: 1.1;
         .categories_wrap_item_img{
             border-radius: 50%;
             width: 50px;
@@ -397,6 +399,10 @@ p{
             color: $color_black;
         }
     }
+}
+
+.Miscellaneous{
+    min-height: 200px;
 }
 
 .categories_wrap_title{
@@ -886,8 +892,8 @@ p{
     .categories_wrap{
         flex-direction: row;
         justify-content: flex-start;
-        flex-wrap: nowrap;
-        overflow: hidden;
+        // flex-wrap: nowrap;
+        // overflow: hidden;
     }
 
     .categories_wrap_item{
