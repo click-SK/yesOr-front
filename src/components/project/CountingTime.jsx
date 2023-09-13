@@ -7,17 +7,20 @@ const CountingTime = ({currentProject, setPercentCollected}) => {
     const [hourLeft, setHourLeft] = useState(null);
     const [minutsLeft, setMinutsLeft] = useState(null);
     const [secondLeft, setSecondLeft] = useState(null);
+    console.log('WORK!!!!');
 
     useEffect(() => {
         try {
           if (
             currentProject &&
             currentProject?.period &&
-            currentProject?.period?.startDate &&
-            currentProject?.period?.countDays
+            currentProject?.period?.startDate
+            // currentProject?.period?.countDays
           ) {
-            const endDate = new Date(currentProject.period.startDate);
-            endDate.setDate(endDate.getDate() + currentProject.period.countDays);
+            const endDate = new Date(currentProject.period.endDate);
+            // endDate.setDate(endDate.getDate() + currentProject.period.countDays);
+            // let newTime = endDate.setDate(endDate.getDate() + 5);
+            // console.log('newTime',newTime);
       
             const timerInterval = setInterval(() => {
               const currentDate = new Date();
