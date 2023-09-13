@@ -12,9 +12,28 @@ const FilterCategories = ({allCategory, setAllProjects, allProjects,setSubCatArr
         setOpenStates(newOpenStates);
     };
 
+    //   useEffect(() => {
+    //       const timer = setTimeout(() => {
+    //         if (subCatArr.length !== 0){
+    //         setShowResult(state => !state);
+    //         console.log("jhello");
+    //     }
+    //       }, 500); 
+        
+    //       return () => clearTimeout(timer); 
+        
+    // }, [subCatArr.length !== 0]);
 
 
+    // useEffect(() => {
+    //     if (subCatArr.length !== 0){
+    //     setShowResult(state => !state)
+    //     }
+    // }, [])
+
+    // console.log('find err', allProjects);
     
+
     return (
         <div className='filter_budget_wrap'>
             <div className='title_filt_bidget'>

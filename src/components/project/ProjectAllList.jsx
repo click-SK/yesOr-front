@@ -55,7 +55,7 @@ const ProjectAllList = () => {
       }, []);
 
     const handleSubCatArrChange = () => {
-        console.log('funk work');
+        // console.log('funk work');
         if (subCatArr.length === 0) {
             // Якщо subCatArr порожній, показуємо всі проекти
             setAllProjects(initialProjects);
@@ -67,28 +67,28 @@ const ProjectAllList = () => {
                     projectSubcategories.includes(subcat)
                 );
             });
-            console.log('filteredProjects', filteredProjects);
+            // console.log('filteredProjects', filteredProjects);
             
             // Оновлюємо список проектів
             setAllProjects(filteredProjects);
         }
     };
 
-//     useEffect(() => {
-//         console.log('say for');
-//       if (subCatArr.length !== 0){
-//         const timer = setTimeout(() => {
-//             handleSubCatArrChange()
-//             console.log('say Hi');
-
-//         }, 1000); 
-
-//         return () => clearTimeout(timer); 
+    useEffect(() => {
+        console.log('say for');
+      if (subCatArr.length !== 0 && initialProjects.length !== 0 && allProjects.length !== 0){
+        // const timer = setTimeout(() => {
+            //     console.log('say Hi');
+            
+            // }, 500); 
+            
+            // return () => clearTimeout(timer); 
+                handleSubCatArrChange()
       
-//       }
-//   }, [subCatArr]);
+      }
+  }, [ initialProjects]);
 
-  console.log('subCatArr', subCatArr);
+  console.log('findErr', paginationArray);
 
     useEffect(() => {
 
@@ -101,6 +101,8 @@ const ProjectAllList = () => {
         
         // Завантаження проектів, категорій, тощо
     }, []);
+
+    console.log('subCatArr', allProjects);
 
 
 
@@ -179,11 +181,17 @@ const ProjectAllList = () => {
                 </div>
                 <div className='project_wrap project_wrap_page'>
                     <div className='warp_project_list'>
-                        {paginationArray.length !== 0 && paginationArray.map((item) => (
-                            <Link to={`/project/${item?.projects?._id}`} key={item._id}>
-                                <ProjectListTemplate item={item?.projects} />
-                            </Link>
-                        ))}
+                        {paginationArray.length !== 0 ?
+                            <>
+                            {paginationArray.length !== 0 && paginationArray.map((item) => (
+                                <Link to={`/project/${item?.projects?._id}`} key={item._id}>
+                                    <ProjectListTemplate item={item?.projects} />
+                                </Link>
+                            ))}
+                            </>
+                            :
+                            <h3>There are no projects in this category</h3>
+                        }
                     </div>
                     <Pagination dataArray={allProjects} setFilterArray={setPaginationArray}/>
                 </div>

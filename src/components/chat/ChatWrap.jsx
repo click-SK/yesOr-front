@@ -13,14 +13,17 @@ const ChatWrap = ({setIsOpen, isOpen, user, isUser, isAdmin, animation, setAnima
     const admin = useSelector((state) => state.authAdmin.user);
     const chatContainerRef = useRef(null);
 
+
+
     useEffect(() => {
         setTimeout(() => {
             if (chatContainerRef.current) {
                 chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
                 setFirstScroll(false)
             }
-        },500)
-    }, [firstScroll]);
+        },400)
+    }, [isOpen]);
+
 
     useEffect(() => {
         setInterval(() => {
@@ -78,8 +81,25 @@ const ChatWrap = ({setIsOpen, isOpen, user, isUser, isAdmin, animation, setAnima
         }
     }
 
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            handleSendMessage();
+        }
+      };
+
+    //   useEffect(() => {
+    //     setTimeout(() => {
+    //         if (chatContainerRef.current) {
+    //             chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    //             setFirstScroll(false);
+    //         }
+    //     }, 500);
+    // }, []);
+    
+
+
     return (
-        <div className={`chat_wraper ${animation ? "chat_wraper-open" : 'chat_wraper-close' }`} ref={chatContainerRef}>
+        <div className={`chat_wraper ${animation ? "chat_wraper-open" : 'chat_wraper-close' }`}>
             <div className='chat_header'>
                 <img src="./icons/admin.svg" alt="" />
                 <div className='admin_info'>
@@ -89,7 +109,7 @@ const ChatWrap = ({setIsOpen, isOpen, user, isUser, isAdmin, animation, setAnima
                 <button onClick={() => setAnimation(state => !state)}><AiOutlineClose/></button>
             </div>
             <div className='chat_body'>
-                <div className='massage'>
+                <div className='massage' ref={chatContainerRef}>
                     {allMesseges && allMesseges.length != 0 && allMesseges.map((mes) => (
                         <div key={mes?._id} className={`message_item ${user?._id == mes?.user ? 'user_message' : 'admin_message'}`}>
                         <div className='icon_chat_user'>
@@ -113,7 +133,9 @@ const ChatWrap = ({setIsOpen, isOpen, user, isUser, isAdmin, animation, setAnima
                     ))}
                 </div>
                 <div className='inpute_wrap'>
-                    <input type="text" placeholder='Enter your message here' onChange={(e) => setMessage(e.target.value)}/>
+                    <input type="text" placeholder='Enter your message here' 
+                    onKeyDown={handleKeyDown}
+                    onChange={(e) => setMessage(e.target.value)}/>
                     <AiOutlineSend style={{cursor: 'pointer'}} onClick={handleSendMessage}/>
                 </div>
             </div>

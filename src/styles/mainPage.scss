@@ -379,6 +379,7 @@ p{
     color: $color_white;
     padding: 30px 59px;
     transition: all 0.4s ease-in-out;
+    cursor: pointer;
     &:hover{
         color: $color_black;
         background: $color_white;

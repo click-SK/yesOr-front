@@ -6,7 +6,7 @@ const FilterChekbox = ({ item, idx, allCategory,setShowResult,subCatArr, setSubC
     const [isOpen, setIsOpen] = useState(false)
 
   //   useEffect(() => {
-  //     if (subCatArr.length !== 0){
+  //     if (subCatArr){
   //       const timer = setTimeout(() => {
   //         setShowResult(state => !state);
   //       }, 500); 
@@ -15,6 +15,14 @@ const FilterChekbox = ({ item, idx, allCategory,setShowResult,subCatArr, setSubC
       
   //     }
   // }, []);
+
+  // useEffect(() => {
+  //   if (subCatArr.length !== 0){
+  //     setShowResult(state => !state)
+  //   }
+  // }, [])
+
+
 
 
     
