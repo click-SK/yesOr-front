@@ -780,7 +780,16 @@ p{
             
         }
     }
+    .categories_wrap{
+        flex-direction: row;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        // overflow: hidden;
+    }
 
+    .categories_wrap_item{
+        min-width: 100%;
+    }
 }
 @media (max-width: 820px){
     .courosel_control{
@@ -892,7 +901,7 @@ p{
     .categories_wrap{
         flex-direction: row;
         justify-content: flex-start;
-        // flex-wrap: nowrap;
+        flex-wrap: nowrap;
         // overflow: hidden;
     }
 
