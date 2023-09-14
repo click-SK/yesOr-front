@@ -28,6 +28,8 @@ const MultiRangeSlider = ({ allProjects, min, max, onChange }) => {
     }
   }, [min, max]);
 
+
+
   return (
     <div className="container">
       <input

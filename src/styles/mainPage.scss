@@ -659,6 +659,10 @@ p{
     }
 }
 
+.categories_wrap-850{
+    display: none;
+}
+
 @media (max-width: 1440px){
     .team{
         padding: 100px 5%;
@@ -788,7 +792,15 @@ p{
     }
 
     .categories_wrap_item{
-        min-width: 100%;
+        min-width: 70%;
+        min-height: 367px;
+    }
+
+    .categories_wrap-over_850{
+        display: none;
+    }
+    .categories_wrap-850{
+        display: block;
     }
 }
 @media (max-width: 820px){

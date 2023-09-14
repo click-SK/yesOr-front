@@ -26,6 +26,8 @@ const FilterBudget = ({ allProjects, setFilteredProjects }) => {
     setMaxBudget(newMax);
   };
 
+
+
   return (
     <div className='filter_budget_wrap'>
       <div className='title_filt_bidget'>

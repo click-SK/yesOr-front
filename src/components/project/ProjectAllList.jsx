@@ -20,12 +20,15 @@ import { useLocation } from 'react-router-dom';
 const ProjectAllList = () => {
     const [allProjects, setAllProjects] = useState([]);
     const [isOpenAside, setIsOpenAside] = useState(false)
+    const [isOpenAllUsers, setIsOpenAllUsers] = useState(true);
+    const [isOpenArchive, setIsOpenArchive] = useState(false);
     const [filteredProjects, setFilteredProjects] = useState([]);
     const [initialProjects, setInitialProjects] = useState([]);
     const [allCategory, setAllCategory] = useState([]);
     const [subCatArr, setSubCatArr] = useState([])
     const [showResult, setShowResult] = useState(false)
     const [paginationArray, setPaginationArray] = useState([]);
+    const [allArchiveProject, setAllArchiveProject] = useState([]);
     const { search } = useLocation();
     
     useEffect(() => {
@@ -54,6 +57,15 @@ const ProjectAllList = () => {
           }
       }, []);
 
+      useEffect(() => {
+        try {
+          axios.get(`${BASE_URL}/get-allarchive-projects`)
+          .then((res) => setAllArchiveProject(res.data))
+      } catch(error) {
+          console.log(error);
+      }
+    },[])
+
     const handleSubCatArrChange = () => {
         // console.log('funk work');
         if (subCatArr.length === 0) {
@@ -75,7 +87,6 @@ const ProjectAllList = () => {
     };
 
     useEffect(() => {
-        console.log('say for');
       if (subCatArr.length !== 0 && initialProjects.length !== 0 && allProjects.length !== 0){
         // const timer = setTimeout(() => {
             //     console.log('say Hi');
@@ -88,7 +99,7 @@ const ProjectAllList = () => {
       }
   }, [ initialProjects]);
 
-  console.log('findErr', paginationArray);
+//   console.log('findErr', paginationArray);
 
     useEffect(() => {
 
@@ -102,14 +113,36 @@ const ProjectAllList = () => {
         // Завантаження проектів, категорій, тощо
     }, []);
 
-    console.log('subCatArr', allProjects);
 
 
+
+    const openProject = () =>{
+        setIsOpenAllUsers(true);
+        setIsOpenArchive(false);
+        // setAllProjects(allProjects)
+        setPaginationArray(allProjects)
+    }
+
+    const openArchive = () =>{
+        setIsOpenAllUsers(false);
+        setIsOpenArchive(true);
+        setPaginationArray(allArchiveProject)
+    }
+
+    console.log('allProjects', allProjects);
 
     return (
         <div className='profile_wrap'>
             <div className='profile_title'>
                 <h2>Project</h2>
+                <ul className='profile_nav'>
+                <li
+                onClick={() => openProject()}
+                 className={`profile_nav_item ${isOpenAllUsers ? 'profile_nav_item-active' : ''}`}>All projects</li>
+                <li 
+                onClick={() => openArchive()}
+                className={`profile_nav_item ${isOpenArchive ? 'profile_nav_item-active' : ''}`}>Archive</li>
+            </ul>
                 <div className='top_filters'>
                     {/* <FilterDataPicker
                      allProjects={allProjects}
