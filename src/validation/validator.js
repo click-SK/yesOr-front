@@ -65,7 +65,7 @@ export const validationRegistration = ({email, phone, password, firstName, lastN
     try {
       let arr = [];
 
-      console.log('secondSubCategory',secondSubCategory);
+      console.log('placementPeriod',placementPeriod);
 
       if(name?.length <= 1) {
         console.log('name',name);
@@ -110,7 +110,7 @@ export const validationRegistration = ({email, phone, password, firstName, lastN
       if(placementPeriod <= 1) {
         arr.push({
           isValid: false,
-          error: 'Placement period must be minimum 2 days',
+          error: 'Placement period  is not specified',
           reason: 'placementPeriod'
         })
       }

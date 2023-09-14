@@ -10,6 +10,7 @@ import $api from "../../http/httpUser";
 import { BsPersonFillAdd } from 'react-icons/bs';
 import { useNavigate } from "react-router-dom";
 import ErrorMessage from "../validation/ErrorMessage";
+import FilterDataPicker from "./filters/FilterDataPicker";
 const NewProject = () => {
   const [images, setImages] = useState([]);
   const [imagesSrc, setImagesSrc] = useState([]);
@@ -29,6 +30,7 @@ const NewProject = () => {
   const [reloadUser, setReloadUser] = useState({});
   const [teamBlocks, setTeamBlocks] = useState([]);
   const [bonusBlocks, setBonusBlocks] = useState([{ title: "", amount: "" }]);
+  const [selectedDate, setSelectedDate] = useState('');
 
   const [nameErrorMessage, setNameErrorMessage] = useState("");
   const [descriptionErrorMessage, setDescriptionErrorMessage] = useState("");
@@ -140,7 +142,7 @@ const NewProject = () => {
       if (selectedCategory?.category == "Miscellaneous") {
         resoult = validation.validationCreateProject({
           targetAmount,
-          placementPeriod,
+          placementPeriod: selectedDate,
           request,
           description,
           name,
@@ -150,7 +152,7 @@ const NewProject = () => {
       } else if (selectedSubCategory?.name == "Other IT Solutions" || selectedSubCategory?.name == 'Other Inventions') {
         resoult = validation.validationCreateProject({
           targetAmount,
-          placementPeriod,
+          placementPeriod: selectedDate,
           request,
           description,
           name,
@@ -160,7 +162,7 @@ const NewProject = () => {
       } else {
         resoult = validation.validationCreateProject({
           targetAmount,
-          placementPeriod,
+          placementPeriod: selectedDate,
           request,
           description,
           name,
@@ -168,6 +170,7 @@ const NewProject = () => {
         });
       }
       let isValid = false;
+      console.log('resoult',resoult);
 
       if(resoult.length == 0) {
         isValid = true;
@@ -198,7 +201,7 @@ const NewProject = () => {
         for (const block of teamBlocks) {
           formData.append("team", block);
       }
-        formData.append("period", JSON.stringify({startDate: '',countDays: placementPeriod}));
+        formData.append("period", JSON.stringify({startDate: '', endDate: selectedDate}));
         formData.append("target", targetAmount);
         formData.append("category", secondCategory || selectedCategory?.category);
         formData.append(
@@ -416,7 +419,7 @@ const NewProject = () => {
     }
   }
 
-  console.log('block.amount', bonusBlocks[0].amount.length !== 0 );
+  console.log('selectedDate', selectedDate );
 
   return (
     <div className="new_project_wraper">
@@ -586,12 +589,13 @@ const NewProject = () => {
         </div>
         <div className="input_item">
           <label htmlFor="placement">Placement period *</label>
-          <input
+          {/* <input
             id="placement"
             type="text"
             value={placementPeriod}
             onChange={(e) => handlePlacementPeriod(e.target.value)}
-          />
+          /> */}
+          <FilterDataPicker selectedDate={selectedDate} setSelectedDate={setSelectedDate} handlePlacementPeriod={handlePlacementPeriod}/>
         </div>
         <ErrorMessage errorMessage={placementPeriodErrorMessage} />
         <div className="input_item">
