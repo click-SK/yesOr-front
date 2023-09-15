@@ -6,7 +6,7 @@ const CountingTime = ({currentProject, setPercentCollected}) => {
     const [hourLeft, setHourLeft] = useState(null);
     const [minutsLeft, setMinutsLeft] = useState(null);
     const [secondLeft, setSecondLeft] = useState(null);
-    console.log('WORK!!!!');
+
 
     useEffect(() => {
         try {
@@ -19,12 +19,12 @@ const CountingTime = ({currentProject, setPercentCollected}) => {
             const endDate = new Date(currentProject.period.endDate);
             // endDate.setDate(endDate.getDate() + currentProject.period.countDays);
             // let newTime = endDate.setDate(endDate.getDate() + 5);
-            console.log('endDate',endDate);
+
       
             const timerInterval = setInterval(() => {
               const currentDate = new Date();
               const timeDifference = endDate - currentDate;
-              console.log('timeDifference',timeDifference);
+
       
               if (timeDifference > 0) {
                 const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
