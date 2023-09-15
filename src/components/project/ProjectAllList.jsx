@@ -21,12 +21,15 @@ import Loader from '../Loader/Loader';
 const ProjectAllList = () => {
     const [allProjects, setAllProjects] = useState([]);
     const [isOpenAside, setIsOpenAside] = useState(false)
+    const [isOpenAllUsers, setIsOpenAllUsers] = useState(true);
+    const [isOpenArchive, setIsOpenArchive] = useState(false);
     const [filteredProjects, setFilteredProjects] = useState([]);
     const [initialProjects, setInitialProjects] = useState([]);
     const [allCategory, setAllCategory] = useState([]);
     const [subCatArr, setSubCatArr] = useState([])
     const [showResult, setShowResult] = useState(false)
     const [paginationArray, setPaginationArray] = useState([]);
+    const [allArchiveProject, setAllArchiveProject] = useState([]);
     const { search } = useLocation();
     
     useEffect(() => {
@@ -55,6 +58,15 @@ const ProjectAllList = () => {
           }
       }, []);
 
+      useEffect(() => {
+        try {
+          axios.get(`${BASE_URL}/get-allarchive-projects`)
+          .then((res) => setAllArchiveProject(res.data))
+      } catch(error) {
+          console.log(error);
+      }
+    },[])
+
     const handleSubCatArrChange = () => {
         // console.log('funk work');
         if (subCatArr.length === 0) {
@@ -76,7 +88,6 @@ const ProjectAllList = () => {
     };
 
     useEffect(() => {
-        console.log('say for');
       if (subCatArr.length !== 0 && initialProjects.length !== 0 && allProjects.length !== 0){
         // const timer = setTimeout(() => {
             //     console.log('say Hi');
@@ -89,7 +100,7 @@ const ProjectAllList = () => {
       }
   }, [ initialProjects]);
 
-  console.log('findErr', paginationArray);
+//   console.log('findErr', paginationArray);
 
     useEffect(() => {
 
@@ -103,15 +114,39 @@ const ProjectAllList = () => {
         // Завантаження проектів, категорій, тощо
     }, []);
 
-    console.log('subCatArr', allProjects);
+
+
+
+    const openProject = () =>{
+        setIsOpenAllUsers(true);
+        setIsOpenArchive(false);
+        // setAllProjects(allProjects)
+        setPaginationArray(allProjects)
+    }
+
+    const openArchive = () =>{
+        setIsOpenAllUsers(false);
+        setIsOpenArchive(true);
+        setPaginationArray(allArchiveProject)
+    }
+
+    console.log('allProjects', allProjects);
 
     return (
         <>
-        {allProjects.length != 0
+        {allProjects.length != 0 
         ?
         <div className='profile_wrap'>
         <div className='profile_title'>
             <h2>Project</h2>
+            <ul className='profile_nav'>
+            <li
+            onClick={() => openProject()}
+             className={`profile_nav_item ${isOpenAllUsers ? 'profile_nav_item-active' : ''}`}>All projects</li>
+            <li 
+            onClick={() => openArchive()}
+            className={`profile_nav_item ${isOpenArchive ? 'profile_nav_item-active' : ''}`}>Archive</li>
+        </ul>
             <div className='top_filters'>
                 <FilterSearch 
                     allProjects={allProjects}
@@ -176,84 +211,9 @@ const ProjectAllList = () => {
         </div>
     </div>
         :
-        <Loader/>
-        }
+        <Loader/>}
         </>
     );
-
-    // return (
-    //     <div className='profile_wrap'>
-    //         <div className='profile_title'>
-    //             <h2>Project</h2>
-    //             <div className='top_filters'>
-    //                 <FilterSearch 
-    //                     allProjects={allProjects}
-    //                     setAllProjects={setPaginationArray}
-    //                     initialProjects={initialProjects}
-    //                 />
-    //                 <FilterByDate
-    //                 allProjects={allProjects}
-    //                 setAllProjects={setPaginationArray}
-    //                 />
-    //             </div>
-    //         </div>
-    //         <div className={`profile_content_wraper project_content_wraper `}>
-    //             <div 
-    //             onClick={() => setIsOpenAside(state => !state)}
-    //             className='btn-open-aside'>
-    //                  <p>Filters</p>
-    //                  <BiArrowFromBottom/>
-    //             </div>
-    //             <div className={`aside_filters ${isOpenAside ? 'open-aside' : 'close-aside'}`}>
-    //                 <div
-    //                 className='btn-close-aside'>
-    //                     <BiArrowFromRight
-    //                     onClick={() => setIsOpenAside(state => !state)}
-    //                     />
-    //                 </div>
-    //                 <FilterByDate
-    //                 allProjects={allProjects}
-    //                 setAllProjects={setPaginationArray}
-    //                 />
-    //                 <FilterBudget
-    //                 allProjects={allProjects}
-    //                 setAllProjects={setAllProjects}
-    //                 filteredProjects = {filteredProjects}
-    //                 setFilteredProjects = {setPaginationArray}
-    //                 />
-    //                 <FilterCategories
-    //                 allCategory = {allCategory}
-    //                 setAllProjects={setPaginationArray}
-    //                 allProjects = {allProjects}
-    //                 setSubCatArr={setSubCatArr}
-    //                 setShowResult={handleSubCatArrChange}
-    //                 subCatArr={subCatArr}
-    //                 />
-    //             </div>
-    //             {allProjects.length != 0
-    //             ?
-    //             <div className='project_wrap project_wrap_page'>
-    //             <div className='warp_project_list'>
-    //                 {paginationArray.length !== 0 ?
-    //                     <>
-    //                     {paginationArray.length !== 0 && paginationArray.map((item) => (
-    //                         <Link to={`/project/${item?.projects?._id}`} key={item._id}>
-    //                             <ProjectListTemplate item={item?.projects} />
-    //                         </Link>
-    //                     ))}
-    //                     </>
-    //                     :
-    //                     <h3>There are no projects in this category</h3>
-    //                 }
-    //             </div>
-    //             <Pagination dataArray={allProjects} setFilterArray={setPaginationArray}/>
-    //         </div>
-    //             :
-    //             <Loader/>
-    //             }
-    //         </div>
-    //     </div>
-    // );
 };
 
 export default ProjectAllList;

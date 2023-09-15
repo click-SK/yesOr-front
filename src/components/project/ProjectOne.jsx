@@ -129,7 +129,6 @@ const ProjectOne = () => {
     }
   }
 
-  console.log('percentCollected',percentCollected);
 
   return (
     <>
