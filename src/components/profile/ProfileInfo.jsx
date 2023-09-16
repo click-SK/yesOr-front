@@ -9,15 +9,18 @@ const ProfileInfo = ({openSetting, currentUser}) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const {user} = useSelector((state) => state.authUser.user);
+    const user = useSelector((state) => state.authUser.user);
+    console.log('user',user);
     
     const handleLogout = () => {
         try {
-            dispatch(logout({accessToken: user.accessToken}));
+          if(user) {
+            dispatch(logout({accessToken: user?.accessToken}));
+            navigate('/');
             setTimeout(() => {
-                navigate('/');
                 window.location.reload();
-            },1000)
+            },500)
+          }
         } catch(error) {
             console.log(error);
         }

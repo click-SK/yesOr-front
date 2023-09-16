@@ -37,11 +37,13 @@ const FilterSubCategory = ({ el, idx, setSubCatArr, subCatArr }) => {
         navigate(`?cat=${updatedSubCatArr.join(',')}`, { replace: true });
         
         setIsCheckbox(!isCheckbox);
+        
+        console.log('isCheckbox',isCheckbox);
     };
 
     return (
-        <div onClick={(e) => hendlerCheked(el.name)} className='sub_cat_wrap'>
-            <input type="checkbox" checked={isCheckbox} id="art_chex" />
+        <div className='sub_cat_wrap'>
+            <input type="checkbox" checked={isCheckbox} id="art_chex" onChange={(e) => hendlerCheked(el.name)}/>
             <p>{el.name}</p>
         </div>
     );
