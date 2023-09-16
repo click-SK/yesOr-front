@@ -19,17 +19,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import ChatIcon from './components/chat/ChatIcon';
 import ChatWrap from './components/chat/ChatWrap';
 import './App.css';
+import Loader from './components/Loader/Loader';
 
 function App() {
   const dispatch = useDispatch();
   const [animation, setAnimation] = useState(false);
+  const [isHomePage, setIsHomePage] = useState(false);
+  const [loadPage, setLoadPage] = useState(false);
   const isAuthUser = useSelector((state) => state.authUser.isAuthUser);
   const isAdmin = useSelector((state) => state.authAdmin.isAdmin);
   const admin = useSelector((state) => state.authAdmin.user);
   const location = useLocation();
   const {user} = useSelector((state) => state.authUser.user);
-  const isHomePage = location.pathname === '/';
   const [isOpenChat, setIsOpenChat] = useState(false)
+
+  useEffect(() => {
+    if(window.location.pathname === '/') {
+      setIsHomePage(true);
+    }
+    setTimeout(() => {
+      setLoadPage(true);
+    },1000)
+  },[])
 
   useEffect(() => {
     if(localStorage.getItem('Y-R-U-T')) {
@@ -56,6 +67,9 @@ function App() {
     }
   }, [animation]);
 
+  console.log('isAuthUser',isAuthUser);
+  console.log('isAdmin',isAdmin);
+
 
 
   return (
@@ -63,22 +77,27 @@ function App() {
       {/* <Header/> */}
       {/* <Header/> */}
 
-      {isAuthUser && 
+      {loadPage ? (
+      isAuthUser && (
         <>
-        <ChatIcon isOpen={animation} setIsOpen={setAnimation} />
-        {isOpenChat && <ChatWrap
-          isOpen={isOpenChat}
-          setIsOpen={setIsOpenChat}
-          user={user}
-          isUser={true}
-          isAdmin={false}
-          animation={animation}
-          setAnimation={setAnimation}
-        />}
+          <ChatIcon isOpen={animation} setIsOpen={setAnimation} />
+          {isOpenChat && (
+            <ChatWrap
+              isOpen={isOpenChat}
+              setIsOpen={setIsOpenChat}
+              user={user}
+              isUser={true}
+              isAdmin={false}
+              animation={animation}
+              setAnimation={setAnimation}
+            />
+          )}
         </>
-      }
-
-      {isHomePage ? <Header /> : <AlternateHeader />}
+      )
+    ) : (
+      <Loader />
+    )}
+    {isHomePage ? <Header /> : <AlternateHeader />}
       <Routes>
         <Route path="/" element={<MainPage />} />
         {/* {!isAuthUser && <Route path='/login' element={<LoginForm/>}/>} */}
@@ -91,7 +110,6 @@ function App() {
         <Route path="/discover" element={<ProjectAllList />} />
         <Route path="/project/:id" element={<ProjectOne />} />
         {isAdmin && <Route path="/admin-profile" element={<AdminProfile />} />}
-        {/* <Route path='/admin-profile' element={<AdminProfile/>}/> */}
       </Routes>
       <Footer />
     </div>

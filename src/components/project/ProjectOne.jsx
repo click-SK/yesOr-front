@@ -15,6 +15,7 @@ import SliderProject from "./SliderProject";
 import ProjectComments from "./ProjectComments";
 import ProjectdonatsHistory from "./ProjectdonatsHistory";
 import CountingTime from "./CountingTime";
+import Loader from "../Loader/Loader";
 const ProjectOne = () => {
   const [currentProject, setCurrentProject] = useState(null);
   const [projectId, setProjectId] = useState("");
@@ -130,148 +131,155 @@ const ProjectOne = () => {
 
 
   return (
+    <>
+    {currentProject
+    ?
     <div className="project_wraper">
-      {isOpenEditProject && (
-        <EditProject
-          selectedProject={currentProject}
-          setIsOpen={setIsOpenEditProject}
-        />
+    {isOpenEditProject && (
+      <EditProject
+        selectedProject={currentProject}
+        setIsOpen={setIsOpenEditProject}
+      />
+    )}
+    <div className="btn_back">
+      <button onClick={() => navigate(-1)}>Back</button>
+      {currentProject && user && currentProject?.user == user?._id && !currentProject.isVerified && (
+        <button onClick={() => setIsOpenEditProject(!isOpenEditProject)}>
+          Edite
+        </button>
       )}
-      <div className="btn_back">
-        <button onClick={() => navigate(-1)}>Back</button>
-        {currentProject && user && currentProject?.user == user?._id && !currentProject.isVerified && (
-          <button onClick={() => setIsOpenEditProject(!isOpenEditProject)}>
-            Edite
-          </button>
-        )}
-      </div>
-      <div className="profile_title">
-        <h2>Project</h2>
-      </div>
-      <div className="project_info">
-        <div className="left_column">
-          <div className="target_wrap">
-            <div className="target_wrap_title">
-              <p>{currentProject?.target} $</p>
-            </div>
-            <div className="target_range">
-              <div
-                className="target_curent"
-                style={{ width: `${percentCollected}%` }}
-              ></div>
-            </div>
-            <p style={{ width: `${percentCollected}%`, textAlign: "right", maxWidth:'100%' }}>
-              {percentCollected.toFixed(2)}%
-            </p>
+    </div>
+    <div className="profile_title">
+      <h2>Project</h2>
+    </div>
+    <div className="project_info">
+      <div className="left_column">
+        <div className="target_wrap">
+          <div className="target_wrap_title">
+            <p>{currentProject?.target} $</p>
           </div>
-          {percentCollected >= 100 && currentProject && user && currentProject?.user == user?._id && currentProject?.isVerified &&
-          <div>
-          <button onClick={handleSendProjectToArchive}>Close project</button>
+          <div className="target_range">
+            <div
+              className="target_curent"
+              style={{ width: `${percentCollected}%` }}
+            ></div>
+          </div>
+          <p style={{ width: `${percentCollected}%`, textAlign: "right", maxWidth:'100%' }}>
+            {percentCollected.toFixed(2)}%
+          </p>
         </div>
-          }
-          <SliderProject
-          currentExtension = {currentExtension}
-          BASE_URL = {BASE_URL}
-          currentImg = {currentImg}
-          imgProject = {imgProject}
-          setCurrentImg = {setCurrentImg}
-          />
+        {percentCollected >= 100 && currentProject && user && currentProject?.user == user?._id && currentProject?.isVerified &&
+        <div>
+        <button onClick={handleSendProjectToArchive}>Close project</button>
+      </div>
+        }
+        <SliderProject
+        currentExtension = {currentExtension}
+        BASE_URL = {BASE_URL}
+        currentImg = {currentImg}
+        imgProject = {imgProject}
+        setCurrentImg = {setCurrentImg}
+        />
 
-          <div className="project_description-info">
-            <h4>Description</h4>
-            <p className="descript_text">{currentProject?.description}</p>
+        <div className="project_description-info">
+          <h4>Description</h4>
+          <p className="descript_text">{currentProject?.description}</p>
+        </div>
+        <div className="project_amount">
+          <div>
+            <h4>Target amount</h4>
+            <p>{currentProject?.target}</p>
           </div>
-          <div className="project_amount">
-            <div>
-              <h4>Target amount</h4>
-              <p>{currentProject?.target}</p>
-            </div>
-            <div>
-              <h4>Colected amount</h4>
-              <p>{currentProject?.amountCollected}</p>
-            </div>
+          <div>
+            <h4>Colected amount</h4>
+            <p>{currentProject?.amountCollected}</p>
           </div>
         </div>
-        <div className="right_column">
-          <CountingTime currentProject={currentProject} setPercentCollected={setPercentCollected}/>
-          <div className="project_name_wrap">
-            <img src={user?.userImage ? user?.userImage : '/icons/no-avatar.webp'} alt="" />
-            <div>
-              <h4>Name</h4>
-              <p>{currentProject?.name} </p>
-            </div>
-            <button onClick={() => setIsOpenDonat(!isOpenDonat)}>Donate</button>
-            {isOpenDonat && (
-              <DonatsModal
-                setIsOpen={setIsOpenDonat}
-                currentProject={currentProject}
-              />
-            )}
-            <AiFillStar
-              className={
-                user &&
-                currentProject &&
-                user?.savedProjects.includes(currentProject?._id)
-                  ? "star_rating_active"
-                  : "star_rating_disabled"
-              }
-              onClick={handleStarRating}
+      </div>
+      <div className="right_column">
+        <CountingTime currentProject={currentProject} setPercentCollected={setPercentCollected}/>
+        <div className="project_name_wrap">
+          <img src={user?.userImage ? user?.userImage : '/icons/no-avatar.webp'} alt="" />
+          <div>
+            <h4>Name</h4>
+            <p>{currentProject?.name} </p>
+          </div>
+          <button onClick={() => setIsOpenDonat(!isOpenDonat)}>Donate</button>
+          {isOpenDonat && (
+            <DonatsModal
+              setIsOpen={setIsOpenDonat}
+              currentProject={currentProject}
             />
+          )}
+          <AiFillStar
+            className={
+              user &&
+              currentProject &&
+              user?.savedProjects.includes(currentProject?._id)
+                ? "star_rating_active"
+                : "star_rating_disabled"
+            }
+            onClick={handleStarRating}
+          />
+        </div>
+        <div className="project_details">
+          <div className="details_item">
+            <h4>Category</h4>
+            <p>{currentProject?.category}</p>
           </div>
-          <div className="project_details">
-            <div className="details_item">
-              <h4>Category</h4>
-              <p>{currentProject?.category}</p>
-            </div>
-            <div className="details_item">
-              <h4>Placement period</h4>
-              <p>{currentProject?.period?.countDays} Days</p>
-            </div>
-            <div className="details_item">
-              <h4>Subcategory</h4>
-              <p>{currentProject?.subcategory}</p>
-            </div>
-            <div className="details_item">
-              <h4>Team </h4>
-              <div className="team_wrap">
-                {currentProject?.team.map((item, idx) => (
-                  <p key={idx}>{item} </p>
-                ))}
-              </div>
-            </div>
+          <div className="details_item">
+            <h4>Placement period</h4>
+            <p>{currentProject?.period?.countDays} Days</p>
           </div>
-          <div className="project_request">
-            <h4>Request</h4>
-            <p>{currentProject?.request}</p>
+          <div className="details_item">
+            <h4>Subcategory</h4>
+            <p>{currentProject?.subcategory}</p>
           </div>
-          <div className="project_bonus">
-            <h4>Bonus for investors </h4>
-            <div className="bonus_wrap">
-              {currentProject?.bonus.map((item) => (
-                <div className="bonus_item" key={item._id}>
-                  <p>{item?.title}</p>
-                  <p>{item?.amount ? `${item?.amount} $` : ''}</p>
-                </div>
+          <div className="details_item">
+            <h4>Team </h4>
+            <div className="team_wrap">
+              {currentProject?.team.map((item, idx) => (
+                <p key={idx}>{item} </p>
               ))}
             </div>
           </div>
         </div>
+        <div className="project_request">
+          <h4>Request</h4>
+          <p>{currentProject?.request}</p>
+        </div>
+        <div className="project_bonus">
+          <h4>Bonus for investors </h4>
+          <div className="bonus_wrap">
+            {currentProject?.bonus.map((item) => (
+              <div className="bonus_item" key={item._id}>
+                <p>{item?.title}</p>
+                <p>{item?.amount ? `${item?.amount} $` : ''}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-        {currentProject &&
-          user &&
-          currentProject?.user == user?._id &&
-          <ProjectdonatsHistory donatsHistory={currentProject?.donatsHistory}/>
-      }
-      <div className="coments_block">
-        <h4>Comments</h4>
-        <button onClick={() => setIsOpenComent(!isOpenComent)}>
-          leave a comment
-        </button>
-        {currentProject && currentProject?.comments.length != 0 && 
-        <ProjectComments commentsArr={currentProject?.comments} projectId={currentProject?._id} setReload={setReloadProject}/>}
-      </div>
-      {isOpenComent && <ModalComent setIsOpen={setIsOpenComent} user={user} projectId={currentProject._id}/>}
     </div>
+      {currentProject &&
+        user &&
+        currentProject?.user == user?._id &&
+        <ProjectdonatsHistory donatsHistory={currentProject?.donatsHistory}/>
+    }
+    <div className="coments_block">
+      <h4>Comments</h4>
+      <button onClick={() => setIsOpenComent(!isOpenComent)}>
+        leave a comment
+      </button>
+      {currentProject && currentProject?.comments.length != 0 && 
+      <ProjectComments commentsArr={currentProject?.comments} projectId={currentProject?._id} setReload={setReloadProject}/>}
+    </div>
+    {isOpenComent && <ModalComent setIsOpen={setIsOpenComent} user={user} projectId={currentProject._id}/>}
+  </div>
+    :
+    <Loader/>
+    }
+    </>
   );
 };
 
