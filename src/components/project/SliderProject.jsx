@@ -114,7 +114,7 @@ const SliderProject = ({
                     alt={`Image ${idx}`}
                   />
                 ) : fileType === "video" ? (
-                  <video src={`${BASE_URL}${data}`} alt="" />
+                  <video src={`${BASE_URL}${data}`} alt="" onClick={() => handleImageClick(data)} />
                 ) : null}
               </div>
             );
