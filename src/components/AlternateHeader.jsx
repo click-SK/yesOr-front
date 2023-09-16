@@ -131,14 +131,19 @@ const AlternateHeader = () => {
                     </ul>
                 </nav>
                 <div className='profile_button'>
+                    {isAdmin ?
+                      <Link to='/admin-profile'>
+                          <img src="./icons/Profile.svg" alt="" />
+                      </Link>  :
+                      <Link to='/login'>
+                          {isAuthUser ?
+                          <img src="./icons/Profile.svg" alt="" />
+                          :
+                          <button>Sign up</button>
+                          }
+                      </Link>  
+                    }
                     
-                <Link to='/login'>
-                                {isAuthUser ?
-                                <img src="./icons/Profile.svg" alt="" />
-                                :
-                                <button>Sign up</button>
-                                }
-                            </Link>  
                 </div>
             </div>
             {isOpenBurger && 

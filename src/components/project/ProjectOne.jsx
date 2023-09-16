@@ -145,7 +145,7 @@ const ProjectOne = () => {
       <button onClick={() => navigate(-1)}>Back</button>
       {currentProject && user && currentProject?.user == user?._id && !currentProject.isVerified && (
         <button onClick={() => setIsOpenEditProject(!isOpenEditProject)}>
-          Edite
+          Edit
         </button>
       )}
     </div>

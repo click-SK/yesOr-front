@@ -8,6 +8,7 @@ import ErrorMessage from '../../validation/ErrorMessage';
 const DonatsModal = ({setIsOpen, currentProject}) => {
     const [nameFirst, setNameFirst] = useState("");
     const [nameLast, setNameLast] = useState("");
+    const modalRef = useRef();
     const [amount, setAmount] = useState('');
     const [card, setCard] = useState('');
     const [validity, setValidity] = useState('');
@@ -21,7 +22,6 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
     const [numberCardCVVErrorMessage, setNumberCardCVVErrorMessage] = useState('');
 
     const {user} = useSelector((state) => state.authUser.user);
-    console.log('cvv',cvv);
 
     const handleSendDonats = () => {
         const resoult = validator.validationDonate({
@@ -224,10 +224,24 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
         }
       }
 
+      useEffect(() => {
+        function handleClickOutside(event) {
+          if (modalRef.current && !modalRef.current.contains(event.target)) {
+            setIsOpen(false);
+          }
+        }
+    
+        document.addEventListener("mousedown", handleClickOutside);
+    
+        return () => {
+          document.removeEventListener("mousedown", handleClickOutside);
+        };
+      }, []); 
+    
+
     return (
         <div className='modal_wrap'>
-            <div className='item_body pad modal'>
-
+            <div className='item_body pad modal' ref={modalRef}>
                 <h2 style={{margin:'500px 0 0 0'}}>Please donate</h2>
                 <div className='content_modal'>
                 <div className="input_item">
