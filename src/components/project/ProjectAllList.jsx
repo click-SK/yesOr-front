@@ -28,6 +28,7 @@ const ProjectAllList = () => {
     const [allCategory, setAllCategory] = useState([]);
     const [subCatArr, setSubCatArr] = useState([])
     const [showResult, setShowResult] = useState(false)
+    const [loadPage, setLoadPage] = useState(false)
     const [paginationArray, setPaginationArray] = useState([]);
     const [allArchiveProject, setAllArchiveProject] = useState([]);
     const { search } = useLocation();
@@ -42,6 +43,9 @@ const ProjectAllList = () => {
             .then((res) => {
                 setAllProjects(res.data);
                 setInitialProjects(res.data);
+                setTimeout(() => {
+                    setLoadPage(true)
+                },500)
             });
         } catch(error) {
             console.log(error);
@@ -134,7 +138,7 @@ const ProjectAllList = () => {
 
     return (
         <>
-        {allProjects.length != 0 
+        {loadPage 
         ?
         <div className='profile_wrap'>
         <div className='profile_title'>
