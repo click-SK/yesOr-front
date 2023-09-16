@@ -85,13 +85,18 @@ const Header = () => {
                     </ul>
                 </nav>
                 <div className='profile_button'>
-                    
-                                <Link to='/login'>                              
-                                {isAuthUser ?
-                                <img src="./icons/Profile.svg" alt="" />
-                                :
-                                <button>Sign up</button>
-                                }</Link>  
+                 {isAdmin ?
+                      <Link to='/admin-profile'>
+                          <img src="./icons/Profile.svg" alt="" />
+                      </Link>  :
+                      <Link to='/login'>
+                          {isAuthUser ?
+                          <img src="./icons/Profile.svg" alt="" />
+                          :
+                          <button>Sign up</button>
+                          }
+                      </Link>  
+                    } 
                 </div>
             </div>
             {isOpenBurger && 
@@ -119,12 +124,24 @@ const Header = () => {
                         </ul>
                     </nav>
                     <div className='profile_button'>
-                            <Link to='/login'>                              
-                                {isAuthUser ?
-                                <img src="./icons/Profile.svg" alt="" />
-                                :
-                                <button>Sign up</button>
-                                }</Link> 
+                    {isAdmin ?
+                      <Link to='/admin-profile'>
+                          <img 
+                          onClick={() => hendlerMenuClose() }
+                          src="./icons/Profile.svg" alt="" />
+                      </Link>  :
+                      <Link to='/login'>
+                          {isAuthUser ?
+                          <img 
+                          onClick={() => hendlerMenuClose() }
+                          src="./icons/Profile.svg" alt="" />
+                          :
+                          <button
+                          onClick={() => hendlerMenuClose() }
+                          >Sign up</button>
+                          }
+                      </Link>  
+                    }
                     </div>
                     <div className='social'>
                     {/* <img src="./icons/ph_telegram-logo-thin-burger.svg" alt="" />

@@ -48,10 +48,10 @@ const SliderProject = ({ currentExtension, BASE_URL, currentImg, imgProject, set
 
   return (
     <div className="project_description_wrap">
-      {['jpg', 'jpeg', 'png', 'webm', 'JPG'].includes(currentExtension) && (
+      {currentExtension && ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'tiff', 'webp'].includes(currentExtension.toLowerCase())  && (
         <img className="main_img-project_slide" src={`${BASE_URL}${currentImg}`} alt="" />
       )}
-      {['mp4', 'webm'].includes(currentExtension) && (
+      {currentExtension && ['mp4', 'webm', 'ogg', 'avi', 'wmv', 'flv', 'mov', 'mkv'].includes(currentExtension.toLowerCase()) && (
         <video controls className="main_img-project_slide" src={`${BASE_URL}${currentImg}`} alt="" />
       )}
       <div className="second_img_wrap">
