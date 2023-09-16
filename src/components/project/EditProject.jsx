@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import * as validation from "../../validation/validator";
 import $api from "../../http/httpUser";
 import { BsPersonFillAdd } from "react-icons/bs";
+import FilterDataPicker from "./filters/FilterDataPicker";
 
 const EditProject = ({ selectedProject, setIsOpen }) => {
   const [images, setImages] = useState([]);
@@ -25,6 +26,8 @@ const EditProject = ({ selectedProject, setIsOpen }) => {
   const [reloadUser, setReloadUser] = useState({});
   const [teamBlocks, setTeamBlocks] = useState([]);
   const [bonusBlocks, setBonusBlocks] = useState([{ title: "", amount: "" }]);
+  const [selectedDate, setSelectedDate] = useState('');
+  const [validateDate, setValidateDate] = useState(false);
 
   const [nameErrorMessage, setNameErrorMessage] = useState("");
   const [descriptionErrorMessage, setDescriptionErrorMessage] = useState("");
@@ -33,6 +36,8 @@ const EditProject = ({ selectedProject, setIsOpen }) => {
     useState("");
   const [targetAmountErrorMessage, setTargetAmountErrorMessage] = useState("");
   const [categoryErrorMessage, setCategoryErrorMessage] = useState("");
+  const [secondCategoryErrorMessage, setSecondCategoryErrorMessage] = useState('');
+  const [secondSubCategoryErrorMessage, setSecondSubCategoryErrorMessage] = useState('');
   const { user } = useSelector((state) => state.authUser.user);
 
   useEffect(() => {
@@ -147,6 +152,8 @@ const EditProject = ({ selectedProject, setIsOpen }) => {
     }
   };
 
+  console.log('validateDate',validateDate);
+
   const handleCreateNewProject = () => {
     try {
       const resoult = validation.validationCreateProject({
@@ -158,9 +165,29 @@ const EditProject = ({ selectedProject, setIsOpen }) => {
         category: selectedCategory?.category,
       });
 
-      setIsOpen((state) => !state);
+      let isValid = false;
+      console.log('resoult',resoult);
 
-      if (resoult.isValid) {
+      if(!validateDate) {
+        return alert('Chose date')
+      }
+
+      if(resoult.length == 0) {
+        isValid = true;
+      } else {
+        resoult.forEach((item) => {
+          console.log('item validation',item.reason);
+          item.reason == 'name' && setNameErrorMessage(item?.error);
+          item.reason == 'description' && setDescriptionErrorMessage(item.error);
+          item.reason == 'request' && setRequestErrorMessage(item.error);
+          item.reason == 'placementPeriod' && setPlacementPeriodErrorMessage(item.error);
+          item.reason == 'targetAmount' && setTargetAmountErrorMessage(item.error);
+          selectedCategory?.category == "Miscellaneous" && item.reason == 'secondCategory' && setSecondCategoryErrorMessage(item.error);
+          (selectedSubCategory?.name == "Other IT Solutions" || selectedSubCategory?.name == 'Other Inventions') && item.reason == 'secondSubCategory' && setSecondSubCategoryErrorMessage(item.error);
+        })
+      }
+
+      if (isValid && validateDate) {
         const formData = new FormData();
         images.forEach((image, index) => {
           formData.append(`projectMedia`, image);
@@ -176,7 +203,7 @@ const EditProject = ({ selectedProject, setIsOpen }) => {
         }
         formData.append(
           "period",
-          JSON.stringify({ startDate: "", countDays: placementPeriod })
+          JSON.stringify({startDate: '', endDate: selectedDate})
         );
         formData.append("target", targetAmount);
         formData.append("category", selectedCategory?.category);
@@ -189,9 +216,10 @@ const EditProject = ({ selectedProject, setIsOpen }) => {
             : ""
         );
         axios.patch(`${BASE_URL}/update-project`, formData).then(() => {
+          alert("Project updated");
           setTimeout(() => {
-            alert("Project updated");
-            window.location.reload();
+            setIsOpen((state) => !state);
+            // window.location.reload();
           }, 500);
         });
       } else {
@@ -292,6 +320,15 @@ const EditProject = ({ selectedProject, setIsOpen }) => {
     }
   };
   const handlePlacementPeriod = (e) => {
+    const currentDate = new Date();
+  
+    if(e < currentDate) {
+      setValidateDate(false);
+      alert('You cannot select a date that has already passed')
+      return
+    } else {
+      setValidateDate(true);
+    }
     setPlacementPeriod(e);
     handleValidatePlacementPeriod(e);
   };
@@ -375,6 +412,7 @@ const EditProject = ({ selectedProject, setIsOpen }) => {
           hidden
           multiple
         />
+        <button onClick={() => setIsOpen((state) =>!state)}>Back</button>
         <button
           onClick={() => inputFileRef.current.click()}
           className={images.length != 0 ? "success" : ""}
@@ -488,12 +526,13 @@ const EditProject = ({ selectedProject, setIsOpen }) => {
         </div>
         <div className="input_item">
           <label htmlFor="placement">Placement period*</label>
-          <input
+          {/* <input
             id="placement"
             type="text"
             value={placementPeriod}
             onChange={(e) => handlePlacementPeriod(e.target.value)}
-          />
+          /> */}
+          <FilterDataPicker selectedDate={selectedDate} setSelectedDate={setSelectedDate} handlePlacementPeriod={handlePlacementPeriod}/>
         </div>
         {placementPeriodErrorMessage && (
           <p className="danger">{placementPeriodErrorMessage}</p>
@@ -564,7 +603,7 @@ const EditProject = ({ selectedProject, setIsOpen }) => {
       </div>
       <button
         disabled={currentUser?.isVerified ? false : true}
-        onClick={handleCreateNewProject}
+        onClick={() => handleCreateNewProject()}
       >
         Update
       </button>

@@ -63,7 +63,7 @@ export const registration = createAsyncThunk('user-auth/registration', async (pa
   export const logout = createAsyncThunk('user-auth/logout ', async (payload, thunkAPI) => {
     try {
       const response = await $api.post('/logout-user');
-      console.log('payload.accessToken',payload.accessToken);
+      // console.log('payload',payload.accessToken);
       localStorage.removeItem('Y-R-U-T',payload.accessToken)
     } catch (e) {
       console.log(e);
@@ -82,21 +82,21 @@ const authUserSlice = createSlice({
       },
     },
     extraReducers: {
-      [logout.pending]: (state) => {
-        state.status = "loading";
-        state.isAuthUser = false;
-        state.user = {};
-      },
-      [logout.fulfilled]: (state, action) => {
-        state.status = "loaded";
-        state.isAuthUser = false;
-        state.user = action.payload;
-      },
-      [logout.rejected]: (state) => {
-        state.status = "error";
-        state.isAuthUser = false;
-        state.user = {};
-      },
+      // [logout.pending]: (state) => {
+      //   state.status = "loading";
+      //   state.isAuthUser = false;
+      //   state.user = {};
+      // },
+      // [logout.fulfilled]: (state, action) => {
+      //   state.status = "loaded";
+      //   state.isAuthUser = false;
+      //   state.user = action.payload;
+      // },
+      // [logout.rejected]: (state) => {
+      //   state.status = "error";
+      //   state.isAuthUser = false;
+      //   state.user = {};
+      // },
     },
   });
 

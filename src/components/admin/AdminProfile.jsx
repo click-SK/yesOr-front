@@ -66,11 +66,11 @@ const AdminProfile = () => {
 
     const handleLogout = () => {
         try {
-            dispatch(logout({accessToken: user.accessToken}));
-            setTimeout(() => {
+                dispatch(logout({accessToken: user.accessToken}));
                 navigate('/');
-                window.location.reload();
-            },1000)
+                setTimeout(() => {
+                        window.location.reload();
+                },300)
         } catch(error) {
             console.log(error);
         }

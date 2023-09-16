@@ -10,7 +10,7 @@ import "../../styles/projectPage.scss";
 import DonatsModal from "./donatsComp/DonatsModal";
 import HistoryDonats from "./historiDonats/HistoryDonats";
 import ModalComent from "./ModalComent";
-import EditProject from "../profile/EditProject";
+import EditProject from "./EditProject";
 import SliderProject from "./SliderProject";
 import ProjectComments from "./ProjectComments";
 import ProjectdonatsHistory from "./ProjectdonatsHistory";
@@ -129,6 +129,7 @@ const ProjectOne = () => {
     }
   }
 
+  console.log('currentProject.isVerified',currentProject?.isVerified);
 
   return (
     <>
@@ -204,7 +205,9 @@ const ProjectOne = () => {
             <h4>Name</h4>
             <p>{currentProject?.name} </p>
           </div>
+          {currentProject?.isVerified && 
           <button onClick={() => setIsOpenDonat(!isOpenDonat)}>Donate</button>
+          }
           {isOpenDonat && (
             <DonatsModal
               setIsOpen={setIsOpenDonat}
@@ -266,6 +269,7 @@ const ProjectOne = () => {
         currentProject?.user == user?._id &&
         <ProjectdonatsHistory donatsHistory={currentProject?.donatsHistory}/>
     }
+    {currentProject?.isVerified && 
     <div className="coments_block">
       <h4>Comments</h4>
       <button onClick={() => setIsOpenComent(!isOpenComent)}>
@@ -274,6 +278,7 @@ const ProjectOne = () => {
       {currentProject && currentProject?.comments.length != 0 && 
       <ProjectComments commentsArr={currentProject?.comments} projectId={currentProject?._id} setReload={setReloadProject}/>}
     </div>
+    }
     {isOpenComent && <ModalComent setIsOpen={setIsOpenComent} user={user} projectId={currentProject._id}/>}
   </div>
     :

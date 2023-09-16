@@ -13,6 +13,7 @@ import AdminLogin from './components/admin/AdminLogin';
 import AdminProfile from './components/admin/AdminProfile';
 import ProjectAllList from './components/project/ProjectAllList';
 import ProjectOne from './components/project/ProjectOne';
+import Page404 from './components/Page404';
 import { checkAuthUser } from './store/authUser';
 import { checkAuthAdmin } from './store/authAdmin';
 import { useDispatch, useSelector } from 'react-redux';
@@ -109,6 +110,7 @@ function App() {
         <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/discover" element={<ProjectAllList />} />
         <Route path="/project/:id" element={<ProjectOne />} />
+        <Route path="*" element={<Page404 />} />
         {isAdmin && <Route path="/admin-profile" element={<AdminProfile />} />}
       </Routes>
       <Footer />

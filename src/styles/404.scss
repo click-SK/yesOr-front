@@ -1,0 +1,20 @@
+.page404_wrap {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+}
+.page404_info {
+    font-size: 18px;
+}
+
+.page404_text {
+    font-size: 40px;
+}
+
+.page404_link {
+    color: blue;
+    font-size: 18px;
+}

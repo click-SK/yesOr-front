@@ -31,6 +31,7 @@ const NewProject = () => {
   const [teamBlocks, setTeamBlocks] = useState([]);
   const [bonusBlocks, setBonusBlocks] = useState([{ title: "", amount: "" }]);
   const [selectedDate, setSelectedDate] = useState('');
+  const [validateDate, setValidateDate] = useState(true);
 
   const [nameErrorMessage, setNameErrorMessage] = useState("");
   const [descriptionErrorMessage, setDescriptionErrorMessage] = useState("");
@@ -111,6 +112,14 @@ const NewProject = () => {
     }
   }, [user, reloadUser]);
 
+  useEffect(() => {
+    const currentDate = new Date();
+  
+    if(selectedDate < currentDate) {
+      console.log('LOX');
+    }
+  },[selectedDate])
+
   const handleSetDefaultCategory = () => {
     try {
       if (!selectedCategory) {
@@ -187,7 +196,7 @@ const NewProject = () => {
         })
       }
 
-      if (isValid && userAgreement) {
+      if (isValid && userAgreement && validateDate) {
         const formData = new FormData();
         images.forEach((image, index) => {
           formData.append(`projectMedia`, image);
@@ -322,6 +331,15 @@ const NewProject = () => {
   }
   const handlePlacementPeriod = (e) => {
     setPlacementPeriod(e);
+    const currentDate = new Date();
+  
+    if(e < currentDate) {
+      setValidateDate(false);
+      setPlacementPeriodErrorMessage('You cannot select a date that has already passed')
+      return
+    } else {
+      setValidateDate(true);
+    }
     if(e != '') {
       handleValidatePlacementPeriod(e);
     } else {
@@ -418,8 +436,6 @@ const NewProject = () => {
         console.log(error);
     }
   }
-
-  console.log('selectedDate', selectedDate );
 
   return (
     <div className="new_project_wraper">

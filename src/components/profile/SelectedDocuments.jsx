@@ -83,6 +83,8 @@ const SelectedDocuments = () => {
             formData.append(`userDocuments`, image);
           });
           axios.patch(`${BASE_URL}/upload-user-document`, formData).then((response) => {
+            alert('Document Added')
+            cleanState();
           }).catch((error) => {
             console.log(error);
           });
