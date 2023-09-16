@@ -647,10 +647,16 @@ p{
 }
 
 .main_page-project-amount{
-    background: #fff;
+    // background: #fff;
     padding: 0 10px;
     border-radius: 4px;
     margin-top: 10px;
+    .target_curent {
+        background: #fff;
+    }
+    .target_range{
+        background: #505050;
+    }
 }
 
 .main_page-project-title{

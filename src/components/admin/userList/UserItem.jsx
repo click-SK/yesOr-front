@@ -64,7 +64,7 @@ const UserItem = ({ item, setReloadUserData}) => {
     })
 }
 
-console.log('isOpenChat',animation);
+
 
 useEffect(() => {
   if(animation){

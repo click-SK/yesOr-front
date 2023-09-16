@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from "react";
 import UserHistoryDonat from "./userList/UserHistoryDonat";
 import ModalProjectConfirm from "./ModalProjectConfirm";
 import { Link } from "react-router-dom";
@@ -12,6 +12,7 @@ const ProjectItem = ({item, handleChangeFunc, verified, onlyId, projectMainPage,
     const [isOpenModalConfirm, setIsOpenModalConfirm] = useState(false);
     const [isOpenModalUnConfirm, setIsOpenModalUnConfirm] = useState(false);
     const [isOpenHistory, setIsOpenHistory] = useState(false);
+    const [animation, setAnimation] = useState(false);
 
     const truncateText = (text, maxLength) => {
         if (text.length <= maxLength) {
@@ -58,6 +59,18 @@ const ProjectItem = ({item, handleChangeFunc, verified, onlyId, projectMainPage,
         }
       };
 
+      useEffect(() => {
+        if(animation){
+          setIsOpenChat(true);
+        } else {
+          const timeoutId = setTimeout(() => {
+            setIsOpenChat(false);
+          }, 800);
+      
+          return () => clearTimeout(timeoutId);
+        }
+      }, [animation]);
+
     return (
         <div key={item._id} className="project_item admin_project_item">
           <Link
@@ -70,7 +83,7 @@ const ProjectItem = ({item, handleChangeFunc, verified, onlyId, projectMainPage,
             <p>{item?.projects?.target}</p>
           </Link>
           <div className="admin_project_item_svg">
-            <img src="./icons/ph_chat-centered-dots-light.svg" alt="" onClick={() => setIsOpenChat(state => !state)}/>
+            <img src="./icons/ph_chat-centered-dots-light.svg" alt="" onClick={() => setAnimation(state => !state)}/>
             {!verified ? (
               <img
                 onClick={() => setIsOpenModalConfirm(!isOpenModalConfirm)}
@@ -132,6 +145,8 @@ const ProjectItem = ({item, handleChangeFunc, verified, onlyId, projectMainPage,
         user={item?.projects?.user}
         isUser={false}
         isAdmin={true}
+        animation={animation}
+        setAnimation={setAnimation}
         />
       }
         </div>
