@@ -70,7 +70,7 @@ const AboutUsMain = () => {
     }, 3500);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [activeIndex]);
 
  
 

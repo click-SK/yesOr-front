@@ -133,7 +133,8 @@ const AlternateHeader = () => {
                 <div className='profile_button'>
                     {isAdmin ?
                       <Link to='/admin-profile'>
-                          <img src="./icons/Profile.svg" alt="" />
+                          <img 
+                          src="./icons/Profile.svg" alt="" />
                       </Link>  :
                       <Link to='/login'>
                           {isAuthUser ?
@@ -196,15 +197,22 @@ const AlternateHeader = () => {
                                 </Link>
                             </div>
                     <div className='profile_button'>
-                            <Link to='/login'>
-                                {isAuthUser ?
-                                <img src="./icons/Profile.svg" alt="" 
-                                onClick={() => hendlerMenuClose() }
-                                />
-                                :
-                                <button>Sign up</button>
-                                }
-                            </Link> 
+                    {isAdmin ?
+                      <Link to='/admin-profile'>
+                          <img 
+                          onClick={() => hendlerMenuClose() }
+                          src="./icons/Profile.svg" alt="" />
+                      </Link>  :
+                      <Link to='/login'>
+                          {isAuthUser ?
+                          <img 
+                          onClick={() => hendlerMenuClose() }
+                          src="./icons/Profile.svg" alt="" />
+                          :
+                          <button onClick={() => hendlerMenuClose() }>Sign up</button>
+                          }
+                      </Link>  
+                    }
                     </div>
                     <div className='social'>
                     {/* <img src="./icons/ph_telegram-logo-thin-burger.svg" alt="" />
