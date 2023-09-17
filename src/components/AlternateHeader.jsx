@@ -20,8 +20,6 @@ const AlternateHeader = () => {
   const scrollTarget = params.get('scroll');
   const navigate = useNavigate();
 
-    // console.log('isAuthUser',isAuthUser);
-
     // useEffect(() => {
     //     if (scrollTarget === 'about_us') {
     //       const aboutUsSection = document.getElementById('about_us');

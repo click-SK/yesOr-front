@@ -49,7 +49,6 @@ const ChatWrap = ({setIsOpen, isOpen, user, isUser, isAdmin, animation, setAnima
     const handleSendMessage = () => {
         try{
             if(isUser) {
-                console.log('work1');
                 axios.patch(`${BASE_URL}/create-message`, {
                     userId: user?._id,
                     message
@@ -60,7 +59,6 @@ const ChatWrap = ({setIsOpen, isOpen, user, isUser, isAdmin, animation, setAnima
                 })
             }
             if(isAdmin) {
-                console.log('work2');
                 axios.patch(`${BASE_URL}/create-message`, {
                     adminId: admin?.user?._id,
                     message,

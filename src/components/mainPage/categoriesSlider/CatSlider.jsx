@@ -64,8 +64,6 @@ const CatSlider = () => {
   const prevProject = projectData[(activeIndex - 1 + projectData.length) % projectData.length];
   const nextProject = projectData[(activeIndex + 1) % projectData.length];
 
-  console.log('activeProject',activeProject);
-
   // const percent = (collected / target) * 100;
   // setPercentCollected(percent);
 
@@ -81,9 +79,6 @@ const CatSlider = () => {
       console.log(error);
     }
   }, [activeProject]);
-
-
-  console.log('activeProjectIdx',activeIndex);
 
   const  hendlerOpenCategories = (item) => {
     const nameArr = item.map(item => item.name);

@@ -13,14 +13,14 @@ export const login = createAsyncThunk('user-auth/login', async (payload, thunkAP
     try {
       const { email, password } = payload;
       const response = await $api.post('/login-user',{email, password});
-      console.log('redux response',response);
+
       if(response.data.message == 'User not found' || response.data.message == 'Password not found') {
         return {message: 'Wrong email or password'};
       }
       if(response.data.message == 'User blocked') {
         return {message: 'Your was blocked'};
       }
-      console.log('error work');
+
       thunkAPI.dispatch(authUserSlice.actions.setAuth(true));
       thunkAPI.dispatch(authUserSlice.actions.setUser(response.data));
       return response.data;
@@ -46,7 +46,7 @@ export const registration = createAsyncThunk('user-auth/registration', async (pa
   export const checkAuthUser = createAsyncThunk('user-auth/checkAuth ', async (_, thunkAPI) => {
     try {
       const response = await axios.get(`${BASE_URL}/refresh-user`,{withCredentials: true})
-      // console.log('response auth1',response);
+
       if(response.data.message == 'Validation error') {
         return thunkAPI.dispatch(authUserSlice.actions.setAuth(false));
       }
@@ -63,7 +63,7 @@ export const registration = createAsyncThunk('user-auth/registration', async (pa
   export const logout = createAsyncThunk('user-auth/logout ', async (payload, thunkAPI) => {
     try {
       const response = await $api.post('/logout-user');
-      // console.log('payload',payload.accessToken);
+
       localStorage.removeItem('Y-R-U-T',payload.accessToken)
     } catch (e) {
       console.log(e);

@@ -37,8 +37,6 @@ const FilterSubCategory = ({ el, idx, setSubCatArr, subCatArr }) => {
         navigate(`?cat=${updatedSubCatArr.join(',')}`, { replace: true });
         
         setIsCheckbox(!isCheckbox);
-        
-        console.log('isCheckbox',isCheckbox);
     };
 
     return (

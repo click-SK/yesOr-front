@@ -129,7 +129,6 @@ const ProjectOne = () => {
     }
   }
 
-  console.log('currentProject.isVerified',currentProject?.isVerified);
 
   return (
     <>
@@ -236,7 +235,7 @@ const ProjectOne = () => {
           </div>
           <div className="details_item">
             <h4>Subcategory</h4>
-            <p>{currentProject?.subcategory}</p>
+            <p>{currentProject?.subcategory} ({currentProject?.categoryOther})</p>
           </div>
           <div className="details_item">
             <h4>Team </h4>
