@@ -72,39 +72,39 @@ const ProjectAllList = () => {
     },[])
 
     const handleSubCatArrChange = () => {
-        // console.log('funk work');
         if (subCatArr.length === 0) {
             // Якщо subCatArr порожній, показуємо всі проекти
-            setAllProjects(initialProjects);
+            console.log('work first');
+            setPaginationArray(initialProjects);
         } else {
+
             // Фільтруємо проекти за обраними субкатегоріями
+            console.log('allProjects',allProjects);
             const filteredProjects = allProjects.filter((project) => {
-                const projectSubcategories = project?.projects?.subcategory || [];
+                const projectSubcategories = project?.projects?.subcategory || '';
+                console.log('projectSubcategories',projectSubcategories);
                 return subCatArr.some((subcat) =>
                     projectSubcategories.includes(subcat)
                 );
             });
-            // console.log('filteredProjects', filteredProjects);
+            console.log('filteredProjects',filteredProjects);
             
             // Оновлюємо список проектів
-            setAllProjects(filteredProjects);
+            setPaginationArray(filteredProjects);
         }
     };
 
     useEffect(() => {
       if (subCatArr.length !== 0 && initialProjects.length !== 0 && allProjects.length !== 0){
-        // const timer = setTimeout(() => {
-            //     console.log('say Hi');
+        const timer = setTimeout(() => {
+            handleSubCatArrChange()
+            }, 600); 
             
-            // }, 500); 
-            
-            // return () => clearTimeout(timer); 
-                handleSubCatArrChange()
+            return () => clearTimeout(timer); 
       
       }
-  }, [ initialProjects]);
+  }, [initialProjects]);
 
-//   console.log('findErr', paginationArray);
 
     useEffect(() => {
 
@@ -112,7 +112,8 @@ const ProjectAllList = () => {
         const initialSubcategories = params.get('cat');
         
         if (initialSubcategories) {
-            setSubCatArr(initialSubcategories.split(','));
+            let newArr = initialSubcategories.split(',');
+            setSubCatArr(newArr);
         }
         
         // Завантаження проектів, категорій, тощо
@@ -134,7 +135,8 @@ const ProjectAllList = () => {
         setPaginationArray(allArchiveProject)
     }
 
-    console.log('allProjects', allProjects);
+    console.log('paginationArray1',paginationArray);
+
 
     return (
         <>

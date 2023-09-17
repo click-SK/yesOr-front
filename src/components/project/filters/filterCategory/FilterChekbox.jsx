@@ -44,7 +44,7 @@ const FilterChekbox = ({ item, idx, allCategory,setShowResult,subCatArr, setSubC
 
     ))} 
     <button
-    onClick={() => setShowResult(state => !state)}
+    onClick={setShowResult}
     className='category_wrap_sub-show'> Show result </button>
     </div>
 </div>

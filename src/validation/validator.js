@@ -65,10 +65,7 @@ export const validationRegistration = ({email, phone, password, firstName, lastN
     try {
       let arr = [];
 
-      console.log('placementPeriod',placementPeriod);
-
       if(name?.length <= 1) {
-        console.log('name',name);
         arr.push({
           isValid: false,
           error: 'Name must be minimum 2 symbols',
@@ -76,7 +73,6 @@ export const validationRegistration = ({email, phone, password, firstName, lastN
         })
       }
       if(secondCategory?.length <= 1) {
-        console.log('secondCategory WORK!!!!!!!!!!!!!!!');
         arr.push({
           isValid: false,
           error: 'Category must be minimum 2 symbols',
@@ -122,8 +118,6 @@ export const validationRegistration = ({email, phone, password, firstName, lastN
           reason: 'targetAmount'
         })
       }
-
-      console.log('validator arr',arr);
 
       return arr;
 

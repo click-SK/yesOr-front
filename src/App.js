@@ -68,11 +68,6 @@ function App() {
     }
   }, [animation]);
 
-  console.log('isAuthUser',isAuthUser);
-  console.log('isAdmin',isAdmin);
-
-
-
   return (
     <div className="App">
       {/* <Header/> */}

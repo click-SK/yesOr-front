@@ -10,7 +10,6 @@ const ProfileInfo = ({openSetting, currentUser}) => {
     const navigate = useNavigate();
 
     const user = useSelector((state) => state.authUser.user);
-    console.log('user',user);
     
     const handleLogout = () => {
         try {

@@ -152,8 +152,6 @@ const EditProject = ({ selectedProject, setIsOpen }) => {
     }
   };
 
-  console.log('validateDate',validateDate);
-
   const handleCreateNewProject = () => {
     try {
       const resoult = validation.validationCreateProject({
@@ -166,8 +164,6 @@ const EditProject = ({ selectedProject, setIsOpen }) => {
       });
 
       let isValid = false;
-      console.log('resoult',resoult);
-
       if(!validateDate) {
         return alert('Chose date')
       }
@@ -176,7 +172,6 @@ const EditProject = ({ selectedProject, setIsOpen }) => {
         isValid = true;
       } else {
         resoult.forEach((item) => {
-          console.log('item validation',item.reason);
           item.reason == 'name' && setNameErrorMessage(item?.error);
           item.reason == 'description' && setDescriptionErrorMessage(item.error);
           item.reason == 'request' && setRequestErrorMessage(item.error);
@@ -206,15 +201,15 @@ const EditProject = ({ selectedProject, setIsOpen }) => {
           JSON.stringify({startDate: '', endDate: selectedDate})
         );
         formData.append("target", targetAmount);
-        formData.append("category", selectedCategory?.category);
-        formData.append(
-          "subcategory",
-          selectedSubCategory && selectedSubCategory?.name
-            ? selectedSubCategory?.name
-            : subCategoryArray.length !== 0
-            ? subCategoryArray[0].name
-            : ""
-        );
+        // formData.append("category", selectedCategory?.category);
+        // formData.append(
+        //   "subcategory",
+        //   selectedSubCategory && selectedSubCategory?.name
+        //     ? selectedSubCategory?.name
+        //     : subCategoryArray.length !== 0
+        //     ? subCategoryArray[0].name
+        //     : ""
+        // );
         axios.patch(`${BASE_URL}/update-project`, formData).then(() => {
           alert("Project updated");
           setTimeout(() => {
@@ -430,7 +425,7 @@ const EditProject = ({ selectedProject, setIsOpen }) => {
           />
         </div>
         {nameErrorMessage && <p className="danger">{nameErrorMessage}</p>}
-        <div className="categori_wrap">
+        {/* <div className="categori_wrap">
           {allCategory.length != 0 && (
             <SelectChoseCategory
               setState={setSelectedCategory}
@@ -455,10 +450,10 @@ const EditProject = ({ selectedProject, setIsOpen }) => {
               isEdit={true}
             />
           )}
-        </div>
-        {categoryErrorMessage && (
+        </div> */}
+        {/* {categoryErrorMessage && (
           <p className="danger">{categoryErrorMessage}</p>
-        )}
+        )} */}
         <div className="input_item">
           <label htmlFor="description">Description*</label>
           <textarea

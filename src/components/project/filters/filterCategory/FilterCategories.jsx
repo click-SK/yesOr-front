@@ -30,8 +30,6 @@ const FilterCategories = ({allCategory, setAllProjects, allProjects,setSubCatArr
     //     setShowResult(state => !state)
     //     }
     // }, [])
-
-    // console.log('find err', allProjects);
     
 
     return (

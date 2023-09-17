@@ -19,6 +19,7 @@ const NewProject = () => {
   const [subCategoryArray, setSubCategoryArray] = useState([]);
   const [secondCategory, setSecondCategory] = useState('');
   const [secondSubCategory, setSecondSubCategory] = useState('');
+  const [categoryOther, setCategoryOther] = useState('');
   const [allCategory, setAllCategory] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -121,6 +122,12 @@ const NewProject = () => {
     }
   },[selectedDate])
 
+  useEffect(() => {
+    if(secondCategory || secondSubCategory) {
+      setCategoryOther(secondCategory || secondSubCategory)
+    }
+  },[secondCategory, secondSubCategory])
+
   const handleSetDefaultCategory = () => {
     try {
       if (!selectedCategory) {
@@ -190,13 +197,11 @@ const NewProject = () => {
         });
       }
       let isValid = false;
-      console.log('resoult',resoult);
 
       if(resoult.length == 0) {
         isValid = true;
       } else {
         resoult.forEach((item) => {
-          console.log('item validation',item.reason);
           item.reason == 'name' && setNameErrorMessage(item?.error);
           item.reason == 'description' && setDescriptionErrorMessage(item.error);
           item.reason == 'request' && setRequestErrorMessage(item.error);
@@ -223,10 +228,11 @@ const NewProject = () => {
       }
         formData.append("period", JSON.stringify({startDate: '', endDate: selectedDate}));
         formData.append("target", targetAmount);
-        formData.append("category", secondCategory || selectedCategory?.category);
+        formData.append("categoryOther", categoryOther);
+        formData.append("category", selectedCategory?.category);
         formData.append(
           "subcategory",
-          secondSubCategory || (selectedSubCategory ? selectedSubCategory?.name : secondSubCategory)
+          selectedSubCategory ? selectedSubCategory?.name : selectedCategory?.category
         );
         axios.post(`${BASE_URL}/create-project`, formData)
         .then(() => {
@@ -447,6 +453,9 @@ const NewProject = () => {
         console.log(error);
     }
   }
+
+  console.log('selectedCategory?.category',selectedCategory?.category);
+  console.log('selectedSubCategory?.name',selectedSubCategory?.name);
 
   return (
     <div className="new_project_wraper">

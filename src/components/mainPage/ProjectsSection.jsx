@@ -61,8 +61,6 @@ const ProjectsMain = () => {
   const prevProject = projectData[(activeIndex - 1 + projectData.length) % projectData.length]?.project;
   const nextProject = projectData[(activeIndex + 1) % projectData.length]?.project;
 
-  console.log('activeProject',activeProject);
-
   // const percent = (collected / target) * 100;
   // setPercentCollected(percent);
 
