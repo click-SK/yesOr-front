@@ -44,7 +44,8 @@ const NewProject = () => {
   const [secondCategoryErrorMessage, setSecondCategoryErrorMessage] = useState('');
   const [secondSubCategoryErrorMessage, setSecondSubCategoryErrorMessage] = useState('');
   const { user } = useSelector((state) => state.authUser.user);
-
+  const imageExtensions = ["jpg", "jpeg", "png", "gif", "bmp", "tiff", "webp"];
+  const videoExtensions = ["mp4", "webm", "ogg", "avi", "wmv", "flv", "mov", "mkv"];
   const navigate = useNavigate();
 
 
@@ -143,7 +144,17 @@ const NewProject = () => {
   const handleImageChange = (e) => {
     try {
       const files = e.target.files;
-      const imagesArray = Array.from(files);
+      const allowedExtensions = ["jpg", "jpeg", "png", "gif", "bmp", "tiff", "webp", "mp4", "webm", "ogg", "avi", "wmv", "flv", "mov", "mkv"];
+      const imagesArray = Array.from(files).filter(file => {
+        const fileExtension = file.name.split('.').pop().toLowerCase();
+        return allowedExtensions.includes(fileExtension);
+      });
+      
+      if (imagesArray.length === 0) {
+        alert("Непідтримуваний тип файлу");
+        return;
+      }
+      
       setImages(imagesArray);
     } catch (error) {
       console.log(error);

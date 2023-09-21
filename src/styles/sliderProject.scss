@@ -37,9 +37,26 @@
         max-height: 45px;
         object-fit: cover;
         object-position: top; 
+        // width: 100%;
+        // height: auto;
+        // max-width: auto;
+        // max-height: 150px;
+        // object-fit: cover;
+        // object-position: top;
         
     }
+    .new_project_image{
+        width: 100%;
+        height: auto;
+        max-width: none;
+        max-height: 150px;
+        object-fit: cover;
+        object-position: top;
+    }
 }
+
+
+
 
 .btn_wrap-slider{
     width: 60px;
