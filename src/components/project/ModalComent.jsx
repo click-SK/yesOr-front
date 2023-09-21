@@ -44,7 +44,9 @@ const ModalComent = ({setIsOpen, user, projectId}) => {
           setTimeout(() => {
             window.location.reload();
           },500)
-        })
+        }).catch((error) => {
+          console.log('Request error',error);
+      })
       } else {
         axios.patch(`${BASE_URL}/add-project-comment`, {
           name,
@@ -56,7 +58,9 @@ const ModalComent = ({setIsOpen, user, projectId}) => {
             alert('Comments added')
             window.location.reload();
           },500)
-        })
+        }).catch((error) => {
+          console.log('Request error',error);
+      })
       }
     }
   }

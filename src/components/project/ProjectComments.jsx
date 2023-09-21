@@ -8,7 +8,6 @@ const ProjectComments = ({commentsArr, projectId, setReload}) => {
   const isAdmin = useSelector((state) => state.authAdmin.isAdmin);
 
   const handleDeleteComment = (commentId) => {
-    try{
       axios.delete(`${BASE_URL}/delete-one-comment`,{
         data: {
           projectId,
@@ -18,10 +17,9 @@ const ProjectComments = ({commentsArr, projectId, setReload}) => {
         setTimeout(() => {
           setReload((state) => !state)
         },500)
-      })
-    } catch(error) {
-      console.log(error);
-    }
+      }) .catch((error) => {
+        console.log('Request error',error);
+    })
   }
   
     return (

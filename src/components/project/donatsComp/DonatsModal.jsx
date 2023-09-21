@@ -58,6 +58,9 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
                 alert('succeed donates')
                 window.location.reload();
             })
+            .catch((error) => {
+              console.log('Request error',error);
+          })
           } 
     }
 

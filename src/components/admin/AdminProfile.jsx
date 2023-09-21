@@ -30,38 +30,36 @@ const AdminProfile = () => {
     const admin = useSelector((state) => state.authAdmin.user);
 
     useEffect(() => {
-        try {
-            $api.get(`/get-all-users`).then((res) => setAllUsers(res.data));
-        } catch(error) {
-          console.log(error);
-        }
+            $api.get(`/get-all-users`)
+            .then((res) => setAllUsers(res.data))
+            .catch((error) => {
+                console.log('Request error',error);
+            })
       }, [admin, reloadUserData]);
 
       useEffect(() => {
-        try {
             axios.get(`${BASE_URL}/get-all-verified-projects`)
             .then((res) => setAllVerifiedProject(res.data))
-        } catch(error) {
-            console.log(error);
-        }
+            .catch((error) => {
+                console.log('Request error',error);
+            })
+
       },[reloadUserData])
 
       useEffect(() => {
-          try {
             axios.get(`${BASE_URL}/get-all-not-verified-projects`)
             .then((res) => setAllNotVerifiedProject(res.data))
-        } catch(error) {
-            console.log(error);
-        }
+            .catch((error) => {
+                console.log('Request error',error);
+            })
       },[reloadUserData])
 
       useEffect(() => {
-          try {
             axios.get(`${BASE_URL}/get-allarchive-projects`)
             .then((res) => setAllArchiveProject(res.data))
-        } catch(error) {
-            console.log(error);
-        }
+            .catch((error) => {
+                console.log('Request error',error);
+            })
       },[reloadUserData])
 
     const handleLogout = () => {
@@ -102,7 +100,6 @@ const AdminProfile = () => {
     }
 
     const handleAddToVerified = (item) => {
-        try {
             axios.post(`${BASE_URL}/add-project-to-verified`, {
                 projectId: item?.projects?._id,
                 currentId: item?._id
@@ -110,13 +107,11 @@ const AdminProfile = () => {
                 setTimeout(() => {
                     setReloadUserData((state) => !state)
                 },1000)
+            }).catch((error) => {
+                console.log('Request error',error);
             })
-        } catch(error) {
-            console.log(error);
-        }
     }
     const handleRemoveFromVerified = (item) => {
-        try {
             axios.post(`${BASE_URL}/add-project-to-not-verified`, {
                 projectId: item?.projects?._id,
                 currentId: item?._id
@@ -124,10 +119,9 @@ const AdminProfile = () => {
                 setTimeout(() => {
                     setReloadUserData((state) => !state)
                 },1000)
+            }).catch((error) => {
+                console.log('Request error',error);
             })
-        } catch(error) {
-            console.log(error);
-        }
     }
 
  

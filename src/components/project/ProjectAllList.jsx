@@ -38,7 +38,6 @@ const ProjectAllList = () => {
     }, []);
 
     useEffect(() => {
-        try {
             axios.get(`${BASE_URL}/get-all-verified-projects`)
             .then((res) => {
                 setAllProjects(res.data);
@@ -46,29 +45,26 @@ const ProjectAllList = () => {
                 setTimeout(() => {
                     setLoadPage(true)
                 },500)
-            });
-        } catch(error) {
-            console.log(error);
-        }
+            }).catch((error) => {
+                console.log('Request error',error);
+            })
     },[]);
 
     useEffect(() => {
-        try {
             axios
               .get(`${BASE_URL}/get-all-category`)
-              .then((res) => setAllCategory(res.data));
-          } catch(error) {
-              console.log(error);
-          }
+              .then((res) => setAllCategory(res.data))
+              .catch((error) => {
+                console.log('Request error',error);
+            })
       }, []);
 
       useEffect(() => {
-        try {
           axios.get(`${BASE_URL}/get-allarchive-projects`)
           .then((res) => setAllArchiveProject(res.data))
-      } catch(error) {
-          console.log(error);
-      }
+          .catch((error) => {
+            console.log('Request error',error);
+        })
     },[])
 
     const handleSubCatArrChange = () => {

@@ -241,7 +241,9 @@ const NewProject = () => {
             window.scrollTo(0, 0);
             navigate('/');
           },500)
-        })
+        }).catch((error) => {
+          console.log('Request error',error);
+      })
       } 
     } catch (e) {
       console.log(e);

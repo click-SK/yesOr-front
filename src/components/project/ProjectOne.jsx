@@ -63,42 +63,39 @@ const ProjectOne = () => {
   }, []);
 
   useEffect(() => {
-    try {
       if (projectId) {
         axios.get(`${BASE_URL}/get-one-project/${projectId}`).then((res) => {
           setCurrentProject(res.data);
           setImgProject(res.data.projectMedia);
           setCurrentImg(res.data.projectMedia[0]);
-        });
+        })
+        .catch((error) => {
+          console.log('Request error',error);
+      })
       }
-    } catch(error) {
-      console.log(error);
-    }
   }, [projectId, reloadProject]);
 
   const handleSavedProject = () => {
-    try {
         axios
           .patch(`${BASE_URL}/saved-project`, {
             userId: user._id,
             projectId: currentProject._id,
           })
-          .then(() => window.location.reload());
-      } catch(error) {
-        console.log(error);
-      }
+          .then(() => window.location.reload())
+          .catch((error) => {
+            console.log('Request error',error);
+        })
   };
   const handleRemoveSavedProject = () => {
-    try {
         axios
           .patch(`${BASE_URL}/remove-saved-project`, {
             userId: user._id,
             projectId: currentProject._id,
           })
-          .then(() => window.location.reload());
-      } catch(error) {
-        console.log(error);
-      }
+          .then(() => window.location.reload())
+          .catch((error) => {
+            console.log('Request error',error);
+        })
   };
 
   const handleStarRating = () => {
@@ -118,15 +115,14 @@ const ProjectOne = () => {
   };
 
   const handleSendProjectToArchive = () => {
-    try {
       axios.post(`${BASE_URL}/add-project-archive`, {
         projectId: currentProject._id,
       }).then(() => {
         alert('Project added to archive')
       })
-    }catch(error) {
-      console.log(error);
-    }
+      .catch((error) => {
+        console.log('Request error',error);
+    })
   }
 
 

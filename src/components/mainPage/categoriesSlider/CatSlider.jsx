@@ -15,13 +15,11 @@ const CatSlider = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    try {
       axios.get(`${BASE_URL}/get-all-category`).then((res) => {
         setProjectData(res.data);
-      });
-    } catch(error) {
-        console.log(error);
-    }
+      }).catch((error) => {
+        console.log('Request error',error);
+    })
   }, []);
 
   const handlePrev = () => {

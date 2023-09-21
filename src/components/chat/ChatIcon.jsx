@@ -7,14 +7,12 @@ import { BASE_URL } from '../../http/baseUrl';
 const ChatIcon = ({setIsOpen, isOpen}) => {
     const {user} = useSelector((state) => state.authUser.user);
     const handleCreateOrOpenChat = () => {
-        try{
             setIsOpen(state => !state)
             axios.post(`${BASE_URL}/create-messanger`, {
                 userId: user._id
+            }).catch((error) => {
+                console.log('Request error',error);
             })
-        }catch(error) {
-            console.log(error);
-        }
     }
     return (
         <div 

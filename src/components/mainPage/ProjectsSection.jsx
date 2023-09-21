@@ -12,13 +12,12 @@ const ProjectsMain = () => {
   const [percentCollected, setPercentCollected] = useState(0);
 
   useEffect(() => {
-    try {
       axios.get(`${BASE_URL}/get-project-main-page`).then((res) => {
         setProjectData(res.data);
-      });
-    } catch(error) {
-        console.log(error);
-    }
+      })
+      .catch((error) => {
+        console.log('Request error',error);
+    })
   }, []);
 
   const handlePrev = () => {

@@ -43,19 +43,26 @@ const ProjectItem = ({item, handleChangeFunc, verified, onlyId, projectMainPage,
       };
 
       const handleRemoveProjectFromMainPage = (item) => {
-        const currentProject = projectMainPage.filter((proj) => proj.project._id == item.projects._id);
-        if(currentProject) {
-          axios.delete(`${BASE_URL}/remove-project-main-page`, {
-            data: {
-              projectId: item.projects._id,
-              currentId: currentProject[0]?._id
-            }
-        }).then(() => {
-            setTimeout(() => {
-                alert('Project added to main page')
+        const currentProject = projectMainPage.filter(
+          (proj) => proj.project._id == item.projects._id
+        );
+        if (currentProject) {
+          axios
+            .delete(`${BASE_URL}/remove-project-main-page`, {
+              data: {
+                projectId: item.projects._id,
+                currentId: currentProject[0]?._id,
+              },
+            })
+            .then(() => {
+              setTimeout(() => {
+                alert("Project added to main page");
                 setReload((state) => !state);
-            },500)
-        })
+              }, 500);
+            })
+            .catch((error) => {
+              console.log("Request error", error);
+            });
         }
       };
 

@@ -216,7 +216,10 @@ const EditProject = ({ selectedProject, setIsOpen }) => {
             setIsOpen((state) => !state);
             // window.location.reload();
           }, 500);
-        });
+        })
+        .catch((error) => {
+          console.log('Request error',error);
+      })
       } else {
         resoult.reason == "name"
           ? setNameErrorMessage(resoult.error)
