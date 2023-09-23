@@ -48,7 +48,6 @@ const NewProject = () => {
   const videoExtensions = ["mp4", "webm", "ogg", "avi", "wmv", "flv", "mov", "mkv"];
   const navigate = useNavigate();
 
-
   useEffect(() => {
     if (images.length > 0) {
       const loadImageSrc = async (image) => {
@@ -222,7 +221,6 @@ const NewProject = () => {
         formData.append("name", name);
         formData.append("description", description);
         formData.append("request", request);
-        // formData.append("team", teamBlocks);
         for (const block of teamBlocks) {
           formData.append("team", block);
       }
@@ -406,7 +404,6 @@ const NewProject = () => {
   }
   const handleSecondCategory = (e) => {
     setSecondCategory(e);
-    console.log('event',e);
     if(e != '') {
       handleValidateSecondCategory(e);
     } else {
@@ -455,9 +452,6 @@ const NewProject = () => {
         console.log(error);
     }
   }
-
-  console.log('selectedCategory?.category',selectedCategory?.category);
-  console.log('selectedSubCategory?.name',selectedSubCategory?.name);
 
   return (
     <div className="new_project_wraper">
@@ -627,12 +621,6 @@ const NewProject = () => {
         </div>
         <div className="input_item">
           <label htmlFor="placement">Placement period *</label>
-          {/* <input
-            id="placement"
-            type="text"
-            value={placementPeriod}
-            onChange={(e) => handlePlacementPeriod(e.target.value)}
-          /> */}
           <FilterDataPicker selectedDate={selectedDate} setSelectedDate={setSelectedDate} handlePlacementPeriod={handlePlacementPeriod}/>
         </div>
         <ErrorMessage errorMessage={placementPeriodErrorMessage} />
@@ -720,7 +708,6 @@ const NewProject = () => {
       >
         Save
       </button>
-      {/* </div> */}
     </div>
   );
 };

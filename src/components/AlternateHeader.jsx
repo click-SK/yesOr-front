@@ -20,15 +20,6 @@ const AlternateHeader = () => {
   const scrollTarget = params.get('scroll');
   const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     if (scrollTarget === 'about_us') {
-    //       const aboutUsSection = document.getElementById('about_us');
-    //       if (aboutUsSection) {
-    //         aboutUsSection.scrollIntoView({ behavior: 'smooth' });
-    //       }
-    //     }
-    //   }, [scrollTarget]);
-
     useEffect(() => {
         if(localStorage.getItem('Y-R-U-T')) {
           setTimeout(() => {
@@ -103,27 +94,21 @@ const AlternateHeader = () => {
                 <nav>
                     <ul className='nav_list'>
                         <li className='nav_list_item'>
-                            {/* <a href="#about_us">About us</a> */}
                             <Link to='/?scroll=about_us'>About us</Link>
                             </li>
                         <li className='nav_list_item'>
-                            {/* <a href="#project">Projects</a> */}
                             <Link to='/discover'>All Projects</Link>
                             </li>
                         <li className='nav_list_item'>
-                            {/* <a href="/?scroll=categories">Categories</a> */}
                             <Link to='/?scroll=categories'>Categories</Link>
                             </li>
                         <li className='nav_list_item'>
-                            {/* <a href="/?scroll=team">Team</a> */}
                             <Link to='/?scroll=team'>Team</Link>
                             </li>
                         <li className='nav_list_item'>
-                            {/* <a href="/?scroll=information">Information</a> */}
                             <Link to='/?scroll=information'>Information</Link>
                             </li>
                         <li className='nav_list_item'>
-                            {/* <a href="/?scroll=information">Information</a> */}
                             <Link to='/rules'>Terms</Link>
                             </li>
                     </ul>
@@ -213,9 +198,6 @@ const AlternateHeader = () => {
                     }
                     </div>
                     <div className='social'>
-                    {/* <img src="./icons/ph_telegram-logo-thin-burger.svg" alt="" />
-                    <img src="./icons/openmoji_instagram-burger.svg" alt="" />
-                    <img src="./icons/twiter-burger.svg" alt="" /> */}
                 </div>
                 </div>
             }

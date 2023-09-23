@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import moment from "moment";
 
 const CountingTime = ({currentProject, setPercentCollected}) => {
     const [deysLeft, setDaysLeft] = useState(null);
@@ -14,11 +13,8 @@ const CountingTime = ({currentProject, setPercentCollected}) => {
             currentProject &&
             currentProject?.period &&
             currentProject?.period?.startDate
-            // currentProject?.period?.countDays
           ) {
             const endDate = new Date(currentProject.period.endDate);
-            // endDate.setDate(endDate.getDate() + currentProject.period.countDays);
-            // let newTime = endDate.setDate(endDate.getDate() + 5);
 
       
             const timerInterval = setInterval(() => {
@@ -76,53 +72,6 @@ const CountingTime = ({currentProject, setPercentCollected}) => {
         }
       }, [currentProject]);
     
-      // useEffect(() => {
-      //   try {
-      //     if (currentProject) {
-      //       function calculateTimeDifference(startDate, days) {
-      //         const currentDate = moment().utcOffset(3);
-      //         const futureDate = moment(startDate).add(days, "days");
-      
-      //         const timeDifference = futureDate.diff(currentDate);
-      
-      //         const remainingDays = Math.floor(
-      //           timeDifference / (1000 * 60 * 60 * 24)
-      //         );
-      //         console.log('remainingDays',remainingDays);
-      //         const remainingHours = Math.floor(
-      //           (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      //         );
-      //         console.log('remainingHours',remainingHours);
-      //         const remainingMinutes = Math.floor(
-      //           (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
-      //         );
-      //         console.log('remainingMinutes',remainingMinutes);
-      
-      //         return {
-      //           days: remainingDays,
-      //           hours: remainingHours,
-      //           minutes: remainingMinutes,
-      //         };
-      //       }
-      
-      //       // Приклад використання
-      //       const startDate = currentProject?.period?.startDate;
-      
-      //       const daysToAdd = currentProject?.period?.countDays;
-      
-      //       const remainingTime = calculateTimeDifference(startDate, daysToAdd);
-      //       if (!!startDate) {
-      //         setTimeLeft(
-      //           `${remainingTime.days} days, ${remainingTime.hours} hours, ${remainingTime.minutes} minutes`
-      //         );
-      //       } else {
-      //         setTimeLeft("0");
-      //       }
-      //     }
-      //   } catch(error) {
-      //     console.log(error);
-      //   }
-      // }, [currentProject]);
 
     return (
         <div className="timer_wraper">

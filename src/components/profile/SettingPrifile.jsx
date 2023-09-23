@@ -51,9 +51,7 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloa
       formData.append("firstName", firstName);
       formData.append("id", currentUser._id);
       axios.patch(`${BASE_URL}/update-user-data`, formData).then(() =>
-      setTimeout(() => {
-        setReloadUser((state) => !state)
-      },500))
+        setReloadUser((state) => !state))
       .catch((error) => {
         console.log('Request error',error);
     })
@@ -208,7 +206,6 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloa
             isOpenModal={isOpenModalConfirm}
             setIsOpen={setIsOpenModalConfirm}
             handleChangeFunc={handleUpdateUserData}
-            // item={item}
           />
     </div>
   );

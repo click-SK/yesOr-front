@@ -34,8 +34,6 @@ const AllProjectAdmin = ({
     })
   }, [reloadProjectMainPage]);
 
-  // const reversedProjectArr = [...projectArr].reverse();
-
   return (
     <div className="project_wrap">
       <div className="project_header">

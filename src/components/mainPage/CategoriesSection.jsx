@@ -8,7 +8,6 @@ import CatSlider from './categoriesSlider/CatSlider';
 const CategoriesSection = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [allCategory, setAllCategory] = useState([]);
-    const [catUrl, setCatUrl] = useState('')
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -26,7 +25,6 @@ const CategoriesSection = () => {
     const  hendlerOpenCategories = (item) => {
         const nameArr = item.map(item => item.name);
         const catString = nameArr.join(',')
-        setCatUrl(catString)
         navigate(`/discover?cat=${catString}`)
     }
 
@@ -72,28 +70,6 @@ const CategoriesSection = () => {
             <div style={{marginTop:'100px'}} className='categories_wrap-850' >
                 <CatSlider/>
             </div>
-
-                {/* <> 
-                {allCategory.map((item, idx) => (
-                    idx >= currentSlide ? ( // Показуємо тільки 3 категорії від поточного слайду
-                        <div 
-                            key={idx} 
-                            className={`categories_wrap_item ${item.category}`}
-                            onClick={() => hendlerOpenCategories(item.subcategory)}
-                        >
-                            <img className='categories_wrap_item_img' src={`/icons/cat-${idx}.svg`} alt="" />
-                            <p className='categories_wrap_title'>{item.category}</p>
-                            {item.subcategory.map((sub, idx) => (
-                                <p key={idx} className='categories_wrap_descript'> - {sub.name}</p>
-                            ))}
-                        </div>
-                    ) : null
-                ))}
-                </> */}
-                {/* <div style={{marginTop:'50px'}}>
-                    <button onClick={prevSlide}>Prev</button>
-                    <button onClick={nextSlide}>Next</button>
-                </div> */}
         </section>
     );
 };

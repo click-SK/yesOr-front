@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import FormTitle from "./FormTitle";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { registration } from "../../store/authUser";
 import { useDispatch } from "react-redux";
 import * as validator from "../../validation/validator.js";

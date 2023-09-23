@@ -106,7 +106,6 @@ const ProfilePage = () => {
             /> 
             :
             <ProjectDonat
-            // savedProjects={currentUser && currentUser.savedProjects}
             setIsOpen = {setIsOpenDonatProject}
             user={currentUser}
             />

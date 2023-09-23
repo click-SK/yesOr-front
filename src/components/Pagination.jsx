@@ -5,7 +5,6 @@ const Pagination = ({dataArray, setFilterArray}) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [progressBar, setProgressBar] = useState(0);
     const [currentItems, setСurrentItems] = useState([]);
-    // const [itemsPerPage, setItemsPerPage] = useState(1);
 
     const itemsPerPage = 10;
     const pageNumbers = [];

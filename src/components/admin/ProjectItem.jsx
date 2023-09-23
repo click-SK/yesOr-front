@@ -32,10 +32,8 @@ const ProjectItem = ({item, handleChangeFunc, verified, onlyId, projectMainPage,
                 projectId: item?.projects?._id,
               })
               .then((res) => {
-                setTimeout(() => {
                   alert("Project added to main page");
                   setReload((state) => !state);
-                }, 500);
               });
           } catch(error) {
               console.log(error);
@@ -55,10 +53,8 @@ const ProjectItem = ({item, handleChangeFunc, verified, onlyId, projectMainPage,
               },
             })
             .then(() => {
-              setTimeout(() => {
-                alert("Project added to main page");
+                alert("Project remove from main page");
                 setReload((state) => !state);
-              }, 500);
             })
             .catch((error) => {
               console.log("Request error", error);
@@ -82,7 +78,6 @@ const ProjectItem = ({item, handleChangeFunc, verified, onlyId, projectMainPage,
         <div key={item._id} className="project_item admin_project_item">
           <Link
             to={`/project/${item.projects._id}`}
-            // className="project_item admin_project_item"
           >
             <p>{item?.projects?.name}</p>
             <p>{item?.projects?.category}</p>

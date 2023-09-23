@@ -5,8 +5,6 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { AiFillStar } from "react-icons/ai";
 import "../../styles/projectPage.scss";
-// import moment from "moment";
-// import { useNavigate } from 'react-router-dom';
 import DonatsModal from "./donatsComp/DonatsModal";
 import HistoryDonats from "./historiDonats/HistoryDonats";
 import ModalComent from "./ModalComent";

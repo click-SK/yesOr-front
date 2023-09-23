@@ -127,17 +127,6 @@ const DonatsModal = ({setIsOpen, currentProject}) => {
           setAmountErrorMessage('');
         }
       }
-    // const handleCard = (e) => {
-      // if(e.length > 16) {
-      //   e = e.slice(0, 16);
-      // }
-    //     setCard(e);
-        // if(e != '') {
-        //   handleValidateCard(e);
-        // } else {
-        //   setNumberCardErrorMessage('');
-        // }
-    //   }
 
     const handleCard = (e) => {
       if(e.length > 19) {

@@ -1,10 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import SavedProject from '../profile/SavedProject';
-import ProfileInfo from '../profile/ProfileInfo';
-import SettingPrifile from '../profile/SettingPrifile';
 import AllProjectAdmin from './AllProjectAdmin';
 import AllArchiveProject from './AllArchiveProject';
-import MyPriject from '../profile/MyPriject';
 import '../../styles/admin.scss';
 import { logout } from '../../store/authAdmin';
 import { useSelector, useDispatch } from 'react-redux';
@@ -104,9 +100,7 @@ const AdminProfile = () => {
                 projectId: item?.projects?._id,
                 currentId: item?._id
             }).then(() => {
-                setTimeout(() => {
                     setReloadUserData((state) => !state)
-                },1000)
             }).catch((error) => {
                 console.log('Request error',error);
             })
@@ -116,9 +110,7 @@ const AdminProfile = () => {
                 projectId: item?.projects?._id,
                 currentId: item?._id
             }).then(() => {
-                setTimeout(() => {
                     setReloadUserData((state) => !state)
-                },1000)
             }).catch((error) => {
                 console.log('Request error',error);
             })
@@ -132,7 +124,6 @@ const AdminProfile = () => {
         <button className='btn_profile-logout' onClick={handleLogout}>Logout</button>
     </div>
             <div className='profile_title'>
-                {/* <h2>Personal area</h2> */}
             </div>
             <ul className='profile_nav'>
                 <li
@@ -172,8 +163,6 @@ const AdminProfile = () => {
                 {isOpenArchive &&
                     <AllArchiveProject
                     projectArr={allArchiveProject && allArchiveProject}
-                    // verified={false}
-                    // handleChangeFunc={handleAddToVerified}
                     />
                 }
                 

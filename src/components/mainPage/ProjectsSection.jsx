@@ -60,9 +60,6 @@ const ProjectsMain = () => {
   const prevProject = projectData[(activeIndex - 1 + projectData.length) % projectData.length]?.project;
   const nextProject = projectData[(activeIndex + 1) % projectData.length]?.project;
 
-  // const percent = (collected / target) * 100;
-  // setPercentCollected(percent);
-
   useEffect(() => {
     try {
       if (activeProject) {
@@ -89,7 +86,6 @@ const ProjectsMain = () => {
             <img  src={`${BASE_URL}${prevProject?.projectMedia[0]}`} alt="" />
             <p className="project_second_name">{prevProject?.name}</p>
           </div>
-          {/* <Link to={`/project/${item.project?._id}`}></Link> */}
           <Link to={`/project/${activeProject?._id}`}>
             <div className={`project_active ${animationDirection ? 'inactive' : 'active'}`}>
               <img src={`${BASE_URL}${activeProject?.projectMedia[0]}`}  alt="" />
