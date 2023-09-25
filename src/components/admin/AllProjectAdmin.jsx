@@ -22,7 +22,6 @@ const AllProjectAdmin = ({
   },[projectArr])
 
   useEffect(() => {
-    try {
       axios.get(`${BASE_URL}/get-project-main-page`).then((res) => {
         setProjectMainPage(res.data);
         let onlyId = [];
@@ -30,13 +29,10 @@ const AllProjectAdmin = ({
           onlyId.push(item?.project?._id);
         })
         setMainPageProjectIdArray(onlyId);
-      });
-    } catch(error) {
-        console.log(error);
-    }
+      }).catch((error) => {
+        console.log('Request error',error);
+    })
   }, [reloadProjectMainPage]);
-
-  // const reversedProjectArr = [...projectArr].reverse();
 
   return (
     <div className="project_wrap">

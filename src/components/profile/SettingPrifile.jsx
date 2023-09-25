@@ -40,7 +40,6 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloa
   },[currentUser])
 
   const handleUpdateUserData = () => {
-    try {
       const formData = new FormData();
       formData.append("userImage", image);
       formData.append("email", email);
@@ -52,24 +51,21 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloa
       formData.append("firstName", firstName);
       formData.append("id", currentUser._id);
       axios.patch(`${BASE_URL}/update-user-data`, formData).then(() =>
-      setTimeout(() => {
-        setReloadUser((state) => !state)
-      },500))
-    } catch(error) {
-        console.log(error);
-    }
+        setReloadUser((state) => !state))
+      .catch((error) => {
+        console.log('Request error',error);
+    })
   }
 
   const handleUpdateUserPassword = () => {
-    try {
       axios.patch(`${BASE_URL}/update-user-password`, {
         id: currentUser?._id,
         currentPassword,
         newPassword
       })
-    } catch(error) {
-       console.log(error); 
-    }
+      .catch((error) => {
+        console.log('Request error',error);
+    })
   }
 
   const handleImageChange = (e) => {
@@ -210,7 +206,6 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloa
             isOpenModal={isOpenModalConfirm}
             setIsOpen={setIsOpenModalConfirm}
             handleChangeFunc={handleUpdateUserData}
-            // item={item}
           />
     </div>
   );

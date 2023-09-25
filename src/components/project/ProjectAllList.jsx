@@ -1,20 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import ProjectPage from '../project/ProjectPage';
 import FilterBudget from './filters/FilterBudget';
 import FilterCategories from './filters/filterCategory/FilterCategories';
-import FilterDataPicker from './filters/FilterDataPicker';
 import FilterSearch from './filters/FilterSearch';
-import FilterByName from './filters/FilterByName';
 import FilterByDate from './filters/FilterByDate';
-import FilterBySum from './filters/FilterBySum';
 import axios from 'axios';
 import { BASE_URL } from '../../http/baseUrl';
 import ProjectListTemplate from './ProjectListTemplate';
 import { Link } from 'react-router-dom';
 import Pagination from '../Pagination';
-import { BiArrowFromRight, BiArrowFromLeft, BiArrowFromBottom } from 'react-icons/bi';
-import MultiRangeSlider from './filters/rangeSlide/MultiRangeSlider';
-import { useHistory } from 'react-router-dom';
+import { BiArrowFromRight, BiArrowFromBottom } from 'react-icons/bi';
 import { useLocation } from 'react-router-dom';
 import Loader from '../Loader/Loader';
 
@@ -27,7 +21,6 @@ const ProjectAllList = () => {
     const [initialProjects, setInitialProjects] = useState([]);
     const [allCategory, setAllCategory] = useState([]);
     const [subCatArr, setSubCatArr] = useState([])
-    const [showResult, setShowResult] = useState(false)
     const [loadPage, setLoadPage] = useState(false)
     const [paginationArray, setPaginationArray] = useState([]);
     const [allArchiveProject, setAllArchiveProject] = useState([]);
@@ -38,7 +31,6 @@ const ProjectAllList = () => {
     }, []);
 
     useEffect(() => {
-        try {
             axios.get(`${BASE_URL}/get-all-verified-projects`)
             .then((res) => {
                 setAllProjects(res.data);
@@ -46,48 +38,41 @@ const ProjectAllList = () => {
                 setTimeout(() => {
                     setLoadPage(true)
                 },500)
-            });
-        } catch(error) {
-            console.log(error);
-        }
+            }).catch((error) => {
+                console.log('Request error',error);
+            })
     },[]);
 
     useEffect(() => {
-        try {
             axios
               .get(`${BASE_URL}/get-all-category`)
-              .then((res) => setAllCategory(res.data));
-          } catch(error) {
-              console.log(error);
-          }
+              .then((res) => setAllCategory(res.data))
+              .catch((error) => {
+                console.log('Request error',error);
+            })
       }, []);
 
       useEffect(() => {
-        try {
           axios.get(`${BASE_URL}/get-allarchive-projects`)
           .then((res) => setAllArchiveProject(res.data))
-      } catch(error) {
-          console.log(error);
-      }
+          .catch((error) => {
+            console.log('Request error',error);
+        })
     },[])
 
     const handleSubCatArrChange = () => {
         if (subCatArr.length === 0) {
             // Якщо subCatArr порожній, показуємо всі проекти
-            console.log('work first');
             setPaginationArray(initialProjects);
         } else {
 
             // Фільтруємо проекти за обраними субкатегоріями
-            console.log('allProjects',allProjects);
             const filteredProjects = allProjects.filter((project) => {
                 const projectSubcategories = project?.projects?.subcategory || '';
-                console.log('projectSubcategories',projectSubcategories);
                 return subCatArr.some((subcat) =>
                     projectSubcategories.includes(subcat)
                 );
             });
-            console.log('filteredProjects',filteredProjects);
             
             // Оновлюємо список проектів
             setPaginationArray(filteredProjects);
@@ -125,7 +110,6 @@ const ProjectAllList = () => {
     const openProject = () =>{
         setIsOpenAllUsers(true);
         setIsOpenArchive(false);
-        // setAllProjects(allProjects)
         setPaginationArray(allProjects)
     }
 
@@ -134,9 +118,6 @@ const ProjectAllList = () => {
         setIsOpenArchive(true);
         setPaginationArray(allArchiveProject)
     }
-
-    console.log('paginationArray1',paginationArray);
-
 
     return (
         <>

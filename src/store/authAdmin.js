@@ -27,6 +27,9 @@ export const login = createAsyncThunk('admin-auth/login', async (payload, thunkA
   export const checkAuthAdmin = createAsyncThunk('admin-auth/checkAuth ', async (_, thunkAPI) => {
     try {
       const response = await axios.get(`${BASE_URL}/refresh-admin`,{withCredentials: true})
+      .catch((error) => {
+        console.log('Request error',error);
+    })
 
       if(response.data.message == 'Validation error') {
         return thunkAPI.dispatch(authAdminSlice.actions.setAuthAdmin(false));

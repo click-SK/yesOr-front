@@ -192,7 +192,6 @@ const EditProject = ({ selectedProject, setIsOpen }) => {
         formData.append("name", name);
         formData.append("description", description);
         formData.append("request", request);
-        // formData.append("team", teamBlocks);
         for (const block of teamBlocks) {
           formData.append("team", block);
         }
@@ -201,22 +200,15 @@ const EditProject = ({ selectedProject, setIsOpen }) => {
           JSON.stringify({startDate: '', endDate: selectedDate})
         );
         formData.append("target", targetAmount);
-        // formData.append("category", selectedCategory?.category);
-        // formData.append(
-        //   "subcategory",
-        //   selectedSubCategory && selectedSubCategory?.name
-        //     ? selectedSubCategory?.name
-        //     : subCategoryArray.length !== 0
-        //     ? subCategoryArray[0].name
-        //     : ""
-        // );
         axios.patch(`${BASE_URL}/update-project`, formData).then(() => {
           alert("Project updated");
           setTimeout(() => {
             setIsOpen((state) => !state);
-            // window.location.reload();
           }, 500);
-        });
+        })
+        .catch((error) => {
+          console.log('Request error',error);
+      })
       } else {
         resoult.reason == "name"
           ? setNameErrorMessage(resoult.error)
@@ -425,35 +417,6 @@ const EditProject = ({ selectedProject, setIsOpen }) => {
           />
         </div>
         {nameErrorMessage && <p className="danger">{nameErrorMessage}</p>}
-        {/* <div className="categori_wrap">
-          {allCategory.length != 0 && (
-            <SelectChoseCategory
-              setState={setSelectedCategory}
-              state={selectedCategory}
-              title="Chose category"
-              item={allCategory}
-              isCategory={true}
-              isSubcategory={false}
-              editCategory={selectedProject.category}
-              isEdit={true}
-            />
-          )}
-          {subCategoryArray.length != 0 && (
-            <SelectChoseCategory
-              setState={setSelectedSubCategory}
-              state={selectedSubCategory}
-              title="Chose sub category"
-              item={subCategoryArray}
-              isCategory={false}
-              isSubcategory={true}
-              editCategory={selectedProject.subcategory}
-              isEdit={true}
-            />
-          )}
-        </div> */}
-        {/* {categoryErrorMessage && (
-          <p className="danger">{categoryErrorMessage}</p>
-        )} */}
         <div className="input_item">
           <label htmlFor="description">Description*</label>
           <textarea
@@ -477,20 +440,6 @@ const EditProject = ({ selectedProject, setIsOpen }) => {
         </div>
         {requestErrorMessage && <p className="danger">{requestErrorMessage}</p>}
         <div className="input_item">
-          {/* <label htmlFor="dynamicTeam">Owner*</label>
-            <input
-              id="dynamicTeam"
-              type="text"
-              value={currentUser?.lastName ? `${currentUser.lastName} ${currentUser.firstName}` : ''}
-              onChange={(e) => {
-                const updatedBlocks = [...teamBlocks];
-                if (updatedBlocks.length === 0) {
-                  updatedBlocks.push(""); // Додавання нового блоку при введенні в порожній масив
-                }
-                updatedBlocks[0] = e.target.value;
-                setTeamBlocks(updatedBlocks);
-              }}
-            /> */}
           <div className="team_dynamic_wrap">
             <label className="team_label" htmlFor="team">
               Team
@@ -521,12 +470,6 @@ const EditProject = ({ selectedProject, setIsOpen }) => {
         </div>
         <div className="input_item">
           <label htmlFor="placement">Placement period*</label>
-          {/* <input
-            id="placement"
-            type="text"
-            value={placementPeriod}
-            onChange={(e) => handlePlacementPeriod(e.target.value)}
-          /> */}
           <FilterDataPicker selectedDate={selectedDate} setSelectedDate={setSelectedDate} handlePlacementPeriod={handlePlacementPeriod}/>
         </div>
         {placementPeriodErrorMessage && (

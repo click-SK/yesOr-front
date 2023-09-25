@@ -32,13 +32,12 @@ const ChatWrap = ({setIsOpen, isOpen, user, isUser, isAdmin, animation, setAnima
     },[])
 
     useEffect(() => {
-        try{
             if(user) {
                 axios.get(`${BASE_URL}/get-current-messeges/${user?._id}`)
                 .then((res) => setCurrentChat(res.data))
-            }
-        } catch(error) {
-            console.log(error);
+                .catch((error) => {
+                    console.log('Request error',error);
+                })
         }
     },[user, reloadMessage])
 
@@ -47,7 +46,6 @@ const ChatWrap = ({setIsOpen, isOpen, user, isUser, isAdmin, animation, setAnima
     },[currentChat])
 
     const handleSendMessage = () => {
-        try{
             if(isUser) {
                 axios.patch(`${BASE_URL}/create-message`, {
                     userId: user?._id,
@@ -56,6 +54,9 @@ const ChatWrap = ({setIsOpen, isOpen, user, isUser, isAdmin, animation, setAnima
                     setTimeout(() => {
                         setReloadMessage((state) => !state)
                     },500)
+                })
+                .catch((error) => {
+                    console.log('Request error',error);
                 })
             }
             if(isAdmin) {
@@ -67,6 +68,9 @@ const ChatWrap = ({setIsOpen, isOpen, user, isUser, isAdmin, animation, setAnima
                     setTimeout(() => {
                         setReloadMessage((state) => !state)
                     },500)
+                    .catch((error) => {
+                        console.log('Request error',error);
+                    })
                 })
             }
             setMessage('');
@@ -74,9 +78,6 @@ const ChatWrap = ({setIsOpen, isOpen, user, isUser, isAdmin, animation, setAnima
             if (inputElement) {
                 inputElement.value = ''; // Скидання значення інпуту
             }
-        } catch(error) {
-            console.log(error);
-        }
     }
 
     const handleKeyDown = (e) => {
@@ -84,18 +85,7 @@ const ChatWrap = ({setIsOpen, isOpen, user, isUser, isAdmin, animation, setAnima
             handleSendMessage();
         }
       };
-
-    //   useEffect(() => {
-    //     setTimeout(() => {
-    //         if (chatContainerRef.current) {
-    //             chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-    //             setFirstScroll(false);
-    //         }
-    //     }, 500);
-    // }, []);
     
-
-
     return (
         <div className={`chat_wraper ${animation ? "chat_wraper-open" : 'chat_wraper-close' }`}>
             <div className='chat_header'>

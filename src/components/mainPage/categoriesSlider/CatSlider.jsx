@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { HiOutlineArrowNarrowLeft, HiOutlineArrowNarrowRight } from 'react-icons/hi';
 import axios from "axios";
 import { BASE_URL } from "../../../http/baseUrl";
-import { Link } from 'react-router-dom';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 const CatSlider = () => {
@@ -15,13 +14,11 @@ const CatSlider = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    try {
       axios.get(`${BASE_URL}/get-all-category`).then((res) => {
         setProjectData(res.data);
-      });
-    } catch(error) {
-        console.log(error);
-    }
+      }).catch((error) => {
+        console.log('Request error',error);
+    })
   }, []);
 
   const handlePrev = () => {
@@ -63,9 +60,6 @@ const CatSlider = () => {
   const activeProject = projectData[activeIndex];
   const prevProject = projectData[(activeIndex - 1 + projectData.length) % projectData.length];
   const nextProject = projectData[(activeIndex + 1) % projectData.length];
-
-  // const percent = (collected / target) * 100;
-  // setPercentCollected(percent);
 
   useEffect(() => {
     try {

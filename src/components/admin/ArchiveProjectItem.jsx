@@ -10,11 +10,7 @@ import { BASE_URL } from "../../http/baseUrl";
 import ChatWrap from '../chat/ChatWrap';
 const ArchiveProjectItem = ({
     item,
-    // handleChangeFunc, verified, onlyId, projectMainPage, setReload, isOpenChat, setIsOpenChat
 }) => {
-    // const [isOpenModalConfirm, setIsOpenModalConfirm] = useState(false);
-    // const [isOpenModalUnConfirm, setIsOpenModalUnConfirm] = useState(false);
-    // const [isOpenHistory, setIsOpenHistory] = useState(false);
 
     const truncateText = (text, maxLength) => {
         if (text.length <= maxLength) {
@@ -27,45 +23,10 @@ const ArchiveProjectItem = ({
         return truncatedText.substr(0, lastSpaceIndex) + "...";
       };
 
-    // const handleSendProjectOnMainPage = (item) => {
-    //   try {
-    //         axios
-    //           .post(`${BASE_URL}/add-project-main-page`, {
-    //             projectId: item?.projects?._id,
-    //           })
-    //           .then((res) => {
-    //             setTimeout(() => {
-    //               alert("Project added to main page");
-    //               setReload((state) => !state);
-    //             }, 500);
-    //           });
-    //       } catch(error) {
-    //           console.log(error);
-    //       }
-    //   };
-
-    //   const handleRemoveProjectFromMainPage = (item) => {
-    //     const currentProject = projectMainPage.filter((proj) => proj.project._id == item.projects._id);
-    //     if(currentProject) {
-    //       axios.delete(`${BASE_URL}/remove-project-main-page`, {
-    //         data: {
-    //           projectId: item.projects._id,
-    //           currentId: currentProject[0]?._id
-    //         }
-    //     }).then(() => {
-    //         setTimeout(() => {
-    //             alert('Project added to main page')
-    //             setReload((state) => !state);
-    //         },500)
-    //     })
-    //     }
-    //   };
-
     return (
         <div key={item._id} className="project_item admin_project_item">
           <Link
             to={`/project/${item.projects._id}`}
-            // className="project_item admin_project_item"
           >
             <p>{item?.projects?.name}</p>
             <p>{item?.projects?.category}</p>
@@ -73,39 +34,6 @@ const ArchiveProjectItem = ({
             <p>{item?.projects?.target}</p>
           </Link>
           <div className="admin_project_item_svg">
-            {/* <img src="./icons/ph_chat-centered-dots-light.svg" alt="" onClick={() => setIsOpenChat(state => !state)}/> */}
-            {/* {!verified ? (
-              <img
-                onClick={() => setIsOpenModalConfirm(!isOpenModalConfirm)}
-                src="./icons/ph_info-light.svg"
-                alt=""
-              />
-            ) : (
-              <img
-                onClick={() => setIsOpenModalUnConfirm(!isOpenModalUnConfirm)}
-                src="./icons/delete.svg"
-                alt=""
-              />
-            )} */}
-            {/* <img
-              className="history_icon"
-              src="./icons/solar_history-outline.svg"
-              alt=""
-              onClick={() => setIsOpenHistory(!isOpenHistory)}
-            /> */}
-            {/* <div>
-              {onlyId.includes(item?.projects?._id) ? (
-                <TiDocumentDelete
-                  title="Remove from main"
-                  onClick={() => handleRemoveProjectFromMainPage(item)}
-                />
-              ) : (
-                <BiAddToQueue
-                  title="Add to the main page"
-                  onClick={() => handleSendProjectOnMainPage(item)}
-                />
-              )}
-            </div> */}
           </div>
           {/* <ModalProjectConfirm
             title={"Confirm Verification?"}

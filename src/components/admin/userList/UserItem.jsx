@@ -29,9 +29,7 @@ const UserItem = ({ item, setReloadUserData}) => {
           isActivated: !item?.isActivated,
         })
         .then(() => {
-          setTimeout(() => {
             setReloadUserData((state) => !state);
-          }, 500);
         });
     } catch (error) {
       console.log(error);
@@ -47,9 +45,7 @@ const UserItem = ({ item, setReloadUserData}) => {
           isVerified: !item.isVerified,
         })
         .then(() => {
-          setTimeout(() => {
             setReloadUserData((state) => !state);
-          }, 500);
         });
     } catch (error) {
       console.log(error);

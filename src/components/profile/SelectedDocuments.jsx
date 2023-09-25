@@ -86,8 +86,8 @@ const SelectedDocuments = () => {
             alert('Document Added')
             cleanState();
           }).catch((error) => {
-            console.log(error);
-          });
+            console.log('Request error',error);
+        })
       
         } catch (error) {
           console.log(error);

@@ -1,11 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/footer.scss'
-// import PiTiktokLogoLight  from 'react-icons/pi';
-import { FaTiktok, FaTelegramPlane, FaTwitter, FaFacebookF } from "react-icons/fa";
-import { SiGmail } from "react-icons/si";
-import { AiOutlineFacebook, AiFillInstagram} from "react-icons/ai";
-import { BsTelephoneOutbound, BsFillTelephoneFill } from "react-icons/bs";
 
 const Footer = () => {
     return (
@@ -40,14 +35,11 @@ const Footer = () => {
             <div className='social'>
                     <a href="https://t.me/yesor_official"> 
                     <img src="./icons/footer/22.png" alt="" />
-                    {/* <FaTelegramPlane/> */}
                     </a>
                     <a href="https://www.instagram.com/yesor_official"> 
                     <img src="./icons/footer/16.png" alt="" />
-                    {/* <AiFillInstagram/> */}
                     </a>
                     <a href="https://twitter.com/YesOr_Official">
-                         {/* <img src="./icons/twiter.svg" alt="" />  */}
                          <img src="./icons/footer/20.png" alt="" />
                          </a> 
                     <a href="https://www.tiktok.com/@yesor_official"> <img src="./icons/footer/21.png" alt="" />  </a> 
