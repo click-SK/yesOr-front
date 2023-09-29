@@ -81,11 +81,14 @@ const SingUp = ({ hendlerChangeblock, isSingIn, mobile}) => {
 
   const handleValidateEmail = (e) => {
     const resoult = validator.validationRegistration({email: e});
+    console.log('resoult',resoult);
 
     if(resoult.length !== 0) {
       resoult.forEach((item) => {
         item.reason == 'email' ? setEmailErrorMessage(item.error) : setEmailErrorMessage('');
       })
+    } else {
+      setEmailErrorMessage('');
     }
   }
   const handleFirstName = (e) => {
