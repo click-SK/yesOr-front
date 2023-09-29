@@ -85,7 +85,7 @@ const ProjectItem = ({item, handleChangeFunc, verified, onlyId, projectMainPage,
             <p>{item?.projects?.target}</p>
           </Link>
           <div className="admin_project_item_svg">
-            <img src="./icons/ph_chat-centered-dots-light.svg" alt="" onClick={() => setAnimation(state => !state)}/>
+            <img src="./mainPage/icons/ph_chat-centered-dots-light.svg" alt="" onClick={() => setAnimation(state => !state)}/>
             {!verified ? (
               <img
                 onClick={() => setIsOpenModalConfirm(!isOpenModalConfirm)}
@@ -95,13 +95,13 @@ const ProjectItem = ({item, handleChangeFunc, verified, onlyId, projectMainPage,
             ) : (
               <img
                 onClick={() => setIsOpenModalUnConfirm(!isOpenModalUnConfirm)}
-                src="./icons/delete.svg"
+                src="./mainPage/icons/delete.svg"
                 alt=""
               />
             )}
             <img
               className="history_icon"
-              src="./icons/solar_history-outline.svg"
+              src="./mainPage/icons/solar_history-outline.svg"
               alt=""
               onClick={() => setIsOpenHistory(!isOpenHistory)}
             />

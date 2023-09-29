@@ -21,7 +21,7 @@ const ChatIcon = ({setIsOpen, isOpen}) => {
             <div className='chat_bg_z1000'>
                 <div className='chat_bg_z1999'>
                     <div className='chat_bg_z2999'>
-                        <img className='chat_icon' src="./icons/fluent_chat-24-regular.svg" alt=""/>
+                        <img className='chat_icon' src="./mainPage/icons/fluent_chat-24-regular.svg" alt=""/>
                     </div>
                 </div>
             </div>

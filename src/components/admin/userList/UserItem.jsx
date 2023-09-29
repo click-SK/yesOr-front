@@ -99,7 +99,7 @@ useEffect(() => {
         </div>
         <div className="admin_project_item_svg">
           <img
-            src="./icons/ph_chat-centered-dots-light.svg"
+            src="./mainPage/icons/ph_chat-centered-dots-light.svg"
             alt=""
             onClick={() => handleCreateOrOpenChat()}
           />
@@ -107,27 +107,27 @@ useEffect(() => {
             {!item?.isVerified ? (
               <img
                 onClick={() => setIsOpenModalConfirm(!isOpenModalConfirm)}
-                src="./icons/ph_info-light.svg"
+                src="./mainPage/icons/ph_info-light.svg"
                 alt=""
               />
             ) : (
               <img
                 onClick={() => setIsOpenModalUnConfirm(!isOpenModalUnConfirm)}
-                src="./icons/delete.svg"
+                src="./mainPage/icons/delete.svg"
                 alt=""
               />
             )}
           </div>
           <div className="block_user_btn" onClick={handleBlockedUser}>
             {item?.isActivated ? (
-              <img src="./icons/block.svg" alt="" />
+              <img src="./mainPage/icons/block.svg" alt="" />
             ) : (
               <AiOutlineLock />
             )}
           </div>
           <img
             className="history_icon"
-            src="./icons/solar_history-outline.svg"
+            src="./mainPage/icons/solar_history-outline.svg"
             alt=""
             onClick={() => setIsOpenHistory(!isOpenHistory)}
           />

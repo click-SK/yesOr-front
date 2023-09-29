@@ -87,11 +87,11 @@ const Header = () => {
                 <div className='profile_button'>
                  {isAdmin ?
                       <Link to='/admin-profile'>
-                          <img src="./icons/Profile.svg" alt="" />
+                          <img src="./mainPage/icons/Profile.svg" alt="" />
                       </Link>  :
                       <Link to='/login'>
                           {isAuthUser ?
-                          <img src="./icons/Profile.svg" alt="" />
+                          <img src="./mainPage/icons/Profile.svg" alt="" />
                           :
                           <button>Sign up</button>
                           }
@@ -128,13 +128,13 @@ const Header = () => {
                       <Link to='/admin-profile'>
                           <img 
                           onClick={() => hendlerMenuClose() }
-                          src="./icons/Profile.svg" alt="" />
+                          src="./mainPage/icons/Profile.svg" alt="" />
                       </Link>  :
                       <Link to='/login'>
                           {isAuthUser ?
                           <img 
                           onClick={() => hendlerMenuClose() }
-                          src="./icons/Profile.svg" alt="" />
+                          src="./mainPage/icons/Profile.svg" alt="" />
                           :
                           <button
                           onClick={() => hendlerMenuClose() }
