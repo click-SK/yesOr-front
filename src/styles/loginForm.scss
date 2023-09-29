@@ -135,6 +135,9 @@ button{
 }
 
 .button_singup{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 100px;
     text-align: left;
 }
 .button_login{
@@ -247,6 +250,7 @@ button{
         // padding: 65% 5% 10%;
     }
 
+
 }
 @media (max-height: 350px){
     .sing_in_form{
@@ -288,5 +292,12 @@ button{
     .form_wrap_item {
         width: 100%;
         // padding: 0 5%;
+    }
+}
+@media (max-width: 300px){
+    
+    .button_login{
+        display: flex;
+        justify-content: center;
     }
 }
