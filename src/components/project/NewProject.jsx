@@ -31,7 +31,7 @@ const NewProject = () => {
   const [reloadUser, setReloadUser] = useState({});
   const [teamBlocks, setTeamBlocks] = useState([]);
   const [bonusBlocks, setBonusBlocks] = useState([{ title: "", amount: "" }]);
-  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [validateDate, setValidateDate] = useState(true);
 
   const [nameErrorMessage, setNameErrorMessage] = useState("");
