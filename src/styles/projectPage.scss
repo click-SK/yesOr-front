@@ -486,6 +486,7 @@ input{
     display: flex;
     opacity: 1;
     max-height: 900px;
+    width: 100%;
 }
 
 .category_wrap_sub-close{
@@ -506,14 +507,51 @@ input{
     height: 40px;
     background-color: #000;
     max-width: 100%;
+    width: 100%;
 }
 
-#art_chex{
+// #art_chex{
+//     min-width: 20px;
+//     min-height: 20px;
+//     max-width: 20px;
+//     max-height: 20px;
+// }
+
+.check-box-lable{
     min-width: 20px;
     min-height: 20px;
     max-width: 20px;
     max-height: 20px;
+    border: 1px solid #494949;
+    cursor: pointer;
+    &:hover{
+        background-color: #ffdcb7;
+    }
 }
+.check-box-lable0-cheked{
+    background-color: #F87F00;
+
+}
+
+
+#art_chex{
+    display: none;
+}
+
+// #art_chex + label:before {
+//     content: "";
+//     display: inline-block;
+//     width: 16px; /* Розмір чекбокса */
+//     height: 16px; /* Розмір чекбокса */
+//     border: 1px solid gray;
+//     background-color: white;
+//     vertical-align: middle;
+//     cursor: pointer;
+// }
+
+// #art_chex:checked + label:before {
+//     background-color: blue; /* Змініть на будь-який бажаний колір */
+// }
 
 // .budget_filter {
 //     -webkit-appearance: none;
