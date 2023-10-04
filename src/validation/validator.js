@@ -24,7 +24,7 @@ export const validationRegistration = ({email, phone, password, firstName, lastN
         })
       }
 
-      if(password?.length <= 7) {
+      if(password?.length <= 6) {
         arr.push({
           isValid: false,
           error: 'The password must be at least 7 characters long',
