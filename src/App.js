@@ -21,6 +21,7 @@ import ChatIcon from './components/chat/ChatIcon';
 import ChatWrap from './components/chat/ChatWrap';
 import './App.css';
 import Loader from './components/Loader/Loader';
+import { ArrowUp } from './components/ArrowUp';
 
 function App() {
   const dispatch = useDispatch();
@@ -108,6 +109,7 @@ function App() {
         <Route path="*" element={<Page404 />} />
         {isAdmin && <Route path="/admin-profile" element={<AdminProfile />} />}
       </Routes>
+      <ArrowUp/>
       <Footer />
     </div>
   );

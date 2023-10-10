@@ -182,6 +182,7 @@ export const validationDonate = ({ nameFirst, nameLast, amount, card, validity, 
       console.log(e);
     }
   };
+  
 export const validationComment = ({ name, description}) => {
     try {
       let arr = [];
