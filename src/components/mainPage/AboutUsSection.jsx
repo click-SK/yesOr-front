@@ -102,17 +102,23 @@ const AboutUsMain = () => {
         <h2 className='section_title about_us_description_title'>About Us</h2>
         <div className='about_us_description_text'>
           <p>
-            The Charitable Foundation is made up of dedicated agents and employees of Berkshire
-            Hathaway HomeServices California Properties who want to make a positive and constructive
-            impact on our local communities.
+          We’re more than just a crowdfunding platform; we’re a passionate team based in Ukraine, dedicated to supporting creators, innovators, and visionaries. We thrive despite the challenges posed by the ongoing war.
+
           </p>
           <p>
-            Since its inception, the Charitable Foundation has provided hundreds of grants to local
-            organizations involved in health, education, society and the environment. We also
-            actively donate our time and talents to the causes we support.
+          Why Choose Us: <br/>
+
+• Passion for Innovation: We’re driven by a deep passion for nurturing creativity and innovation.<br/>
+• Collective Strength: Our team joins forces to amplify your vision and potential.<br/>
+• Transparency and Trust: We uphold transparency, building trust between creators and backers.<br/>
+• Your Projects, Our Mission: We exist to support you on your journey, bringing your ideas to life.
+
           </p>
+          <p>Join us in this creative adventure, where we transform dreams into reality, even amidst the challenges of war.
+</p>
         </div>
       </div>
+
       <div className='about_us_courosel'>
         <div className='about_us_img_wrap'>
             <div className={`carousel-image ${animationDirection === 'prev' ? 'active' : ''}`}>

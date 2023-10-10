@@ -104,7 +104,11 @@ const TeamSection = () => {
             <div className='team_description'>
                 <h2 className='section_title team_description_title'>Team</h2>
                 <div className='team_description_text'>
-                    <p>The Charitable Foundation is made up of dedicated agents and employees of Berkshire Hathaway HomeServices California Properties who want to make a positive and constructive impact on our local communities.</p>
+                    <p>
+                    We are a passionate team of Ukrainians, dedicated to nurturing creativity and innovation. Despite the unique challenges we face, we’re here to help your ideas flourish.
+
+Join us on this creative journey, where we transform dreams into reality, even in challenging times.
+                      </p>
                 </div>
                 <div>
                     <div className='exp_wrap'>

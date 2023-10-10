@@ -7,10 +7,15 @@ const InformationSection = () => {
             <div className='information_description'>
                 <h2 className='section_title information_description_title'>Information</h2>
                 <div className='information_description_text'>
-                    <p>Lorem ipsum dolor sit amet consectetur. Sem vulputate arcu convallis aliquam diam sagittis tortor. Scelerisque nunc augue ornare pretium egestas at ut nec in. </p>
-                    <p>Lorem ipsum dolor sit amet consectetur. Sem vulputate arcu convallis aliquam diam sagittis tortor. Scelerisque nunc augue ornare pretium egestas at ut nec in. </p>
-                    <p>Lorem ipsum dolor sit amet consectetur. Sem vulputate arcu convallis aliquam diam sagittis tortor. Scelerisque nunc augue ornare pretium egestas at ut nec in. </p>
-                    <p>Lorem ipsum dolor sit amet consectetur. Sem vulputate arcu convallis aliquam diam sagittis tortor. Scelerisque nunc augue ornare pretium egestas at ut nec in. </p>
+                    <p>Our centerpiece article is your guide to successfully using YesOr. Here you'll find all the essential information about our platform's capabilities, usage recommendations, success stories from other users, as well as answers to frequently asked questions.</p>
+                    <p>What you will discover: <br/>
+- Getting Started: A step-by-step guide to launching your project or supporting a campaign.<br/>
+- Success Stories: Inspiring tales of those who have already turned their dreams into reality with YesOr.<br/>
+- FAQ: Answers to common questions to ensure a smooth start.<br/>
+- Best Practices: Tips and tricks for optimizing your crowdfunding journey.<br/>
+- Contact Us: Reach out to our friendly team if you need assistance.<br/>
+</p>
+                    <p>Explore our information hub and make the most of your YesOr experience. Your path to success begins here! </p>
                     
                 </div>
             </div>

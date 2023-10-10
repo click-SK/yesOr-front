@@ -7,12 +7,63 @@ const RulesProject = () => {
                 <h2>Terms</h2>
             </div>
             <div className='rules_text'>
-                <p>Lorem ipsum dolor sit amet consectetur. Dolor id egestas aliquet mi id. Id euismod porta eget eros quis neque risus sit. Proin et sit eu nisi massa. Nunc est sed nunc nunc sed. Elementum neque euismod tristique et aliquet eget. </p>
-                <p>Eros interdum at iaculis enim. Suspendisse lectus semper enim morbi id id. Cras mi arcu cursus at consequat. A scelerisque quis nibh aliquam. Penatibus dolor rhoncus at pretium adipiscing non. Aliquet porttitor diam imperdiet odio. Interdum tincidunt sapien sit volutpat quam orci. Dignissim viverra facilisis dignissim eget sollicitudin. </p>
-                <p>Ut arcu nec mi massa faucibus sit et porttitor massa. Morbi purus nibh et mattis nisi ac. Lacus ullamcorper integer sagittis cum quis tellus. Amet rhoncus arcu tempor faucibus leo netus. Ultrices eu quam blandit nibh arcu sagittis pulvinar quisque sit. Mauris morbi netus id velit aliquet adipiscing sit tincidunt. Diam id euismod et nulla velit. </p>
-                <p>Tellus urna nisl tempor pellentesque suspendisse augue. Quam in feugiat leo in blandit adipiscing viverra sit. Odio aliquet dictum varius adipiscing egestas turpis sed. Ipsum ornare vestibulum id consectetur lorem consectetur pellentesque volutpat. Fringilla risus aliquet nisi viverra dignissim diam massa elit phasellus. </p>
-                <p>Tincidunt nunc pellentesque pulvinar egestas id tincidunt sagittis. Viverra venenatis sed molestie facilisi gravida suspendisse condimentum ut. Adipiscing sed vitae integer adipiscing non magnis lacus sed. </p>
-                <p>Enim fusce lorem massa viverra penatibus. Porttitor magna feugiat viverra quam et est lobortis. Faucibus gravida a mattis ridiculus quam et vitae. Vel pretium urna vel at purus dictumst leo orci. Elementum vel pretium massa ornare viverra diam a aliquet pellentesque. </p>
+                <p>Welcome to YesOr's Terms and Conditions, where we outline the legal framework that governs your use of our crowdfunding platform. It's essential to understand these terms as they are designed to protect the interests of all our users, ensuring a safe, transparent, and fair environment for everyone.
+</p>
+                <p>1. User Responsibilities: <br/>
+   - You are responsible for the accuracy of the information you provide on YesOr.<br/>
+   - Respect the rights and intellectual property of others.<br/>
+   - Comply with all applicable laws and regulations.<br/>
+</p>
+                <p>2. Project Creator Guidelines:
+ <br/>
+ - Clearly and accurately describe your project.
+   <br/>
+   - Fulfill all commitments made to your backers.
+   <br/>
+   - Communicate openly and transparently with your backers.
+   <br/>
+</p>
+                <p>
+                    3. Backer Expectations:
+
+ <br/>
+ - Understand that you are supporting a project in development, and risks may exist.
+   <br/>
+   - Read project descriptions and risks carefully before pledging.
+   <br/>
+   - Keep communication with project creators respectful and constructive.
+   <br/>
+</p>
+                <p>
+                4. Payment and Fees:
+
+ <br/>
+ - Payments are processed securely through our platform.
+   <br/>
+   - Be aware of any associated fees before making a pledge.
+
+</p>
+<p>
+5. Privacy and Data Security:
+
+ <br/>
+ - We take your privacy seriously. Review our Privacy Policy for details.
+   <br/>
+   - Your data is protected according to industry standards.
+
+</p>
+<p>
+6. Dispute Resolution:
+
+ <br/>
+ - In the event of a dispute, we encourage open communication between parties.
+   <br/>
+   - YesOr may step in to mediate if necessary, but we aim for amicable resolutions.
+
+</p>
+                <p>By using YesOr, you agree to adhere to these terms and conditions, fostering a community of trust, collaboration, and innovation. Please take the time to review them thoroughly to ensure a positive experience for everyone involved. If you have any questions or concerns, feel free to reach out to our support team.
+</p>
+                
             </div>
 
         </div>

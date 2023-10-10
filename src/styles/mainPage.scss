@@ -51,7 +51,7 @@ p{
 @import './tamplateButtons.scss';
 
 .about_us{
-    min-height: 1071px;
+    min-height: 1171px;
     padding: 0 80px;
     background: url("../../public/mainPage/bg/pngtree-flowing-clean-mixed-lines-on-white-background-picture-image_1298863\ 3.svg") rgba(243, 112, 66, 0.15);
     background-repeat: no-repeat;
@@ -102,9 +102,12 @@ p{
 
 }
 
+
+
 .about_us_courosel{
     width: 100%;
     position: absolute;
+    bottom: 100px;
 }
 .about_us_img_wrap{
     display: flex;
