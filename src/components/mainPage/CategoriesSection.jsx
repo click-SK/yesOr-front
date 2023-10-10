@@ -59,7 +59,7 @@ const CategoriesSection = () => {
                     key={idx} 
                     className={`categories_wrap_item ${item.category}`}
                     onClick={() => hendlerOpenCategories (item.subcategory)}>
-                        <img className='categories_wrap_item_img' src={`./mainPage/icons/cat-${idx}.svg`} alt="" />
+                        <img className='categories_wrap_item_img' src={`./mainPage/icons/cat-${idx}.png`} alt="" />
                         <p className='categories_wrap_title'>{item.category}</p>
                             {item.subcategory.map ((sub, idx) => (
                                 <p key={idx} className='categories_wrap_descript'> - {sub.name}</p>

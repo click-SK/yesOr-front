@@ -26,7 +26,7 @@ import { ArrowUp } from './components/ArrowUp';
 function App() {
   const dispatch = useDispatch();
   const [animation, setAnimation] = useState(false);
-  const [isHomePage, setIsHomePage] = useState(false);
+  const [isHomePage, setIsHomePage] = useState(true);
   const [loadPage, setLoadPage] = useState(false);
   const isAuthUser = useSelector((state) => state.authUser.isAuthUser);
   const isAdmin = useSelector((state) => state.authAdmin.isAdmin);
@@ -35,10 +35,17 @@ function App() {
   const {user} = useSelector((state) => state.authUser.user);
   const [isOpenChat, setIsOpenChat] = useState(false)
 
+  // useEffect(() => {
+  //   if(window.location.pathname === '/') {
+  //     setIsHomePage(true);
+      
+  //   } else {
+  //     setIsHomePage(false);
+  //   }
+  //   // window.location.reload()
+  // },[])
+
   useEffect(() => {
-    if(window.location.pathname === '/') {
-      setIsHomePage(true);
-    }
     setTimeout(() => {
       setLoadPage(true);
     },1000)
@@ -94,7 +101,9 @@ function App() {
     ) : (
       <Loader />
     )}
-    {isHomePage ? <Header /> : <AlternateHeader />}
+    {/* {isHomePage ? <Header /> : <AlternateHeader />} */}
+    {window.location.pathname == '/' && <Header />}
+    {window.location.pathname != '/' && <AlternateHeader />}
       <Routes>
         <Route path="/" element={<MainPage />} />
         {/* {!isAuthUser && <Route path='/login' element={<LoginForm/>}/>} */}

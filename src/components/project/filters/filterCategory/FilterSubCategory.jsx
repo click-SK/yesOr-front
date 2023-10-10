@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 const FilterSubCategory = ({ el, idx, setSubCatArr, subCatArr }) => {
     const [isCheckbox, setIsCheckbox] = useState(false);
+    const [isClick, setIsClick] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -41,7 +42,12 @@ const FilterSubCategory = ({ el, idx, setSubCatArr, subCatArr }) => {
 
     return (
         <div className='sub_cat_wrap'>
-            <input type="checkbox" checked={isCheckbox} id="art_chex" onChange={(e) => hendlerCheked(el.name)}/>
+            <label className={`check-box-lable ${isCheckbox ? "check-box-lable0-cheked" : ''}`}  onClick={(e) => hendlerCheked(el.name)} htmlFor="art_chex"></label>
+            {/* <input type="checkbox"
+             checked={isCheckbox} 
+             id="art_chex" 
+            onChange={(e) => setIsClick(true)}
+            /> */}
             <p>{el.name}</p>
         </div>
     );

@@ -35,28 +35,28 @@ const Footer = () => {
             <div className='social'>
                     <a href="https://t.me/yesor_official"> 
                     {/* <img src="./icons/footer/22.png" alt="" /> */}
-                    <img src="./mainPage/icons/footer/telegram.png" alt="telegram.png" />
+                    <img style={{width:'50%'}} src="./mainPage/icons/footer/telegram.png" alt="telegram.png" />
                     </a>
                     <a href="https://www.instagram.com/yesor_official"> 
                     {/* <img src="./icons/footer/16.png" alt="" /> */}
-                    <img src="./mainPage/icons/footer/insta.png" alt="instagram.png" />
+                    <img style={{width:'50%'}} src="./mainPage/icons/footer/insta.png" alt="instagram.png" />
                     </a>
                     <a href="https://twitter.com/YesOr_Official">
                          {/* <img src="./icons/footer/20.png" alt="" /> */}
-                         <img src="./mainPage/icons/footer/twit.png" alt="twiter.png" />
+                         <img style={{width:'50%'}} src="./mainPage/icons/footer/twit.png" alt="twiter.png" />
                          </a> 
                     <a href="https://www.tiktok.com/@yesor_official"> 
                     {/* <img src="./icons/footer/21.png" alt="" />  </a>  */}
-                    <img src="./mainPage/icons/footer/tick.png" alt="tiktok.png" />  </a> 
+                    <img style={{width:'50%'}} src="./mainPage/icons/footer/tick.png" alt="tiktok.png" />  </a> 
                     <a href="https://www.facebook.com/profile.php?id=61550656619878"> 
                     {/* <img src="./icons/footer/19.png" alt="" /></a>  */}
-                    <img src="./mainPage/icons/footer/face.png" alt="face.png" /></a> 
+                    <img style={{width:'50%'}} src="./mainPage/icons/footer/face.png" alt="face.png" /></a> 
                     <a href="tel:+380974499349"> 
                     {/* <img src="./icons/footer/18.png" alt="" /> </a>  Здійснення дзвінка */}
-                    <img src="./mainPage/icons/footer/phone.png" alt="phone.png" /> </a>  {/* Здійснення дзвінка */}
+                    <img style={{width:'50%'}} src="./mainPage/icons/footer/phone.png" alt="phone.png" /> </a>  {/* Здійснення дзвінка */}
                     <a href="mailto:yesor.official@gmail.com"> 
                     {/* <img src="./icons/footer/17.png" alt="" /> </a>  Відкриття пошти */}
-                    <img src="./mainPage/icons/footer/gmail.png" alt="gmail.png" /> </a>  {/* Відкриття пошти */}
+                    <img style={{width:'50%'}} src="./mainPage/icons/footer/gmail.png" alt="gmail.png" /> </a>  {/* Відкриття пошти */}
 
                 </div>
             </div>

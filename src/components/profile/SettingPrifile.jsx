@@ -3,6 +3,7 @@ import axios from "axios";
 import {BASE_URL} from '../../http/baseUrl';
 import SelectedDocuments from './SelectedDocuments';
 import ModalProjectConfirm from "../admin/ModalProjectConfirm";
+import InfoUser from "./settingPage/InfoUser";
 const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloadUser }) => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -16,6 +17,9 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloa
   const [image, setImage] = useState(null);
   const [imageSrc, setImageSrc] = useState(null);
   const [isOpenModalConfirm, setIsOpenModalConfirm] = useState(false);
+  const [isOpenInfo, setOpenInfo] = useState(true)
+  const [isOpenPass, setOpenPass] = useState(false)
+  const [isOpenVeref, setOpenVeref] = useState(false)
 
   const inputFileRef = useRef(null);
 
@@ -76,6 +80,21 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloa
   const documentOptions = ["Passport", "Driver's License"];
   const passportTypeOptions = ["New", "Old"];
 
+  const hendlerOpenInfo = () => {
+      setOpenInfo(true)
+      setOpenPass(false)
+      setOpenVeref(false)
+  }
+  const hendlerOpenPass = () => {
+      setOpenInfo(false)
+      setOpenPass(true)
+      setOpenVeref(false)
+  }
+  const hendlerOpenVeref = () => {
+      setOpenInfo(false)
+      setOpenPass(false)
+      setOpenVeref(true)
+  }
 
   return (
     <div className="profile_user_wrap">
@@ -103,7 +122,17 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloa
             />
         <img className="edit_photo_profile" onClick={() => inputFileRef.current.click()} src="./file/edit.svg" alt="" />
       </div>
+      <ul style={{width: '50%'}} className="profile_nav" >
+        <li className={`profile_nav_item ${isOpenInfo && 'profile_nav_item-active'}`} onClick={hendlerOpenInfo}>Info</li>
+        <li className={`profile_nav_item ${isOpenPass && 'profile_nav_item-active'}`} onClick={hendlerOpenPass}>Password</li>
+        <li className={`profile_nav_item ${isOpenVeref && 'profile_nav_item-active'}`} onClick={hendlerOpenVeref}>Verification</li>
+      </ul>
       <div className="content">
+        {/* <InfoUser
+        setEmail = {setEmail}
+        email = {email}
+        /> */}
+        {isOpenInfo &&
         <div className="wrap_block">
           <div className="input_wrap-profile">
             <div className="input_item">
@@ -173,7 +202,9 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloa
             </div>
           </div>
           <button className="btn_profile-edit" onClick={() => setIsOpenModalConfirm(!isOpenModalConfirm)}>Save</button>
-        </div>
+        </div>}
+        {isOpenPass && 
+
         <div>
         <div className="wrap_block">
           <div className="input_wrap-profile">
@@ -198,8 +229,10 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloa
           </div>
           <button className="btn_profile-logout" onClick={handleUpdateUserPassword}>Change password</button>
           </div>
-      </div>
+      </div>        }
+      {isOpenVeref &&
       <SelectedDocuments/>
+      }
       </div>
       <ModalProjectConfirm
             title={"If you change your information, you will need to verify again"}
