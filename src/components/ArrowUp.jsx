@@ -54,7 +54,7 @@ export const ArrowUp = () => {
       return (
         <>
         {isBool && <div className='arrow-up'>
-            <button onClick={scrollTop}>
+            <button style={{background:'transparent'}} onClick={scrollTop}>
             <FaArrowAltCircleUp className='FaArrowAltCircleUp'/>
             </button>
         </div>}
