@@ -125,7 +125,7 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloa
       <ul style={{width: '50%'}} className="profile_nav" >
         <li className={`profile_nav_item ${isOpenInfo && 'profile_nav_item-active'}`} onClick={hendlerOpenInfo}>Info</li>
         <li className={`profile_nav_item ${isOpenPass && 'profile_nav_item-active'}`} onClick={hendlerOpenPass}>Password</li>
-        <li className={`profile_nav_item ${isOpenVeref && 'profile_nav_item-active'}`} onClick={hendlerOpenVeref}>Verefication</li>
+        <li className={`profile_nav_item ${isOpenVeref && 'profile_nav_item-active'}`} onClick={hendlerOpenVeref}>Verification</li>
       </ul>
       <div className="content">
         {/* <InfoUser
