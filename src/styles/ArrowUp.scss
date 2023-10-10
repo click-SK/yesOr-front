@@ -1,0 +1,17 @@
+.arrow-up {
+    display: flex;
+    width: 100%;
+    margin: 10px 0px 0px 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.FaArrowAltCircleUp {
+    width: 44px;
+    height: 44px;
+    color: #F87F00;
+    position: fixed;
+    opacity: 0.5;
+    bottom: 20px;
+    right: 20px;
+}
