@@ -27,10 +27,10 @@ const ProfileInfo = ({openSetting, currentUser}) => {
     return (
       <div className="profile_user_wrap">
         <div className="photo_profile">
-          {currentUser.userImage ? (
+          {currentUser?.userImage ? (
             <img
               className="photo_profile_hero"
-              src={`${BASE_URL}${currentUser.userImage}`}
+              src={`${BASE_URL}${currentUser?.userImage}`}
               alt=""
             />
           ) : (
