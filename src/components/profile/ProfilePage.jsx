@@ -10,9 +10,9 @@ import "../../styles/profile.scss";
 import ProjectDonat from "./ProjectDonat";
 
 const ProfilePage = () => {
-  const [isOpenProject, setIsOpenProject] = useState(true);
+  const [isOpenProject, setIsOpenProject] = useState(false);
   const [isOpenProfile, setIsOpenProfile] = useState(false);
-  const [isOpenSetting, setIsOpenSetting] = useState(false);
+  const [isOpenSetting, setIsOpenSetting] = useState(true);
   const [isOpenMyProject, setIsOpenMyProject] = useState(false);
   const [isOpenDonatProject, setIsOpenDonatProject] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);

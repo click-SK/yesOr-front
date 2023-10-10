@@ -99,11 +99,11 @@ const SettingPrifile = ({ isOpenSetting, setIsOpenSetting, currentUser, setReloa
   return (
     <div className="profile_user_wrap">
       <div className="photo_profile">
-        {currentUser.userImage 
+        {currentUser?.userImage 
         ?
         <img
         className="photo_profile_hero"
-        src={imageSrc || `${BASE_URL}${currentUser.userImage}`}
+        src={imageSrc || `${BASE_URL}${currentUser?.userImage}`}
         alt=""
       />
         :
