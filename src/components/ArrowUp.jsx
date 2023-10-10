@@ -3,53 +3,53 @@ import {FaArrowAltCircleUp} from 'react-icons/fa'
 import  '../styles/ArrowUp.scss';
 
 export const ArrowUp = () => {
-    // const [isBool, setIsBool] = useState(false);
-    // useEffect(
-    //     (e) => {
-    //       document.addEventListener("scroll", scrollHandller);
-    
-    //       return function () {
-    //         document.removeEventListener("scroll", scrollHandller);
-    //       };
-    //     },
-    //     []
-    //   );
-
-    //   const scrollHandller = (e) => {
-    //     if(e.target.documentElement.scrollTop > 300) {
-    //         setIsBool(true)
-    //     }
-    //     else{
-    //         setIsBool(false)
-    //     }
-    //   };
-
-    //   const scrollTop = (e) => {
-    //     window.scrollTo( 0, 10 );
-    //   }
-
     const [isBool, setIsBool] = useState(false);
+    useEffect(
+        (e) => {
+          document.addEventListener("scroll", scrollHandller);
+    
+          return function () {
+            document.removeEventListener("scroll", scrollHandller);
+          };
+        },
+        []
+      );
 
-    useEffect(() => {
-      document.addEventListener('scroll', scrollHandller)
-      return () => document.removeEventListener('scroll', scrollHandller)
-    }, [])
-  
-    const scrollHandller = (e) => {
-      if(window.scrollY > 300) {
-          setIsBool(true)
+      const scrollHandller = (e) => {
+        if(e.target.documentElement.scrollTop > 300) {
+            setIsBool(true)
+        }
+        else{
+            setIsBool(false)
+        }
+      };
+
+      const scrollTop = (e) => {
+        window.scrollTo( 0, 10 );
       }
-      else{
-          setIsBool(false)
-      }
-    };
+
+    // const [isBool, setIsBool] = useState(false);
+
+    // useEffect(() => {
+    //   document.addEventListener('scroll', scrollHandller)
+    //   return () => document.removeEventListener('scroll', scrollHandller)
+    // }, [])
   
-    const scrollTop = () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }
+    // const scrollHandller = (e) => {
+    //   if(window.scrollY > 300) {
+    //       setIsBool(true)
+    //   }
+    //   else{
+    //       setIsBool(false)
+    //   }
+    // };
+  
+    // const scrollTop = () => {
+    //   window.scrollTo({
+    //     top: 0,
+    //     behavior: 'smooth'
+    //   });
+    // }
 
       return (
         <>
