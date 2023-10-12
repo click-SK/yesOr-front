@@ -81,10 +81,13 @@ const CatSlider = () => {
     navigate(`/discover?cat=${catString}`)
 }
 
+  console.log('activeProject?.index', activeProject);
+
   return (
       <>
         <div className="project_img_wrap">
           <div className={`categories_wrap_item ${prevProject?.category}`}>
+          <img className='categories_wrap_item_img' src={`./mainPage/icons/slide/${prevProject?.category}.png`} alt="" />
             <p className="categories_wrap_title">{prevProject?.category}</p>
             {prevProject?.subcategory.map ((sub, idx) => (
                     <p key={idx} className='categories_wrap_descript'> - {sub.name}</p>
@@ -93,7 +96,7 @@ const CatSlider = () => {
 
             <div className={`categories_wrap_item ${activeProject?.category}`}
             onClick={() => hendlerOpenCategories (activeProject?.subcategory)}>
-              <img className='categories_wrap_item_img' src={`/icons/cat-${activeProject?.index}.svg`} alt="" />
+              <img className='categories_wrap_item_img' src={`./mainPage/icons/slide/${activeProject?.category}.png`} alt="" />
               <p className="categories_wrap_title">{activeProject?.category}</p>
                 {activeProject?.subcategory.map ((sub, idx) => (
                     <p key={idx} className='categories_wrap_descript'> - {sub.name}</p>
@@ -101,6 +104,7 @@ const CatSlider = () => {
             </div>
 
             <div className={`categories_wrap_item ${nextProject?.category}`}>
+            <img className='categories_wrap_item_img' src={`./mainPage/icons/slide/${nextProject?.category}.png`} alt="" />
             <p className="categories_wrap_title">{nextProject?.category}</p>
             {nextProject?.subcategory.map ((sub, idx) => (
                     <p key={idx} className='categories_wrap_descript'> - {sub.name}</p>
