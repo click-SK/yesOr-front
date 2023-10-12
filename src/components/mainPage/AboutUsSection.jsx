@@ -114,8 +114,7 @@ const AboutUsMain = () => {
 • Your Projects, Our Mission: We exist to support you on your journey, bringing your ideas to life.
 
           </p>
-          <p>Join us in this creative adventure, where we transform dreams into reality, even amidst the challenges of war.
-</p>
+          {/* <p>Join us in this creative adventure, where we transform dreams into reality, even amidst the challenges of war.</p> */}
         </div>
       </div>
 
